@@ -54,7 +54,12 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  CandidateProfile: 'CandidateProfile',
+  CandidateSkill: 'CandidateSkill',
+  CandidateEducation: 'CandidateEducation',
+  CandidateProject: 'CandidateProject',
+  CandidateCertification: 'CandidateCertification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -134,6 +139,70 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const CandidateProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  location: 'location',
+  experience: 'experience',
+  linkedin: 'linkedin',
+  github: 'github',
+  portfolio: 'portfolio',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CandidateProfileScalarFieldEnum = (typeof CandidateProfileScalarFieldEnum)[keyof typeof CandidateProfileScalarFieldEnum]
+
+
+export const CandidateSkillScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  candidateId: 'candidateId'
+} as const
+
+export type CandidateSkillScalarFieldEnum = (typeof CandidateSkillScalarFieldEnum)[keyof typeof CandidateSkillScalarFieldEnum]
+
+
+export const CandidateEducationScalarFieldEnum = {
+  id: 'id',
+  institution: 'institution',
+  degree: 'degree',
+  field: 'field',
+  startYear: 'startYear',
+  endYear: 'endYear',
+  candidateId: 'candidateId'
+} as const
+
+export type CandidateEducationScalarFieldEnum = (typeof CandidateEducationScalarFieldEnum)[keyof typeof CandidateEducationScalarFieldEnum]
+
+
+export const CandidateProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  technologies: 'technologies',
+  projectUrl: 'projectUrl',
+  image: 'image',
+  candidateId: 'candidateId'
+} as const
+
+export type CandidateProjectScalarFieldEnum = (typeof CandidateProjectScalarFieldEnum)[keyof typeof CandidateProjectScalarFieldEnum]
+
+
+export const CandidateCertificationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  issuer: 'issuer',
+  issueDate: 'issueDate',
+  credentialUrl: 'credentialUrl',
+  image: 'image',
+  candidateId: 'candidateId'
+} as const
+
+export type CandidateCertificationScalarFieldEnum = (typeof CandidateCertificationScalarFieldEnum)[keyof typeof CandidateCertificationScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -24,17 +24,11 @@ const registerUser=async(payload:IRegisterPatientPayload)=>{
 
         try {
 
-            // const user=await prisma.$transaction(async(tx)=>{
-
-            //     const userTx=await tx.user.create({
-            //         data:{
-            //             id:data.user.id,
-            //             name:data.user.name,
-            //             email:data.user.email
-            //         }
-            //     })
-            //     return userTx
-            // })
+          await prisma.candidateProfile.create({
+      data: {
+        userId: data.user.id,
+      },
+    });
             
             const accessToken=tokenUtils.getAccessToken({
                 id:data.user.id,

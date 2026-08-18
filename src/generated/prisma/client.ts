@@ -61,3 +61,28 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model CandidateProfile
+ * 
+ */
+export type CandidateProfile = Prisma.CandidateProfileModel
+/**
+ * Model CandidateSkill
+ * 
+ */
+export type CandidateSkill = Prisma.CandidateSkillModel
+/**
+ * Model CandidateEducation
+ * 
+ */
+export type CandidateEducation = Prisma.CandidateEducationModel
+/**
+ * Model CandidateProject
+ * 
+ */
+export type CandidateProject = Prisma.CandidateProjectModel
+/**
+ * Model CandidateCertification
+ * 
+ */
+export type CandidateCertification = Prisma.CandidateCertificationModel

@@ -63,9 +63,10 @@ export const checkAuth = (...authRoles: Role[]) => async (req: Request, res: Res
                 }
 
                 req.user = {
-                    userId : user.id,
-                    role : user.role,
-                    email : user.email,
+                    id: user.id,
+                    userId: user.id,
+                    role: user.role,
+                    email: user.email,
                 }
             }
 
@@ -96,6 +97,7 @@ export const checkAuth = (...authRoles: Role[]) => async (req: Request, res: Res
         }
 
         req.user = {
+            id: verifiedToken.data!.id,
             userId: verifiedToken.data!.userId,
             role: verifiedToken.data!.role,
             email: verifiedToken.data!.email,

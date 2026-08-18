@@ -1,0 +1,78 @@
+model CandidateProfile {
+  id          String   @id @default(uuid())
+
+  userId      String   @unique
+  phone       String?
+  location    String?
+  experience  String?
+
+  linkedin    String?
+  github      String?
+  portfolio   String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  skills          CandidateSkill[]
+  education       CandidateEducation[]
+  projects        CandidateProject[]
+  certifications  CandidateCertification[]
+
+  @@map("candidate_profile")
+}
+
+model CandidateSkill {
+  id          String @id @default(uuid())
+  name        String
+
+  candidateId String
+  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@map("candidate_skill")
+}
+
+model CandidateEducation {
+  id          String @id @default(uuid())
+
+  institution String
+  degree      String?
+  field       String?
+  startYear   Int?
+  endYear     Int?
+
+  candidateId String
+  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@map("candidate_education")
+}
+
+model CandidateProject {
+  id          String @id @default(uuid())
+
+  name        String
+  description String?
+  technologies String?
+  projectUrl  String?
+  image       String?
+  candidateId String
+  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@map("candidate_project")
+}
+
+model CandidateCertification {
+  id          String @id @default(uuid())
+
+  name        String
+  issuer      String?
+  issueDate   DateTime?
+  credentialUrl String?
+  image         String?
+
+  candidateId String
+  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@map("candidate_certification")
+}
