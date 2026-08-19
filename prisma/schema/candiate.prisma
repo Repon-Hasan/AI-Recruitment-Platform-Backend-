@@ -19,6 +19,7 @@ model CandidateProfile {
   education       CandidateEducation[]
   projects        CandidateProject[]
   certifications  CandidateCertification[]
+   resumes        Resume[]   // ← ADD THIS
 
   @@map("candidate_profile")
 }

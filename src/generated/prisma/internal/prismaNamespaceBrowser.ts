@@ -59,7 +59,9 @@ export const ModelName = {
   CandidateSkill: 'CandidateSkill',
   CandidateEducation: 'CandidateEducation',
   CandidateProject: 'CandidateProject',
-  CandidateCertification: 'CandidateCertification'
+  CandidateCertification: 'CandidateCertification',
+  Resume: 'Resume',
+  ResumeAnalysis: 'ResumeAnalysis'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -205,12 +207,64 @@ export const CandidateCertificationScalarFieldEnum = {
 export type CandidateCertificationScalarFieldEnum = (typeof CandidateCertificationScalarFieldEnum)[keyof typeof CandidateCertificationScalarFieldEnum]
 
 
+export const ResumeScalarFieldEnum = {
+  id: 'id',
+  candidateId: 'candidateId',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  publicId: 'publicId',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
+  rawText: 'rawText',
+  parsedData: 'parsedData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResumeScalarFieldEnum = (typeof ResumeScalarFieldEnum)[keyof typeof ResumeScalarFieldEnum]
+
+
+export const ResumeAnalysisScalarFieldEnum = {
+  id: 'id',
+  resumeId: 'resumeId',
+  overallScore: 'overallScore',
+  skillsScore: 'skillsScore',
+  experienceScore: 'experienceScore',
+  educationScore: 'educationScore',
+  projectsScore: 'projectsScore',
+  certificationsScore: 'certificationsScore',
+  strengths: 'strengths',
+  weaknesses: 'weaknesses',
+  suggestions: 'suggestions',
+  missingSkills: 'missingSkills',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResumeAnalysisScalarFieldEnum = (typeof ResumeAnalysisScalarFieldEnum)[keyof typeof ResumeAnalysisScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -227,4 +281,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

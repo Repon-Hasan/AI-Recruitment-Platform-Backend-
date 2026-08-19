@@ -32,6 +32,7 @@ interface EnvConfig {
         CLOUDINARY_API_KEY: string;
         CLOUDINARY_API_SECRET: string;
     };
+    GROQ_API_KEY:string;
 
 }
 
@@ -60,7 +61,8 @@ const loadEnvVariables = (): EnvConfig => {
         'FRONTEND_URL',
         'CLOUDINARY_CLOUD_NAME',
         'CLOUDINARY_API_KEY',
-        'CLOUDINARY_API_SECRET'
+        'CLOUDINARY_API_SECRET',
+        'GROQ_API_KEY'
     ]
 
     requireEnvVariable.forEach((variable) => {
@@ -97,6 +99,7 @@ const loadEnvVariables = (): EnvConfig => {
             CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
             CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
         },
+        GROQ_API_KEY: process.env.GROQ_API_KEY as string
     }
 }
 

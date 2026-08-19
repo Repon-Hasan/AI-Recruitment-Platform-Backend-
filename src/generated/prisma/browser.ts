@@ -62,3 +62,13 @@ export type CandidateProject = Prisma.CandidateProjectModel
  * 
  */
 export type CandidateCertification = Prisma.CandidateCertificationModel
+/**
+ * Model Resume
+ * 
+ */
+export type Resume = Prisma.ResumeModel
+/**
+ * Model ResumeAnalysis
+ * 
+ */
+export type ResumeAnalysis = Prisma.ResumeAnalysisModel
