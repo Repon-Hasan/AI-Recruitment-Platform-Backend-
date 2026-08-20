@@ -4,32 +4,34 @@ import { auth } from "../../lib/auth";
 import { IChangePasswordPayload, ILoginUserPayload, IRegisterPatientPayload, IRequestUser } from "./auth.interface";
 import { prisma } from "../../lib/prisma";
 import { tokenUtils } from "../../utlis/token";
-import { UserStatus } from "../../../generated/prisma/enums";
+import { Role, UserStatus } from "../../../generated/prisma/enums";
 import { jwtUtils } from "../../utlis/jwt";
 import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
 
 const registerUser=async(payload:IRegisterPatientPayload)=>{
-        const {name,email,password}=payload
-        
+
+        const {name,email,password,role}=payload
         const data=await auth.api.signUpEmail({
            body:{
-            name,email,password
+            name,email,password,role 
            }
         })
-
+//console.log(data)
         if(!data.user){
         throw new AppError(status.BAD_REQUEST,"Failed to Register");
         }
 
         try {
 
-          await prisma.candidateProfile.create({
-      data: {
-        userId: data.user.id,
-      },
-    });
-            
+    // Create CandidateProfile only for CANDIDATE
+    if (data.user.role === Role.CANDIDATE) {
+      await prisma.candidateProfile.create({
+        data: {
+          userId: data.user.id,
+        },
+      });
+    }
             const accessToken=tokenUtils.getAccessToken({
                 id:data.user.id,
                 role:data.user.role,
@@ -110,7 +112,7 @@ const loginUser=async(payload:ILoginUserPayload)=>{
 }
 
 const getMe=async(user: IRequestUser)=>{
-   // console.log(user)
+    //console.log(user)
     const isUserExist=await prisma.user.findUnique({
         where:{id:user.userId}
     })

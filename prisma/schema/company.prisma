@@ -1,0 +1,95 @@
+model Company {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  website     String?
+
+  userId      String   @unique
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs        Job[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Job {
+  id              String   @id @default(uuid())
+  companyId       String
+
+  title           String
+  description     String
+  location        String?
+  employmentType  String?
+
+  requiredSkills  JobSkill[]
+  matches         JobMatch[]
+
+
+  company         Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([companyId])
+  skillGapAnalyses SkillGapAnalysis[]
+}
+
+model JobSkill {
+  id        String @id @default(uuid())
+  jobId     String
+
+  name      String
+  priority  String @default("medium")
+
+  job       Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([jobId])
+}
+
+model JobMatch {
+  id              String @id @default(uuid())
+
+  candidateId     String
+  jobId           String
+
+  overallScore    Float
+  skillsScore     Float
+  experienceScore Float
+  educationScore  Float
+  keywordScore    Float
+
+  missingSkills   Json
+  matchedSkills   Json
+
+  recommendation String
+
+  candidate       CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  job             Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+
+  @@unique([candidateId, jobId])
+  @@index([candidateId])
+  @@index([jobId])
+}
+
+model SkillGapAnalysis {
+  id              String @id @default(uuid())
+
+  candidateId     String
+  jobId           String
+
+  highPriority    Json
+  mediumPriority  Json
+  lowPriority     Json
+
+  learningPath    Json
+
+  candidate       CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  job             Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime @default(now())
+
+  @@unique([candidateId, jobId])
+}

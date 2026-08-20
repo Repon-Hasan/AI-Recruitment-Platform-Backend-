@@ -63,6 +63,31 @@ export type CandidateProject = Prisma.CandidateProjectModel
  */
 export type CandidateCertification = Prisma.CandidateCertificationModel
 /**
+ * Model Company
+ * 
+ */
+export type Company = Prisma.CompanyModel
+/**
+ * Model Job
+ * 
+ */
+export type Job = Prisma.JobModel
+/**
+ * Model JobSkill
+ * 
+ */
+export type JobSkill = Prisma.JobSkillModel
+/**
+ * Model JobMatch
+ * 
+ */
+export type JobMatch = Prisma.JobMatchModel
+/**
+ * Model SkillGapAnalysis
+ * 
+ */
+export type SkillGapAnalysis = Prisma.SkillGapAnalysisModel
+/**
  * Model Resume
  * 
  */
@@ -72,3 +97,8 @@ export type Resume = Prisma.ResumeModel
  * 
  */
 export type ResumeAnalysis = Prisma.ResumeAnalysisModel
+/**
+ * Model ResumeSummary
+ * 
+ */
+export type ResumeSummary = Prisma.ResumeSummaryModel

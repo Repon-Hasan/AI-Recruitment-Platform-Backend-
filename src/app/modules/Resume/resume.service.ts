@@ -5,71 +5,121 @@ import { prisma } from "../../lib/prisma";
 import { cloudinaryUpload } from "../../config/cloudnary.config";
 import { analyzeResumeWithAI } from "./resume.analysis";
 
- const uploadResume = async (
+const uploadResume = async (
   userId: string,
   file: Express.Multer.File
 ) => {
-  // 1. Get candidate
-  const candidate = await prisma.candidateProfile.findUnique({
-    where: {
-      userId,
-    },
-  });
+  // ============================================
+  // 1. Find candidate
+  // ============================================
+
+  const candidate =
+    await prisma.candidateProfile.findUnique({
+      where: {
+        userId,
+      },
+    });
 
   if (!candidate) {
-    throw new Error("Candidate profile not found");
+    throw new Error(
+      "Candidate profile not found"
+    );
   }
 
-  // 2. Upload to Cloudinary
+  // ============================================
+  // 2. Upload resume to Cloudinary
+  // ============================================
+
   const uploadResult =
     await new Promise<any>((resolve, reject) => {
-      const stream = cloudinaryUpload.uploader.upload_stream(
-        {
-          resource_type: "raw",
-          folder: "resumes",
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        }
-      );
+      const stream =
+        cloudinaryUpload.uploader.upload_stream(
+          {
+            resource_type: "raw",
+            folder: "resumes",
+          },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        );
 
       stream.end(file.buffer);
     });
 
-  // 3. Extract text
-  const rawText = await extractResumeText(
+  // ============================================
+  // 3. Extract text + hyperlinks
+  // ============================================
+
+  const extracted = await extractResumeText(
     file.buffer,
     file.mimetype
   );
 
-  if (!rawText.trim()) {
-    throw new Error("Could not extract text from resume");
+  // IMPORTANT:
+  // extracted is an object:
+  //
+  // {
+  //   text: "...",
+  //   links: [...]
+  // }
+
+  const rawText = extracted.text;
+  const links = extracted.links;
+
+  // ============================================
+  // 4. Validate extracted text
+  // ============================================
+
+  if (!rawText || !rawText.trim()) {
+    throw new Error(
+      "Could not extract text from resume"
+    );
   }
 
-  // 4. Parse with AI
-  const parsedData = await parseResumeWithAI(rawText);
+  // ============================================
+  // 5. Parse resume using AI
+  // ============================================
 
-  // 5. Save database
-  const resume = await prisma.resume.create({
-    data: {
-      candidateId: candidate.id,
-
-      fileName: file.originalname,
-
-      fileUrl: uploadResult.secure_url,
-
-      publicId: uploadResult.public_id,
-
-      fileType: file.mimetype,
-
-      fileSize: file.size,
-
+  const parsedData =
+    await parseResumeWithAI(
       rawText,
+      links
+    );
 
-      parsedData,
-    },
-  });
+  // ============================================
+  // 6. Save resume to database
+  // ============================================
+
+  const resume =
+    await prisma.resume.create({
+      data: {
+        candidateId: candidate.id,
+
+        fileName: file.originalname,
+
+        fileUrl: uploadResult.secure_url,
+
+        publicId: uploadResult.public_id,
+
+        fileType: file.mimetype,
+
+        fileSize: file.size,
+
+        // Save ONLY the text here
+        rawText: rawText,
+
+        // Parsed AI JSON
+        parsedData: parsedData,
+      },
+    });
+
+  // ============================================
+  // 7. Return resume
+  // ============================================
 
   return resume;
 };
@@ -311,6 +361,9 @@ const analyzeResume = async (
     },
   });
 };
+
+//summary 
+
 export const resumeServices={
     uploadResume,getMyResumes,getResumeById,deleteResume,analyzeResume,getResumeAnalysis
 }

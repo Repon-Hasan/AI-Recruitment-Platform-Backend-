@@ -1,33 +1,29 @@
 model CandidateProfile {
-  id          String   @id @default(uuid())
-
-  userId      String   @unique
-  phone       String?
-  location    String?
-  experience  String?
-
-  linkedin    String?
-  github      String?
-  portfolio   String?
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  skills          CandidateSkill[]
-  education       CandidateEducation[]
-  projects        CandidateProject[]
-  certifications  CandidateCertification[]
-   resumes        Resume[]   // ← ADD THIS
+  id             String                   @id @default(uuid())
+  userId         String                   @unique
+  phone          String?
+  location       String?
+  experience     String?
+  linkedin       String?
+  github         String?
+  portfolio      String?
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+  certifications CandidateCertification[]
+  education      CandidateEducation[]
+  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projects       CandidateProject[]
+  skills         CandidateSkill[]
+  resumes        Resume[]
 
   @@map("candidate_profile")
+  skillGapAnalyses SkillGapAnalysis[]
+  jobMatches JobMatch[]
 }
 
 model CandidateSkill {
-  id          String @id @default(uuid())
+  id          String           @id @default(uuid())
   name        String
-
   candidateId String
   candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
@@ -35,14 +31,12 @@ model CandidateSkill {
 }
 
 model CandidateEducation {
-  id          String @id @default(uuid())
-
+  id          String           @id @default(uuid())
   institution String
   degree      String?
   field       String?
   startYear   Int?
   endYear     Int?
-
   candidateId String
   candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
@@ -50,30 +44,27 @@ model CandidateEducation {
 }
 
 model CandidateProject {
-  id          String @id @default(uuid())
-
-  name        String
-  description String?
+  id           String           @id @default(uuid())
+  name         String
+  description  String?
   technologies String?
-  projectUrl  String?
-  image       String?
-  candidateId String
-  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  projectUrl   String?
+  candidateId  String
+  image        String?
+  candidate    CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
   @@map("candidate_project")
 }
 
 model CandidateCertification {
-  id          String @id @default(uuid())
-
-  name        String
-  issuer      String?
-  issueDate   DateTime?
+  id            String           @id @default(uuid())
+  name          String
+  issuer        String?
+  issueDate     DateTime?
   credentialUrl String?
+  candidateId   String
   image         String?
-
-  candidateId String
-  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  candidate     CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
   @@map("candidate_certification")
 }

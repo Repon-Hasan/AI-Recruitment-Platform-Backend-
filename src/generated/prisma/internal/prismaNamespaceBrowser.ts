@@ -60,8 +60,14 @@ export const ModelName = {
   CandidateEducation: 'CandidateEducation',
   CandidateProject: 'CandidateProject',
   CandidateCertification: 'CandidateCertification',
+  Company: 'Company',
+  Job: 'Job',
+  JobSkill: 'JobSkill',
+  JobMatch: 'JobMatch',
+  SkillGapAnalysis: 'SkillGapAnalysis',
   Resume: 'Resume',
-  ResumeAnalysis: 'ResumeAnalysis'
+  ResumeAnalysis: 'ResumeAnalysis',
+  ResumeSummary: 'ResumeSummary'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -187,8 +193,8 @@ export const CandidateProjectScalarFieldEnum = {
   description: 'description',
   technologies: 'technologies',
   projectUrl: 'projectUrl',
-  image: 'image',
-  candidateId: 'candidateId'
+  candidateId: 'candidateId',
+  image: 'image'
 } as const
 
 export type CandidateProjectScalarFieldEnum = (typeof CandidateProjectScalarFieldEnum)[keyof typeof CandidateProjectScalarFieldEnum]
@@ -200,11 +206,80 @@ export const CandidateCertificationScalarFieldEnum = {
   issuer: 'issuer',
   issueDate: 'issueDate',
   credentialUrl: 'credentialUrl',
-  image: 'image',
-  candidateId: 'candidateId'
+  candidateId: 'candidateId',
+  image: 'image'
 } as const
 
 export type CandidateCertificationScalarFieldEnum = (typeof CandidateCertificationScalarFieldEnum)[keyof typeof CandidateCertificationScalarFieldEnum]
+
+
+export const CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  website: 'website',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const JobScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  employmentType: 'employmentType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+export const JobSkillScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  name: 'name',
+  priority: 'priority'
+} as const
+
+export type JobSkillScalarFieldEnum = (typeof JobSkillScalarFieldEnum)[keyof typeof JobSkillScalarFieldEnum]
+
+
+export const JobMatchScalarFieldEnum = {
+  id: 'id',
+  candidateId: 'candidateId',
+  jobId: 'jobId',
+  overallScore: 'overallScore',
+  skillsScore: 'skillsScore',
+  experienceScore: 'experienceScore',
+  educationScore: 'educationScore',
+  keywordScore: 'keywordScore',
+  missingSkills: 'missingSkills',
+  matchedSkills: 'matchedSkills',
+  recommendation: 'recommendation',
+  createdAt: 'createdAt'
+} as const
+
+export type JobMatchScalarFieldEnum = (typeof JobMatchScalarFieldEnum)[keyof typeof JobMatchScalarFieldEnum]
+
+
+export const SkillGapAnalysisScalarFieldEnum = {
+  id: 'id',
+  candidateId: 'candidateId',
+  jobId: 'jobId',
+  highPriority: 'highPriority',
+  mediumPriority: 'mediumPriority',
+  lowPriority: 'lowPriority',
+  learningPath: 'learningPath',
+  createdAt: 'createdAt'
+} as const
+
+export type SkillGapAnalysisScalarFieldEnum = (typeof SkillGapAnalysisScalarFieldEnum)[keyof typeof SkillGapAnalysisScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {
@@ -244,6 +319,17 @@ export const ResumeAnalysisScalarFieldEnum = {
 export type ResumeAnalysisScalarFieldEnum = (typeof ResumeAnalysisScalarFieldEnum)[keyof typeof ResumeAnalysisScalarFieldEnum]
 
 
+export const ResumeSummaryScalarFieldEnum = {
+  id: 'id',
+  resumeId: 'resumeId',
+  summary: 'summary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResumeSummaryScalarFieldEnum = (typeof ResumeSummaryScalarFieldEnum)[keyof typeof ResumeSummaryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -252,19 +338,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

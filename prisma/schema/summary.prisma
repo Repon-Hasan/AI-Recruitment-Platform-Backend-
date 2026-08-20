@@ -1,0 +1,8 @@
+model ResumeSummary {
+  id        String   @id @default(uuid())
+  resumeId  String   @unique
+  summary   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}

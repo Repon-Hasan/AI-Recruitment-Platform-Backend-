@@ -30,8 +30,8 @@ export type CandidateCertificationMinAggregateOutputType = {
   issuer: string | null
   issueDate: Date | null
   credentialUrl: string | null
-  image: string | null
   candidateId: string | null
+  image: string | null
 }
 
 export type CandidateCertificationMaxAggregateOutputType = {
@@ -40,8 +40,8 @@ export type CandidateCertificationMaxAggregateOutputType = {
   issuer: string | null
   issueDate: Date | null
   credentialUrl: string | null
-  image: string | null
   candidateId: string | null
+  image: string | null
 }
 
 export type CandidateCertificationCountAggregateOutputType = {
@@ -50,8 +50,8 @@ export type CandidateCertificationCountAggregateOutputType = {
   issuer: number
   issueDate: number
   credentialUrl: number
-  image: number
   candidateId: number
+  image: number
   _all: number
 }
 
@@ -62,8 +62,8 @@ export type CandidateCertificationMinAggregateInputType = {
   issuer?: true
   issueDate?: true
   credentialUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
 }
 
 export type CandidateCertificationMaxAggregateInputType = {
@@ -72,8 +72,8 @@ export type CandidateCertificationMaxAggregateInputType = {
   issuer?: true
   issueDate?: true
   credentialUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
 }
 
 export type CandidateCertificationCountAggregateInputType = {
@@ -82,8 +82,8 @@ export type CandidateCertificationCountAggregateInputType = {
   issuer?: true
   issueDate?: true
   credentialUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
   _all?: true
 }
 
@@ -165,8 +165,8 @@ export type CandidateCertificationGroupByOutputType = {
   issuer: string | null
   issueDate: Date | null
   credentialUrl: string | null
-  image: string | null
   candidateId: string
+  image: string | null
   _count: CandidateCertificationCountAggregateOutputType | null
   _min: CandidateCertificationMinAggregateOutputType | null
   _max: CandidateCertificationMaxAggregateOutputType | null
@@ -196,8 +196,8 @@ export type CandidateCertificationWhereInput = {
   issuer?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   issueDate?: Prisma.DateTimeNullableFilter<"CandidateCertification"> | Date | string | null
   credentialUrl?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateCertification"> | string
+  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }
 
@@ -207,8 +207,8 @@ export type CandidateCertificationOrderByWithRelationInput = {
   issuer?: Prisma.SortOrderInput | Prisma.SortOrder
   issueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidate?: Prisma.CandidateProfileOrderByWithRelationInput
 }
 
@@ -221,8 +221,8 @@ export type CandidateCertificationWhereUniqueInput = Prisma.AtLeast<{
   issuer?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   issueDate?: Prisma.DateTimeNullableFilter<"CandidateCertification"> | Date | string | null
   credentialUrl?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateCertification"> | string
+  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }, "id">
 
@@ -232,8 +232,8 @@ export type CandidateCertificationOrderByWithAggregationInput = {
   issuer?: Prisma.SortOrderInput | Prisma.SortOrder
   issueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   credentialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CandidateCertificationCountOrderByAggregateInput
   _max?: Prisma.CandidateCertificationMaxOrderByAggregateInput
   _min?: Prisma.CandidateCertificationMinOrderByAggregateInput
@@ -248,8 +248,8 @@ export type CandidateCertificationScalarWhereWithAggregatesInput = {
   issuer?: Prisma.StringNullableWithAggregatesFilter<"CandidateCertification"> | string | null
   issueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"CandidateCertification"> | Date | string | null
   credentialUrl?: Prisma.StringNullableWithAggregatesFilter<"CandidateCertification"> | string | null
-  image?: Prisma.StringNullableWithAggregatesFilter<"CandidateCertification"> | string | null
   candidateId?: Prisma.StringWithAggregatesFilter<"CandidateCertification"> | string
+  image?: Prisma.StringNullableWithAggregatesFilter<"CandidateCertification"> | string | null
 }
 
 export type CandidateCertificationCreateInput = {
@@ -268,8 +268,8 @@ export type CandidateCertificationUncheckedCreateInput = {
   issuer?: string | null
   issueDate?: Date | string | null
   credentialUrl?: string | null
-  image?: string | null
   candidateId: string
+  image?: string | null
 }
 
 export type CandidateCertificationUpdateInput = {
@@ -288,8 +288,8 @@ export type CandidateCertificationUncheckedUpdateInput = {
   issuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CandidateCertificationCreateManyInput = {
@@ -298,8 +298,8 @@ export type CandidateCertificationCreateManyInput = {
   issuer?: string | null
   issueDate?: Date | string | null
   credentialUrl?: string | null
-  image?: string | null
   candidateId: string
+  image?: string | null
 }
 
 export type CandidateCertificationUpdateManyMutationInput = {
@@ -317,8 +317,8 @@ export type CandidateCertificationUncheckedUpdateManyInput = {
   issuer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   credentialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CandidateCertificationListRelationFilter = {
@@ -337,8 +337,8 @@ export type CandidateCertificationCountOrderByAggregateInput = {
   issuer?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
   credentialUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateCertificationMaxOrderByAggregateInput = {
@@ -347,8 +347,8 @@ export type CandidateCertificationMaxOrderByAggregateInput = {
   issuer?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
   credentialUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateCertificationMinOrderByAggregateInput = {
@@ -357,8 +357,8 @@ export type CandidateCertificationMinOrderByAggregateInput = {
   issuer?: Prisma.SortOrder
   issueDate?: Prisma.SortOrder
   credentialUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateCertificationCreateNestedManyWithoutCandidateInput = {
@@ -456,8 +456,8 @@ export type CandidateCertificationScalarWhereInput = {
   issuer?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   issueDate?: Prisma.DateTimeNullableFilter<"CandidateCertification"> | Date | string | null
   credentialUrl?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateCertification"> | string
+  image?: Prisma.StringNullableFilter<"CandidateCertification"> | string | null
 }
 
 export type CandidateCertificationCreateManyCandidateInput = {
@@ -504,8 +504,8 @@ export type CandidateCertificationSelect<ExtArgs extends runtime.Types.Extension
   issuer?: boolean
   issueDate?: boolean
   credentialUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateCertification"]>
 
@@ -515,8 +515,8 @@ export type CandidateCertificationSelectCreateManyAndReturn<ExtArgs extends runt
   issuer?: boolean
   issueDate?: boolean
   credentialUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateCertification"]>
 
@@ -526,8 +526,8 @@ export type CandidateCertificationSelectUpdateManyAndReturn<ExtArgs extends runt
   issuer?: boolean
   issueDate?: boolean
   credentialUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateCertification"]>
 
@@ -537,11 +537,11 @@ export type CandidateCertificationSelectScalar = {
   issuer?: boolean
   issueDate?: boolean
   credentialUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
 }
 
-export type CandidateCertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "issuer" | "issueDate" | "credentialUrl" | "image" | "candidateId", ExtArgs["result"]["candidateCertification"]>
+export type CandidateCertificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "issuer" | "issueDate" | "credentialUrl" | "candidateId" | "image", ExtArgs["result"]["candidateCertification"]>
 export type CandidateCertificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }
@@ -563,8 +563,8 @@ export type $CandidateCertificationPayload<ExtArgs extends runtime.Types.Extensi
     issuer: string | null
     issueDate: Date | null
     credentialUrl: string | null
-    image: string | null
     candidateId: string
+    image: string | null
   }, ExtArgs["result"]["candidateCertification"]>
   composites: {}
 }
@@ -994,8 +994,8 @@ export interface CandidateCertificationFieldRefs {
   readonly issuer: Prisma.FieldRef<"CandidateCertification", 'String'>
   readonly issueDate: Prisma.FieldRef<"CandidateCertification", 'DateTime'>
   readonly credentialUrl: Prisma.FieldRef<"CandidateCertification", 'String'>
-  readonly image: Prisma.FieldRef<"CandidateCertification", 'String'>
   readonly candidateId: Prisma.FieldRef<"CandidateCertification", 'String'>
+  readonly image: Prisma.FieldRef<"CandidateCertification", 'String'>
 }
     
 

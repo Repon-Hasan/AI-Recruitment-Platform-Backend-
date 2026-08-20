@@ -41,4 +41,7 @@ router.get(
   resumeController.getAnalysis
 );
 
+//Summery
+ 
+
 export const resumeRouter=router

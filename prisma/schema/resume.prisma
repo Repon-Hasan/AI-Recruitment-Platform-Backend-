@@ -1,47 +1,38 @@
 model Resume {
-  id              String   @id @default(uuid())
-  candidateId     String
-
-  fileName        String
-  fileUrl         String
-  publicId        String
-  fileType        String
-  fileSize        Int?
-
-  rawText         String?  @db.Text
-
-  parsedData      Json?
-  analysis        ResumeAnalysis?
-
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  candidate CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  id          String           @id @default(uuid())
+  candidateId String
+  fileName    String
+  fileUrl     String
+  publicId    String
+  fileType    String
+  fileSize    Int?
+  rawText     String?
+  parsedData  Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  summary     ResumeSummary?
+  analysis    ResumeAnalysis?
+  candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
 
   @@map("resumes")
 }
 
 model ResumeAnalysis {
-  id       String @id @default(uuid())
-
-  resumeId String @unique
-  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-
-  overallScore Int
-
-  skillsScore       Int
-  experienceScore   Int
-  educationScore    Int
-  projectsScore     Int
+  id                  String   @id @default(uuid())
+  resumeId            String   @unique
+  overallScore        Int
+  skillsScore         Int
+  experienceScore     Int
+  educationScore      Int
+  projectsScore       Int
   certificationsScore Int
-
-  strengths     Json
-  weaknesses    Json
-  suggestions   Json
-  missingSkills Json
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  strengths           Json
+  weaknesses          Json
+  suggestions         Json
+  missingSkills       Json
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  resume              Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("resume_analysis")
 }

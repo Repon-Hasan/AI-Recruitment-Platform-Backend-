@@ -30,8 +30,8 @@ export type CandidateProjectMinAggregateOutputType = {
   description: string | null
   technologies: string | null
   projectUrl: string | null
-  image: string | null
   candidateId: string | null
+  image: string | null
 }
 
 export type CandidateProjectMaxAggregateOutputType = {
@@ -40,8 +40,8 @@ export type CandidateProjectMaxAggregateOutputType = {
   description: string | null
   technologies: string | null
   projectUrl: string | null
-  image: string | null
   candidateId: string | null
+  image: string | null
 }
 
 export type CandidateProjectCountAggregateOutputType = {
@@ -50,8 +50,8 @@ export type CandidateProjectCountAggregateOutputType = {
   description: number
   technologies: number
   projectUrl: number
-  image: number
   candidateId: number
+  image: number
   _all: number
 }
 
@@ -62,8 +62,8 @@ export type CandidateProjectMinAggregateInputType = {
   description?: true
   technologies?: true
   projectUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
 }
 
 export type CandidateProjectMaxAggregateInputType = {
@@ -72,8 +72,8 @@ export type CandidateProjectMaxAggregateInputType = {
   description?: true
   technologies?: true
   projectUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
 }
 
 export type CandidateProjectCountAggregateInputType = {
@@ -82,8 +82,8 @@ export type CandidateProjectCountAggregateInputType = {
   description?: true
   technologies?: true
   projectUrl?: true
-  image?: true
   candidateId?: true
+  image?: true
   _all?: true
 }
 
@@ -165,8 +165,8 @@ export type CandidateProjectGroupByOutputType = {
   description: string | null
   technologies: string | null
   projectUrl: string | null
-  image: string | null
   candidateId: string
+  image: string | null
   _count: CandidateProjectCountAggregateOutputType | null
   _min: CandidateProjectMinAggregateOutputType | null
   _max: CandidateProjectMaxAggregateOutputType | null
@@ -196,8 +196,8 @@ export type CandidateProjectWhereInput = {
   description?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   technologies?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   projectUrl?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateProject"> | string
+  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }
 
@@ -207,8 +207,8 @@ export type CandidateProjectOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   technologies?: Prisma.SortOrderInput | Prisma.SortOrder
   projectUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidate?: Prisma.CandidateProfileOrderByWithRelationInput
 }
 
@@ -221,8 +221,8 @@ export type CandidateProjectWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   technologies?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   projectUrl?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateProject"> | string
+  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
 }, "id">
 
@@ -232,8 +232,8 @@ export type CandidateProjectOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   technologies?: Prisma.SortOrderInput | Prisma.SortOrder
   projectUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CandidateProjectCountOrderByAggregateInput
   _max?: Prisma.CandidateProjectMaxOrderByAggregateInput
   _min?: Prisma.CandidateProjectMinOrderByAggregateInput
@@ -248,8 +248,8 @@ export type CandidateProjectScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"CandidateProject"> | string | null
   technologies?: Prisma.StringNullableWithAggregatesFilter<"CandidateProject"> | string | null
   projectUrl?: Prisma.StringNullableWithAggregatesFilter<"CandidateProject"> | string | null
-  image?: Prisma.StringNullableWithAggregatesFilter<"CandidateProject"> | string | null
   candidateId?: Prisma.StringWithAggregatesFilter<"CandidateProject"> | string
+  image?: Prisma.StringNullableWithAggregatesFilter<"CandidateProject"> | string | null
 }
 
 export type CandidateProjectCreateInput = {
@@ -268,8 +268,8 @@ export type CandidateProjectUncheckedCreateInput = {
   description?: string | null
   technologies?: string | null
   projectUrl?: string | null
-  image?: string | null
   candidateId: string
+  image?: string | null
 }
 
 export type CandidateProjectUpdateInput = {
@@ -288,8 +288,8 @@ export type CandidateProjectUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   technologies?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CandidateProjectCreateManyInput = {
@@ -298,8 +298,8 @@ export type CandidateProjectCreateManyInput = {
   description?: string | null
   technologies?: string | null
   projectUrl?: string | null
-  image?: string | null
   candidateId: string
+  image?: string | null
 }
 
 export type CandidateProjectUpdateManyMutationInput = {
@@ -317,8 +317,8 @@ export type CandidateProjectUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   technologies?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type CandidateProjectListRelationFilter = {
@@ -337,8 +337,8 @@ export type CandidateProjectCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   technologies?: Prisma.SortOrder
   projectUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateProjectMaxOrderByAggregateInput = {
@@ -347,8 +347,8 @@ export type CandidateProjectMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   technologies?: Prisma.SortOrder
   projectUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateProjectMinOrderByAggregateInput = {
@@ -357,8 +357,8 @@ export type CandidateProjectMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   technologies?: Prisma.SortOrder
   projectUrl?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
+  image?: Prisma.SortOrder
 }
 
 export type CandidateProjectCreateNestedManyWithoutCandidateInput = {
@@ -456,8 +456,8 @@ export type CandidateProjectScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   technologies?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   projectUrl?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
-  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
   candidateId?: Prisma.StringFilter<"CandidateProject"> | string
+  image?: Prisma.StringNullableFilter<"CandidateProject"> | string | null
 }
 
 export type CandidateProjectCreateManyCandidateInput = {
@@ -504,8 +504,8 @@ export type CandidateProjectSelect<ExtArgs extends runtime.Types.Extensions.Inte
   description?: boolean
   technologies?: boolean
   projectUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateProject"]>
 
@@ -515,8 +515,8 @@ export type CandidateProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   technologies?: boolean
   projectUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateProject"]>
 
@@ -526,8 +526,8 @@ export type CandidateProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   technologies?: boolean
   projectUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateProject"]>
 
@@ -537,11 +537,11 @@ export type CandidateProjectSelectScalar = {
   description?: boolean
   technologies?: boolean
   projectUrl?: boolean
-  image?: boolean
   candidateId?: boolean
+  image?: boolean
 }
 
-export type CandidateProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "technologies" | "projectUrl" | "image" | "candidateId", ExtArgs["result"]["candidateProject"]>
+export type CandidateProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "technologies" | "projectUrl" | "candidateId" | "image", ExtArgs["result"]["candidateProject"]>
 export type CandidateProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
 }
@@ -563,8 +563,8 @@ export type $CandidateProjectPayload<ExtArgs extends runtime.Types.Extensions.In
     description: string | null
     technologies: string | null
     projectUrl: string | null
-    image: string | null
     candidateId: string
+    image: string | null
   }, ExtArgs["result"]["candidateProject"]>
   composites: {}
 }
@@ -994,8 +994,8 @@ export interface CandidateProjectFieldRefs {
   readonly description: Prisma.FieldRef<"CandidateProject", 'String'>
   readonly technologies: Prisma.FieldRef<"CandidateProject", 'String'>
   readonly projectUrl: Prisma.FieldRef<"CandidateProject", 'String'>
-  readonly image: Prisma.FieldRef<"CandidateProject", 'String'>
   readonly candidateId: Prisma.FieldRef<"CandidateProject", 'String'>
+  readonly image: Prisma.FieldRef<"CandidateProject", 'String'>
 }
     
 
