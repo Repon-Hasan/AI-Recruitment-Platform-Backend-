@@ -28,6 +28,7 @@ export type AggregateJobMatch = {
 
 export type JobMatchAvgAggregateOutputType = {
   overallScore: number | null
+  semanticScore: number | null
   skillsScore: number | null
   experienceScore: number | null
   educationScore: number | null
@@ -36,6 +37,7 @@ export type JobMatchAvgAggregateOutputType = {
 
 export type JobMatchSumAggregateOutputType = {
   overallScore: number | null
+  semanticScore: number | null
   skillsScore: number | null
   experienceScore: number | null
   educationScore: number | null
@@ -47,12 +49,14 @@ export type JobMatchMinAggregateOutputType = {
   candidateId: string | null
   jobId: string | null
   overallScore: number | null
+  semanticScore: number | null
   skillsScore: number | null
   experienceScore: number | null
   educationScore: number | null
   keywordScore: number | null
   recommendation: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type JobMatchMaxAggregateOutputType = {
@@ -60,12 +64,14 @@ export type JobMatchMaxAggregateOutputType = {
   candidateId: string | null
   jobId: string | null
   overallScore: number | null
+  semanticScore: number | null
   skillsScore: number | null
   experienceScore: number | null
   educationScore: number | null
   keywordScore: number | null
   recommendation: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type JobMatchCountAggregateOutputType = {
@@ -73,6 +79,7 @@ export type JobMatchCountAggregateOutputType = {
   candidateId: number
   jobId: number
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -81,12 +88,14 @@ export type JobMatchCountAggregateOutputType = {
   matchedSkills: number
   recommendation: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
 export type JobMatchAvgAggregateInputType = {
   overallScore?: true
+  semanticScore?: true
   skillsScore?: true
   experienceScore?: true
   educationScore?: true
@@ -95,6 +104,7 @@ export type JobMatchAvgAggregateInputType = {
 
 export type JobMatchSumAggregateInputType = {
   overallScore?: true
+  semanticScore?: true
   skillsScore?: true
   experienceScore?: true
   educationScore?: true
@@ -106,12 +116,14 @@ export type JobMatchMinAggregateInputType = {
   candidateId?: true
   jobId?: true
   overallScore?: true
+  semanticScore?: true
   skillsScore?: true
   experienceScore?: true
   educationScore?: true
   keywordScore?: true
   recommendation?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type JobMatchMaxAggregateInputType = {
@@ -119,12 +131,14 @@ export type JobMatchMaxAggregateInputType = {
   candidateId?: true
   jobId?: true
   overallScore?: true
+  semanticScore?: true
   skillsScore?: true
   experienceScore?: true
   educationScore?: true
   keywordScore?: true
   recommendation?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type JobMatchCountAggregateInputType = {
@@ -132,6 +146,7 @@ export type JobMatchCountAggregateInputType = {
   candidateId?: true
   jobId?: true
   overallScore?: true
+  semanticScore?: true
   skillsScore?: true
   experienceScore?: true
   educationScore?: true
@@ -140,6 +155,7 @@ export type JobMatchCountAggregateInputType = {
   matchedSkills?: true
   recommendation?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -234,6 +250,7 @@ export type JobMatchGroupByOutputType = {
   candidateId: string
   jobId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -242,6 +259,7 @@ export type JobMatchGroupByOutputType = {
   matchedSkills: runtime.JsonValue
   recommendation: string
   createdAt: Date
+  updatedAt: Date
   _count: JobMatchCountAggregateOutputType | null
   _avg: JobMatchAvgAggregateOutputType | null
   _sum: JobMatchSumAggregateOutputType | null
@@ -272,6 +290,7 @@ export type JobMatchWhereInput = {
   candidateId?: Prisma.StringFilter<"JobMatch"> | string
   jobId?: Prisma.StringFilter<"JobMatch"> | string
   overallScore?: Prisma.FloatFilter<"JobMatch"> | number
+  semanticScore?: Prisma.FloatFilter<"JobMatch"> | number
   skillsScore?: Prisma.FloatFilter<"JobMatch"> | number
   experienceScore?: Prisma.FloatFilter<"JobMatch"> | number
   educationScore?: Prisma.FloatFilter<"JobMatch"> | number
@@ -280,6 +299,7 @@ export type JobMatchWhereInput = {
   matchedSkills?: Prisma.JsonFilter<"JobMatch">
   recommendation?: Prisma.StringFilter<"JobMatch"> | string
   createdAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
 }
@@ -289,6 +309,7 @@ export type JobMatchOrderByWithRelationInput = {
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
@@ -297,6 +318,7 @@ export type JobMatchOrderByWithRelationInput = {
   matchedSkills?: Prisma.SortOrder
   recommendation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   candidate?: Prisma.CandidateProfileOrderByWithRelationInput
   job?: Prisma.JobOrderByWithRelationInput
 }
@@ -310,6 +332,7 @@ export type JobMatchWhereUniqueInput = Prisma.AtLeast<{
   candidateId?: Prisma.StringFilter<"JobMatch"> | string
   jobId?: Prisma.StringFilter<"JobMatch"> | string
   overallScore?: Prisma.FloatFilter<"JobMatch"> | number
+  semanticScore?: Prisma.FloatFilter<"JobMatch"> | number
   skillsScore?: Prisma.FloatFilter<"JobMatch"> | number
   experienceScore?: Prisma.FloatFilter<"JobMatch"> | number
   educationScore?: Prisma.FloatFilter<"JobMatch"> | number
@@ -318,6 +341,7 @@ export type JobMatchWhereUniqueInput = Prisma.AtLeast<{
   matchedSkills?: Prisma.JsonFilter<"JobMatch">
   recommendation?: Prisma.StringFilter<"JobMatch"> | string
   createdAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
 }, "id" | "candidateId_jobId">
@@ -327,6 +351,7 @@ export type JobMatchOrderByWithAggregationInput = {
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
@@ -335,6 +360,7 @@ export type JobMatchOrderByWithAggregationInput = {
   matchedSkills?: Prisma.SortOrder
   recommendation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.JobMatchCountOrderByAggregateInput
   _avg?: Prisma.JobMatchAvgOrderByAggregateInput
   _max?: Prisma.JobMatchMaxOrderByAggregateInput
@@ -350,6 +376,7 @@ export type JobMatchScalarWhereWithAggregatesInput = {
   candidateId?: Prisma.StringWithAggregatesFilter<"JobMatch"> | string
   jobId?: Prisma.StringWithAggregatesFilter<"JobMatch"> | string
   overallScore?: Prisma.FloatWithAggregatesFilter<"JobMatch"> | number
+  semanticScore?: Prisma.FloatWithAggregatesFilter<"JobMatch"> | number
   skillsScore?: Prisma.FloatWithAggregatesFilter<"JobMatch"> | number
   experienceScore?: Prisma.FloatWithAggregatesFilter<"JobMatch"> | number
   educationScore?: Prisma.FloatWithAggregatesFilter<"JobMatch"> | number
@@ -358,11 +385,13 @@ export type JobMatchScalarWhereWithAggregatesInput = {
   matchedSkills?: Prisma.JsonWithAggregatesFilter<"JobMatch">
   recommendation?: Prisma.StringWithAggregatesFilter<"JobMatch"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"JobMatch"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"JobMatch"> | Date | string
 }
 
 export type JobMatchCreateInput = {
   id?: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -371,6 +400,7 @@ export type JobMatchCreateInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   candidate: Prisma.CandidateProfileCreateNestedOneWithoutJobMatchesInput
   job: Prisma.JobCreateNestedOneWithoutMatchesInput
 }
@@ -380,6 +410,7 @@ export type JobMatchUncheckedCreateInput = {
   candidateId: string
   jobId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -388,11 +419,13 @@ export type JobMatchUncheckedCreateInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -401,6 +434,7 @@ export type JobMatchUpdateInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobMatchesNestedInput
   job?: Prisma.JobUpdateOneRequiredWithoutMatchesNestedInput
 }
@@ -410,6 +444,7 @@ export type JobMatchUncheckedUpdateInput = {
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -418,6 +453,7 @@ export type JobMatchUncheckedUpdateInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchCreateManyInput = {
@@ -425,6 +461,7 @@ export type JobMatchCreateManyInput = {
   candidateId: string
   jobId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -433,11 +470,13 @@ export type JobMatchCreateManyInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -446,6 +485,7 @@ export type JobMatchUpdateManyMutationInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchUncheckedUpdateManyInput = {
@@ -453,6 +493,7 @@ export type JobMatchUncheckedUpdateManyInput = {
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -461,6 +502,7 @@ export type JobMatchUncheckedUpdateManyInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchListRelationFilter = {
@@ -483,6 +525,7 @@ export type JobMatchCountOrderByAggregateInput = {
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
@@ -491,10 +534,12 @@ export type JobMatchCountOrderByAggregateInput = {
   matchedSkills?: Prisma.SortOrder
   recommendation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type JobMatchAvgOrderByAggregateInput = {
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
@@ -506,12 +551,14 @@ export type JobMatchMaxOrderByAggregateInput = {
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
   keywordScore?: Prisma.SortOrder
   recommendation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type JobMatchMinOrderByAggregateInput = {
@@ -519,16 +566,19 @@ export type JobMatchMinOrderByAggregateInput = {
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
   keywordScore?: Prisma.SortOrder
   recommendation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type JobMatchSumOrderByAggregateInput = {
   overallScore?: Prisma.SortOrder
+  semanticScore?: Prisma.SortOrder
   skillsScore?: Prisma.SortOrder
   experienceScore?: Prisma.SortOrder
   educationScore?: Prisma.SortOrder
@@ -630,6 +680,7 @@ export type FloatFieldUpdateOperationsInput = {
 export type JobMatchCreateWithoutCandidateInput = {
   id?: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -638,6 +689,7 @@ export type JobMatchCreateWithoutCandidateInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   job: Prisma.JobCreateNestedOneWithoutMatchesInput
 }
 
@@ -645,6 +697,7 @@ export type JobMatchUncheckedCreateWithoutCandidateInput = {
   id?: string
   jobId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -653,6 +706,7 @@ export type JobMatchUncheckedCreateWithoutCandidateInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchCreateOrConnectWithoutCandidateInput = {
@@ -689,6 +743,7 @@ export type JobMatchScalarWhereInput = {
   candidateId?: Prisma.StringFilter<"JobMatch"> | string
   jobId?: Prisma.StringFilter<"JobMatch"> | string
   overallScore?: Prisma.FloatFilter<"JobMatch"> | number
+  semanticScore?: Prisma.FloatFilter<"JobMatch"> | number
   skillsScore?: Prisma.FloatFilter<"JobMatch"> | number
   experienceScore?: Prisma.FloatFilter<"JobMatch"> | number
   educationScore?: Prisma.FloatFilter<"JobMatch"> | number
@@ -697,11 +752,13 @@ export type JobMatchScalarWhereInput = {
   matchedSkills?: Prisma.JsonFilter<"JobMatch">
   recommendation?: Prisma.StringFilter<"JobMatch"> | string
   createdAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"JobMatch"> | Date | string
 }
 
 export type JobMatchCreateWithoutJobInput = {
   id?: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -710,6 +767,7 @@ export type JobMatchCreateWithoutJobInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   candidate: Prisma.CandidateProfileCreateNestedOneWithoutJobMatchesInput
 }
 
@@ -717,6 +775,7 @@ export type JobMatchUncheckedCreateWithoutJobInput = {
   id?: string
   candidateId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -725,6 +784,7 @@ export type JobMatchUncheckedCreateWithoutJobInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchCreateOrConnectWithoutJobInput = {
@@ -757,6 +817,7 @@ export type JobMatchCreateManyCandidateInput = {
   id?: string
   jobId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -765,11 +826,13 @@ export type JobMatchCreateManyCandidateInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchUpdateWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -778,6 +841,7 @@ export type JobMatchUpdateWithoutCandidateInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobUpdateOneRequiredWithoutMatchesNestedInput
 }
 
@@ -785,6 +849,7 @@ export type JobMatchUncheckedUpdateWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -793,12 +858,14 @@ export type JobMatchUncheckedUpdateWithoutCandidateInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchUncheckedUpdateManyWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -807,12 +874,14 @@ export type JobMatchUncheckedUpdateManyWithoutCandidateInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchCreateManyJobInput = {
   id?: string
   candidateId: string
   overallScore: number
+  semanticScore: number
   skillsScore: number
   experienceScore: number
   educationScore: number
@@ -821,11 +890,13 @@ export type JobMatchCreateManyJobInput = {
   matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type JobMatchUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -834,6 +905,7 @@ export type JobMatchUpdateWithoutJobInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobMatchesNestedInput
 }
 
@@ -841,6 +913,7 @@ export type JobMatchUncheckedUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -849,12 +922,14 @@ export type JobMatchUncheckedUpdateWithoutJobInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type JobMatchUncheckedUpdateManyWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   overallScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  semanticScore?: Prisma.FloatFieldUpdateOperationsInput | number
   skillsScore?: Prisma.FloatFieldUpdateOperationsInput | number
   experienceScore?: Prisma.FloatFieldUpdateOperationsInput | number
   educationScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -863,6 +938,7 @@ export type JobMatchUncheckedUpdateManyWithoutJobInput = {
   matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   recommendation?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -872,6 +948,7 @@ export type JobMatchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   candidateId?: boolean
   jobId?: boolean
   overallScore?: boolean
+  semanticScore?: boolean
   skillsScore?: boolean
   experienceScore?: boolean
   educationScore?: boolean
@@ -880,6 +957,7 @@ export type JobMatchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   matchedSkills?: boolean
   recommendation?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobMatch"]>
@@ -889,6 +967,7 @@ export type JobMatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   candidateId?: boolean
   jobId?: boolean
   overallScore?: boolean
+  semanticScore?: boolean
   skillsScore?: boolean
   experienceScore?: boolean
   educationScore?: boolean
@@ -897,6 +976,7 @@ export type JobMatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   matchedSkills?: boolean
   recommendation?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobMatch"]>
@@ -906,6 +986,7 @@ export type JobMatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   candidateId?: boolean
   jobId?: boolean
   overallScore?: boolean
+  semanticScore?: boolean
   skillsScore?: boolean
   experienceScore?: boolean
   educationScore?: boolean
@@ -914,6 +995,7 @@ export type JobMatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   matchedSkills?: boolean
   recommendation?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobMatch"]>
@@ -923,6 +1005,7 @@ export type JobMatchSelectScalar = {
   candidateId?: boolean
   jobId?: boolean
   overallScore?: boolean
+  semanticScore?: boolean
   skillsScore?: boolean
   experienceScore?: boolean
   educationScore?: boolean
@@ -931,9 +1014,10 @@ export type JobMatchSelectScalar = {
   matchedSkills?: boolean
   recommendation?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type JobMatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "overallScore" | "skillsScore" | "experienceScore" | "educationScore" | "keywordScore" | "missingSkills" | "matchedSkills" | "recommendation" | "createdAt", ExtArgs["result"]["jobMatch"]>
+export type JobMatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "overallScore" | "semanticScore" | "skillsScore" | "experienceScore" | "educationScore" | "keywordScore" | "missingSkills" | "matchedSkills" | "recommendation" | "createdAt" | "updatedAt", ExtArgs["result"]["jobMatch"]>
 export type JobMatchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
@@ -958,6 +1042,7 @@ export type $JobMatchPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     candidateId: string
     jobId: string
     overallScore: number
+    semanticScore: number
     skillsScore: number
     experienceScore: number
     educationScore: number
@@ -966,6 +1051,7 @@ export type $JobMatchPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     matchedSkills: runtime.JsonValue
     recommendation: string
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["jobMatch"]>
   composites: {}
 }
@@ -1395,6 +1481,7 @@ export interface JobMatchFieldRefs {
   readonly candidateId: Prisma.FieldRef<"JobMatch", 'String'>
   readonly jobId: Prisma.FieldRef<"JobMatch", 'String'>
   readonly overallScore: Prisma.FieldRef<"JobMatch", 'Float'>
+  readonly semanticScore: Prisma.FieldRef<"JobMatch", 'Float'>
   readonly skillsScore: Prisma.FieldRef<"JobMatch", 'Float'>
   readonly experienceScore: Prisma.FieldRef<"JobMatch", 'Float'>
   readonly educationScore: Prisma.FieldRef<"JobMatch", 'Float'>
@@ -1403,6 +1490,7 @@ export interface JobMatchFieldRefs {
   readonly matchedSkills: Prisma.FieldRef<"JobMatch", 'Json'>
   readonly recommendation: Prisma.FieldRef<"JobMatch", 'String'>
   readonly createdAt: Prisma.FieldRef<"JobMatch", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"JobMatch", 'DateTime'>
 }
     
 

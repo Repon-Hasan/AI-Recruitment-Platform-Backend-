@@ -18,6 +18,7 @@ export interface IChangePasswordPayload {
 }
 
 export interface IRequestUser{
+    candidateProfile: any;
     id: any;
     userId : string;
     role : Role;

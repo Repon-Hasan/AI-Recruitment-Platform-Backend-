@@ -49,22 +49,29 @@ model JobSkill {
 }
 
 model JobMatch {
-  id              String @id @default(uuid())
+  id              String   @id @default(uuid())
+
   candidateId     String
   jobId           String
+
   overallScore    Float
+  semanticScore   Float
   skillsScore     Float
   experienceScore Float
   educationScore  Float
   keywordScore    Float
+
   missingSkills   Json
   matchedSkills   Json
+
   recommendation  String
 
   candidate CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
-  job       Job              @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([candidateId, jobId])
   @@index([candidateId])

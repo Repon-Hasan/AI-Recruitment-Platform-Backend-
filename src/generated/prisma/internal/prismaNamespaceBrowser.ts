@@ -256,6 +256,7 @@ export const JobMatchScalarFieldEnum = {
   candidateId: 'candidateId',
   jobId: 'jobId',
   overallScore: 'overallScore',
+  semanticScore: 'semanticScore',
   skillsScore: 'skillsScore',
   experienceScore: 'experienceScore',
   educationScore: 'educationScore',
@@ -263,7 +264,8 @@ export const JobMatchScalarFieldEnum = {
   missingSkills: 'missingSkills',
   matchedSkills: 'matchedSkills',
   recommendation: 'recommendation',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type JobMatchScalarFieldEnum = (typeof JobMatchScalarFieldEnum)[keyof typeof JobMatchScalarFieldEnum]
