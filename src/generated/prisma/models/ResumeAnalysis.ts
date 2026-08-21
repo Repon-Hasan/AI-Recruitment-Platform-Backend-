@@ -592,14 +592,6 @@ export type ResumeAnalysisUncheckedUpdateOneWithoutResumeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ResumeAnalysisUpdateToOneWithWhereWithoutResumeInput, Prisma.ResumeAnalysisUpdateWithoutResumeInput>, Prisma.ResumeAnalysisUncheckedUpdateWithoutResumeInput>
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ResumeAnalysisCreateWithoutResumeInput = {
   id?: string
   overallScore: number

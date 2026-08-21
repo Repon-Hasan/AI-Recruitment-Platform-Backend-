@@ -4,6 +4,7 @@ import { parseResumeWithAI } from "./resume.ai";
 import { prisma } from "../../lib/prisma";
 import { cloudinaryUpload } from "../../config/cloudnary.config";
 import { analyzeResumeWithAI } from "./resume.analysis";
+import { generateResumeEmbedding } from "./embedding.service";
 
 const uploadResume = async (
   userId: string,
@@ -13,6 +14,9 @@ const uploadResume = async (
   // 1. Find candidate
   // ============================================
 
+  //   console.log("========== STEP 1 ==========");
+  // console.log("Finding candidate...");
+  
   const candidate =
     await prisma.candidateProfile.findUnique({
       where: {
@@ -21,9 +25,7 @@ const uploadResume = async (
     });
 
   if (!candidate) {
-    throw new Error(
-      "Candidate profile not found"
-    );
+    throw new Error("Candidate profile not found");
   }
 
   // ============================================
@@ -59,14 +61,6 @@ const uploadResume = async (
     file.mimetype
   );
 
-  // IMPORTANT:
-  // extracted is an object:
-  //
-  // {
-  //   text: "...",
-  //   links: [...]
-  // }
-
   const rawText = extracted.text;
   const links = extracted.links;
 
@@ -81,7 +75,7 @@ const uploadResume = async (
   }
 
   // ============================================
-  // 5. Parse resume using AI
+  // 5. Parse resume using Groq
   // ============================================
 
   const parsedData =
@@ -91,7 +85,7 @@ const uploadResume = async (
     );
 
   // ============================================
-  // 6. Save resume to database
+  // 6. Save resume
   // ============================================
 
   const resume =
@@ -109,16 +103,23 @@ const uploadResume = async (
 
         fileSize: file.size,
 
-        // Save ONLY the text here
-        rawText: rawText,
+        rawText,
 
-        // Parsed AI JSON
-        parsedData: parsedData,
+        parsedData,
       },
     });
 
   // ============================================
-  // 7. Return resume
+  // 7. Generate embedding
+  // ============================================
+  console.log("Resume Info",resume.id,rawText)
+  await generateResumeEmbedding(
+    resume.id,
+    rawText
+  );
+
+  // ============================================
+  // 8. Return resume
   // ============================================
 
   return resume;

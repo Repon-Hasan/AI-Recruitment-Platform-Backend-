@@ -1,4 +1,5 @@
 import { prisma } from "../../../lib/prisma";
+import { generateJobEmbedding } from "./generateJobEmbedding";
 
 interface SkillInput {
   name: string;
@@ -12,18 +13,23 @@ interface JobInput {
   employmentType?: string;
   requiredSkills?: SkillInput[];
 }
+interface RequiredSkillInput {
+  name: string;
+  priority: string;
+}
 
- const createJobService = async (
+interface CreateJobInput {
+  title: string;
+  description: string;
+  location?: string;
+  employmentType?: string;
+  requiredSkills?: RequiredSkillInput[];
+}
+const createJobService = async (
   userId: string,
-  data: {
-    title: string;
-    description: string;
-    location?: string;
-    employmentType?: string;
-    requiredSkills?: string[];
-  }
+  data: CreateJobInput
 ) => {
-  // Find company belonging to logged-in user
+  // 1. Find company belonging to logged-in user
   const company = await prisma.company.findUnique({
     where: {
       userId,
@@ -36,7 +42,7 @@ interface JobInput {
     throw error;
   }
 
-  // Create job and connect it to company
+  // 2. Create Job + JobSkills together
   const job = await prisma.job.create({
     data: {
       title: data.title,
@@ -49,15 +55,64 @@ interface JobInput {
           id: company.id,
         },
       },
+
+      requiredSkills: {
+        create: (data.requiredSkills ?? []).map((skill) => ({
+          name: skill.name,
+          priority: skill.priority,
+        })),
+      },
     },
+
     include: {
       company: true,
+      requiredSkills: true,
     },
   });
 
-  return job;
-};
+  // 3. Prepare skills for embedding
+  const skillsText = job.requiredSkills
+    .map(
+      (skill) =>
+        `${skill.name} (${skill.priority} priority)`
+    )
+    .join(", ");
 
+  // 4. Create complete text for embedding
+  const jobText = `
+Job Title:
+${job.title}
+
+Job Description:
+${job.description}
+
+Location:
+${job.location ?? "Not specified"}
+
+Employment Type:
+${job.employmentType ?? "Not specified"}
+
+Required Skills:
+${skillsText || "No specific skills mentioned"}
+`.trim();
+
+  console.log("Job embedding text:");
+  console.log(jobText);
+
+  // 5. Generate and store embedding
+  const embeddingResult = await generateJobEmbedding(
+    job.id,
+    jobText
+  );
+
+  // 6. Return job + embedding information
+  return {
+    ...job,
+    embedding: {
+      dimensions: embeddingResult.dimensions,
+    },
+  };
+};
 // 1. Get All Jobs
 const getAllJobsService = async () => {
   return await prisma.job.findMany({

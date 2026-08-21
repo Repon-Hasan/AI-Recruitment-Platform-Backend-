@@ -7,6 +7,13 @@ import { analyzeResumeWithAI } from "./resume.analysis";
   res: Response
 ) => {
   try {
+
+    // console.log("========== CONTROLLER ==========");
+    // console.log("Method:", req.method);
+    // console.log("URL:", req.originalUrl);
+    // console.log("Content-Type:", req.headers["content-type"]);
+    // console.log("File:", req.file);
+    // console.log("================================");
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -28,6 +35,13 @@ import { analyzeResumeWithAI } from "./resume.analysis";
       data: result,
     });
   } catch (error: any) {
+    //     console.error("========== UPLOAD ERROR ==========");
+    // console.error("Message:", error?.message);
+    // console.error("Name:", error?.name);
+    // console.error("Stack:", error?.stack);
+    // console.error("Full Error:", error);
+    // console.error("=================================="); 
+
     return res.status(500).json({
       success: false,
       message: error.message,

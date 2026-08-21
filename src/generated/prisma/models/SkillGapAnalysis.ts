@@ -20,14 +20,25 @@ export type SkillGapAnalysisModel = runtime.Types.Result.DefaultSelection<Prisma
 
 export type AggregateSkillGapAnalysis = {
   _count: SkillGapAnalysisCountAggregateOutputType | null
+  _avg: SkillGapAnalysisAvgAggregateOutputType | null
+  _sum: SkillGapAnalysisSumAggregateOutputType | null
   _min: SkillGapAnalysisMinAggregateOutputType | null
   _max: SkillGapAnalysisMaxAggregateOutputType | null
+}
+
+export type SkillGapAnalysisAvgAggregateOutputType = {
+  skillMatchPercentage: number | null
+}
+
+export type SkillGapAnalysisSumAggregateOutputType = {
+  skillMatchPercentage: number | null
 }
 
 export type SkillGapAnalysisMinAggregateOutputType = {
   id: string | null
   candidateId: string | null
   jobId: string | null
+  skillMatchPercentage: number | null
   createdAt: Date | null
 }
 
@@ -35,6 +46,7 @@ export type SkillGapAnalysisMaxAggregateOutputType = {
   id: string | null
   candidateId: string | null
   jobId: string | null
+  skillMatchPercentage: number | null
   createdAt: Date | null
 }
 
@@ -42,6 +54,9 @@ export type SkillGapAnalysisCountAggregateOutputType = {
   id: number
   candidateId: number
   jobId: number
+  skillMatchPercentage: number
+  matchedSkills: number
+  missingSkills: number
   highPriority: number
   mediumPriority: number
   lowPriority: number
@@ -51,10 +66,19 @@ export type SkillGapAnalysisCountAggregateOutputType = {
 }
 
 
+export type SkillGapAnalysisAvgAggregateInputType = {
+  skillMatchPercentage?: true
+}
+
+export type SkillGapAnalysisSumAggregateInputType = {
+  skillMatchPercentage?: true
+}
+
 export type SkillGapAnalysisMinAggregateInputType = {
   id?: true
   candidateId?: true
   jobId?: true
+  skillMatchPercentage?: true
   createdAt?: true
 }
 
@@ -62,6 +86,7 @@ export type SkillGapAnalysisMaxAggregateInputType = {
   id?: true
   candidateId?: true
   jobId?: true
+  skillMatchPercentage?: true
   createdAt?: true
 }
 
@@ -69,6 +94,9 @@ export type SkillGapAnalysisCountAggregateInputType = {
   id?: true
   candidateId?: true
   jobId?: true
+  skillMatchPercentage?: true
+  matchedSkills?: true
+  missingSkills?: true
   highPriority?: true
   mediumPriority?: true
   lowPriority?: true
@@ -115,6 +143,18 @@ export type SkillGapAnalysisAggregateArgs<ExtArgs extends runtime.Types.Extensio
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: SkillGapAnalysisAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: SkillGapAnalysisSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: SkillGapAnalysisMinAggregateInputType
@@ -145,6 +185,8 @@ export type SkillGapAnalysisGroupByArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   _count?: SkillGapAnalysisCountAggregateInputType | true
+  _avg?: SkillGapAnalysisAvgAggregateInputType
+  _sum?: SkillGapAnalysisSumAggregateInputType
   _min?: SkillGapAnalysisMinAggregateInputType
   _max?: SkillGapAnalysisMaxAggregateInputType
 }
@@ -153,12 +195,17 @@ export type SkillGapAnalysisGroupByOutputType = {
   id: string
   candidateId: string
   jobId: string
+  skillMatchPercentage: number
+  matchedSkills: runtime.JsonValue
+  missingSkills: runtime.JsonValue
   highPriority: runtime.JsonValue
   mediumPriority: runtime.JsonValue
   lowPriority: runtime.JsonValue
   learningPath: runtime.JsonValue
   createdAt: Date
   _count: SkillGapAnalysisCountAggregateOutputType | null
+  _avg: SkillGapAnalysisAvgAggregateOutputType | null
+  _sum: SkillGapAnalysisSumAggregateOutputType | null
   _min: SkillGapAnalysisMinAggregateOutputType | null
   _max: SkillGapAnalysisMaxAggregateOutputType | null
 }
@@ -185,6 +232,9 @@ export type SkillGapAnalysisWhereInput = {
   id?: Prisma.StringFilter<"SkillGapAnalysis"> | string
   candidateId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
   jobId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
+  skillMatchPercentage?: Prisma.IntFilter<"SkillGapAnalysis"> | number
+  matchedSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
+  missingSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
   highPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   mediumPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   lowPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
@@ -192,12 +242,16 @@ export type SkillGapAnalysisWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"SkillGapAnalysis"> | Date | string
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
+  jobApplications?: Prisma.JobApplicationListRelationFilter
 }
 
 export type SkillGapAnalysisOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  skillMatchPercentage?: Prisma.SortOrder
+  matchedSkills?: Prisma.SortOrder
+  missingSkills?: Prisma.SortOrder
   highPriority?: Prisma.SortOrder
   mediumPriority?: Prisma.SortOrder
   lowPriority?: Prisma.SortOrder
@@ -205,6 +259,7 @@ export type SkillGapAnalysisOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   candidate?: Prisma.CandidateProfileOrderByWithRelationInput
   job?: Prisma.JobOrderByWithRelationInput
+  jobApplications?: Prisma.JobApplicationOrderByRelationAggregateInput
 }
 
 export type SkillGapAnalysisWhereUniqueInput = Prisma.AtLeast<{
@@ -215,6 +270,9 @@ export type SkillGapAnalysisWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SkillGapAnalysisWhereInput | Prisma.SkillGapAnalysisWhereInput[]
   candidateId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
   jobId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
+  skillMatchPercentage?: Prisma.IntFilter<"SkillGapAnalysis"> | number
+  matchedSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
+  missingSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
   highPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   mediumPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   lowPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
@@ -222,20 +280,26 @@ export type SkillGapAnalysisWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"SkillGapAnalysis"> | Date | string
   candidate?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
+  jobApplications?: Prisma.JobApplicationListRelationFilter
 }, "id" | "candidateId_jobId">
 
 export type SkillGapAnalysisOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  skillMatchPercentage?: Prisma.SortOrder
+  matchedSkills?: Prisma.SortOrder
+  missingSkills?: Prisma.SortOrder
   highPriority?: Prisma.SortOrder
   mediumPriority?: Prisma.SortOrder
   lowPriority?: Prisma.SortOrder
   learningPath?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SkillGapAnalysisCountOrderByAggregateInput
+  _avg?: Prisma.SkillGapAnalysisAvgOrderByAggregateInput
   _max?: Prisma.SkillGapAnalysisMaxOrderByAggregateInput
   _min?: Prisma.SkillGapAnalysisMinOrderByAggregateInput
+  _sum?: Prisma.SkillGapAnalysisSumOrderByAggregateInput
 }
 
 export type SkillGapAnalysisScalarWhereWithAggregatesInput = {
@@ -245,6 +309,9 @@ export type SkillGapAnalysisScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"SkillGapAnalysis"> | string
   candidateId?: Prisma.StringWithAggregatesFilter<"SkillGapAnalysis"> | string
   jobId?: Prisma.StringWithAggregatesFilter<"SkillGapAnalysis"> | string
+  skillMatchPercentage?: Prisma.IntWithAggregatesFilter<"SkillGapAnalysis"> | number
+  matchedSkills?: Prisma.JsonWithAggregatesFilter<"SkillGapAnalysis">
+  missingSkills?: Prisma.JsonWithAggregatesFilter<"SkillGapAnalysis">
   highPriority?: Prisma.JsonWithAggregatesFilter<"SkillGapAnalysis">
   mediumPriority?: Prisma.JsonWithAggregatesFilter<"SkillGapAnalysis">
   lowPriority?: Prisma.JsonWithAggregatesFilter<"SkillGapAnalysis">
@@ -254,6 +321,9 @@ export type SkillGapAnalysisScalarWhereWithAggregatesInput = {
 
 export type SkillGapAnalysisCreateInput = {
   id?: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -261,21 +331,29 @@ export type SkillGapAnalysisCreateInput = {
   createdAt?: Date | string
   candidate: Prisma.CandidateProfileCreateNestedOneWithoutSkillGapAnalysesInput
   job: Prisma.JobCreateNestedOneWithoutSkillGapAnalysesInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisUncheckedCreateInput = {
   id?: string
   candidateId: string
   jobId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -283,23 +361,31 @@ export type SkillGapAnalysisUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
   job?: Prisma.JobUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisCreateManyInput = {
   id?: string
   candidateId: string
   jobId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -309,6 +395,9 @@ export type SkillGapAnalysisCreateManyInput = {
 
 export type SkillGapAnalysisUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -320,6 +409,9 @@ export type SkillGapAnalysisUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -346,6 +438,9 @@ export type SkillGapAnalysisCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  skillMatchPercentage?: Prisma.SortOrder
+  matchedSkills?: Prisma.SortOrder
+  missingSkills?: Prisma.SortOrder
   highPriority?: Prisma.SortOrder
   mediumPriority?: Prisma.SortOrder
   lowPriority?: Prisma.SortOrder
@@ -353,10 +448,15 @@ export type SkillGapAnalysisCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
+export type SkillGapAnalysisAvgOrderByAggregateInput = {
+  skillMatchPercentage?: Prisma.SortOrder
+}
+
 export type SkillGapAnalysisMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  skillMatchPercentage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -364,7 +464,12 @@ export type SkillGapAnalysisMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
+  skillMatchPercentage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type SkillGapAnalysisSumOrderByAggregateInput = {
+  skillMatchPercentage?: Prisma.SortOrder
 }
 
 export type SkillGapAnalysisCreateNestedManyWithoutCandidateInput = {
@@ -451,24 +556,78 @@ export type SkillGapAnalysisUncheckedUpdateManyWithoutJobNestedInput = {
   deleteMany?: Prisma.SkillGapAnalysisScalarWhereInput | Prisma.SkillGapAnalysisScalarWhereInput[]
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput = {
+  create?: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput> | Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput[] | Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput[]
+  connectOrCreate?: Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput | Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput[]
+  connect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+}
+
+export type SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput = {
+  create?: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput> | Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput[] | Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput[]
+  connectOrCreate?: Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput | Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput[]
+  connect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+}
+
+export type SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput> | Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput[] | Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput[]
+  connectOrCreate?: Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput | Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput[]
+  upsert?: Prisma.SkillGapAnalysisUpsertWithWhereUniqueWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpsertWithWhereUniqueWithoutJobApplicationsInput[]
+  set?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  disconnect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  delete?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  connect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  update?: Prisma.SkillGapAnalysisUpdateWithWhereUniqueWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpdateWithWhereUniqueWithoutJobApplicationsInput[]
+  updateMany?: Prisma.SkillGapAnalysisUpdateManyWithWhereWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpdateManyWithWhereWithoutJobApplicationsInput[]
+  deleteMany?: Prisma.SkillGapAnalysisScalarWhereInput | Prisma.SkillGapAnalysisScalarWhereInput[]
+}
+
+export type SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput> | Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput[] | Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput[]
+  connectOrCreate?: Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput | Prisma.SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput[]
+  upsert?: Prisma.SkillGapAnalysisUpsertWithWhereUniqueWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpsertWithWhereUniqueWithoutJobApplicationsInput[]
+  set?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  disconnect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  delete?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  connect?: Prisma.SkillGapAnalysisWhereUniqueInput | Prisma.SkillGapAnalysisWhereUniqueInput[]
+  update?: Prisma.SkillGapAnalysisUpdateWithWhereUniqueWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpdateWithWhereUniqueWithoutJobApplicationsInput[]
+  updateMany?: Prisma.SkillGapAnalysisUpdateManyWithWhereWithoutJobApplicationsInput | Prisma.SkillGapAnalysisUpdateManyWithWhereWithoutJobApplicationsInput[]
+  deleteMany?: Prisma.SkillGapAnalysisScalarWhereInput | Prisma.SkillGapAnalysisScalarWhereInput[]
+}
+
 export type SkillGapAnalysisCreateWithoutCandidateInput = {
   id?: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   job: Prisma.JobCreateNestedOneWithoutSkillGapAnalysesInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisUncheckedCreateWithoutCandidateInput = {
   id?: string
   jobId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisCreateOrConnectWithoutCandidateInput = {
@@ -504,6 +663,9 @@ export type SkillGapAnalysisScalarWhereInput = {
   id?: Prisma.StringFilter<"SkillGapAnalysis"> | string
   candidateId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
   jobId?: Prisma.StringFilter<"SkillGapAnalysis"> | string
+  skillMatchPercentage?: Prisma.IntFilter<"SkillGapAnalysis"> | number
+  matchedSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
+  missingSkills?: Prisma.JsonFilter<"SkillGapAnalysis">
   highPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   mediumPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
   lowPriority?: Prisma.JsonFilter<"SkillGapAnalysis">
@@ -513,22 +675,30 @@ export type SkillGapAnalysisScalarWhereInput = {
 
 export type SkillGapAnalysisCreateWithoutJobInput = {
   id?: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   candidate: Prisma.CandidateProfileCreateNestedOneWithoutSkillGapAnalysesInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisUncheckedCreateWithoutJobInput = {
   id?: string
   candidateId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutSkillGapAnalysesInput
 }
 
 export type SkillGapAnalysisCreateOrConnectWithoutJobInput = {
@@ -557,9 +727,61 @@ export type SkillGapAnalysisUpdateManyWithWhereWithoutJobInput = {
   data: Prisma.XOR<Prisma.SkillGapAnalysisUpdateManyMutationInput, Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobInput>
 }
 
+export type SkillGapAnalysisCreateWithoutJobApplicationsInput = {
+  id?: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  candidate: Prisma.CandidateProfileCreateNestedOneWithoutSkillGapAnalysesInput
+  job: Prisma.JobCreateNestedOneWithoutSkillGapAnalysesInput
+}
+
+export type SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput = {
+  id?: string
+  candidateId: string
+  jobId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  learningPath: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type SkillGapAnalysisCreateOrConnectWithoutJobApplicationsInput = {
+  where: Prisma.SkillGapAnalysisWhereUniqueInput
+  create: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput>
+}
+
+export type SkillGapAnalysisUpsertWithWhereUniqueWithoutJobApplicationsInput = {
+  where: Prisma.SkillGapAnalysisWhereUniqueInput
+  update: Prisma.XOR<Prisma.SkillGapAnalysisUpdateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedUpdateWithoutJobApplicationsInput>
+  create: Prisma.XOR<Prisma.SkillGapAnalysisCreateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedCreateWithoutJobApplicationsInput>
+}
+
+export type SkillGapAnalysisUpdateWithWhereUniqueWithoutJobApplicationsInput = {
+  where: Prisma.SkillGapAnalysisWhereUniqueInput
+  data: Prisma.XOR<Prisma.SkillGapAnalysisUpdateWithoutJobApplicationsInput, Prisma.SkillGapAnalysisUncheckedUpdateWithoutJobApplicationsInput>
+}
+
+export type SkillGapAnalysisUpdateManyWithWhereWithoutJobApplicationsInput = {
+  where: Prisma.SkillGapAnalysisScalarWhereInput
+  data: Prisma.XOR<Prisma.SkillGapAnalysisUpdateManyMutationInput, Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsInput>
+}
+
 export type SkillGapAnalysisCreateManyCandidateInput = {
   id?: string
   jobId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -569,27 +791,38 @@ export type SkillGapAnalysisCreateManyCandidateInput = {
 
 export type SkillGapAnalysisUpdateWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisUncheckedUpdateWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisUncheckedUpdateManyWithoutCandidateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -600,6 +833,9 @@ export type SkillGapAnalysisUncheckedUpdateManyWithoutCandidateInput = {
 export type SkillGapAnalysisCreateManyJobInput = {
   id?: string
   candidateId: string
+  skillMatchPercentage: number
+  matchedSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -609,27 +845,38 @@ export type SkillGapAnalysisCreateManyJobInput = {
 
 export type SkillGapAnalysisUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisUncheckedUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesNestedInput
 }
 
 export type SkillGapAnalysisUncheckedUpdateManyWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
@@ -637,12 +884,86 @@ export type SkillGapAnalysisUncheckedUpdateManyWithoutJobInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type SkillGapAnalysisUpdateWithoutJobApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidate?: Prisma.CandidateProfileUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutSkillGapAnalysesNestedInput
+}
+
+export type SkillGapAnalysisUncheckedUpdateWithoutJobApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  skillMatchPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  matchedSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  missingSkills?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  highPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  mediumPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  lowPriority?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  learningPath?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type SkillGapAnalysisCountOutputType
+ */
+
+export type SkillGapAnalysisCountOutputType = {
+  jobApplications: number
+}
+
+export type SkillGapAnalysisCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  jobApplications?: boolean | SkillGapAnalysisCountOutputTypeCountJobApplicationsArgs
+}
+
+/**
+ * SkillGapAnalysisCountOutputType without action
+ */
+export type SkillGapAnalysisCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SkillGapAnalysisCountOutputType
+   */
+  select?: Prisma.SkillGapAnalysisCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SkillGapAnalysisCountOutputType without action
+ */
+export type SkillGapAnalysisCountOutputTypeCountJobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobApplicationWhereInput
+}
 
 
 export type SkillGapAnalysisSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   candidateId?: boolean
   jobId?: boolean
+  skillMatchPercentage?: boolean
+  matchedSkills?: boolean
+  missingSkills?: boolean
   highPriority?: boolean
   mediumPriority?: boolean
   lowPriority?: boolean
@@ -650,12 +971,17 @@ export type SkillGapAnalysisSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
+  jobApplications?: boolean | Prisma.SkillGapAnalysis$jobApplicationsArgs<ExtArgs>
+  _count?: boolean | Prisma.SkillGapAnalysisCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["skillGapAnalysis"]>
 
 export type SkillGapAnalysisSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   candidateId?: boolean
   jobId?: boolean
+  skillMatchPercentage?: boolean
+  matchedSkills?: boolean
+  missingSkills?: boolean
   highPriority?: boolean
   mediumPriority?: boolean
   lowPriority?: boolean
@@ -669,6 +995,9 @@ export type SkillGapAnalysisSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   candidateId?: boolean
   jobId?: boolean
+  skillMatchPercentage?: boolean
+  matchedSkills?: boolean
+  missingSkills?: boolean
   highPriority?: boolean
   mediumPriority?: boolean
   lowPriority?: boolean
@@ -682,6 +1011,9 @@ export type SkillGapAnalysisSelectScalar = {
   id?: boolean
   candidateId?: boolean
   jobId?: boolean
+  skillMatchPercentage?: boolean
+  matchedSkills?: boolean
+  missingSkills?: boolean
   highPriority?: boolean
   mediumPriority?: boolean
   lowPriority?: boolean
@@ -689,10 +1021,12 @@ export type SkillGapAnalysisSelectScalar = {
   createdAt?: boolean
 }
 
-export type SkillGapAnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "highPriority" | "mediumPriority" | "lowPriority" | "learningPath" | "createdAt", ExtArgs["result"]["skillGapAnalysis"]>
+export type SkillGapAnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateId" | "jobId" | "skillMatchPercentage" | "matchedSkills" | "missingSkills" | "highPriority" | "mediumPriority" | "lowPriority" | "learningPath" | "createdAt", ExtArgs["result"]["skillGapAnalysis"]>
 export type SkillGapAnalysisInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
+  jobApplications?: boolean | Prisma.SkillGapAnalysis$jobApplicationsArgs<ExtArgs>
+  _count?: boolean | Prisma.SkillGapAnalysisCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SkillGapAnalysisIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   candidate?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
@@ -708,11 +1042,15 @@ export type $SkillGapAnalysisPayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     candidate: Prisma.$CandidateProfilePayload<ExtArgs>
     job: Prisma.$JobPayload<ExtArgs>
+    jobApplications: Prisma.$JobApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     candidateId: string
     jobId: string
+    skillMatchPercentage: number
+    matchedSkills: runtime.JsonValue
+    missingSkills: runtime.JsonValue
     highPriority: runtime.JsonValue
     mediumPriority: runtime.JsonValue
     lowPriority: runtime.JsonValue
@@ -1114,6 +1452,7 @@ export interface Prisma__SkillGapAnalysisClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   candidate<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  jobApplications<T extends Prisma.SkillGapAnalysis$jobApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SkillGapAnalysis$jobApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1146,6 +1485,9 @@ export interface SkillGapAnalysisFieldRefs {
   readonly id: Prisma.FieldRef<"SkillGapAnalysis", 'String'>
   readonly candidateId: Prisma.FieldRef<"SkillGapAnalysis", 'String'>
   readonly jobId: Prisma.FieldRef<"SkillGapAnalysis", 'String'>
+  readonly skillMatchPercentage: Prisma.FieldRef<"SkillGapAnalysis", 'Int'>
+  readonly matchedSkills: Prisma.FieldRef<"SkillGapAnalysis", 'Json'>
+  readonly missingSkills: Prisma.FieldRef<"SkillGapAnalysis", 'Json'>
   readonly highPriority: Prisma.FieldRef<"SkillGapAnalysis", 'Json'>
   readonly mediumPriority: Prisma.FieldRef<"SkillGapAnalysis", 'Json'>
   readonly lowPriority: Prisma.FieldRef<"SkillGapAnalysis", 'Json'>
@@ -1549,6 +1891,30 @@ export type SkillGapAnalysisDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many SkillGapAnalyses to delete.
    */
   limit?: number
+}
+
+/**
+ * SkillGapAnalysis.jobApplications
+ */
+export type SkillGapAnalysis$jobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobApplication
+   */
+  select?: Prisma.JobApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobApplication
+   */
+  omit?: Prisma.JobApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobApplicationInclude<ExtArgs> | null
+  where?: Prisma.JobApplicationWhereInput
+  orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.JobApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[]
 }
 
 /**

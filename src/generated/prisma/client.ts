@@ -112,6 +112,11 @@ export type JobMatch = Prisma.JobMatchModel
  */
 export type SkillGapAnalysis = Prisma.SkillGapAnalysisModel
 /**
+ * Model JobApplication
+ * 
+ */
+export type JobApplication = Prisma.JobApplicationModel
+/**
  * Model Resume
  * 
  */

@@ -13,7 +13,7 @@ model Resume {
   summary     ResumeSummary?
   analysis    ResumeAnalysis?
   candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
-
+  embedding Unsupported("vector(2048)")?
   @@map("resumes")
 }
 

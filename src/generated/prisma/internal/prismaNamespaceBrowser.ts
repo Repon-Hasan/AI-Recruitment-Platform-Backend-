@@ -65,6 +65,7 @@ export const ModelName = {
   JobSkill: 'JobSkill',
   JobMatch: 'JobMatch',
   SkillGapAnalysis: 'SkillGapAnalysis',
+  JobApplication: 'JobApplication',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
   ResumeSummary: 'ResumeSummary'
@@ -272,6 +273,9 @@ export const SkillGapAnalysisScalarFieldEnum = {
   id: 'id',
   candidateId: 'candidateId',
   jobId: 'jobId',
+  skillMatchPercentage: 'skillMatchPercentage',
+  matchedSkills: 'matchedSkills',
+  missingSkills: 'missingSkills',
   highPriority: 'highPriority',
   mediumPriority: 'mediumPriority',
   lowPriority: 'lowPriority',
@@ -280,6 +284,16 @@ export const SkillGapAnalysisScalarFieldEnum = {
 } as const
 
 export type SkillGapAnalysisScalarFieldEnum = (typeof SkillGapAnalysisScalarFieldEnum)[keyof typeof SkillGapAnalysisScalarFieldEnum]
+
+
+export const JobApplicationScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  jobId: 'jobId',
+  createdAt: 'createdAt'
+} as const
+
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {

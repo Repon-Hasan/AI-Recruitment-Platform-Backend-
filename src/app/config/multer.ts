@@ -1,40 +1,68 @@
+// import multer from "multer";
+// import { CloudinaryStorage } from "multer-storage-cloudinary";
+// import { cloudinaryUpload } from "./cloudnary.config";
+
+
+// const storage = new CloudinaryStorage({
+//     cloudinary: cloudinaryUpload,
+//     params: async (req, file) => {
+//         const originalName = file.originalname;
+//         const extension = originalName.split(".").pop()?.toLocaleLowerCase();
+
+//         const fileNameWithoutExtension = originalName
+//             .split(".")
+//             .slice(0, -1)
+//             .join(".")
+//             .toLowerCase()
+//             .replace(/\s+/g, "-")
+//             // eslint-disable-next-line no-useless-escape
+//             .replace(/[^a-z0-9\-]/g, "");
+
+//         const uniqueName =
+//             Math.random().toString(36).substring(2)+
+//             "-"+
+//             Date.now()+
+//             "-"+
+//             fileNameWithoutExtension;
+
+//         const folder = extension === "pdf" ? "pdfs" : "images";
+
+
+//         return {
+//             folder : `ai-recruiter/${folder}`,
+//             public_id: uniqueName,
+//             resource_type : "auto"
+//         }
+//     }
+
+// })
+
+// export const multerUpload = multer({storage})
+
+
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import { cloudinaryUpload } from "./cloudnary.config";
 
+const storage = multer.memoryStorage();
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinaryUpload,
-    params: async (req, file) => {
-        const originalName = file.originalname;
-        const extension = originalName.split(".").pop()?.toLocaleLowerCase();
+export const multerUpload = multer({
+  storage,
 
-        const fileNameWithoutExtension = originalName
-            .split(".")
-            .slice(0, -1)
-            .join(".")
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            // eslint-disable-next-line no-useless-escape
-            .replace(/[^a-z0-9\-]/g, "");
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5 MB
+  },
 
-        const uniqueName =
-            Math.random().toString(36).substring(2)+
-            "-"+
-            Date.now()+
-            "-"+
-            fileNameWithoutExtension;
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
 
-        const folder = extension === "pdf" ? "pdfs" : "images";
-
-
-        return {
-            folder : `ai-recruiter/${folder}`,
-            public_id: uniqueName,
-            resource_type : "auto"
-        }
+    if (!allowedTypes.includes(file.mimetype)) {
+      return cb(
+        new Error("Only PDF and DOCX files are allowed")
+      );
     }
 
-})
-
-export const multerUpload = multer({storage})
+    cb(null, true);
+  },
+});

@@ -230,6 +230,7 @@ export type CandidateProfileWhereInput = {
   resumes?: Prisma.ResumeListRelationFilter
   skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter
   jobMatches?: Prisma.JobMatchListRelationFilter
+  jobApplications?: Prisma.JobApplicationListRelationFilter
 }
 
 export type CandidateProfileOrderByWithRelationInput = {
@@ -251,6 +252,7 @@ export type CandidateProfileOrderByWithRelationInput = {
   resumes?: Prisma.ResumeOrderByRelationAggregateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisOrderByRelationAggregateInput
   jobMatches?: Prisma.JobMatchOrderByRelationAggregateInput
+  jobApplications?: Prisma.JobApplicationOrderByRelationAggregateInput
 }
 
 export type CandidateProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -275,6 +277,7 @@ export type CandidateProfileWhereUniqueInput = Prisma.AtLeast<{
   resumes?: Prisma.ResumeListRelationFilter
   skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter
   jobMatches?: Prisma.JobMatchListRelationFilter
+  jobApplications?: Prisma.JobApplicationListRelationFilter
 }, "id" | "userId">
 
 export type CandidateProfileOrderByWithAggregationInput = {
@@ -327,6 +330,7 @@ export type CandidateProfileCreateInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateInput = {
@@ -347,6 +351,7 @@ export type CandidateProfileUncheckedCreateInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUpdateInput = {
@@ -367,6 +372,7 @@ export type CandidateProfileUpdateInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateInput = {
@@ -387,6 +393,7 @@ export type CandidateProfileUncheckedUpdateInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateManyInput = {
@@ -592,6 +599,20 @@ export type CandidateProfileUpdateOneRequiredWithoutSkillGapAnalysesNestedInput 
   update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUpdateWithoutSkillGapAnalysesInput>, Prisma.CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput>
 }
 
+export type CandidateProfileCreateNestedOneWithoutJobApplicationsInput = {
+  create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>
+  connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobApplicationsInput
+  connect?: Prisma.CandidateProfileWhereUniqueInput
+}
+
+export type CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>
+  connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobApplicationsInput
+  upsert?: Prisma.CandidateProfileUpsertWithoutJobApplicationsInput
+  connect?: Prisma.CandidateProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutJobApplicationsInput, Prisma.CandidateProfileUpdateWithoutJobApplicationsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>
+}
+
 export type CandidateProfileCreateNestedOneWithoutResumesInput = {
   create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutResumesInput, Prisma.CandidateProfileUncheckedCreateWithoutResumesInput>
   connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutResumesInput
@@ -623,6 +644,7 @@ export type CandidateProfileCreateWithoutUserInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutUserInput = {
@@ -642,6 +664,7 @@ export type CandidateProfileUncheckedCreateWithoutUserInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutUserInput = {
@@ -677,6 +700,7 @@ export type CandidateProfileUpdateWithoutUserInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutUserInput = {
@@ -696,6 +720,7 @@ export type CandidateProfileUncheckedUpdateWithoutUserInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutSkillsInput = {
@@ -715,6 +740,7 @@ export type CandidateProfileCreateWithoutSkillsInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutSkillsInput = {
@@ -734,6 +760,7 @@ export type CandidateProfileUncheckedCreateWithoutSkillsInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutSkillsInput = {
@@ -769,6 +796,7 @@ export type CandidateProfileUpdateWithoutSkillsInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutSkillsInput = {
@@ -788,6 +816,7 @@ export type CandidateProfileUncheckedUpdateWithoutSkillsInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutEducationInput = {
@@ -807,6 +836,7 @@ export type CandidateProfileCreateWithoutEducationInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutEducationInput = {
@@ -826,6 +856,7 @@ export type CandidateProfileUncheckedCreateWithoutEducationInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutEducationInput = {
@@ -861,6 +892,7 @@ export type CandidateProfileUpdateWithoutEducationInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutEducationInput = {
@@ -880,6 +912,7 @@ export type CandidateProfileUncheckedUpdateWithoutEducationInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutProjectsInput = {
@@ -899,6 +932,7 @@ export type CandidateProfileCreateWithoutProjectsInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutProjectsInput = {
@@ -918,6 +952,7 @@ export type CandidateProfileUncheckedCreateWithoutProjectsInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutProjectsInput = {
@@ -953,6 +988,7 @@ export type CandidateProfileUpdateWithoutProjectsInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutProjectsInput = {
@@ -972,6 +1008,7 @@ export type CandidateProfileUncheckedUpdateWithoutProjectsInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutCertificationsInput = {
@@ -991,6 +1028,7 @@ export type CandidateProfileCreateWithoutCertificationsInput = {
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutCertificationsInput = {
@@ -1010,6 +1048,7 @@ export type CandidateProfileUncheckedCreateWithoutCertificationsInput = {
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutCertificationsInput = {
@@ -1045,6 +1084,7 @@ export type CandidateProfileUpdateWithoutCertificationsInput = {
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutCertificationsInput = {
@@ -1064,6 +1104,7 @@ export type CandidateProfileUncheckedUpdateWithoutCertificationsInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutJobMatchesInput = {
@@ -1083,6 +1124,7 @@ export type CandidateProfileCreateWithoutJobMatchesInput = {
   skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutJobMatchesInput = {
@@ -1102,6 +1144,7 @@ export type CandidateProfileUncheckedCreateWithoutJobMatchesInput = {
   skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutJobMatchesInput = {
@@ -1137,6 +1180,7 @@ export type CandidateProfileUpdateWithoutJobMatchesInput = {
   skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutJobMatchesInput = {
@@ -1156,6 +1200,7 @@ export type CandidateProfileUncheckedUpdateWithoutJobMatchesInput = {
   skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileCreateWithoutSkillGapAnalysesInput = {
@@ -1175,6 +1220,7 @@ export type CandidateProfileCreateWithoutSkillGapAnalysesInput = {
   skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput
   resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput = {
@@ -1194,6 +1240,7 @@ export type CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput = {
   skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput
   resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutSkillGapAnalysesInput = {
@@ -1229,6 +1276,7 @@ export type CandidateProfileUpdateWithoutSkillGapAnalysesInput = {
   skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput
   resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput = {
@@ -1247,6 +1295,103 @@ export type CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput = {
   projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput
   skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
+  jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
+}
+
+export type CandidateProfileCreateWithoutJobApplicationsInput = {
+  id?: string
+  phone?: string | null
+  location?: string | null
+  experience?: string | null
+  linkedin?: string | null
+  github?: string | null
+  portfolio?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput
+  education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput
+  user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput
+  projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput
+  skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput
+  skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
+  jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+}
+
+export type CandidateProfileUncheckedCreateWithoutJobApplicationsInput = {
+  id?: string
+  userId: string
+  phone?: string | null
+  location?: string | null
+  experience?: string | null
+  linkedin?: string | null
+  github?: string | null
+  portfolio?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput
+  education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput
+  projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput
+  skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput
+  skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
+  jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+}
+
+export type CandidateProfileCreateOrConnectWithoutJobApplicationsInput = {
+  where: Prisma.CandidateProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>
+}
+
+export type CandidateProfileUpsertWithoutJobApplicationsInput = {
+  update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>
+  create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>
+  where?: Prisma.CandidateProfileWhereInput
+}
+
+export type CandidateProfileUpdateToOneWithWhereWithoutJobApplicationsInput = {
+  where?: Prisma.CandidateProfileWhereInput
+  data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>
+}
+
+export type CandidateProfileUpdateWithoutJobApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput
+  education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput
+  projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput
+  skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput
+  skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
+  jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+}
+
+export type CandidateProfileUncheckedUpdateWithoutJobApplicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput
+  education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput
+  projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput
+  skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput
+  skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
 }
 
@@ -1267,6 +1412,7 @@ export type CandidateProfileCreateWithoutResumesInput = {
   skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileUncheckedCreateWithoutResumesInput = {
@@ -1286,6 +1432,7 @@ export type CandidateProfileUncheckedCreateWithoutResumesInput = {
   skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput
   jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput
+  jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput
 }
 
 export type CandidateProfileCreateOrConnectWithoutResumesInput = {
@@ -1321,6 +1468,7 @@ export type CandidateProfileUpdateWithoutResumesInput = {
   skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput
 }
 
 export type CandidateProfileUncheckedUpdateWithoutResumesInput = {
@@ -1340,6 +1488,7 @@ export type CandidateProfileUncheckedUpdateWithoutResumesInput = {
   skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput
   skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput
   jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput
+  jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput
 }
 
 
@@ -1355,6 +1504,7 @@ export type CandidateProfileCountOutputType = {
   resumes: number
   skillGapAnalyses: number
   jobMatches: number
+  jobApplications: number
 }
 
 export type CandidateProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1365,6 +1515,7 @@ export type CandidateProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.
   resumes?: boolean | CandidateProfileCountOutputTypeCountResumesArgs
   skillGapAnalyses?: boolean | CandidateProfileCountOutputTypeCountSkillGapAnalysesArgs
   jobMatches?: boolean | CandidateProfileCountOutputTypeCountJobMatchesArgs
+  jobApplications?: boolean | CandidateProfileCountOutputTypeCountJobApplicationsArgs
 }
 
 /**
@@ -1426,6 +1577,13 @@ export type CandidateProfileCountOutputTypeCountJobMatchesArgs<ExtArgs extends r
   where?: Prisma.JobMatchWhereInput
 }
 
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountJobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobApplicationWhereInput
+}
+
 
 export type CandidateProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1446,6 +1604,7 @@ export type CandidateProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   resumes?: boolean | Prisma.CandidateProfile$resumesArgs<ExtArgs>
   skillGapAnalyses?: boolean | Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>
   jobMatches?: boolean | Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>
+  jobApplications?: boolean | Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CandidateProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["candidateProfile"]>
 
@@ -1500,6 +1659,7 @@ export type CandidateProfileInclude<ExtArgs extends runtime.Types.Extensions.Int
   resumes?: boolean | Prisma.CandidateProfile$resumesArgs<ExtArgs>
   skillGapAnalyses?: boolean | Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>
   jobMatches?: boolean | Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>
+  jobApplications?: boolean | Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>
   _count?: boolean | Prisma.CandidateProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CandidateProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1520,6 +1680,7 @@ export type $CandidateProfilePayload<ExtArgs extends runtime.Types.Extensions.In
     resumes: Prisma.$ResumePayload<ExtArgs>[]
     skillGapAnalyses: Prisma.$SkillGapAnalysisPayload<ExtArgs>[]
     jobMatches: Prisma.$JobMatchPayload<ExtArgs>[]
+    jobApplications: Prisma.$JobApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1934,6 +2095,7 @@ export interface Prisma__CandidateProfileClient<T, Null = never, ExtArgs extends
   resumes<T extends Prisma.CandidateProfile$resumesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$resumesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   skillGapAnalyses<T extends Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillGapAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobMatches<T extends Prisma.CandidateProfile$jobMatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobApplications<T extends Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2539,6 +2701,30 @@ export type CandidateProfile$jobMatchesArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.JobMatchScalarFieldEnum | Prisma.JobMatchScalarFieldEnum[]
+}
+
+/**
+ * CandidateProfile.jobApplications
+ */
+export type CandidateProfile$jobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobApplication
+   */
+  select?: Prisma.JobApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobApplication
+   */
+  omit?: Prisma.JobApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobApplicationInclude<ExtArgs> | null
+  where?: Prisma.JobApplicationWhereInput
+  orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.JobApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[]
 }
 
 /**

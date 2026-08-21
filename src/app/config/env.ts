@@ -33,6 +33,8 @@ interface EnvConfig {
         CLOUDINARY_API_SECRET: string;
     };
     GROQ_API_KEY:string;
+   OPENROUTER_API_KEY:string;
+   OPENROUTER_EMBEDDING_MODEL:string
 
 }
 
@@ -62,7 +64,9 @@ const loadEnvVariables = (): EnvConfig => {
         'CLOUDINARY_CLOUD_NAME',
         'CLOUDINARY_API_KEY',
         'CLOUDINARY_API_SECRET',
-        'GROQ_API_KEY'
+        'GROQ_API_KEY',
+        'OPENROUTER_API_KEY',
+        'OPENROUTER_EMBEDDING_MODEL'
     ]
 
     requireEnvVariable.forEach((variable) => {
@@ -99,7 +103,9 @@ const loadEnvVariables = (): EnvConfig => {
             CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
             CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
         },
-        GROQ_API_KEY: process.env.GROQ_API_KEY as string
+        GROQ_API_KEY: process.env.GROQ_API_KEY as string,
+        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY as string,
+        OPENROUTER_EMBEDDING_MODEL:process.env.OPENROUTER_EMBEDDING_MODEL as string
     }
 }
 

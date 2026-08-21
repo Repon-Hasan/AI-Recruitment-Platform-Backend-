@@ -19,6 +19,7 @@ model CandidateProfile {
   @@map("candidate_profile")
   skillGapAnalyses SkillGapAnalysis[]
   jobMatches JobMatch[]
+  jobApplications JobApplication[]
 }
 
 model CandidateSkill {
