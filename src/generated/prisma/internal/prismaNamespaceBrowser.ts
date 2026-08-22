@@ -67,6 +67,8 @@ export const ModelName = {
   SkillGapAnalysis: 'SkillGapAnalysis',
   JobApplication: 'JobApplication',
   ApplicationStatusHistory: 'ApplicationStatusHistory',
+  InterviewSession: 'InterviewSession',
+  InterviewAnswer: 'InterviewAnswer',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
   ResumeSummary: 'ResumeSummary'
@@ -311,6 +313,39 @@ export const ApplicationStatusHistoryScalarFieldEnum = {
 } as const
 
 export type ApplicationStatusHistoryScalarFieldEnum = (typeof ApplicationStatusHistoryScalarFieldEnum)[keyof typeof ApplicationStatusHistoryScalarFieldEnum]
+
+
+export const InterviewSessionScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  jobId: 'jobId',
+  experienceLevel: 'experienceLevel',
+  interviewType: 'interviewType',
+  currentQuestion: 'currentQuestion',
+  status: 'status',
+  overallScore: 'overallScore',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InterviewSessionScalarFieldEnum = (typeof InterviewSessionScalarFieldEnum)[keyof typeof InterviewSessionScalarFieldEnum]
+
+
+export const InterviewAnswerScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  question: 'question',
+  candidateAnswer: 'candidateAnswer',
+  technicalAccuracy: 'technicalAccuracy',
+  communication: 'communication',
+  confidence: 'confidence',
+  completeness: 'completeness',
+  overallScore: 'overallScore',
+  feedback: 'feedback',
+  createdAt: 'createdAt'
+} as const
+
+export type InterviewAnswerScalarFieldEnum = (typeof InterviewAnswerScalarFieldEnum)[keyof typeof InterviewAnswerScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {

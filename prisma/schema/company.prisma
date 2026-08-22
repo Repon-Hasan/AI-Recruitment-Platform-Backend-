@@ -35,6 +35,7 @@ model Job {
   updatedAt DateTime @updatedAt
 
   @@index([companyId])
+  interviewSessions InterviewSession[]
 }
 
 model JobSkill {

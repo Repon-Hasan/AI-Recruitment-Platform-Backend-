@@ -122,6 +122,16 @@ export type JobApplication = Prisma.JobApplicationModel
  */
 export type ApplicationStatusHistory = Prisma.ApplicationStatusHistoryModel
 /**
+ * Model InterviewSession
+ * 
+ */
+export type InterviewSession = Prisma.InterviewSessionModel
+/**
+ * Model InterviewAnswer
+ * 
+ */
+export type InterviewAnswer = Prisma.InterviewAnswerModel
+/**
  * Model Resume
  * 
  */

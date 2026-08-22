@@ -1,0 +1,40 @@
+model InterviewSession {
+  id                String   @id @default(uuid())
+  candidateProfileId String
+  jobId             String
+
+  experienceLevel   String
+  interviewType     String
+
+  currentQuestion   Int      @default(0)
+  status            String   @default("IN_PROGRESS")
+
+  overallScore      Float?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+   job                 Job      @relation(fields: [jobId], references: [id])
+  answers           InterviewAnswer[]
+}
+
+model InterviewAnswer {
+  id             String   @id @default(uuid())
+
+  sessionId      String
+  question       String
+  candidateAnswer String
+
+  technicalAccuracy Float?
+  communication     Float?
+  confidence        Float?
+  completeness      Float?
+  overallScore      Float?
+
+  feedback       String?
+
+  createdAt      DateTime @default(now())
+
+  session InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
