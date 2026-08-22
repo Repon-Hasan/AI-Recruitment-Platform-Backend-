@@ -191,7 +191,6 @@ Return ONLY JSON:
     model: "gemini-3.6-flash",
     contents: prompt,
   });
-
   const text = response.text;
 
   if (!text) {

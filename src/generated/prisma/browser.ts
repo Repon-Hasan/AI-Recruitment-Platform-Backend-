@@ -108,6 +108,11 @@ export type InterviewSession = Prisma.InterviewSessionModel
  */
 export type InterviewAnswer = Prisma.InterviewAnswerModel
 /**
+ * Model ApplicationAssistant
+ * 
+ */
+export type ApplicationAssistant = Prisma.ApplicationAssistantModel
+/**
  * Model Resume
  * 
  */

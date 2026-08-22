@@ -13,6 +13,7 @@ import { recruiterApplication } from "../modules/Application/recruter/applicatio
 import { ApplicationStatusHistoryRoutes } from "../modules/applicationStatusHistory/applicationStatusHistory.route";
 import { InterviewRouter } from "../modules/AiServices/interview/interview.router";
 import { InterviewPracticesRouter } from "../modules/AiServices/Interview_Practice/interview.router";
+import { ApplicationAssistantRouter } from "../modules/applicationAssistant/applicationAssistant.route";
 
 const router=Router()
 
@@ -29,4 +30,5 @@ router.use("/",recruiterApplication)
 router.use("/",ApplicationStatusHistoryRoutes)
 router.use("/interview",InterviewRouter)
 router.use("/interviewPractices",InterviewPracticesRouter)
+router.use("/application-assistant",ApplicationAssistantRouter)
 export const indexRoutes=router;

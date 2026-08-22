@@ -36,6 +36,7 @@ model Job {
 
   @@index([companyId])
   interviewSessions InterviewSession[]
+  applicationAssistants ApplicationAssistant[]
 }
 
 model JobSkill {

@@ -69,6 +69,7 @@ export const ModelName = {
   ApplicationStatusHistory: 'ApplicationStatusHistory',
   InterviewSession: 'InterviewSession',
   InterviewAnswer: 'InterviewAnswer',
+  ApplicationAssistant: 'ApplicationAssistant',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
   ResumeSummary: 'ResumeSummary'
@@ -346,6 +347,23 @@ export const InterviewAnswerScalarFieldEnum = {
 } as const
 
 export type InterviewAnswerScalarFieldEnum = (typeof InterviewAnswerScalarFieldEnum)[keyof typeof InterviewAnswerScalarFieldEnum]
+
+
+export const ApplicationAssistantScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  jobId: 'jobId',
+  resumeId: 'resumeId',
+  matchScore: 'matchScore',
+  recommendation: 'recommendation',
+  missingSkills: 'missingSkills',
+  suggestions: 'suggestions',
+  applicationTips: 'applicationTips',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApplicationAssistantScalarFieldEnum = (typeof ApplicationAssistantScalarFieldEnum)[keyof typeof ApplicationAssistantScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {

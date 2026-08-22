@@ -20,6 +20,7 @@ model CandidateProfile {
   skillGapAnalyses SkillGapAnalysis[]
   jobMatches JobMatch[]
   jobApplications JobApplication[]
+  applicationAssistants ApplicationAssistant[]
 }
 
 model CandidateSkill {

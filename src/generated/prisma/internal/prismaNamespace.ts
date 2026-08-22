@@ -415,6 +415,7 @@ export const ModelName = {
   ApplicationStatusHistory: 'ApplicationStatusHistory',
   InterviewSession: 'InterviewSession',
   InterviewAnswer: 'InterviewAnswer',
+  ApplicationAssistant: 'ApplicationAssistant',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
   ResumeSummary: 'ResumeSummary'
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "resume" | "resumeAnalysis" | "resumeSummary"
+    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeSummary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1769,6 +1770,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApplicationAssistant: {
+      payload: Prisma.$ApplicationAssistantPayload<ExtArgs>
+      fields: Prisma.ApplicationAssistantFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApplicationAssistantFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApplicationAssistantFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        findFirst: {
+          args: Prisma.ApplicationAssistantFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApplicationAssistantFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        findMany: {
+          args: Prisma.ApplicationAssistantFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>[]
+        }
+        create: {
+          args: Prisma.ApplicationAssistantCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        createMany: {
+          args: Prisma.ApplicationAssistantCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApplicationAssistantCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>[]
+        }
+        delete: {
+          args: Prisma.ApplicationAssistantDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        update: {
+          args: Prisma.ApplicationAssistantUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApplicationAssistantDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApplicationAssistantUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApplicationAssistantUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApplicationAssistantUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationAssistantPayload>
+        }
+        aggregate: {
+          args: Prisma.ApplicationAssistantAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApplicationAssistant>
+        }
+        groupBy: {
+          args: Prisma.ApplicationAssistantGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationAssistantGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApplicationAssistantCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationAssistantCountAggregateOutputType> | number
+        }
+      }
+    }
     Resume: {
       payload: Prisma.$ResumePayload<ExtArgs>
       fields: Prisma.ResumeFieldRefs
@@ -2288,6 +2363,23 @@ export const InterviewAnswerScalarFieldEnum = {
 export type InterviewAnswerScalarFieldEnum = (typeof InterviewAnswerScalarFieldEnum)[keyof typeof InterviewAnswerScalarFieldEnum]
 
 
+export const ApplicationAssistantScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  jobId: 'jobId',
+  resumeId: 'resumeId',
+  matchScore: 'matchScore',
+  recommendation: 'recommendation',
+  missingSkills: 'missingSkills',
+  suggestions: 'suggestions',
+  applicationTips: 'applicationTips',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApplicationAssistantScalarFieldEnum = (typeof ApplicationAssistantScalarFieldEnum)[keyof typeof ApplicationAssistantScalarFieldEnum]
+
+
 export const ResumeScalarFieldEnum = {
   id: 'id',
   candidateId: 'candidateId',
@@ -2677,6 +2769,7 @@ export type GlobalOmitConfig = {
   applicationStatusHistory?: Prisma.ApplicationStatusHistoryOmit
   interviewSession?: Prisma.InterviewSessionOmit
   interviewAnswer?: Prisma.InterviewAnswerOmit
+  applicationAssistant?: Prisma.ApplicationAssistantOmit
   resume?: Prisma.ResumeOmit
   resumeAnalysis?: Prisma.ResumeAnalysisOmit
   resumeSummary?: Prisma.ResumeSummaryOmit

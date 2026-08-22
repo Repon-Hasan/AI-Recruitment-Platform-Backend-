@@ -27,7 +27,11 @@ export const checkAuth = (...authRoles: Role[]) => async (req: Request, res: Res
                     }
                 },
                 include: {
-                    user: true,
+                    user: {
+                        include: {
+                            candidateProfile: true,
+                        },
+                    },
                 }
             })
 
@@ -67,6 +71,7 @@ export const checkAuth = (...authRoles: Role[]) => async (req: Request, res: Res
                     userId: user.id,
                     role: user.role,
                     email: user.email,
+                    candidateProfile: user.candidateProfile,
                 }
             }
 
@@ -101,6 +106,7 @@ export const checkAuth = (...authRoles: Role[]) => async (req: Request, res: Res
             userId: verifiedToken.data!.userId,
             role: verifiedToken.data!.role,
             email: verifiedToken.data!.email,
+            candidateProfile: verifiedToken.data!.candidateProfile,
         };
 
         next()
