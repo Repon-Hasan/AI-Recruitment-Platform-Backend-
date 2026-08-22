@@ -412,6 +412,7 @@ export const ModelName = {
   JobMatch: 'JobMatch',
   SkillGapAnalysis: 'SkillGapAnalysis',
   JobApplication: 'JobApplication',
+  ApplicationStatusHistory: 'ApplicationStatusHistory',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
   ResumeSummary: 'ResumeSummary'
@@ -430,7 +431,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "resume" | "resumeAnalysis" | "resumeSummary"
+    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "resume" | "resumeAnalysis" | "resumeSummary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1544,6 +1545,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApplicationStatusHistory: {
+      payload: Prisma.$ApplicationStatusHistoryPayload<ExtArgs>
+      fields: Prisma.ApplicationStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApplicationStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApplicationStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ApplicationStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApplicationStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ApplicationStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ApplicationStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ApplicationStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApplicationStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ApplicationStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.ApplicationStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApplicationStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApplicationStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApplicationStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApplicationStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ApplicationStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApplicationStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.ApplicationStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApplicationStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationStatusHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
     Resume: {
       payload: Prisma.$ResumePayload<ExtArgs>
       fields: Prisma.ResumeFieldRefs
@@ -2010,10 +2085,24 @@ export const JobApplicationScalarFieldEnum = {
   id: 'id',
   candidateProfileId: 'candidateProfileId',
   jobId: 'jobId',
-  createdAt: 'createdAt'
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
+
+
+export const ApplicationStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  changedById: 'changedById',
+  changedAt: 'changedAt'
+} as const
+
+export type ApplicationStatusHistoryScalarFieldEnum = (typeof ApplicationStatusHistoryScalarFieldEnum)[keyof typeof ApplicationStatusHistoryScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {
@@ -2222,6 +2311,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
+
+/**
+ * Reference to a field of type 'ApplicationStatus'
+ */
+export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ApplicationStatus[]'
+ */
+export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2388,6 +2491,7 @@ export type GlobalOmitConfig = {
   jobMatch?: Prisma.JobMatchOmit
   skillGapAnalysis?: Prisma.SkillGapAnalysisOmit
   jobApplication?: Prisma.JobApplicationOmit
+  applicationStatusHistory?: Prisma.ApplicationStatusHistoryOmit
   resume?: Prisma.ResumeOmit
   resumeAnalysis?: Prisma.ResumeAnalysisOmit
   resumeSummary?: Prisma.ResumeSummaryOmit

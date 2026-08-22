@@ -117,6 +117,11 @@ export type SkillGapAnalysis = Prisma.SkillGapAnalysisModel
  */
 export type JobApplication = Prisma.JobApplicationModel
 /**
+ * Model ApplicationStatusHistory
+ * 
+ */
+export type ApplicationStatusHistory = Prisma.ApplicationStatusHistoryModel
+/**
  * Model Resume
  * 
  */

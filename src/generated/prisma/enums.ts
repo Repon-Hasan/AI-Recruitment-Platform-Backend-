@@ -25,3 +25,17 @@ export const UserStatus = {
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const ApplicationStatus = {
+  APPLIED: 'APPLIED',
+  SCREENING: 'SCREENING',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEW: 'INTERVIEW',
+  OFFER: 'OFFER',
+  HIRED: 'HIRED',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]

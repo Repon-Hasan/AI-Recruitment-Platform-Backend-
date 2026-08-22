@@ -8,6 +8,8 @@ import { jobRouters } from "../modules/company/createJob/job.route";
 import { jobSkillRouters } from "../modules/company/jobSkills/job.router";
 import { skillGapRouter } from "../modules/skillGap/skillGap.routes";
 import { jobMatchRouter } from "../modules/jobMatched/job.router";
+import { candidateApplication } from "../modules/Application/candidate/application.router";
+import { recruiterApplication } from "../modules/Application/recruter/application.router";
 
 const router=Router()
 
@@ -19,4 +21,6 @@ router.use("/job",jobRouters)
 router.use("/skill",jobSkillRouters)
 router.use("/skill-gap",skillGapRouter)
 router.use("/job-matches",jobMatchRouter)
+router.use("/candidate",candidateApplication)
+router.use("/",recruiterApplication)
 export const indexRoutes=router;
