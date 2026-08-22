@@ -34,7 +34,8 @@ interface EnvConfig {
     };
     GROQ_API_KEY:string;
    OPENROUTER_API_KEY:string;
-   OPENROUTER_EMBEDDING_MODEL:string
+   OPENROUTER_EMBEDDING_MODEL:string;
+   GEMINI_API_KEY:string
 
 }
 
@@ -66,7 +67,8 @@ const loadEnvVariables = (): EnvConfig => {
         'CLOUDINARY_API_SECRET',
         'GROQ_API_KEY',
         'OPENROUTER_API_KEY',
-        'OPENROUTER_EMBEDDING_MODEL'
+        'OPENROUTER_EMBEDDING_MODEL',
+        'GEMINI_API_KEY'
     ]
 
     requireEnvVariable.forEach((variable) => {
@@ -105,7 +107,8 @@ const loadEnvVariables = (): EnvConfig => {
         },
         GROQ_API_KEY: process.env.GROQ_API_KEY as string,
         OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY as string,
-        OPENROUTER_EMBEDDING_MODEL:process.env.OPENROUTER_EMBEDDING_MODEL as string
+        OPENROUTER_EMBEDDING_MODEL:process.env.OPENROUTER_EMBEDDING_MODEL as string,
+        GEMINI_API_KEY:process.env.GEMINI_API_KEY as string
     }
 }
 

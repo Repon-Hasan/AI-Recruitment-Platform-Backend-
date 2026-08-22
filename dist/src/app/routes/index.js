@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import { authRouters } from "../modules/Auth/auth.routes";
 import { candidateRoutes } from "../modules/candidate/candidate.route";
@@ -11,20 +10,16 @@ import { jobMatchRouter } from "../modules/jobMatched/job.router";
 import { candidateApplication } from "../modules/Application/candidate/application.router";
 import { recruiterApplication } from "../modules/Application/recruter/application.router";
 import { ApplicationStatusHistoryRoutes } from "../modules/applicationStatusHistory/applicationStatusHistory.route";
-import { InterviewRouter } from "../modules/AiServices/interview/interview.router";
-
-const router=Router()
-
-router.use("/auth",authRouters)
-router.use("/candidates",candidateRoutes)
-router.use("/resume",resumeRouter)
-router.use("/company",companyRouter)
-router.use("/job",jobRouters)
-router.use("/skill",jobSkillRouters)
-router.use("/skill-gap",skillGapRouter)
-router.use("/job-matches",jobMatchRouter)
-router.use("/candidate",candidateApplication)
-router.use("/",recruiterApplication)
-router.use("/",ApplicationStatusHistoryRoutes)
-router.use("/interview",InterviewRouter)
-export const indexRoutes=router;
+const router = Router();
+router.use("/auth", authRouters);
+router.use("/candidates", candidateRoutes);
+router.use("/resume", resumeRouter);
+router.use("/company", companyRouter);
+router.use("/job", jobRouters);
+router.use("/skill", jobSkillRouters);
+router.use("/skill-gap", skillGapRouter);
+router.use("/job-matches", jobMatchRouter);
+router.use("/candidate", candidateApplication);
+router.use("/", recruiterApplication);
+router.use("/", ApplicationStatusHistoryRoutes);
+export const indexRoutes = router;
