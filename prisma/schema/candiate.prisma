@@ -1,3 +1,4 @@
+
 model CandidateProfile {
   id             String                   @id @default(uuid())
   userId         String                   @unique
@@ -21,6 +22,21 @@ model CandidateProfile {
   jobMatches JobMatch[]
   jobApplications JobApplication[]
   applicationAssistants ApplicationAssistant[]
+  candidateEmbeddings CandidateEmbedding?
+}
+
+model CandidateEmbedding {
+  id                  String          @id @default(uuid())
+  candidateProfileId  String          @unique
+
+  candidateProfile    CandidateProfile @relation(fields: [candidateProfileId], references: [id], onDelete: Cascade)
+
+  embedding           Unsupported("vector(2048)")?
+
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  @@map("candidate_embeddings")
 }
 
 model CandidateSkill {

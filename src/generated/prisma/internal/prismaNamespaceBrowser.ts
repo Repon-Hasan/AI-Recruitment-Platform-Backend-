@@ -56,6 +56,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   CandidateProfile: 'CandidateProfile',
+  CandidateEmbedding: 'CandidateEmbedding',
   CandidateSkill: 'CandidateSkill',
   CandidateEducation: 'CandidateEducation',
   CandidateProject: 'CandidateProject',
@@ -168,6 +169,16 @@ export const CandidateProfileScalarFieldEnum = {
 } as const
 
 export type CandidateProfileScalarFieldEnum = (typeof CandidateProfileScalarFieldEnum)[keyof typeof CandidateProfileScalarFieldEnum]
+
+
+export const CandidateEmbeddingScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CandidateEmbeddingScalarFieldEnum = (typeof CandidateEmbeddingScalarFieldEnum)[keyof typeof CandidateEmbeddingScalarFieldEnum]
 
 
 export const CandidateSkillScalarFieldEnum = {

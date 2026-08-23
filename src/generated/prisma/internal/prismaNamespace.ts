@@ -402,6 +402,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   CandidateProfile: 'CandidateProfile',
+  CandidateEmbedding: 'CandidateEmbedding',
   CandidateSkill: 'CandidateSkill',
   CandidateEducation: 'CandidateEducation',
   CandidateProject: 'CandidateProject',
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeSummary"
+    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateEmbedding" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeSummary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -805,6 +806,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CandidateProfileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CandidateProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    CandidateEmbedding: {
+      payload: Prisma.$CandidateEmbeddingPayload<ExtArgs>
+      fields: Prisma.CandidateEmbeddingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CandidateEmbeddingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CandidateEmbeddingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        findFirst: {
+          args: Prisma.CandidateEmbeddingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CandidateEmbeddingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        findMany: {
+          args: Prisma.CandidateEmbeddingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>[]
+        }
+        create: {
+          args: Prisma.CandidateEmbeddingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        createMany: {
+          args: Prisma.CandidateEmbeddingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CandidateEmbeddingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>[]
+        }
+        delete: {
+          args: Prisma.CandidateEmbeddingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        update: {
+          args: Prisma.CandidateEmbeddingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        deleteMany: {
+          args: Prisma.CandidateEmbeddingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CandidateEmbeddingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CandidateEmbeddingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>[]
+        }
+        upsert: {
+          args: Prisma.CandidateEmbeddingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CandidateEmbeddingPayload>
+        }
+        aggregate: {
+          args: Prisma.CandidateEmbeddingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCandidateEmbedding>
+        }
+        groupBy: {
+          args: Prisma.CandidateEmbeddingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CandidateEmbeddingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CandidateEmbeddingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CandidateEmbeddingCountAggregateOutputType> | number
         }
       }
     }
@@ -2184,6 +2259,16 @@ export const CandidateProfileScalarFieldEnum = {
 export type CandidateProfileScalarFieldEnum = (typeof CandidateProfileScalarFieldEnum)[keyof typeof CandidateProfileScalarFieldEnum]
 
 
+export const CandidateEmbeddingScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CandidateEmbeddingScalarFieldEnum = (typeof CandidateEmbeddingScalarFieldEnum)[keyof typeof CandidateEmbeddingScalarFieldEnum]
+
+
 export const CandidateSkillScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2756,6 +2841,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
   candidateProfile?: Prisma.CandidateProfileOmit
+  candidateEmbedding?: Prisma.CandidateEmbeddingOmit
   candidateSkill?: Prisma.CandidateSkillOmit
   candidateEducation?: Prisma.CandidateEducationOmit
   candidateProject?: Prisma.CandidateProjectOmit

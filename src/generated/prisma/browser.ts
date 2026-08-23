@@ -43,6 +43,11 @@ export type Verification = Prisma.VerificationModel
  */
 export type CandidateProfile = Prisma.CandidateProfileModel
 /**
+ * Model CandidateEmbedding
+ * 
+ */
+export type CandidateEmbedding = Prisma.CandidateEmbeddingModel
+/**
  * Model CandidateSkill
  * 
  */
