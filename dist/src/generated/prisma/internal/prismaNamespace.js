@@ -72,6 +72,7 @@ export const ModelName = {
     Account: 'Account',
     Verification: 'Verification',
     CandidateProfile: 'CandidateProfile',
+    CandidateEmbedding: 'CandidateEmbedding',
     CandidateSkill: 'CandidateSkill',
     CandidateEducation: 'CandidateEducation',
     CandidateProject: 'CandidateProject',
@@ -83,6 +84,9 @@ export const ModelName = {
     SkillGapAnalysis: 'SkillGapAnalysis',
     JobApplication: 'JobApplication',
     ApplicationStatusHistory: 'ApplicationStatusHistory',
+    InterviewSession: 'InterviewSession',
+    InterviewAnswer: 'InterviewAnswer',
+    ApplicationAssistant: 'ApplicationAssistant',
     Resume: 'Resume',
     ResumeAnalysis: 'ResumeAnalysis',
     ResumeSummary: 'ResumeSummary'
@@ -152,6 +156,12 @@ export const CandidateProfileScalarFieldEnum = {
     linkedin: 'linkedin',
     github: 'github',
     portfolio: 'portfolio',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const CandidateEmbeddingScalarFieldEnum = {
+    id: 'id',
+    candidateProfileId: 'candidateProfileId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -256,6 +266,44 @@ export const ApplicationStatusHistoryScalarFieldEnum = {
     newStatus: 'newStatus',
     changedById: 'changedById',
     changedAt: 'changedAt'
+};
+export const InterviewSessionScalarFieldEnum = {
+    id: 'id',
+    candidateProfileId: 'candidateProfileId',
+    jobId: 'jobId',
+    experienceLevel: 'experienceLevel',
+    interviewType: 'interviewType',
+    currentQuestion: 'currentQuestion',
+    status: 'status',
+    overallScore: 'overallScore',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const InterviewAnswerScalarFieldEnum = {
+    id: 'id',
+    sessionId: 'sessionId',
+    question: 'question',
+    candidateAnswer: 'candidateAnswer',
+    technicalAccuracy: 'technicalAccuracy',
+    communication: 'communication',
+    confidence: 'confidence',
+    completeness: 'completeness',
+    overallScore: 'overallScore',
+    feedback: 'feedback',
+    createdAt: 'createdAt'
+};
+export const ApplicationAssistantScalarFieldEnum = {
+    id: 'id',
+    candidateProfileId: 'candidateProfileId',
+    jobId: 'jobId',
+    resumeId: 'resumeId',
+    matchScore: 'matchScore',
+    recommendation: 'recommendation',
+    missingSkills: 'missingSkills',
+    suggestions: 'suggestions',
+    applicationTips: 'applicationTips',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const ResumeScalarFieldEnum = {
     id: 'id',

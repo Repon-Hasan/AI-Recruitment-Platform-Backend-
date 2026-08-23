@@ -419,6 +419,7 @@ export const ModelName = {
   ApplicationAssistant: 'ApplicationAssistant',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
+  ResumeChunk: 'ResumeChunk',
   ResumeSummary: 'ResumeSummary'
 } as const
 
@@ -435,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateEmbedding" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeSummary"
+    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateEmbedding" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeChunk" | "resumeSummary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2067,6 +2068,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ResumeChunk: {
+      payload: Prisma.$ResumeChunkPayload<ExtArgs>
+      fields: Prisma.ResumeChunkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ResumeChunkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ResumeChunkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        findFirst: {
+          args: Prisma.ResumeChunkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ResumeChunkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        findMany: {
+          args: Prisma.ResumeChunkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>[]
+        }
+        create: {
+          args: Prisma.ResumeChunkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        createMany: {
+          args: Prisma.ResumeChunkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ResumeChunkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>[]
+        }
+        delete: {
+          args: Prisma.ResumeChunkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        update: {
+          args: Prisma.ResumeChunkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        deleteMany: {
+          args: Prisma.ResumeChunkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ResumeChunkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ResumeChunkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>[]
+        }
+        upsert: {
+          args: Prisma.ResumeChunkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumeChunkPayload>
+        }
+        aggregate: {
+          args: Prisma.ResumeChunkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateResumeChunk>
+        }
+        groupBy: {
+          args: Prisma.ResumeChunkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResumeChunkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ResumeChunkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResumeChunkCountAggregateOutputType> | number
+        }
+      }
+    }
     ResumeSummary: {
       payload: Prisma.$ResumeSummaryPayload<ExtArgs>
       fields: Prisma.ResumeSummaryFieldRefs
@@ -2502,6 +2577,17 @@ export const ResumeAnalysisScalarFieldEnum = {
 export type ResumeAnalysisScalarFieldEnum = (typeof ResumeAnalysisScalarFieldEnum)[keyof typeof ResumeAnalysisScalarFieldEnum]
 
 
+export const ResumeChunkScalarFieldEnum = {
+  id: 'id',
+  resumeId: 'resumeId',
+  chunkText: 'chunkText',
+  chunkIndex: 'chunkIndex',
+  createdAt: 'createdAt'
+} as const
+
+export type ResumeChunkScalarFieldEnum = (typeof ResumeChunkScalarFieldEnum)[keyof typeof ResumeChunkScalarFieldEnum]
+
+
 export const ResumeSummaryScalarFieldEnum = {
   id: 'id',
   resumeId: 'resumeId',
@@ -2858,6 +2944,7 @@ export type GlobalOmitConfig = {
   applicationAssistant?: Prisma.ApplicationAssistantOmit
   resume?: Prisma.ResumeOmit
   resumeAnalysis?: Prisma.ResumeAnalysisOmit
+  resumeChunk?: Prisma.ResumeChunkOmit
   resumeSummary?: Prisma.ResumeSummaryOmit
 }
 

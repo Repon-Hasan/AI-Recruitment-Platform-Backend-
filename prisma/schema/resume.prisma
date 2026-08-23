@@ -12,6 +12,7 @@ model Resume {
   updatedAt   DateTime         @updatedAt
   summary     ResumeSummary?
   analysis    ResumeAnalysis?
+  chunks      ResumeChunk[]
   candidate   CandidateProfile @relation(fields: [candidateId], references: [id], onDelete: Cascade)
   embedding Unsupported("vector(2048)")?
   @@map("resumes")
@@ -35,4 +36,20 @@ model ResumeAnalysis {
   resume              Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("resume_analysis")
+}
+
+model ResumeChunk {
+  id        String   @id @default(uuid())
+  resumeId  String
+  chunkText String
+  chunkIndex Int
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  embedding Unsupported("vector(2048)")?
+
+  createdAt DateTime @default(now())
+
+  @@index([resumeId])
+  @@map("resume_chunks")
 }

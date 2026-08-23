@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { resumeServices } from "./resume.service";
 import { analyzeResumeWithAI } from "./resume.analysis";
+import { sendResponse } from "../../shared/sendResponse";
+import status from "http-status";
+import { ingestResume as ingestResumeFromService } from "./ingestion.service";
 
  const uploadResume = async (
   req: Request,
@@ -185,8 +188,29 @@ const analyze = async (
   }
 };
 
+const ingestResume = async (
+  req: Request,
+  res: Response
+) => {
+  const resumeId = Array.isArray(req.params.resumeId)
+    ? req.params.resumeId[0]
+    : req.params.resumeId;
+
+    // console.log("ResumeId",resumeId)
+
+  const result =
+    await ingestResumeFromService(resumeId);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message:
+      "Resume ingested successfully",
+    data: result,
+  });
+};
 
 
 export const resumeController={
-    uploadResume,getMyResumes,getResume,deleteResume,analyze,getAnalysis
+    uploadResume,getMyResumes,getResume,deleteResume,analyze,getAnalysis,ingestResume
 }

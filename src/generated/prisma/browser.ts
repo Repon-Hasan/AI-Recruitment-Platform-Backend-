@@ -128,6 +128,11 @@ export type Resume = Prisma.ResumeModel
  */
 export type ResumeAnalysis = Prisma.ResumeAnalysisModel
 /**
+ * Model ResumeChunk
+ * 
+ */
+export type ResumeChunk = Prisma.ResumeChunkModel
+/**
  * Model ResumeSummary
  * 
  */

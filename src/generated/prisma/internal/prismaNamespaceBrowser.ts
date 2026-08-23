@@ -73,6 +73,7 @@ export const ModelName = {
   ApplicationAssistant: 'ApplicationAssistant',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
+  ResumeChunk: 'ResumeChunk',
   ResumeSummary: 'ResumeSummary'
 } as const
 
@@ -412,6 +413,17 @@ export const ResumeAnalysisScalarFieldEnum = {
 } as const
 
 export type ResumeAnalysisScalarFieldEnum = (typeof ResumeAnalysisScalarFieldEnum)[keyof typeof ResumeAnalysisScalarFieldEnum]
+
+
+export const ResumeChunkScalarFieldEnum = {
+  id: 'id',
+  resumeId: 'resumeId',
+  chunkText: 'chunkText',
+  chunkIndex: 'chunkIndex',
+  createdAt: 'createdAt'
+} as const
+
+export type ResumeChunkScalarFieldEnum = (typeof ResumeChunkScalarFieldEnum)[keyof typeof ResumeChunkScalarFieldEnum]
 
 
 export const ResumeSummaryScalarFieldEnum = {

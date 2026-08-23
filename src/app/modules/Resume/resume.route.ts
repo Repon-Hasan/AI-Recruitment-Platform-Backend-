@@ -5,6 +5,7 @@ import { Router } from "express";
 import { uploadResume } from "../../middleware/uploadResume";
 import { checkAuth } from "../../middleware/checkAuth";
 import { resumeController } from "./resume.controller";
+import { askRecruiterAIController } from "../recruiter-rag/recruiter-ai.controller";
 
 const router = Router();
 
@@ -42,6 +43,14 @@ router.get(
 );
 
 //Summery
+router.post(
+  "/:resumeId/ingest",
+  resumeController.ingestResume
+);
  
+router.post(
+  "/ask",
+  askRecruiterAIController
+);
 
 export const resumeRouter=router

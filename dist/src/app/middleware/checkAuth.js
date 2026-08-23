@@ -21,7 +21,11 @@ export const checkAuth = (...authRoles) => async (req, res, next) => {
                     }
                 },
                 include: {
-                    user: true,
+                    user: {
+                        include: {
+                            candidateProfile: true,
+                        },
+                    },
                 }
             });
             if (sessionExists && sessionExists.user) {
@@ -52,6 +56,7 @@ export const checkAuth = (...authRoles) => async (req, res, next) => {
                     userId: user.id,
                     role: user.role,
                     email: user.email,
+                    candidateProfile: user.candidateProfile,
                 };
             }
             const accessToken = CookieUtils.getCookie(req, 'accessToken');
@@ -76,6 +81,7 @@ export const checkAuth = (...authRoles) => async (req, res, next) => {
             userId: verifiedToken.data.userId,
             role: verifiedToken.data.role,
             email: verifiedToken.data.email,
+            candidateProfile: verifiedToken.data.candidateProfile,
         };
         next();
     }
