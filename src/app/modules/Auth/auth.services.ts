@@ -8,13 +8,32 @@ import { Role, UserStatus } from "../../../generated/prisma/enums";
 import { jwtUtils } from "../../utlis/jwt";
 import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
+import { deleteFileFromCloudinary, uploadFileToCloudinary } from "../../config/cloudnary.config";
 
-const registerUser=async(payload:IRegisterPatientPayload)=>{
+const registerUser=async(payload:IRegisterPatientPayload, file?: Express.Multer.File)=>{
 
         const {name,email,password,role}=payload
+
+          // ==========================================
+  // 1. Upload Image
+  // ==========================================
+
+  let imageUrl: string | undefined;
+
+  if (file) {
+
+    const uploadedImage =
+      await uploadFileToCloudinary(
+        file.buffer,
+        file.originalname
+      );
+
+    imageUrl =
+      uploadedImage.secure_url;
+  }
         const data=await auth.api.signUpEmail({
            body:{
-            name,email,password,role 
+            name,email,password,role,image: imageUrl
            }
         })
 //console.log(data)
@@ -379,6 +398,257 @@ const googleLoginSuccess = async (session : Record<string, any>) =>{
     }
 }
 
+
+// ==========================================
+// Change User Status
+// ==========================================
+
+const changeUserStatus = async (
+  userId: string,
+  userStatus: UserStatus
+) => {
+
+  // ----------------------------------------
+  // Validate status
+  // ----------------------------------------
+
+  if (
+    !Object.values(UserStatus).includes(
+      userStatus
+    )
+  ) {
+
+    throw new AppError(
+      status.BAD_REQUEST,
+      "Invalid user status"
+    );
+
+  }
+
+
+  // ----------------------------------------
+  // Find user
+  // ----------------------------------------
+
+  const user = await prisma.user.findUnique({
+
+    where: {
+      id: userId,
+    },
+
+    select: {
+      id: true,
+      role: true,
+      status: true,
+      isDeleted: true,
+    },
+
+  });
+
+
+  if (!user) {
+
+    throw new AppError(
+      status.NOT_FOUND,
+      "User not found"
+    );
+
+  }
+
+
+  if (user.isDeleted) {
+
+    throw new AppError(
+      status.BAD_REQUEST,
+      "User has already been deleted"
+    );
+
+  }
+
+
+  // ----------------------------------------
+  // Update status
+  // ----------------------------------------
+
+  const updatedUser =
+    await prisma.user.update({
+
+      where: {
+        id: userId,
+      },
+
+      data: {
+        status: userStatus,
+      },
+
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        status: true,
+        image: true,
+        updatedAt: true,
+      },
+
+    });
+
+
+  return updatedUser;
+};
+
+
+// ==========================================
+// Delete User
+// ==========================================
+
+const deleteUser = async (
+  userId: string
+) => {
+
+  // ----------------------------------------
+  // Find User
+  // ----------------------------------------
+
+  const user = await prisma.user.findUnique({
+
+    where: {
+      id: userId,
+    },
+
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      image: true,
+    },
+
+  });
+
+
+  if (!user) {
+
+    throw new AppError(
+      status.NOT_FOUND,
+      "User not found"
+    );
+
+  }
+
+
+  // ----------------------------------------
+  // Don't allow admin to delete himself
+  // ----------------------------------------
+
+  if (user.role === "ADMIN") {
+
+    throw new AppError(
+      status.FORBIDDEN,
+      "Admin user cannot be deleted"
+    );
+
+  }
+
+
+  // ----------------------------------------
+  // Delete from Database
+  // ----------------------------------------
+
+  await prisma.$transaction(
+    async (tx) => {
+
+      // CandidateProfile
+      await tx.candidateProfile.deleteMany({
+
+        where: {
+          userId,
+        },
+
+      });
+
+
+      // Company
+      await tx.company.deleteMany({
+
+        where: {
+          userId,
+        },
+
+      });
+
+
+      // Sessions
+      await tx.session.deleteMany({
+
+        where: {
+          userId,
+        },
+
+      });
+
+
+      // Accounts
+      await tx.account.deleteMany({
+
+        where: {
+          userId,
+        },
+
+      });
+
+
+      // Finally delete User
+      await tx.user.delete({
+
+        where: {
+          id: userId,
+        },
+
+      });
+
+    }
+  );
+
+
+  // ----------------------------------------
+  // Delete Cloudinary Image
+  // ----------------------------------------
+
+  if (user.image) {
+
+    try {
+
+      await deleteFileFromCloudinary(
+        user.image
+      );
+
+    } catch (error) {
+
+      console.error(
+        "User deleted but Cloudinary image deletion failed:",
+        error
+      );
+
+    }
+
+  }
+
+
+  return {
+
+    id: user.id,
+
+    name: user.name,
+
+    email: user.email,
+
+    message:
+      "User and profile image deleted successfully",
+
+  };
+};
+
 export const authServices={
-    registerUser,loginUser,getMe,getNewToken,changePassword,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLoginSuccess
+    registerUser,loginUser,getMe,getNewToken,changePassword,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLoginSuccess,changeUserStatus,deleteUser
 }

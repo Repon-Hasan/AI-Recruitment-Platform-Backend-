@@ -19,9 +19,12 @@ const registerUser = catchAsync(
 
         const payload = req.body;
        // console.log(payload);
-       console.log(payload)
+       //console.log(payload)
 
-        const result = await authServices.registerUser(payload);
+        const result = await authServices.registerUser(
+      payload,
+      req.file
+    );
 
         if (!result || !("accessToken" in result) || !("refreshToken" in result)) {
             return res.status(400).json({
@@ -263,6 +266,73 @@ const handleOAuthError = catchAsync((req: Request, res: Response) => {
     res.redirect(`${envVars.FRONTEND_URL}/login?error=${error}`);
 })
 
+
+// ==========================================
+// Change User Status
+// ==========================================
+
+const changeUserStatus = catchAsync(
+  async (req: Request, res: Response) => {
+
+        const userId = Array.isArray(req.params.userId)
+            ? req.params.userId[0]
+            : req.params.userId;
+
+    const { status: userStatus } = req.body;
+
+    const result =
+      await authServices.changeUserStatus(
+        userId,
+        userStatus
+      );
+
+    sendResponse(res, {
+
+      httpStatusCode: status.OK,
+
+      success: true,
+
+      message: "User status updated successfully",
+
+      data: result,
+
+    });
+
+  }
+);
+
+
+// ==========================================
+// Delete User
+// ==========================================
+
+const deleteUser = catchAsync(
+  async (req: Request, res: Response) => {
+
+        const userId = Array.isArray(req.params.userId)
+            ? req.params.userId[0]
+            : req.params.userId;
+
+    const result =
+      await authServices.deleteUser(
+        userId
+      );
+
+    sendResponse(res, {
+
+      httpStatusCode: status.OK,
+
+      success: true,
+
+      message: "User deleted successfully",
+
+      data: result,
+
+    });
+
+  }
+);
+
 export const authController={
-    registerUser,loginUser,getUser,getNewToken,changePassword,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError
+    registerUser,loginUser,getUser,getNewToken,changePassword,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError,changeUserStatus,deleteUser
 }

@@ -3,10 +3,11 @@ import { authController } from "./auth.controller";
 import { checkAuth } from "../../middleware/checkAuth";
 import { Role } from "../../../generated/prisma/enums";
 import { authServices } from "./auth.services";
+import { multerImageUpload } from "../../config/multer";
 
 const router=Router();
 
-router.post("/register",authController.registerUser)
+router.post("/register",multerImageUpload.single("image"),authController.registerUser)
 router.post("/login",authController.loginUser)
 router.get("/getMe",checkAuth(Role.ADMIN,Role.CANDIDATE,Role.RECRUITER),authController.getUser)
 router.post("/refresh-token", authController.getNewToken)
@@ -20,4 +21,26 @@ router.post("/reset-password", authController.resetPassword)
 router.get("/login/google", authController.googleLogin);
 router.get("/google/success", authController.googleLoginSuccess);
 router.get("/oauth/error", authController.handleOAuthError);
+
+// ==========================================
+// Change User Status
+// ==========================================
+
+router.patch(
+  "/users/:userId/status",
+  checkAuth("ADMIN"),
+  authController.changeUserStatus
+);
+
+
+// ==========================================
+// Permanently Delete User
+// ==========================================
+
+router.delete(
+  "/users/:userId",
+  checkAuth("ADMIN"),
+  authController.deleteUser
+);
+
 export const authRouters=router
