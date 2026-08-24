@@ -20,3 +20,31 @@ enum ApplicationStatus {
   REJECTED
   WITHDRAWN
 }
+
+enum JobStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum RemoteType {
+  ONSITE
+  REMOTE
+  HYBRID
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  FREELANCE
+}
+
+enum ExperienceLevel {
+  ENTRY
+  JUNIOR
+  MID
+  SENIOR
+  LEAD
+}

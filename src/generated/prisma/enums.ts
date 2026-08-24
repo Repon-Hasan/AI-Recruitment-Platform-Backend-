@@ -39,3 +39,43 @@ export const ApplicationStatus = {
 } as const
 
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const JobStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
+
+
+export const RemoteType = {
+  ONSITE: 'ONSITE',
+  REMOTE: 'REMOTE',
+  HYBRID: 'HYBRID'
+} as const
+
+export type RemoteType = (typeof RemoteType)[keyof typeof RemoteType]
+
+
+export const EmploymentType = {
+  FULL_TIME: 'FULL_TIME',
+  PART_TIME: 'PART_TIME',
+  CONTRACT: 'CONTRACT',
+  INTERNSHIP: 'INTERNSHIP',
+  FREELANCE: 'FREELANCE'
+} as const
+
+export type EmploymentType = (typeof EmploymentType)[keyof typeof EmploymentType]
+
+
+export const ExperienceLevel = {
+  ENTRY: 'ENTRY',
+  JUNIOR: 'JUNIOR',
+  MID: 'MID',
+  SENIOR: 'SENIOR',
+  LEAD: 'LEAD'
+} as const
+
+export type ExperienceLevel = (typeof ExperienceLevel)[keyof typeof ExperienceLevel]

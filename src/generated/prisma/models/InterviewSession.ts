@@ -531,14 +531,6 @@ export type InterviewSessionUncheckedUpdateManyWithoutJobNestedInput = {
   deleteMany?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type InterviewSessionCreateNestedOneWithoutAnswersInput = {
   create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutAnswersInput, Prisma.InterviewSessionUncheckedCreateWithoutAnswersInput>
   connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutAnswersInput

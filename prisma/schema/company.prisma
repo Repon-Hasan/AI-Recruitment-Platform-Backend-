@@ -14,29 +14,58 @@ model Company {
 }
 
 model Job {
-  id             String  @id @default(uuid())
-  companyId      String
-  title          String
-  description    String
-  location       String?
-  employmentType String?
+  id          String   @id @default(uuid())
+  companyId   String
+
+  title       String
+  description String
+
+  location    String?
+  image       String?
+
+  remoteType  RemoteType @default(ONSITE)
+
+  employmentType EmploymentType?
+  experienceLevel ExperienceLevel?
+
+  salaryMin   Float?
+  salaryMax   Float?
+  salaryCurrency String? @default("BDT")
+
+  deadline    DateTime?
+
+  status      JobStatus @default(DRAFT)
+
+  publishedAt DateTime?
+  closedAt    DateTime?
 
   requiredSkills JobSkill[]
-  matches        JobMatch[]
+ 
+
+  matches JobMatch[]
 
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   skillGapAnalyses SkillGapAnalysis[]
-  jobApplications  JobApplication[]
+  jobApplications JobApplication[]
 
   embedding Unsupported("vector(2048)")?
+
+  interviewSessions InterviewSession[]
+
+  applicationAssistants ApplicationAssistant[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([companyId])
-  interviewSessions InterviewSession[]
-  applicationAssistants ApplicationAssistant[]
+  @@index([status])
+  @@index([location])
+  @@index([remoteType])
+  @@index([employmentType])
+  @@index([experienceLevel])
+  @@index([deadline])
+  @@index([createdAt])
 }
 
 model JobSkill {

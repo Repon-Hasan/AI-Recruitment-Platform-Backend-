@@ -89,6 +89,7 @@ export const ModelName = {
     ApplicationAssistant: 'ApplicationAssistant',
     Resume: 'Resume',
     ResumeAnalysis: 'ResumeAnalysis',
+    ResumeChunk: 'ResumeChunk',
     ResumeSummary: 'ResumeSummary'
 };
 /**
@@ -333,6 +334,13 @@ export const ResumeAnalysisScalarFieldEnum = {
     missingSkills: 'missingSkills',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const ResumeChunkScalarFieldEnum = {
+    id: 'id',
+    resumeId: 'resumeId',
+    chunkText: 'chunkText',
+    chunkIndex: 'chunkIndex',
+    createdAt: 'createdAt'
 };
 export const ResumeSummaryScalarFieldEnum = {
     id: 'id',

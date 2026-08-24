@@ -2411,7 +2411,17 @@ export const JobScalarFieldEnum = {
   title: 'title',
   description: 'description',
   location: 'location',
+  image: 'image',
+  remoteType: 'remoteType',
   employmentType: 'employmentType',
+  experienceLevel: 'experienceLevel',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  salaryCurrency: 'salaryCurrency',
+  deadline: 'deadline',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  closedAt: 'closedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2731,6 +2741,48 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'RemoteType'
+ */
+export type EnumRemoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RemoteType'>
+    
+
+
+/**
+ * Reference to a field of type 'RemoteType[]'
+ */
+export type ListEnumRemoteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RemoteType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'EmploymentType'
+ */
+export type EnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType'>
+    
+
+
+/**
+ * Reference to a field of type 'EmploymentType[]'
+ */
+export type ListEnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ExperienceLevel'
+ */
+export type EnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'ExperienceLevel[]'
+ */
+export type ListEnumExperienceLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExperienceLevel[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2741,6 +2793,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobStatus'
+ */
+export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JobStatus[]'
+ */
+export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus[]'>
     
 
 

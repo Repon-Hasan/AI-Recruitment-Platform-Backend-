@@ -30,7 +30,8 @@ const loadEnvVariables = () => {
         'GROQ_API_KEY',
         'OPENROUTER_API_KEY',
         'OPENROUTER_EMBEDDING_MODEL',
-        'GEMINI_API_KEY'
+        'GEMINI_API_KEY',
+        'GEMINI_LLM_MODEL'
     ];
     requireEnvVariable.forEach((variable) => {
         if (!process.env[variable]) {
@@ -68,7 +69,8 @@ const loadEnvVariables = () => {
         GROQ_API_KEY: process.env.GROQ_API_KEY,
         OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
         OPENROUTER_EMBEDDING_MODEL: process.env.OPENROUTER_EMBEDDING_MODEL,
-        GEMINI_API_KEY: process.env.GEMINI_API_KEY
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+        GEMINI_LLM_MODEL: process.env.GEMINI_LLM_MODEL
     };
 };
 export const envVars = loadEnvVariables();
