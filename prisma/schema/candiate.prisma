@@ -23,6 +23,7 @@ model CandidateProfile {
   jobApplications JobApplication[]
   applicationAssistants ApplicationAssistant[]
   candidateEmbeddings CandidateEmbedding?
+  reviewComplaints ReviewComplaint[]
 }
 
 model CandidateEmbedding {

@@ -51,6 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  ReviewComplaint: 'ReviewComplaint',
+  Penalty: 'Penalty',
+  ComplaintEvidence: 'ComplaintEvidence',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -91,6 +94,57 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ReviewComplaintScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  jobApplicationId: 'jobApplicationId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  decision: 'decision',
+  adminNote: 'adminNote',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewComplaintScalarFieldEnum = (typeof ReviewComplaintScalarFieldEnum)[keyof typeof ReviewComplaintScalarFieldEnum]
+
+
+export const PenaltyScalarFieldEnum = {
+  id: 'id',
+  complaintId: 'complaintId',
+  companyId: 'companyId',
+  amount: 'amount',
+  currency: 'currency',
+  reason: 'reason',
+  status: 'status',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  dueDate: 'dueDate',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenaltyScalarFieldEnum = (typeof PenaltyScalarFieldEnum)[keyof typeof PenaltyScalarFieldEnum]
+
+
+export const ComplaintEvidenceScalarFieldEnum = {
+  id: 'id',
+  complaintId: 'complaintId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileType: 'fileType',
+  createdAt: 'createdAt'
+} as const
+
+export type ComplaintEvidenceScalarFieldEnum = (typeof ComplaintEvidenceScalarFieldEnum)[keyof typeof ComplaintEvidenceScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -318,6 +372,7 @@ export const JobApplicationScalarFieldEnum = {
   id: 'id',
   candidateProfileId: 'candidateProfileId',
   jobId: 'jobId',
+  coverLetter: 'coverLetter',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

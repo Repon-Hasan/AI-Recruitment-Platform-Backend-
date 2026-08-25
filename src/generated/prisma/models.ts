@@ -8,6 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/ReviewComplaint'
+export type * from './models/Penalty'
+export type * from './models/ComplaintEvidence'
 export type * from './models/User'
 export type * from './models/Session'
 export type * from './models/Account'

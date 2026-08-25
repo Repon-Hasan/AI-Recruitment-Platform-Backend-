@@ -200,6 +200,8 @@ export type CompanyWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
+  penalties?: Prisma.PenaltyListRelationFilter
+  reviewComplaints?: Prisma.ReviewComplaintListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -212,6 +214,8 @@ export type CompanyOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
+  penalties?: Prisma.PenaltyOrderByRelationAggregateInput
+  reviewComplaints?: Prisma.ReviewComplaintOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +231,8 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Company"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
+  penalties?: Prisma.PenaltyListRelationFilter
+  reviewComplaints?: Prisma.ReviewComplaintListRelationFilter
 }, "id" | "userId">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -264,6 +270,8 @@ export type CompanyCreateInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -275,6 +283,8 @@ export type CompanyUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyUncheckedCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -286,6 +296,8 @@ export type CompanyUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -297,6 +309,8 @@ export type CompanyUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -326,6 +340,11 @@ export type CompanyUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CompanyScalarRelationFilter = {
+  is?: Prisma.CompanyWhereInput
+  isNot?: Prisma.CompanyWhereInput
 }
 
 export type CompanyNullableScalarRelationFilter = {
@@ -363,9 +382,32 @@ export type CompanyMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type CompanyScalarRelationFilter = {
-  is?: Prisma.CompanyWhereInput
-  isNot?: Prisma.CompanyWhereInput
+export type CompanyCreateNestedOneWithoutReviewComplaintsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedCreateWithoutReviewComplaintsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutReviewComplaintsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedCreateWithoutReviewComplaintsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutReviewComplaintsInput
+  upsert?: Prisma.CompanyUpsertWithoutReviewComplaintsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutReviewComplaintsInput, Prisma.CompanyUpdateWithoutReviewComplaintsInput>, Prisma.CompanyUncheckedUpdateWithoutReviewComplaintsInput>
+}
+
+export type CompanyCreateNestedOneWithoutPenaltiesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPenaltiesInput, Prisma.CompanyUncheckedCreateWithoutPenaltiesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPenaltiesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPenaltiesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPenaltiesInput, Prisma.CompanyUncheckedCreateWithoutPenaltiesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPenaltiesInput
+  upsert?: Prisma.CompanyUpsertWithoutPenaltiesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPenaltiesInput, Prisma.CompanyUpdateWithoutPenaltiesInput>, Prisma.CompanyUncheckedUpdateWithoutPenaltiesInput>
 }
 
 export type CompanyCreateNestedOneWithoutUserInput = {
@@ -414,6 +456,134 @@ export type CompanyUpdateOneRequiredWithoutJobsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobsInput, Prisma.CompanyUpdateWithoutJobsInput>, Prisma.CompanyUncheckedUpdateWithoutJobsInput>
 }
 
+export type CompanyCreateWithoutReviewComplaintsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  website?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutReviewComplaintsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  website?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutReviewComplaintsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedCreateWithoutReviewComplaintsInput>
+}
+
+export type CompanyUpsertWithoutReviewComplaintsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedUpdateWithoutReviewComplaintsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedCreateWithoutReviewComplaintsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutReviewComplaintsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutReviewComplaintsInput, Prisma.CompanyUncheckedUpdateWithoutReviewComplaintsInput>
+}
+
+export type CompanyUpdateWithoutReviewComplaintsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutReviewComplaintsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPenaltiesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  website?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPenaltiesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  website?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPenaltiesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPenaltiesInput, Prisma.CompanyUncheckedCreateWithoutPenaltiesInput>
+}
+
+export type CompanyUpsertWithoutPenaltiesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPenaltiesInput, Prisma.CompanyUncheckedUpdateWithoutPenaltiesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPenaltiesInput, Prisma.CompanyUncheckedCreateWithoutPenaltiesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPenaltiesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPenaltiesInput, Prisma.CompanyUncheckedUpdateWithoutPenaltiesInput>
+}
+
+export type CompanyUpdateWithoutPenaltiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPenaltiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
 export type CompanyCreateWithoutUserInput = {
   id?: string
   name: string
@@ -422,6 +592,8 @@ export type CompanyCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutUserInput = {
@@ -432,6 +604,8 @@ export type CompanyUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  penalties?: Prisma.PenaltyUncheckedCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutUserInput = {
@@ -458,6 +632,8 @@ export type CompanyUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutUserInput = {
@@ -468,6 +644,8 @@ export type CompanyUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutJobsInput = {
@@ -478,6 +656,8 @@ export type CompanyCreateWithoutJobsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCompanyInput
+  penalties?: Prisma.PenaltyCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutJobsInput = {
@@ -488,6 +668,8 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  penalties?: Prisma.PenaltyUncheckedCreateNestedManyWithoutCompanyInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutJobsInput = {
@@ -514,6 +696,8 @@ export type CompanyUpdateWithoutJobsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCompanyNestedInput
+  penalties?: Prisma.PenaltyUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutJobsInput = {
@@ -524,6 +708,8 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  penalties?: Prisma.PenaltyUncheckedUpdateManyWithoutCompanyNestedInput
+  reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -533,10 +719,14 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
 
 export type CompanyCountOutputType = {
   jobs: number
+  penalties: number
+  reviewComplaints: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobs?: boolean | CompanyCountOutputTypeCountJobsArgs
+  penalties?: boolean | CompanyCountOutputTypeCountPenaltiesArgs
+  reviewComplaints?: boolean | CompanyCountOutputTypeCountReviewComplaintsArgs
 }
 
 /**
@@ -556,6 +746,20 @@ export type CompanyCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.JobWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPenaltiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PenaltyWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountReviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewComplaintWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -567,6 +771,8 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
+  penalties?: boolean | Prisma.Company$penaltiesArgs<ExtArgs>
+  reviewComplaints?: boolean | Prisma.Company$reviewComplaintsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -606,6 +812,8 @@ export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
+  penalties?: boolean | Prisma.Company$penaltiesArgs<ExtArgs>
+  reviewComplaints?: boolean | Prisma.Company$reviewComplaintsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -620,6 +828,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     jobs: Prisma.$JobPayload<ExtArgs>[]
+    penalties: Prisma.$PenaltyPayload<ExtArgs>[]
+    reviewComplaints: Prisma.$ReviewComplaintPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1025,6 +1235,8 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   jobs<T extends Prisma.Company$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  penalties<T extends Prisma.Company$penaltiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$penaltiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PenaltyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewComplaints<T extends Prisma.Company$reviewComplaintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$reviewComplaintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1483,6 +1695,54 @@ export type Company$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[]
+}
+
+/**
+ * Company.penalties
+ */
+export type Company$penaltiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Penalty
+   */
+  select?: Prisma.PenaltySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Penalty
+   */
+  omit?: Prisma.PenaltyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PenaltyInclude<ExtArgs> | null
+  where?: Prisma.PenaltyWhereInput
+  orderBy?: Prisma.PenaltyOrderByWithRelationInput | Prisma.PenaltyOrderByWithRelationInput[]
+  cursor?: Prisma.PenaltyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PenaltyScalarFieldEnum | Prisma.PenaltyScalarFieldEnum[]
+}
+
+/**
+ * Company.reviewComplaints
+ */
+export type Company$reviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReviewComplaint
+   */
+  select?: Prisma.ReviewComplaintSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReviewComplaint
+   */
+  omit?: Prisma.ReviewComplaintOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewComplaintInclude<ExtArgs> | null
+  where?: Prisma.ReviewComplaintWhereInput
+  orderBy?: Prisma.ReviewComplaintOrderByWithRelationInput | Prisma.ReviewComplaintOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewComplaintWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewComplaintScalarFieldEnum | Prisma.ReviewComplaintScalarFieldEnum[]
 }
 
 /**

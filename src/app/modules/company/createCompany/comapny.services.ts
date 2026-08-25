@@ -127,7 +127,228 @@ const deleteMyCompany = async (
   return null;
 };
 
+// =====================================================
+// Get complaints for authenticated company
+// =====================================================
 
+const getMyCompanyComplaints = async (
+  userId: string
+) => {
+
+  // ============================================
+  // 1. Find company belonging to logged-in user
+  // ============================================
+
+  const company =
+    await prisma.company.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+  if (!company) {
+    throw new Error(
+      "Company profile not found"
+    );
+  }
+
+  // ============================================
+  // 2. Get complaints belonging to this company
+  // ============================================
+
+  const complaints =
+    await prisma.reviewComplaint.findMany({
+
+      where: {
+        companyId: company.id,
+      },
+
+      include: {
+
+        // Candidate information
+        candidateProfile: {
+          select: {
+            id: true,
+            phone: true,
+            location: true,
+            experience: true,
+          },
+        },
+
+        // Job information
+        job: {
+          select: {
+            id: true,
+            title: true,
+            location: true,
+          },
+        },
+
+        // Application information
+        jobApplication: {
+          select: {
+            id: true,
+            status: true,
+            createdAt: true,
+          },
+        },
+
+        // Evidence/images
+        evidence: true,
+
+        // Admin decision
+        penalty: true,
+      },
+
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+  return complaints;
+};
+// =====================================================
+// Get penalties for authenticated company
+// =====================================================
+
+const getMyCompanyPenalties = async (
+  userId: string
+) => {
+
+  // ============================================
+  // 1. Find company
+  // ============================================
+
+  const company =
+    await prisma.company.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+  if (!company) {
+    throw new Error(
+      "Company profile not found"
+    );
+  }
+
+  // ============================================
+  // 2. Get penalties
+  // ============================================
+
+  const penalties =
+    await prisma.penalty.findMany({
+
+      where: {
+        companyId: company.id,
+      },
+
+      include: {
+
+        complaint: {
+          include: {
+            job: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
+
+            evidence: true,
+          },
+        },
+
+        company: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+  return penalties;
+};
+// =====================================================
+// Get single penalty
+// =====================================================
+
+const getMyCompanyPenaltyById = async (
+  userId: string,
+  penaltyId: string
+) => {
+
+  // ============================================
+  // 1. Find company
+  // ============================================
+
+  const company =
+    await prisma.company.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+  if (!company) {
+    throw new Error(
+      "Company profile not found"
+    );
+  }
+
+  // ============================================
+  // 2. Find penalty
+  // ============================================
+
+  const penalty =
+    await prisma.penalty.findFirst({
+
+      where: {
+        id: penaltyId,
+
+        // Security check
+        companyId: company.id,
+      },
+
+      include: {
+
+        complaint: {
+          include: {
+            candidateProfile: {
+              select: {
+                id: true,
+                phone: true,
+                location: true,
+                experience: true,
+              },
+            },
+
+            job: true,
+
+            evidence: true,
+          },
+        },
+
+        company: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+
+  if (!penalty) {
+    throw new Error(
+      "Penalty not found"
+    );
+  }
+
+  return penalty;
+};
 export const companyServices={
-    createCompany,getMyCompany,updateMyCompany,deleteMyCompany
+    createCompany,getMyCompany,updateMyCompany,deleteMyCompany,getMyCompanyComplaints,getMyCompanyPenalties,getMyCompanyPenaltyById
 }

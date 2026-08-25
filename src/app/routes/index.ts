@@ -16,6 +16,8 @@ import { InterviewPracticesRouter } from "../modules/AiServices/Interview_Practi
 import { ApplicationAssistantRouter } from "../modules/applicationAssistant/applicationAssistant.route";
 import { CandidateRankingRouter } from "../modules/candidateRanking/candidateRanking.route";
 import { AIRecruiterRouter } from "../modules/aiRecruiter/aiRecruiter.route";
+import { ComplaintRouter } from "../modules/complaint/complaint.route";
+
 
 const router=Router()
 
@@ -35,4 +37,6 @@ router.use("/interviewPractices",InterviewPracticesRouter)
 router.use("/application-assistant",ApplicationAssistantRouter)
 router.use("/candidate-ranking",CandidateRankingRouter)
 router.use("/ai-recruiter",AIRecruiterRouter)
+router.use("/complaints",ComplaintRouter)
+
 export const indexRoutes=router;

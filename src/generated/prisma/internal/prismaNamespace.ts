@@ -397,6 +397,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  ReviewComplaint: 'ReviewComplaint',
+  Penalty: 'Penalty',
+  ComplaintEvidence: 'ComplaintEvidence',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -436,10 +439,232 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateEmbedding" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeChunk" | "resumeSummary"
+    modelProps: "reviewComplaint" | "penalty" | "complaintEvidence" | "user" | "session" | "account" | "verification" | "candidateProfile" | "candidateEmbedding" | "candidateSkill" | "candidateEducation" | "candidateProject" | "candidateCertification" | "company" | "job" | "jobSkill" | "jobMatch" | "skillGapAnalysis" | "jobApplication" | "applicationStatusHistory" | "interviewSession" | "interviewAnswer" | "applicationAssistant" | "resume" | "resumeAnalysis" | "resumeChunk" | "resumeSummary"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    ReviewComplaint: {
+      payload: Prisma.$ReviewComplaintPayload<ExtArgs>
+      fields: Prisma.ReviewComplaintFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReviewComplaintFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReviewComplaintFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        findFirst: {
+          args: Prisma.ReviewComplaintFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReviewComplaintFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        findMany: {
+          args: Prisma.ReviewComplaintFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>[]
+        }
+        create: {
+          args: Prisma.ReviewComplaintCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        createMany: {
+          args: Prisma.ReviewComplaintCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReviewComplaintCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>[]
+        }
+        delete: {
+          args: Prisma.ReviewComplaintDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        update: {
+          args: Prisma.ReviewComplaintUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReviewComplaintDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReviewComplaintUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReviewComplaintUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReviewComplaintUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewComplaintPayload>
+        }
+        aggregate: {
+          args: Prisma.ReviewComplaintAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReviewComplaint>
+        }
+        groupBy: {
+          args: Prisma.ReviewComplaintGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewComplaintGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReviewComplaintCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewComplaintCountAggregateOutputType> | number
+        }
+      }
+    }
+    Penalty: {
+      payload: Prisma.$PenaltyPayload<ExtArgs>
+      fields: Prisma.PenaltyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PenaltyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PenaltyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        findFirst: {
+          args: Prisma.PenaltyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PenaltyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        findMany: {
+          args: Prisma.PenaltyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>[]
+        }
+        create: {
+          args: Prisma.PenaltyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        createMany: {
+          args: Prisma.PenaltyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PenaltyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>[]
+        }
+        delete: {
+          args: Prisma.PenaltyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        update: {
+          args: Prisma.PenaltyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        deleteMany: {
+          args: Prisma.PenaltyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PenaltyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PenaltyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>[]
+        }
+        upsert: {
+          args: Prisma.PenaltyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PenaltyPayload>
+        }
+        aggregate: {
+          args: Prisma.PenaltyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePenalty>
+        }
+        groupBy: {
+          args: Prisma.PenaltyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenaltyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PenaltyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PenaltyCountAggregateOutputType> | number
+        }
+      }
+    }
+    ComplaintEvidence: {
+      payload: Prisma.$ComplaintEvidencePayload<ExtArgs>
+      fields: Prisma.ComplaintEvidenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ComplaintEvidenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ComplaintEvidenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        findFirst: {
+          args: Prisma.ComplaintEvidenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ComplaintEvidenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        findMany: {
+          args: Prisma.ComplaintEvidenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>[]
+        }
+        create: {
+          args: Prisma.ComplaintEvidenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        createMany: {
+          args: Prisma.ComplaintEvidenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ComplaintEvidenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>[]
+        }
+        delete: {
+          args: Prisma.ComplaintEvidenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        update: {
+          args: Prisma.ComplaintEvidenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        deleteMany: {
+          args: Prisma.ComplaintEvidenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ComplaintEvidenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ComplaintEvidenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>[]
+        }
+        upsert: {
+          args: Prisma.ComplaintEvidenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComplaintEvidencePayload>
+        }
+        aggregate: {
+          args: Prisma.ComplaintEvidenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComplaintEvidence>
+        }
+        groupBy: {
+          args: Prisma.ComplaintEvidenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComplaintEvidenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ComplaintEvidenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComplaintEvidenceCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -2255,6 +2480,57 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const ReviewComplaintScalarFieldEnum = {
+  id: 'id',
+  candidateProfileId: 'candidateProfileId',
+  companyId: 'companyId',
+  jobId: 'jobId',
+  jobApplicationId: 'jobApplicationId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  decision: 'decision',
+  adminNote: 'adminNote',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewComplaintScalarFieldEnum = (typeof ReviewComplaintScalarFieldEnum)[keyof typeof ReviewComplaintScalarFieldEnum]
+
+
+export const PenaltyScalarFieldEnum = {
+  id: 'id',
+  complaintId: 'complaintId',
+  companyId: 'companyId',
+  amount: 'amount',
+  currency: 'currency',
+  reason: 'reason',
+  status: 'status',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  dueDate: 'dueDate',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PenaltyScalarFieldEnum = (typeof PenaltyScalarFieldEnum)[keyof typeof PenaltyScalarFieldEnum]
+
+
+export const ComplaintEvidenceScalarFieldEnum = {
+  id: 'id',
+  complaintId: 'complaintId',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileType: 'fileType',
+  createdAt: 'createdAt'
+} as const
+
+export type ComplaintEvidenceScalarFieldEnum = (typeof ComplaintEvidenceScalarFieldEnum)[keyof typeof ComplaintEvidenceScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2480,6 +2756,7 @@ export const JobApplicationScalarFieldEnum = {
   id: 'id',
   candidateProfileId: 'candidateProfileId',
   jobId: 'jobId',
+  coverLetter: 'coverLetter',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2678,6 +2955,90 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'ComplaintType'
+ */
+export type EnumComplaintTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintType'>
+    
+
+
+/**
+ * Reference to a field of type 'ComplaintType[]'
+ */
+export type ListEnumComplaintTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ComplaintStatus'
+ */
+export type EnumComplaintStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ComplaintStatus[]'
+ */
+export type ListEnumComplaintStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ComplaintDecision'
+ */
+export type EnumComplaintDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintDecision'>
+    
+
+
+/**
+ * Reference to a field of type 'ComplaintDecision[]'
+ */
+export type ListEnumComplaintDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComplaintDecision[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PenaltyStatus'
+ */
+export type EnumPenaltyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PenaltyStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PenaltyStatus[]'
+ */
+export type ListEnumPenaltyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PenaltyStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -2709,20 +3070,6 @@ export type EnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'UserStatus[]'
  */
 export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -2988,6 +3335,9 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
+  reviewComplaint?: Prisma.ReviewComplaintOmit
+  penalty?: Prisma.PenaltyOmit
+  complaintEvidence?: Prisma.ComplaintEvidenceOmit
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit

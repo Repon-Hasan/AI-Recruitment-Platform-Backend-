@@ -1,0 +1,87 @@
+model ReviewComplaint {
+  id String @id @default(uuid())
+
+  candidateProfileId String
+  companyId          String
+  jobId              String?
+  jobApplicationId   String?
+
+  type        ComplaintType
+  title       String
+  description String
+
+  status ComplaintStatus @default(PENDING)
+
+  decision ComplaintDecision?
+
+  adminNote String?
+
+  reviewedById String?
+  reviewedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  candidateProfile CandidateProfile @relation(fields: [candidateProfileId], references: [id])
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  job Job? @relation(fields: [jobId], references: [id])
+
+  jobApplication JobApplication? @relation(fields: [jobApplicationId], references: [id])
+
+  evidence ComplaintEvidence[]
+
+  penalty Penalty?
+
+  @@index([candidateProfileId])
+  @@index([companyId])
+  @@index([jobId])
+  @@index([status])
+}
+
+model Penalty {
+  id String @id @default(uuid())
+
+  complaintId String @unique
+  companyId   String
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String @default("USD")
+
+  reason String
+
+  status PenaltyStatus @default(PENDING)
+
+  stripePaymentIntentId String?
+
+  dueDate DateTime?
+
+  paidAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  complaint ReviewComplaint @relation(fields: [complaintId], references: [id])
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@index([companyId])
+  @@index([status])
+}
+
+model ComplaintEvidence {
+  id String @id @default(uuid())
+
+  complaintId String
+
+  fileUrl  String
+  fileName String
+  fileType String
+
+  createdAt DateTime @default(now())
+
+  complaint ReviewComplaint @relation(fields: [complaintId], references: [id])
+
+  @@index([complaintId])
+}

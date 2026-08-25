@@ -79,3 +79,52 @@ export const ExperienceLevel = {
 } as const
 
 export type ExperienceLevel = (typeof ExperienceLevel)[keyof typeof ExperienceLevel]
+
+
+export const ComplaintType = {
+  COMPANY_BEHAVIOR: 'COMPANY_BEHAVIOR',
+  JOB_MISMATCH: 'JOB_MISMATCH',
+  FAKE_JOB: 'FAKE_JOB',
+  SALARY_MISMATCH: 'SALARY_MISMATCH',
+  INTERVIEW_PROBLEM: 'INTERVIEW_PROBLEM',
+  HARASSMENT: 'HARASSMENT',
+  DISCRIMINATION: 'DISCRIMINATION',
+  FRAUD: 'FRAUD',
+  OTHER: 'OTHER'
+} as const
+
+export type ComplaintType = (typeof ComplaintType)[keyof typeof ComplaintType]
+
+
+export const ComplaintStatus = {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  NEED_MORE_INFORMATION: 'NEED_MORE_INFORMATION',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type ComplaintStatus = (typeof ComplaintStatus)[keyof typeof ComplaintStatus]
+
+
+export const ComplaintDecision = {
+  NO_VIOLATION: 'NO_VIOLATION',
+  WARNING: 'WARNING',
+  PENALTY: 'PENALTY',
+  SUSPENSION: 'SUSPENSION',
+  JOB_REMOVAL: 'JOB_REMOVAL',
+  COMPANY_SUSPENSION: 'COMPANY_SUSPENSION'
+} as const
+
+export type ComplaintDecision = (typeof ComplaintDecision)[keyof typeof ComplaintDecision]
+
+
+export const PenaltyStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PenaltyStatus = (typeof PenaltyStatus)[keyof typeof PenaltyStatus]

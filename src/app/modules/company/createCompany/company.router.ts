@@ -29,4 +29,33 @@ router.delete(
   checkAuth(Role.RECRUITER),
   companyController.deleteMyCompanyController
 );
+
+
+// =====================================================
+// Get all penalties of logged-in company
+// =====================================================
+
+router.get(
+  "/penalties",
+
+  checkAuth(Role.RECRUITER),
+
+  companyController
+    .getMyCompanyPenalties
+);
+
+
+// =====================================================
+// Get one penalty
+// =====================================================
+
+router.get(
+  "/penalties/:penaltyId",
+
+  checkAuth(Role.RECRUITER),
+
+  companyController
+    .getMyCompanyPenaltyById
+);
+
 export const companyRouter=router;
