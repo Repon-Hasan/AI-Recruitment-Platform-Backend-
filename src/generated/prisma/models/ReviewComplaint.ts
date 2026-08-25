@@ -27,6 +27,7 @@ export type AggregateReviewComplaint = {
 export type ReviewComplaintMinAggregateOutputType = {
   id: string | null
   candidateProfileId: string | null
+  submittedById: string | null
   companyId: string | null
   jobId: string | null
   jobApplicationId: string | null
@@ -45,6 +46,7 @@ export type ReviewComplaintMinAggregateOutputType = {
 export type ReviewComplaintMaxAggregateOutputType = {
   id: string | null
   candidateProfileId: string | null
+  submittedById: string | null
   companyId: string | null
   jobId: string | null
   jobApplicationId: string | null
@@ -63,6 +65,7 @@ export type ReviewComplaintMaxAggregateOutputType = {
 export type ReviewComplaintCountAggregateOutputType = {
   id: number
   candidateProfileId: number
+  submittedById: number
   companyId: number
   jobId: number
   jobApplicationId: number
@@ -83,6 +86,7 @@ export type ReviewComplaintCountAggregateOutputType = {
 export type ReviewComplaintMinAggregateInputType = {
   id?: true
   candidateProfileId?: true
+  submittedById?: true
   companyId?: true
   jobId?: true
   jobApplicationId?: true
@@ -101,6 +105,7 @@ export type ReviewComplaintMinAggregateInputType = {
 export type ReviewComplaintMaxAggregateInputType = {
   id?: true
   candidateProfileId?: true
+  submittedById?: true
   companyId?: true
   jobId?: true
   jobApplicationId?: true
@@ -119,6 +124,7 @@ export type ReviewComplaintMaxAggregateInputType = {
 export type ReviewComplaintCountAggregateInputType = {
   id?: true
   candidateProfileId?: true
+  submittedById?: true
   companyId?: true
   jobId?: true
   jobApplicationId?: true
@@ -209,7 +215,8 @@ export type ReviewComplaintGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 
 export type ReviewComplaintGroupByOutputType = {
   id: string
-  candidateProfileId: string
+  candidateProfileId: string | null
+  submittedById: string
   companyId: string
   jobId: string | null
   jobApplicationId: string | null
@@ -248,7 +255,8 @@ export type ReviewComplaintWhereInput = {
   OR?: Prisma.ReviewComplaintWhereInput[]
   NOT?: Prisma.ReviewComplaintWhereInput | Prisma.ReviewComplaintWhereInput[]
   id?: Prisma.StringFilter<"ReviewComplaint"> | string
-  candidateProfileId?: Prisma.StringFilter<"ReviewComplaint"> | string
+  candidateProfileId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  submittedById?: Prisma.StringFilter<"ReviewComplaint"> | string
   companyId?: Prisma.StringFilter<"ReviewComplaint"> | string
   jobId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
   jobApplicationId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
@@ -262,7 +270,8 @@ export type ReviewComplaintWhereInput = {
   reviewedAt?: Prisma.DateTimeNullableFilter<"ReviewComplaint"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
-  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
+  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileNullableScalarRelationFilter, Prisma.CandidateProfileWhereInput> | null
+  submittedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
   jobApplication?: Prisma.XOR<Prisma.JobApplicationNullableScalarRelationFilter, Prisma.JobApplicationWhereInput> | null
@@ -272,7 +281,8 @@ export type ReviewComplaintWhereInput = {
 
 export type ReviewComplaintOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  candidateProfileId?: Prisma.SortOrder
+  candidateProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrderInput | Prisma.SortOrder
   jobApplicationId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -287,6 +297,7 @@ export type ReviewComplaintOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   candidateProfile?: Prisma.CandidateProfileOrderByWithRelationInput
+  submittedBy?: Prisma.UserOrderByWithRelationInput
   company?: Prisma.CompanyOrderByWithRelationInput
   job?: Prisma.JobOrderByWithRelationInput
   jobApplication?: Prisma.JobApplicationOrderByWithRelationInput
@@ -299,7 +310,8 @@ export type ReviewComplaintWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ReviewComplaintWhereInput | Prisma.ReviewComplaintWhereInput[]
   OR?: Prisma.ReviewComplaintWhereInput[]
   NOT?: Prisma.ReviewComplaintWhereInput | Prisma.ReviewComplaintWhereInput[]
-  candidateProfileId?: Prisma.StringFilter<"ReviewComplaint"> | string
+  candidateProfileId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  submittedById?: Prisma.StringFilter<"ReviewComplaint"> | string
   companyId?: Prisma.StringFilter<"ReviewComplaint"> | string
   jobId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
   jobApplicationId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
@@ -313,7 +325,8 @@ export type ReviewComplaintWhereUniqueInput = Prisma.AtLeast<{
   reviewedAt?: Prisma.DateTimeNullableFilter<"ReviewComplaint"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
-  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
+  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileNullableScalarRelationFilter, Prisma.CandidateProfileWhereInput> | null
+  submittedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
   jobApplication?: Prisma.XOR<Prisma.JobApplicationNullableScalarRelationFilter, Prisma.JobApplicationWhereInput> | null
@@ -323,7 +336,8 @@ export type ReviewComplaintWhereUniqueInput = Prisma.AtLeast<{
 
 export type ReviewComplaintOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  candidateProfileId?: Prisma.SortOrder
+  candidateProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrderInput | Prisma.SortOrder
   jobApplicationId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -347,7 +361,8 @@ export type ReviewComplaintScalarWhereWithAggregatesInput = {
   OR?: Prisma.ReviewComplaintScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReviewComplaintScalarWhereWithAggregatesInput | Prisma.ReviewComplaintScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"ReviewComplaint"> | string
-  candidateProfileId?: Prisma.StringWithAggregatesFilter<"ReviewComplaint"> | string
+  candidateProfileId?: Prisma.StringNullableWithAggregatesFilter<"ReviewComplaint"> | string | null
+  submittedById?: Prisma.StringWithAggregatesFilter<"ReviewComplaint"> | string
   companyId?: Prisma.StringWithAggregatesFilter<"ReviewComplaint"> | string
   jobId?: Prisma.StringNullableWithAggregatesFilter<"ReviewComplaint"> | string | null
   jobApplicationId?: Prisma.StringNullableWithAggregatesFilter<"ReviewComplaint"> | string | null
@@ -375,7 +390,8 @@ export type ReviewComplaintCreateInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
@@ -385,7 +401,8 @@ export type ReviewComplaintCreateInput = {
 
 export type ReviewComplaintUncheckedCreateInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -415,7 +432,8 @@ export type ReviewComplaintUpdateInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
@@ -425,7 +443,8 @@ export type ReviewComplaintUpdateInput = {
 
 export type ReviewComplaintUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -445,7 +464,8 @@ export type ReviewComplaintUncheckedUpdateInput = {
 
 export type ReviewComplaintCreateManyInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -477,7 +497,8 @@ export type ReviewComplaintUpdateManyMutationInput = {
 
 export type ReviewComplaintUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -496,6 +517,7 @@ export type ReviewComplaintUncheckedUpdateManyInput = {
 export type ReviewComplaintCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateProfileId?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   jobApplicationId?: Prisma.SortOrder
@@ -514,6 +536,7 @@ export type ReviewComplaintCountOrderByAggregateInput = {
 export type ReviewComplaintMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateProfileId?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   jobApplicationId?: Prisma.SortOrder
@@ -532,6 +555,7 @@ export type ReviewComplaintMaxOrderByAggregateInput = {
 export type ReviewComplaintMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   candidateProfileId?: Prisma.SortOrder
+  submittedById?: Prisma.SortOrder
   companyId?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   jobApplicationId?: Prisma.SortOrder
@@ -616,6 +640,48 @@ export type ReviewComplaintUpdateOneRequiredWithoutEvidenceNestedInput = {
   upsert?: Prisma.ReviewComplaintUpsertWithoutEvidenceInput
   connect?: Prisma.ReviewComplaintWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewComplaintUpdateToOneWithWhereWithoutEvidenceInput, Prisma.ReviewComplaintUpdateWithoutEvidenceInput>, Prisma.ReviewComplaintUncheckedUpdateWithoutEvidenceInput>
+}
+
+export type ReviewComplaintCreateNestedManyWithoutSubmittedByInput = {
+  create?: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput> | Prisma.ReviewComplaintCreateWithoutSubmittedByInput[] | Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput | Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput[]
+  createMany?: Prisma.ReviewComplaintCreateManySubmittedByInputEnvelope
+  connect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+}
+
+export type ReviewComplaintUncheckedCreateNestedManyWithoutSubmittedByInput = {
+  create?: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput> | Prisma.ReviewComplaintCreateWithoutSubmittedByInput[] | Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput | Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput[]
+  createMany?: Prisma.ReviewComplaintCreateManySubmittedByInputEnvelope
+  connect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+}
+
+export type ReviewComplaintUpdateManyWithoutSubmittedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput> | Prisma.ReviewComplaintCreateWithoutSubmittedByInput[] | Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput | Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput[]
+  upsert?: Prisma.ReviewComplaintUpsertWithWhereUniqueWithoutSubmittedByInput | Prisma.ReviewComplaintUpsertWithWhereUniqueWithoutSubmittedByInput[]
+  createMany?: Prisma.ReviewComplaintCreateManySubmittedByInputEnvelope
+  set?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  disconnect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  delete?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  connect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  update?: Prisma.ReviewComplaintUpdateWithWhereUniqueWithoutSubmittedByInput | Prisma.ReviewComplaintUpdateWithWhereUniqueWithoutSubmittedByInput[]
+  updateMany?: Prisma.ReviewComplaintUpdateManyWithWhereWithoutSubmittedByInput | Prisma.ReviewComplaintUpdateManyWithWhereWithoutSubmittedByInput[]
+  deleteMany?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
+}
+
+export type ReviewComplaintUncheckedUpdateManyWithoutSubmittedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput> | Prisma.ReviewComplaintCreateWithoutSubmittedByInput[] | Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput[]
+  connectOrCreate?: Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput | Prisma.ReviewComplaintCreateOrConnectWithoutSubmittedByInput[]
+  upsert?: Prisma.ReviewComplaintUpsertWithWhereUniqueWithoutSubmittedByInput | Prisma.ReviewComplaintUpsertWithWhereUniqueWithoutSubmittedByInput[]
+  createMany?: Prisma.ReviewComplaintCreateManySubmittedByInputEnvelope
+  set?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  disconnect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  delete?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  connect?: Prisma.ReviewComplaintWhereUniqueInput | Prisma.ReviewComplaintWhereUniqueInput[]
+  update?: Prisma.ReviewComplaintUpdateWithWhereUniqueWithoutSubmittedByInput | Prisma.ReviewComplaintUpdateWithWhereUniqueWithoutSubmittedByInput[]
+  updateMany?: Prisma.ReviewComplaintUpdateManyWithWhereWithoutSubmittedByInput | Prisma.ReviewComplaintUpdateManyWithWhereWithoutSubmittedByInput[]
+  deleteMany?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
 }
 
 export type ReviewComplaintCreateNestedManyWithoutCandidateProfileInput = {
@@ -798,7 +864,8 @@ export type ReviewComplaintCreateWithoutPenaltyInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
@@ -807,7 +874,8 @@ export type ReviewComplaintCreateWithoutPenaltyInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutPenaltyInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -852,7 +920,8 @@ export type ReviewComplaintUpdateWithoutPenaltyInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
@@ -861,7 +930,8 @@ export type ReviewComplaintUpdateWithoutPenaltyInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutPenaltyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -890,7 +960,8 @@ export type ReviewComplaintCreateWithoutEvidenceInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
@@ -899,7 +970,8 @@ export type ReviewComplaintCreateWithoutEvidenceInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutEvidenceInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -944,7 +1016,8 @@ export type ReviewComplaintUpdateWithoutEvidenceInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
@@ -953,7 +1026,8 @@ export type ReviewComplaintUpdateWithoutEvidenceInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutEvidenceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -970,6 +1044,94 @@ export type ReviewComplaintUncheckedUpdateWithoutEvidenceInput = {
   penalty?: Prisma.PenaltyUncheckedUpdateOneWithoutComplaintNestedInput
 }
 
+export type ReviewComplaintCreateWithoutSubmittedByInput = {
+  id?: string
+  type: $Enums.ComplaintType
+  title: string
+  description: string
+  status?: $Enums.ComplaintStatus
+  decision?: $Enums.ComplaintDecision | null
+  adminNote?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
+  job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
+  jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
+  evidence?: Prisma.ComplaintEvidenceCreateNestedManyWithoutComplaintInput
+  penalty?: Prisma.PenaltyCreateNestedOneWithoutComplaintInput
+}
+
+export type ReviewComplaintUncheckedCreateWithoutSubmittedByInput = {
+  id?: string
+  candidateProfileId?: string | null
+  companyId: string
+  jobId?: string | null
+  jobApplicationId?: string | null
+  type: $Enums.ComplaintType
+  title: string
+  description: string
+  status?: $Enums.ComplaintStatus
+  decision?: $Enums.ComplaintDecision | null
+  adminNote?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  evidence?: Prisma.ComplaintEvidenceUncheckedCreateNestedManyWithoutComplaintInput
+  penalty?: Prisma.PenaltyUncheckedCreateNestedOneWithoutComplaintInput
+}
+
+export type ReviewComplaintCreateOrConnectWithoutSubmittedByInput = {
+  where: Prisma.ReviewComplaintWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput>
+}
+
+export type ReviewComplaintCreateManySubmittedByInputEnvelope = {
+  data: Prisma.ReviewComplaintCreateManySubmittedByInput | Prisma.ReviewComplaintCreateManySubmittedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReviewComplaintUpsertWithWhereUniqueWithoutSubmittedByInput = {
+  where: Prisma.ReviewComplaintWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReviewComplaintUpdateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedUpdateWithoutSubmittedByInput>
+  create: Prisma.XOR<Prisma.ReviewComplaintCreateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedCreateWithoutSubmittedByInput>
+}
+
+export type ReviewComplaintUpdateWithWhereUniqueWithoutSubmittedByInput = {
+  where: Prisma.ReviewComplaintWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReviewComplaintUpdateWithoutSubmittedByInput, Prisma.ReviewComplaintUncheckedUpdateWithoutSubmittedByInput>
+}
+
+export type ReviewComplaintUpdateManyWithWhereWithoutSubmittedByInput = {
+  where: Prisma.ReviewComplaintScalarWhereInput
+  data: Prisma.XOR<Prisma.ReviewComplaintUpdateManyMutationInput, Prisma.ReviewComplaintUncheckedUpdateManyWithoutSubmittedByInput>
+}
+
+export type ReviewComplaintScalarWhereInput = {
+  AND?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
+  OR?: Prisma.ReviewComplaintScalarWhereInput[]
+  NOT?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
+  id?: Prisma.StringFilter<"ReviewComplaint"> | string
+  candidateProfileId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  submittedById?: Prisma.StringFilter<"ReviewComplaint"> | string
+  companyId?: Prisma.StringFilter<"ReviewComplaint"> | string
+  jobId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  jobApplicationId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  type?: Prisma.EnumComplaintTypeFilter<"ReviewComplaint"> | $Enums.ComplaintType
+  title?: Prisma.StringFilter<"ReviewComplaint"> | string
+  description?: Prisma.StringFilter<"ReviewComplaint"> | string
+  status?: Prisma.EnumComplaintStatusFilter<"ReviewComplaint"> | $Enums.ComplaintStatus
+  decision?: Prisma.EnumComplaintDecisionNullableFilter<"ReviewComplaint"> | $Enums.ComplaintDecision | null
+  adminNote?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  reviewedById?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
+  reviewedAt?: Prisma.DateTimeNullableFilter<"ReviewComplaint"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
+}
+
 export type ReviewComplaintCreateWithoutCandidateProfileInput = {
   id?: string
   type: $Enums.ComplaintType
@@ -982,6 +1144,7 @@ export type ReviewComplaintCreateWithoutCandidateProfileInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
@@ -991,6 +1154,7 @@ export type ReviewComplaintCreateWithoutCandidateProfileInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutCandidateProfileInput = {
   id?: string
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -1034,27 +1198,6 @@ export type ReviewComplaintUpdateManyWithWhereWithoutCandidateProfileInput = {
   data: Prisma.XOR<Prisma.ReviewComplaintUpdateManyMutationInput, Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileInput>
 }
 
-export type ReviewComplaintScalarWhereInput = {
-  AND?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
-  OR?: Prisma.ReviewComplaintScalarWhereInput[]
-  NOT?: Prisma.ReviewComplaintScalarWhereInput | Prisma.ReviewComplaintScalarWhereInput[]
-  id?: Prisma.StringFilter<"ReviewComplaint"> | string
-  candidateProfileId?: Prisma.StringFilter<"ReviewComplaint"> | string
-  companyId?: Prisma.StringFilter<"ReviewComplaint"> | string
-  jobId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
-  jobApplicationId?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
-  type?: Prisma.EnumComplaintTypeFilter<"ReviewComplaint"> | $Enums.ComplaintType
-  title?: Prisma.StringFilter<"ReviewComplaint"> | string
-  description?: Prisma.StringFilter<"ReviewComplaint"> | string
-  status?: Prisma.EnumComplaintStatusFilter<"ReviewComplaint"> | $Enums.ComplaintStatus
-  decision?: Prisma.EnumComplaintDecisionNullableFilter<"ReviewComplaint"> | $Enums.ComplaintDecision | null
-  adminNote?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
-  reviewedById?: Prisma.StringNullableFilter<"ReviewComplaint"> | string | null
-  reviewedAt?: Prisma.DateTimeNullableFilter<"ReviewComplaint"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ReviewComplaint"> | Date | string
-}
-
 export type ReviewComplaintCreateWithoutCompanyInput = {
   id?: string
   type: $Enums.ComplaintType
@@ -1067,7 +1210,8 @@ export type ReviewComplaintCreateWithoutCompanyInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
   evidence?: Prisma.ComplaintEvidenceCreateNestedManyWithoutComplaintInput
@@ -1076,7 +1220,8 @@ export type ReviewComplaintCreateWithoutCompanyInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutCompanyInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   jobId?: string | null
   jobApplicationId?: string | null
   type: $Enums.ComplaintType
@@ -1131,7 +1276,8 @@ export type ReviewComplaintCreateWithoutJobInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   jobApplication?: Prisma.JobApplicationCreateNestedOneWithoutReviewComplaintsInput
   evidence?: Prisma.ComplaintEvidenceCreateNestedManyWithoutComplaintInput
@@ -1140,7 +1286,8 @@ export type ReviewComplaintCreateWithoutJobInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutJobInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobApplicationId?: string | null
   type: $Enums.ComplaintType
@@ -1195,7 +1342,8 @@ export type ReviewComplaintCreateWithoutJobApplicationInput = {
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  candidateProfile?: Prisma.CandidateProfileCreateNestedOneWithoutReviewComplaintsInput
+  submittedBy: Prisma.UserCreateNestedOneWithoutReviewComplaintsInput
   company: Prisma.CompanyCreateNestedOneWithoutReviewComplaintsInput
   job?: Prisma.JobCreateNestedOneWithoutReviewComplaintsInput
   evidence?: Prisma.ComplaintEvidenceCreateNestedManyWithoutComplaintInput
@@ -1204,7 +1352,8 @@ export type ReviewComplaintCreateWithoutJobApplicationInput = {
 
 export type ReviewComplaintUncheckedCreateWithoutJobApplicationInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   type: $Enums.ComplaintType
@@ -1247,8 +1396,85 @@ export type ReviewComplaintUpdateManyWithWhereWithoutJobApplicationInput = {
   data: Prisma.XOR<Prisma.ReviewComplaintUpdateManyMutationInput, Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationInput>
 }
 
+export type ReviewComplaintCreateManySubmittedByInput = {
+  id?: string
+  candidateProfileId?: string | null
+  companyId: string
+  jobId?: string | null
+  jobApplicationId?: string | null
+  type: $Enums.ComplaintType
+  title: string
+  description: string
+  status?: $Enums.ComplaintStatus
+  decision?: $Enums.ComplaintDecision | null
+  adminNote?: string | null
+  reviewedById?: string | null
+  reviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReviewComplaintUpdateWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumComplaintStatusFieldUpdateOperationsInput | $Enums.ComplaintStatus
+  decision?: Prisma.NullableEnumComplaintDecisionFieldUpdateOperationsInput | $Enums.ComplaintDecision | null
+  adminNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
+  jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
+  evidence?: Prisma.ComplaintEvidenceUpdateManyWithoutComplaintNestedInput
+  penalty?: Prisma.PenaltyUpdateOneWithoutComplaintNestedInput
+}
+
+export type ReviewComplaintUncheckedUpdateWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumComplaintStatusFieldUpdateOperationsInput | $Enums.ComplaintStatus
+  decision?: Prisma.NullableEnumComplaintDecisionFieldUpdateOperationsInput | $Enums.ComplaintDecision | null
+  adminNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  evidence?: Prisma.ComplaintEvidenceUncheckedUpdateManyWithoutComplaintNestedInput
+  penalty?: Prisma.PenaltyUncheckedUpdateOneWithoutComplaintNestedInput
+}
+
+export type ReviewComplaintUncheckedUpdateManyWithoutSubmittedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumComplaintStatusFieldUpdateOperationsInput | $Enums.ComplaintStatus
+  decision?: Prisma.NullableEnumComplaintDecisionFieldUpdateOperationsInput | $Enums.ComplaintDecision | null
+  adminNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ReviewComplaintCreateManyCandidateProfileInput = {
   id?: string
+  submittedById: string
   companyId: string
   jobId?: string | null
   jobApplicationId?: string | null
@@ -1276,6 +1502,7 @@ export type ReviewComplaintUpdateWithoutCandidateProfileInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
@@ -1285,6 +1512,7 @@ export type ReviewComplaintUpdateWithoutCandidateProfileInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutCandidateProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1304,6 +1532,7 @@ export type ReviewComplaintUncheckedUpdateWithoutCandidateProfileInput = {
 
 export type ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1321,7 +1550,8 @@ export type ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileInput = {
 
 export type ReviewComplaintCreateManyCompanyInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   jobId?: string | null
   jobApplicationId?: string | null
   type: $Enums.ComplaintType
@@ -1348,7 +1578,8 @@ export type ReviewComplaintUpdateWithoutCompanyInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
   evidence?: Prisma.ComplaintEvidenceUpdateManyWithoutComplaintNestedInput
@@ -1357,7 +1588,8 @@ export type ReviewComplaintUpdateWithoutCompanyInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1376,7 +1608,8 @@ export type ReviewComplaintUncheckedUpdateWithoutCompanyInput = {
 
 export type ReviewComplaintUncheckedUpdateManyWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1393,7 +1626,8 @@ export type ReviewComplaintUncheckedUpdateManyWithoutCompanyInput = {
 
 export type ReviewComplaintCreateManyJobInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobApplicationId?: string | null
   type: $Enums.ComplaintType
@@ -1420,7 +1654,8 @@ export type ReviewComplaintUpdateWithoutJobInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   jobApplication?: Prisma.JobApplicationUpdateOneWithoutReviewComplaintsNestedInput
   evidence?: Prisma.ComplaintEvidenceUpdateManyWithoutComplaintNestedInput
@@ -1429,7 +1664,8 @@ export type ReviewComplaintUpdateWithoutJobInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1448,7 +1684,8 @@ export type ReviewComplaintUncheckedUpdateWithoutJobInput = {
 
 export type ReviewComplaintUncheckedUpdateManyWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobApplicationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1465,7 +1702,8 @@ export type ReviewComplaintUncheckedUpdateManyWithoutJobInput = {
 
 export type ReviewComplaintCreateManyJobApplicationInput = {
   id?: string
-  candidateProfileId: string
+  candidateProfileId?: string | null
+  submittedById: string
   companyId: string
   jobId?: string | null
   type: $Enums.ComplaintType
@@ -1492,7 +1730,8 @@ export type ReviewComplaintUpdateWithoutJobApplicationInput = {
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput
+  candidateProfile?: Prisma.CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput
+  submittedBy?: Prisma.UserUpdateOneRequiredWithoutReviewComplaintsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutReviewComplaintsNestedInput
   job?: Prisma.JobUpdateOneWithoutReviewComplaintsNestedInput
   evidence?: Prisma.ComplaintEvidenceUpdateManyWithoutComplaintNestedInput
@@ -1501,7 +1740,8 @@ export type ReviewComplaintUpdateWithoutJobApplicationInput = {
 
 export type ReviewComplaintUncheckedUpdateWithoutJobApplicationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1520,7 +1760,8 @@ export type ReviewComplaintUncheckedUpdateWithoutJobApplicationInput = {
 
 export type ReviewComplaintUncheckedUpdateManyWithoutJobApplicationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  candidateProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedById?: Prisma.StringFieldUpdateOperationsInput | string
   companyId?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumComplaintTypeFieldUpdateOperationsInput | $Enums.ComplaintType
@@ -1569,6 +1810,7 @@ export type ReviewComplaintCountOutputTypeCountEvidenceArgs<ExtArgs extends runt
 export type ReviewComplaintSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   candidateProfileId?: boolean
+  submittedById?: boolean
   companyId?: boolean
   jobId?: boolean
   jobApplicationId?: boolean
@@ -1582,7 +1824,8 @@ export type ReviewComplaintSelect<ExtArgs extends runtime.Types.Extensions.Inter
   reviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
@@ -1594,6 +1837,7 @@ export type ReviewComplaintSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type ReviewComplaintSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   candidateProfileId?: boolean
+  submittedById?: boolean
   companyId?: boolean
   jobId?: boolean
   jobApplicationId?: boolean
@@ -1607,7 +1851,8 @@ export type ReviewComplaintSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   reviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
@@ -1616,6 +1861,7 @@ export type ReviewComplaintSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type ReviewComplaintSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   candidateProfileId?: boolean
+  submittedById?: boolean
   companyId?: boolean
   jobId?: boolean
   jobApplicationId?: boolean
@@ -1629,7 +1875,8 @@ export type ReviewComplaintSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   reviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
@@ -1638,6 +1885,7 @@ export type ReviewComplaintSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type ReviewComplaintSelectScalar = {
   id?: boolean
   candidateProfileId?: boolean
+  submittedById?: boolean
   companyId?: boolean
   jobId?: boolean
   jobApplicationId?: boolean
@@ -1653,9 +1901,10 @@ export type ReviewComplaintSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ReviewComplaintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateProfileId" | "companyId" | "jobId" | "jobApplicationId" | "type" | "title" | "description" | "status" | "decision" | "adminNote" | "reviewedById" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["reviewComplaint"]>
+export type ReviewComplaintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateProfileId" | "submittedById" | "companyId" | "jobId" | "jobApplicationId" | "type" | "title" | "description" | "status" | "decision" | "adminNote" | "reviewedById" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["reviewComplaint"]>
 export type ReviewComplaintInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
@@ -1664,13 +1913,15 @@ export type ReviewComplaintInclude<ExtArgs extends runtime.Types.Extensions.Inte
   _count?: boolean | Prisma.ReviewComplaintCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ReviewComplaintIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
 }
 export type ReviewComplaintIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
+  candidateProfile?: boolean | Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>
+  submittedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   job?: boolean | Prisma.ReviewComplaint$jobArgs<ExtArgs>
   jobApplication?: boolean | Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>
@@ -1679,7 +1930,8 @@ export type ReviewComplaintIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $ReviewComplaintPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReviewComplaint"
   objects: {
-    candidateProfile: Prisma.$CandidateProfilePayload<ExtArgs>
+    candidateProfile: Prisma.$CandidateProfilePayload<ExtArgs> | null
+    submittedBy: Prisma.$UserPayload<ExtArgs>
     company: Prisma.$CompanyPayload<ExtArgs>
     job: Prisma.$JobPayload<ExtArgs> | null
     jobApplication: Prisma.$JobApplicationPayload<ExtArgs> | null
@@ -1688,7 +1940,8 @@ export type $ReviewComplaintPayload<ExtArgs extends runtime.Types.Extensions.Int
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    candidateProfileId: string
+    candidateProfileId: string | null
+    submittedById: string
     companyId: string
     jobId: string | null
     jobApplicationId: string | null
@@ -2096,7 +2349,8 @@ readonly fields: ReviewComplaintFieldRefs;
  */
 export interface Prisma__ReviewComplaintClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  candidateProfile<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  candidateProfile<T extends Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewComplaint$candidateProfileArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  submittedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job<T extends Prisma.ReviewComplaint$jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewComplaint$jobArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   jobApplication<T extends Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReviewComplaint$jobApplicationArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2133,6 +2387,7 @@ export interface Prisma__ReviewComplaintClient<T, Null = never, ExtArgs extends 
 export interface ReviewComplaintFieldRefs {
   readonly id: Prisma.FieldRef<"ReviewComplaint", 'String'>
   readonly candidateProfileId: Prisma.FieldRef<"ReviewComplaint", 'String'>
+  readonly submittedById: Prisma.FieldRef<"ReviewComplaint", 'String'>
   readonly companyId: Prisma.FieldRef<"ReviewComplaint", 'String'>
   readonly jobId: Prisma.FieldRef<"ReviewComplaint", 'String'>
   readonly jobApplicationId: Prisma.FieldRef<"ReviewComplaint", 'String'>
@@ -2544,6 +2799,25 @@ export type ReviewComplaintDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many ReviewComplaints to delete.
    */
   limit?: number
+}
+
+/**
+ * ReviewComplaint.candidateProfile
+ */
+export type ReviewComplaint$candidateProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CandidateProfile
+   */
+  select?: Prisma.CandidateProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CandidateProfile
+   */
+  omit?: Prisma.CandidateProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CandidateProfileInclude<ExtArgs> | null
+  where?: Prisma.CandidateProfileWhereInput
 }
 
 /**

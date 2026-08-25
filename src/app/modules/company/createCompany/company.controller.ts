@@ -88,7 +88,7 @@ const getMyCompanyComplaints = async (
   res: Response
 ) => {
 
-  const userId = req.user.id;
+  const userId = req.user.userId;
 
   const result =
     await companyServices.getMyCompanyComplaints(
@@ -147,7 +147,7 @@ const getMyCompanyPenalties = async (
   res: Response
 ) => {
 
-  const userId = req.user.id;
+  const userId = req.user.userId;
 
   const result =
     await companyServices
@@ -197,6 +197,7 @@ const getMyCompanyPenaltyById =
       data: result,
     });
   };
+
 export const companyController={
-    createCompanyController,getMyCompanyController,updateMyCompanyController,deleteMyCompanyController,getMyCompanyPenaltyById,getMyCompanyPenalties
+    createCompanyController,getMyCompanyController,updateMyCompanyController,deleteMyCompanyController,getMyCompanyPenaltyById,getMyCompanyPenalties,getMyCompanyComplaints,getMyCompanyComplaintById
 }

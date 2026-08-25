@@ -455,11 +455,6 @@ export type CandidateProfileUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type CandidateProfileScalarRelationFilter = {
-  is?: Prisma.CandidateProfileWhereInput
-  isNot?: Prisma.CandidateProfileWhereInput
-}
-
 export type CandidateProfileNullableScalarRelationFilter = {
   is?: Prisma.CandidateProfileWhereInput | null
   isNot?: Prisma.CandidateProfileWhereInput | null
@@ -504,16 +499,23 @@ export type CandidateProfileMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type CandidateProfileScalarRelationFilter = {
+  is?: Prisma.CandidateProfileWhereInput
+  isNot?: Prisma.CandidateProfileWhereInput
+}
+
 export type CandidateProfileCreateNestedOneWithoutReviewComplaintsInput = {
   create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>
   connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutReviewComplaintsInput
   connect?: Prisma.CandidateProfileWhereUniqueInput
 }
 
-export type CandidateProfileUpdateOneRequiredWithoutReviewComplaintsNestedInput = {
+export type CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput = {
   create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>
   connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutReviewComplaintsInput
   upsert?: Prisma.CandidateProfileUpsertWithoutReviewComplaintsInput
+  disconnect?: Prisma.CandidateProfileWhereInput | boolean
+  delete?: Prisma.CandidateProfileWhereInput | boolean
   connect?: Prisma.CandidateProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutReviewComplaintsInput, Prisma.CandidateProfileUpdateWithoutReviewComplaintsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput>
 }

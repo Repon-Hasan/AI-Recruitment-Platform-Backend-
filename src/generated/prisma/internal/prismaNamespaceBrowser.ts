@@ -99,6 +99,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const ReviewComplaintScalarFieldEnum = {
   id: 'id',
   candidateProfileId: 'candidateProfileId',
+  submittedById: 'submittedById',
   companyId: 'companyId',
   jobId: 'jobId',
   jobApplicationId: 'jobApplicationId',

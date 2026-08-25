@@ -32,6 +32,19 @@ router.delete(
 
 
 // =====================================================
+// Get all complaints of logged-in company
+// =====================================================
+
+router.get(
+  "/complaints",
+
+  checkAuth(Role.RECRUITER),
+
+  companyController.getMyCompanyComplaints
+    
+);
+
+// =====================================================
 // Get all penalties of logged-in company
 // =====================================================
 

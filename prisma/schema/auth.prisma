@@ -17,6 +17,7 @@ model User {
   company            Company?
 
   @@map("user")
+  reviewComplaints ReviewComplaint[]
 }
 
 model Session {

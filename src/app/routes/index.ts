@@ -17,6 +17,7 @@ import { ApplicationAssistantRouter } from "../modules/applicationAssistant/appl
 import { CandidateRankingRouter } from "../modules/candidateRanking/candidateRanking.route";
 import { AIRecruiterRouter } from "../modules/aiRecruiter/aiRecruiter.route";
 import { ComplaintRouter } from "../modules/complaint/complaint.route";
+import { ReviewComplaintRouter } from "../modules/reviewComplaint/reviewComplaint.route";
 
 
 const router=Router()
@@ -38,5 +39,6 @@ router.use("/application-assistant",ApplicationAssistantRouter)
 router.use("/candidate-ranking",CandidateRankingRouter)
 router.use("/ai-recruiter",AIRecruiterRouter)
 router.use("/complaints",ComplaintRouter)
+router.use("/review-complaints",ReviewComplaintRouter)
 
 export const indexRoutes=router;

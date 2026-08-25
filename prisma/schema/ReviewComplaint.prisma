@@ -1,17 +1,18 @@
 model ReviewComplaint {
-  id String @id @default(uuid())
+  id String @id @default(uuid())                                    
 
-  candidateProfileId String
-  companyId          String
-  jobId              String?
-  jobApplicationId   String?
+  candidateProfileId String?
+  submittedById      String
+
+  companyId        String
+  jobId            String?
+  jobApplicationId String?
 
   type        ComplaintType
   title       String
   description String
 
-  status ComplaintStatus @default(PENDING)
-
+  status   ComplaintStatus   @default(PENDING)
   decision ComplaintDecision?
 
   adminNote String?
@@ -22,7 +23,9 @@ model ReviewComplaint {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  candidateProfile CandidateProfile @relation(fields: [candidateProfileId], references: [id])
+  candidateProfile CandidateProfile? @relation(fields: [candidateProfileId], references: [id])
+
+  submittedBy User @relation(fields: [submittedById], references: [id])
 
   company Company @relation(fields: [companyId], references: [id])
 
@@ -35,6 +38,7 @@ model ReviewComplaint {
   penalty Penalty?
 
   @@index([candidateProfileId])
+  @@index([submittedById])
   @@index([companyId])
   @@index([jobId])
   @@index([status])
