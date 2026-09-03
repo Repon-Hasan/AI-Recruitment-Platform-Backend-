@@ -18,6 +18,9 @@ import { CandidateRankingRouter } from "../modules/candidateRanking/candidateRan
 import { AIRecruiterRouter } from "../modules/aiRecruiter/aiRecruiter.route";
 import { ComplaintRouter } from "../modules/complaint/complaint.route";
 import { ReviewComplaintRouter } from "../modules/reviewComplaint/reviewComplaint.route";
+import { notificationRoutes } from "../modules/notification/notification.route";
+import { InterviewRouterCandidate } from "../modules/recruiterInterview/interview/interview.route";
+import { ConversationRouterRecruiter } from "../modules/recruiterInterview/conversation/conversation.routes";
 
 
 const router=Router()
@@ -40,5 +43,8 @@ router.use("/candidate-ranking",CandidateRankingRouter)
 router.use("/ai-recruiter",AIRecruiterRouter)
 router.use("/complaints",ComplaintRouter)
 router.use("/review-complaints",ReviewComplaintRouter)
+router.use("/notifications", notificationRoutes);
+router.use("/job/interviews", InterviewRouterCandidate);
+router.use("/conversations", ConversationRouterRecruiter);
 
 export const indexRoutes=router;

@@ -5,6 +5,12 @@ import { companyController } from "./company.controller";
 
 const router=Router()
 
+// Canonical company creation endpoint
+// router.post(
+//   "/",
+//   checkAuth(Role.RECRUITER),
+//   companyController.createCompanyController
+// );
 
 router.post(
   "/jobs",

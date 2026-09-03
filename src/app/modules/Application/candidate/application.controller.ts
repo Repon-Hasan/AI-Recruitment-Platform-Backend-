@@ -5,7 +5,8 @@ import {
   applyToJob,
   getMyApplications,
   getMyApplicationById,
-  deleteMyApplication
+  deleteMyApplication,
+  applyForJobMessage
 } from "./application.service";
 import { sendResponse } from "../../../shared/sendResponse";
 
@@ -91,5 +92,27 @@ export const deleteMyApplicationController = async (
     success: true,
     message: "Application deleted successfully",
     data: null,
+  });
+};
+
+export const applyForJob = async (
+  req: Request,
+  res: Response
+) => {
+
+  const { jobId } = req.body;
+
+  const userId = req.user.userId;
+
+  const result =
+    await applyForJobMessage(
+      userId,
+      jobId
+    );
+
+  res.status(status.CREATED).json({
+    success: true,
+    message: "Application submitted successfully",
+    data: result,
   });
 };

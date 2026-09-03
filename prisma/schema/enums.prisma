@@ -86,3 +86,17 @@ enum PenaltyStatus {
   OVERDUE
   CANCELLED
 }
+
+enum InterviewStatus {
+  SCHEDULED
+  STARTED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum InterviewType {
+  VIDEO
+  PHONE
+  IN_PERSON
+}

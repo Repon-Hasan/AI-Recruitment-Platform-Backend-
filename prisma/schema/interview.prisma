@@ -13,8 +13,17 @@ model InterviewSession {
 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-   job                 Job      @relation(fields: [jobId], references: [id])
+
+  candidateProfile  CandidateProfile @relation(fields: [candidateProfileId], references: [id],onDelete: Cascade )
+
+  job Job @relation(fields: [jobId],references: [id],onDelete: Cascade)
+
   answers           InterviewAnswer[]
+
+  @@index([candidateProfileId])
+  @@index([jobId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 model InterviewAnswer {
@@ -37,6 +46,35 @@ model InterviewAnswer {
   session InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
   @@index([sessionId])
+}
+
+model Interview {
+  id              String          @id @default(uuid())
+
+  jobApplicationId String
+  scheduledById    String
+
+  scheduledAt     DateTime
+  durationMinutes Int             @default(30)
+
+  type            InterviewType   @default(VIDEO)
+  status          InterviewStatus @default(SCHEDULED)
+
+  meetingUrl      String?
+  title           String?
+  notes           String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  jobApplication JobApplication @relation(fields: [jobApplicationId],references: [id],onDelete: Cascade)
+
+  scheduledBy User @relation(fields: [scheduledById],references: [id],onDelete: Cascade)
+
+  @@index([jobApplicationId])
+  @@index([scheduledById])
+  @@index([scheduledAt])
+  @@index([status])
 }
 
 model ApplicationAssistant {

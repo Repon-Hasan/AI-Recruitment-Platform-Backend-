@@ -1,0 +1,60 @@
+enum NotificationType {
+  // Application
+  APPLICATION_SUBMITTED
+  APPLICATION_STATUS_CHANGED
+  APPLICATION_SHORTLISTED
+  APPLICATION_REJECTED
+  APPLICATION_ACCEPTED
+  NEW_CANDIDATE_APPLICATION
+
+  // Interview
+  INTERVIEW_SCHEDULED
+  INTERVIEW_RESCHEDULED
+  INTERVIEW_CANCELLED
+  INTERVIEW_REMINDER
+
+  // Communication
+  NEW_MESSAGE
+}
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  READ
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+
+  userId    String
+
+  type      NotificationType
+  channel   NotificationChannel
+  status    NotificationStatus @default(PENDING)
+
+  title     String
+  message   String
+
+  applicationId String?
+  interviewId   String?
+
+  readAt    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([userId, readAt])
+  @@index([applicationId])
+  @@index([interviewId])
+  @@index([createdAt])
+}

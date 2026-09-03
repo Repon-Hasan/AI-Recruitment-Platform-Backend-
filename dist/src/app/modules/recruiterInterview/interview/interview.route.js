@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { createInterviewController, getApplicationInterviewController, rescheduleInterviewController, cancelInterviewController, getAll } from "./interview.controller";
+import { checkAuth } from "../../../middleware/checkAuth";
+const router = Router();
+router.post("/", checkAuth(), createInterviewController);
+router.get("/applications/:applicationId", checkAuth(), getApplicationInterviewController);
+router.patch("/:interviewId/reschedule", checkAuth(), rescheduleInterviewController);
+router.patch("/:interviewId/cancel", checkAuth(), cancelInterviewController);
+router.get("/data", checkAuth(), getAll);
+export const InterviewRouterCandidate = router;

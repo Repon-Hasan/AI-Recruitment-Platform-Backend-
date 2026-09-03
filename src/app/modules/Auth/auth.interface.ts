@@ -17,6 +17,18 @@ export interface IChangePasswordPayload {
     newPassword: string;
 }
 
+export interface IUpdateProfilePayload {
+    currentPassword: string;
+    name?: string;
+    image?: string | null;
+    phone?: string;
+    location?: string;
+    experience?: string;
+    linkedin?: string;
+    github?: string;
+    portfolio?: string;
+}
+
 export interface IRequestUser{
     candidateProfile: any;
     id: any;

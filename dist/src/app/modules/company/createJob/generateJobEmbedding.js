@@ -48,15 +48,34 @@ export const generateJobEmbedding = async (jobId, jobText) => {
         // 6. Convert array to pgvector format
         const vector = `[${embedding.join(",")}]`;
         // 7. Store embedding in Job table
-        await prisma.$executeRaw `
+        const updateResult = await prisma.$executeRaw `
       UPDATE "Job"
       SET "embedding" = ${vector}::vector
       WHERE "id" = ${jobId}
     `;
-        console.log(`Job embedding stored successfully: ${jobId}`);
+        if (updateResult !== 1) {
+            throw new Error(`Embedding was not stored: job ${jobId} was not updated`);
+        }
+        // Prisma cannot expose Unsupported vector fields directly. Verify the
+        // value using PostgreSQL so this log reflects the actual database state.
+        const verification = await prisma.$queryRaw `
+      SELECT
+        "embedding" IS NOT NULL AS "hasEmbedding",
+        CASE
+          WHEN "embedding" IS NULL THEN NULL
+          ELSE vector_dims("embedding")
+        END AS dimensions
+      FROM "Job"
+      WHERE "id" = ${jobId}
+    `;
+        const stored = verification[0];
+        if (!stored?.hasEmbedding || stored.dimensions !== 2048) {
+            throw new Error(`Embedding verification failed for job ${jobId}: ${JSON.stringify(stored ?? null)}`);
+        }
+        console.log(`Job embedding verified in database: ${jobId} (${stored.dimensions} dimensions)`);
         return {
             jobId,
-            dimensions: embedding.length,
+            dimensions: stored.dimensions,
         };
     }
     catch (error) {

@@ -8,6 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Conversation'
+export type * from './models/Message'
+export type * from './models/ConversationParticipant'
+export type * from './models/Notification'
 export type * from './models/ReviewComplaint'
 export type * from './models/Penalty'
 export type * from './models/ComplaintEvidence'
@@ -30,6 +34,7 @@ export type * from './models/JobApplication'
 export type * from './models/ApplicationStatusHistory'
 export type * from './models/InterviewSession'
 export type * from './models/InterviewAnswer'
+export type * from './models/Interview'
 export type * from './models/ApplicationAssistant'
 export type * from './models/Resume'
 export type * from './models/ResumeAnalysis'

@@ -51,6 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Conversation: 'Conversation',
+  Message: 'Message',
+  ConversationParticipant: 'ConversationParticipant',
+  Notification: 'Notification',
   ReviewComplaint: 'ReviewComplaint',
   Penalty: 'Penalty',
   ComplaintEvidence: 'ComplaintEvidence',
@@ -73,6 +77,7 @@ export const ModelName = {
   ApplicationStatusHistory: 'ApplicationStatusHistory',
   InterviewSession: 'InterviewSession',
   InterviewAnswer: 'InterviewAnswer',
+  Interview: 'Interview',
   ApplicationAssistant: 'ApplicationAssistant',
   Resume: 'Resume',
   ResumeAnalysis: 'ResumeAnalysis',
@@ -94,6 +99,57 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  jobApplicationId: 'jobApplicationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  content: 'content',
+  isAutomatic: 'isAutomatic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ConversationParticipantScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  userId: 'userId',
+  joinedAt: 'joinedAt'
+} as const
+
+export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  channel: 'channel',
+  status: 'status',
+  title: 'title',
+  message: 'message',
+  applicationId: 'applicationId',
+  interviewId: 'interviewId',
+  readAt: 'readAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const ReviewComplaintScalarFieldEnum = {
@@ -425,6 +481,24 @@ export const InterviewAnswerScalarFieldEnum = {
 } as const
 
 export type InterviewAnswerScalarFieldEnum = (typeof InterviewAnswerScalarFieldEnum)[keyof typeof InterviewAnswerScalarFieldEnum]
+
+
+export const InterviewScalarFieldEnum = {
+  id: 'id',
+  jobApplicationId: 'jobApplicationId',
+  scheduledById: 'scheduledById',
+  scheduledAt: 'scheduledAt',
+  durationMinutes: 'durationMinutes',
+  type: 'type',
+  status: 'status',
+  meetingUrl: 'meetingUrl',
+  title: 'title',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
 
 
 export const ApplicationAssistantScalarFieldEnum = {

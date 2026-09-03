@@ -24,19 +24,19 @@ model Job {
   title       String
   description String
 
-  location    String?
+  location    String
   image       String?
 
   remoteType  RemoteType @default(ONSITE)
 
-  employmentType EmploymentType?
-  experienceLevel ExperienceLevel?
+  employmentType EmploymentType
+  experienceLevel ExperienceLevel
 
   salaryMin   Float?
   salaryMax   Float?
   salaryCurrency String? @default("BDT")
 
-  deadline    DateTime?
+  deadline    DateTime
 
   status      JobStatus @default(DRAFT)
 
@@ -161,6 +161,8 @@ model JobApplication {
   skillGapAnalyses SkillGapAnalysis[]
   applicationStatusHistories ApplicationStatusHistory[]
   reviewComplaints ReviewComplaint[]
+  conversations Conversation[]
+  interviews Interview[]
 }
 
 model ApplicationStatusHistory {

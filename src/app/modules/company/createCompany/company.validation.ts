@@ -13,10 +13,10 @@ export const createCompanySchema = z.object({
     .max(1000, "Description is too long")
     .optional(),
 
-  website: z
-    .string()
-    .url("Invalid website URL")
-    .optional(),
+  website: z.preprocess(
+    (value) => value === "" ? undefined : value,
+    z.string().url("Invalid website URL").optional()
+  ),
 });
 
 export const updateCompanySchema = z.object({
@@ -31,8 +31,8 @@ export const updateCompanySchema = z.object({
     .max(1000)
     .optional(),
 
-  website: z
-    .string()
-    .url("Invalid website URL")
-    .optional(),
+  website: z.preprocess(
+    (value) => value === "" ? undefined : value,
+    z.string().url("Invalid website URL").optional()
+  ),
 });

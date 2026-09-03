@@ -26,19 +26,21 @@ interface RequiredSkillInput {
   priority: string;
 }
 
+type JobSkillValue = RequiredSkillInput | string;
+
 interface CreateJobInput {
   status: string;
   salaryCurrency: string | null | undefined;
   experienceLevel: ExperienceLevel | null | undefined;
   remoteType: RemoteType | undefined;
-  deadline: Date;
-  salaryMin: undefined;
-  salaryMax: undefined;
+  deadline?: Date;
+  salaryMin?: number;
+  salaryMax?: number;
   title: string;
   description: string;
   location?: string;
   employmentType?: string;
-  requiredSkills?: RequiredSkillInput[];
+  requiredSkills?: JobSkillValue[];
   preferredSkills?: string[];
 }
 
@@ -47,6 +49,10 @@ const createJobService = async (
   userId: string,
   data: CreateJobInput
 ) => {
+  const skillNames = (data.requiredSkills ?? [])
+    .map((skill) => typeof skill === "string" ? skill : skill.name)
+    .map((skill) => skill.trim())
+    .filter(Boolean);
   // 1. Find company belonging to logged-in user
   const company = await prisma.company.findUnique({
     where: {
@@ -130,13 +136,7 @@ const createJobService = async (
           : null,
 
       // Required skills
-      requiredSkills: {
-        create: (data.requiredSkills ?? []).map(
-          (skill) => ({
-            name: skill.name.trim(),
-          })
-        ),
-      },
+      requiredSkills: { create: skillNames.map((name) => ({ name })) },
     },
 
     include: {
@@ -147,9 +147,7 @@ const createJobService = async (
   });
 
   // 5. Prepare required skills for embedding
-  const skillsText = (data.requiredSkills ?? [])
-    .map((skill) => skill.name)
-    .join(", ");
+  const skillsText = skillNames.join(", ");
 
   // 6. Create complete text for job embedding
   const jobText = `
@@ -190,19 +188,23 @@ ${skillsText || "No specific skills mentioned"}
   console.log("Job embedding text:");
   console.log(jobText);
 
-  // 7. Generate and store job embedding
-  const embeddingResult = await generateJobEmbedding(
-    job.id,
-    jobText
-  );
+  // 7. Generate and store the embedding when the AI provider is available.
+  // The job itself is already persisted; an embedding outage must not make
+  // the recruiter lose a valid job post.
+  let embeddingResult: { dimensions: number } | null = null;
+  try {
+    embeddingResult = await generateJobEmbedding(job.id, jobText);
+  } catch (error) {
+    console.error("Job saved, but embedding generation failed:", error);
+  }
 
   // 8. Return job + embedding information
   return {
     ...job,
 
-    embedding: {
-      dimensions: embeddingResult.dimensions,
-    },
+    embedding: embeddingResult
+      ? { dimensions: embeddingResult.dimensions }
+      : null,
   };
 };
 
@@ -243,6 +245,13 @@ ${skillsText || "No specific skills mentioned"}
   return jobs;
 };
 
+const allJobsService=async()=>{
+  
+
+  const jobs = await prisma.job.findMany()
+
+  return jobs;
+}
 // 2. Update Job
 const updateJobService = async (
   userId: string,
@@ -355,12 +364,10 @@ const updateJobService = async (
             data.requiredSkills !== undefined
               ? {
                   create: data.requiredSkills
-                    .filter(
-                      (skill) => skill.name.trim().length > 0
-                    )
-                    .map((skill) => ({
-                      name: skill.name.trim(),
-                    })),
+                    .map((skill) => typeof skill === "string" ? skill : skill.name)
+                    .map((skill) => skill.trim())
+                    .filter(Boolean)
+                    .map((name) => ({ name })),
                 }
               : undefined,
         },
@@ -1037,5 +1044,5 @@ const searchJobs = async (query: unknown) => {
 
 export const jobServices={
     createJobService,updateJobService,deleteJobService,getAllJobsService,getJobById,publishJob,
-    closeJob,duplicateJob,searchJobs
+    closeJob,duplicateJob,searchJobs,allJobsService
 }

@@ -58,46 +58,43 @@ router.delete(
 );
 
 
-//Project Related
+// Project Related
 router.post(
   "/projects",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.createProject
 );
 
 router.get(
   "/projects",
-   checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.getMyProjects
 );
 
 router.get(
   "/projects/:projectId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.getProjectById
 );
 
 router.patch(
   "/projects/:projectId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.updateProject
 );
 
 router.delete(
   "/projects/:projectId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.deleteProject
 );
 
-
-//CerTificate
+// Certificate
 router.post(
   "/certificate",
-
   (req, res, next) => {
     multerUpload.single("image")(req, res, (err) => {
       if (err) {
-        
         console.error("🔥 MULTER ERROR:", err);
         console.error("🔥 MESSAGE:", err.message);
         console.error("🔥 STACK:", err.stack);
@@ -114,33 +111,31 @@ router.post(
       next();
     });
   },
-
-  checkAuth(),
-
+  checkAuth(Role.CANDIDATE),
   candidateController.createCertification
 );
 
 router.get(
   "/certificate",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.getMyCertifications
 );
 
 router.get(
   "/certificate/:certificationId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.getCertificationById
 );
 
 router.patch(
   "/certificate/:certificationId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.updateCertification
 );
 
 router.delete(
   "/certificate/:certificationId",
-  checkAuth(),
+  checkAuth(Role.CANDIDATE),
   candidateController.deleteCertification
 );
 

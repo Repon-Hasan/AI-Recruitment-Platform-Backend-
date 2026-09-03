@@ -13,8 +13,8 @@ const registerUser = catchAsync(async (req, res) => {
     //console.log({ maxAge });
     const payload = req.body;
     // console.log(payload);
-    console.log(payload);
-    const result = await authServices.registerUser(payload);
+    //console.log(payload)
+    const result = await authServices.registerUser(payload, req.file);
     if (!result || !("accessToken" in result) || !("refreshToken" in result)) {
         return res.status(400).json({
             success: false,
@@ -104,23 +104,36 @@ const changePassword = catchAsync(async (req, res) => {
         data: result,
     });
 });
+const updateProfile = catchAsync(async (req, res) => {
+    const sessionToken = req.cookies["better-auth.session_token"];
+    const result = await authServices.updateProfile(req.body, sessionToken);
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Profile updated successfully",
+        data: result,
+    });
+});
 const logoutUser = catchAsync(async (req, res) => {
     const betterAuthSessionToken = req.cookies["better-auth.session_token"];
     const result = await authServices.logoutUser(betterAuthSessionToken);
     CookieUtils.clearCookie(res, 'accessToken', {
         httpOnly: true,
-        secure: true,
+        secure: envVars.NODE_ENV === "production",
         sameSite: "none",
+        path: "/",
     });
     CookieUtils.clearCookie(res, 'refreshToken', {
         httpOnly: true,
-        secure: true,
+        secure: envVars.NODE_ENV === "production",
         sameSite: "none",
+        path: "/",
     });
     CookieUtils.clearCookie(res, 'better-auth.session_token', {
         httpOnly: true,
-        secure: true,
+        secure: envVars.NODE_ENV === "production",
         sameSite: "none",
+        path: "/",
     });
     sendResponse(res, {
         httpStatusCode: status.OK,
@@ -196,6 +209,37 @@ const handleOAuthError = catchAsync((req, res) => {
     const error = req.query.error || "oauth_failed";
     res.redirect(`${envVars.FRONTEND_URL}/login?error=${error}`);
 });
+// ==========================================
+// Change User Status
+// ==========================================
+const changeUserStatus = catchAsync(async (req, res) => {
+    const userId = Array.isArray(req.params.userId)
+        ? req.params.userId[0]
+        : req.params.userId;
+    const { status: userStatus } = req.body;
+    const result = await authServices.changeUserStatus(userId, userStatus);
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "User status updated successfully",
+        data: result,
+    });
+});
+// ==========================================
+// Delete User
+// ==========================================
+const deleteUser = catchAsync(async (req, res) => {
+    const userId = Array.isArray(req.params.userId)
+        ? req.params.userId[0]
+        : req.params.userId;
+    const result = await authServices.deleteUser(userId);
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "User deleted successfully",
+        data: result,
+    });
+});
 export const authController = {
-    registerUser, loginUser, getUser, getNewToken, changePassword, logoutUser, verifyEmail, forgetPassword, resetPassword, googleLogin, googleLoginSuccess, handleOAuthError
+    registerUser, loginUser, getUser, getNewToken, changePassword, updateProfile, logoutUser, verifyEmail, forgetPassword, resetPassword, googleLogin, googleLoginSuccess, handleOAuthError, changeUserStatus, deleteUser
 };

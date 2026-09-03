@@ -18,6 +18,11 @@ model User {
 
   @@map("user")
   reviewComplaints ReviewComplaint[]
+  notifications Notification[]
+  
+  messages Message[]
+  conversationParticipants ConversationParticipant[]
+  interviews Interview[]
 }
 
 model Session {

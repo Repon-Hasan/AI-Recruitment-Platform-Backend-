@@ -586,10 +586,6 @@ export type ReviewComplaintOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type EnumComplaintTypeFieldUpdateOperationsInput = {
   set?: $Enums.ComplaintType
 }
@@ -600,18 +596,6 @@ export type EnumComplaintStatusFieldUpdateOperationsInput = {
 
 export type NullableEnumComplaintDecisionFieldUpdateOperationsInput = {
   set?: $Enums.ComplaintDecision | null
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type ReviewComplaintCreateNestedOneWithoutPenaltyInput = {

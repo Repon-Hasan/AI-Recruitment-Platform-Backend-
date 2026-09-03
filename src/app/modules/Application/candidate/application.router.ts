@@ -1,38 +1,38 @@
 import { Router } from "express";
 
+import { Role } from "../../../../generated/prisma/enums";
+import { checkAuth } from "../../../middleware/checkAuth";
 import {
   applyToJobController,
-  getMyApplicationsController,
   deleteMyApplicationController,
   getMyApplicationControllerById,
+  getMyApplicationsController,
 } from "./application.controller";
-
-import { checkAuth } from "../../../middleware/checkAuth";
 
 const router = Router();
 
 router.post(
   "/apply",
-  checkAuth("CANDIDATE"),
+  checkAuth(Role.CANDIDATE),
   applyToJobController
 );
 
 router.get(
   "/me",
-  checkAuth("CANDIDATE"),
+  checkAuth(Role.CANDIDATE),
   getMyApplicationsController
 );
 
 router.get(
   "/my/:applicationId",
-  checkAuth("CANDIDATE"),
+  checkAuth(Role.CANDIDATE),
   getMyApplicationControllerById
 );
 
 router.delete(
   "/:applicationId",
-  checkAuth("CANDIDATE"),
+  checkAuth(Role.CANDIDATE),
   deleteMyApplicationController
 );
 
-export const candidateApplication=router
+export const candidateApplication = router;

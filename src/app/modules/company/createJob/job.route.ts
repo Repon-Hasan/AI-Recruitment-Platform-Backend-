@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { checkAuth } from "../../../middleware/checkAuth";
 import { jobController } from "./job.controller";
+import { Role } from "../../../../generated/prisma/enums";
 
 const router = Router();
 
-router.post("/create", checkAuth(),jobController.createJob);
+
+router.post("/create", checkAuth(Role.RECRUITER), jobController.createJob);
 router.get("/",checkAuth(), jobController.getAllJobs);
+router.get("/candidate",jobController.allJobs);
 router.patch("/:id", checkAuth(), jobController.updateJob);
 router.delete("/:id", checkAuth(), jobController.deleteJob);
 

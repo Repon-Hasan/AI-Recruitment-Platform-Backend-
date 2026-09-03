@@ -24,7 +24,7 @@ export const CandidateRankingService = {
         const requiredSkills = job.requiredSkills.map((skill) => normalize(skill.name));
         console.log("Required job skills:", requiredSkills);
         // =========================================================
-        // 3. GET APPLICATIONS
+        // 3. GET APPLICATIONS + COMPLETE CANDIDATE DATA
         // =========================================================
         const applications = await prisma.jobApplication.findMany({
             where: {
@@ -33,6 +33,7 @@ export const CandidateRankingService = {
             include: {
                 candidateProfile: {
                     include: {
+                        user: true,
                         resumes: true,
                     },
                 },
@@ -44,24 +45,43 @@ export const CandidateRankingService = {
         // =========================================================
         for (const application of applications) {
             const candidate = application.candidateProfile;
+            const user = candidate?.user;
+            if (!candidate) {
+                console.warn(`No candidate profile for application ${application.id}`);
+                continue;
+            }
             console.log("--------------------------------");
             console.log("Candidate:", candidate.id);
+            console.log("Candidate user:", user?.name);
             // =======================================================
             // 5. CANDIDATE SKILLS
             // =======================================================
             const candidateSkillsRaw = candidate.skills;
             const candidateSkills = Array.isArray(candidateSkillsRaw)
                 ? candidateSkillsRaw
-                    .filter((skill) => typeof skill === "string")
-                    .map(normalize)
+                    .map((skill) => {
+                    if (typeof skill === "string") {
+                        return normalize(skill);
+                    }
+                    if (typeof skill === "object" &&
+                        skill !== null &&
+                        "name" in skill) {
+                        const name = skill.name;
+                        return typeof name ===
+                            "string"
+                            ? normalize(name)
+                            : "";
+                    }
+                    return "";
+                })
+                    .filter(Boolean)
                 : [];
             console.log("Candidate skills:", candidateSkills);
             // =======================================================
             // 6. SKILL SCORE
             // =======================================================
-            const matchedSkills = requiredSkills.filter((requiredSkill) => {
-                return candidateSkills.some((candidateSkill) => candidateSkill === requiredSkill);
-            });
+            const matchedSkills = requiredSkills.filter((requiredSkill) => candidateSkills.some((candidateSkill) => candidateSkill ===
+                requiredSkill));
             const skillScore = requiredSkills.length === 0
                 ? 0
                 : (matchedSkills.length /
@@ -75,13 +95,13 @@ export const CandidateRankingService = {
             const minExperience = typeof job.minExperience === "number"
                 ? job.minExperience
                 : 0;
-            const candidateExperience = Number(candidate
-                .experience ?? 0);
+            const candidateExperience = Number(candidate.experience ?? 0);
             let experienceScore = 0;
             if (minExperience === 0) {
                 experienceScore = 100;
             }
-            else if (candidateExperience >= minExperience) {
+            else if (candidateExperience >=
+                minExperience) {
                 experienceScore = 100;
             }
             else {
@@ -91,9 +111,6 @@ export const CandidateRankingService = {
                         100;
             }
             experienceScore = Math.min(experienceScore, 100);
-            console.log("Candidate experience:", candidateExperience);
-            console.log("Required experience:", minExperience);
-            console.log("Experience score:", experienceScore);
             // =======================================================
             // 8. LOCATION SCORE
             // =======================================================
@@ -103,45 +120,27 @@ export const CandidateRankingService = {
             if (!jobLocation) {
                 locationScore = 100;
             }
-            else if (candidateLocation === jobLocation) {
+            else if (candidateLocation ===
+                jobLocation) {
                 locationScore = 100;
             }
             else {
                 locationScore = 0;
             }
-            console.log("Job location:", jobLocation);
-            console.log("Candidate location:", candidateLocation);
-            console.log("Location score:", locationScore);
             // =======================================================
             // 9. RESUME
             // =======================================================
             const resume = candidate.resumes?.[0];
-            if (!resume) {
-                console.log("No resume found for candidate");
-            }
-            else {
-                console.log("Resume:", resume.id);
-            }
+            console.log("Resume:", resume
+                ? resume.id
+                : "No resume found");
             // =======================================================
             // 10. SEMANTIC SCORE
             // =======================================================
-            //
-            // IMPORTANT:
-            //
-            // Your current code:
-            //
-            // const semanticScore = skillScore;
-            //
-            // DOES NOT USE VECTOR EMBEDDINGS.
-            //
-            // We temporarily keep semantic score at 0
-            // until pgvector similarity is implemented.
-            //
-            // =======================================================
             let semanticScore = 0;
             /*
-              Later:
-      
+              TODO:
+        
               Job embedding
                    +
               Resume embedding
@@ -150,7 +149,6 @@ export const CandidateRankingService = {
                    ↓
               semanticScore
             */
-            console.log("Semantic score:", semanticScore);
             // =======================================================
             // 11. FINAL SCORE
             // =======================================================
@@ -158,24 +156,86 @@ export const CandidateRankingService = {
                 experienceScore * 0.20 +
                 semanticScore * 0.20 +
                 locationScore * 0.10;
-            console.log("Final score:", finalScore);
             // =======================================================
-            // 12. SAVE RESULT
+            // 12. AI EXPLANATION
+            // =======================================================
+            const strengths = [];
+            const weaknesses = [];
+            if (skillScore >= 70) {
+                strengths.push("Strong match with the required skills");
+            }
+            else if (skillScore > 0) {
+                strengths.push("Matches some required skills");
+            }
+            else {
+                weaknesses.push("No matching required skills found");
+            }
+            if (experienceScore >= 100) {
+                strengths.push("Meets the required experience level");
+            }
+            else if (experienceScore > 0) {
+                weaknesses.push("Has less experience than required");
+            }
+            if (locationScore >= 100) {
+                strengths.push("Location matches the job");
+            }
+            if (semanticScore >= 70) {
+                strengths.push("Resume appears highly relevant to the job");
+            }
+            if (semanticScore === 0) {
+                weaknesses.push("Semantic resume matching is not available yet");
+            }
+            const explanation = `Candidate ${user?.name ?? "Unknown Candidate"} ` +
+                `received a ${Math.round(finalScore)}% match score ` +
+                `based on skills, experience, semantic relevance, and location.`;
+            // =======================================================
+            // 13. RETURN COMPLETE CANDIDATE + RANKING
             // =======================================================
             results.push({
                 applicationId: application.id,
                 candidateId: candidate.id,
+                id: candidate.userId,
+                name: user?.name ??
+                    candidate.name ??
+                    "Unknown Candidate",
+                email: user?.email ??
+                    candidate.email ??
+                    null,
+                profileImage: user?.image ??
+                    candidate.profileImage ??
+                    null,
+                phone: candidate.phone ?? null,
+                location: candidate.location ?? null,
+                experience: candidate.experience ?? null,
+                skills: candidateSkills,
+                appliedAt: application.createdAt ??
+                    null,
+                resume: resume
+                    ? {
+                        id: resume.id,
+                        ...resume,
+                    }
+                    : null,
+                education: candidate.education ?? null,
+                linkedin: candidate.linkedin ?? null,
+                github: candidate.github ?? null,
+                portfolio: candidate.portfolio ?? null,
                 score: Math.round(finalScore),
+                matchScore: Math.round(finalScore),
+                matchPercentage: Math.round(finalScore),
                 breakdown: {
                     skillScore: Math.round(skillScore),
                     experienceScore: Math.round(experienceScore),
                     semanticScore: Math.round(semanticScore),
                     locationScore: Math.round(locationScore),
                 },
+                strengths,
+                weaknesses,
+                explanation,
             });
         }
         // =========================================================
-        // 13. SORT HIGHEST SCORE FIRST
+        // 14. SORT HIGHEST SCORE FIRST
         // =========================================================
         results.sort((a, b) => b.score - a.score);
         return results;
@@ -187,16 +247,27 @@ export const CandidateRankingService = {
         // First calculate ranking
         const ranked = await CandidateRankingService
             .rankApplicants(jobId);
+        // =========================================================
         // Get applicant information
+        // =========================================================
         const applications = await prisma.jobApplication.findMany({
             where: {
                 jobId,
             },
             include: {
-                candidateProfile: true,
+                candidateProfile: {
+                    include: {
+                        // Candidate profile data
+                        resumes: true,
+                        // User model data
+                        user: true,
+                    },
+                },
             },
         });
-        // Combine ranking + candidate
+        // =========================================================
+        // Combine ranking + candidateProfile + user
+        // =========================================================
         const result = ranked
             .map((rank) => {
             const application = applications.find((app) => app.id === rank.applicationId);
@@ -205,7 +276,14 @@ export const CandidateRankingService = {
             }
             return {
                 ...rank,
+                // Full candidate profile
+                candidateProfile: application.candidateProfile,
+                // Keep candidate property too
+                // so your existing filtering code
+                // remains unchanged.
                 candidate: application.candidateProfile,
+                // Explicit user model data
+                user: application.candidateProfile.user,
             };
         })
             .filter((item) => item !== null);
@@ -238,8 +316,11 @@ export const CandidateRankingService = {
                     .trim();
                 const candidateSkillsRaw = candidate.skills;
                 const hasSkill = Array.isArray(candidateSkillsRaw) &&
-                    candidateSkillsRaw.some((candidateSkill) => typeof candidateSkill === "string" &&
-                        candidateSkill.toLowerCase().trim() ===
+                    candidateSkillsRaw.some((candidateSkill) => typeof candidateSkill ===
+                        "string" &&
+                        candidateSkill
+                            .toLowerCase()
+                            .trim() ===
                             requestedSkill);
                 if (!hasSkill) {
                     return false;

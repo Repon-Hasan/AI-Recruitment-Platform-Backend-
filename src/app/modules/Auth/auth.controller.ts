@@ -123,7 +123,7 @@ const getNewToken=catchAsync(
 const changePassword = catchAsync(
     async (req: Request, res: Response) => {
         const payload = req.body;
-        const betterAuthSessionToken = req.cookies["better-auth.session_token"];
+        const betterAuthSessionToken = req.cookies["better-auth.session_token"] as string;
                 
         const result = await authServices.changePassword(payload, betterAuthSessionToken);
 
@@ -142,24 +142,41 @@ const changePassword = catchAsync(
     }
 )
 
+const updateProfile = catchAsync(
+    async (req: Request, res: Response) => {
+        const sessionToken = req.cookies["better-auth.session_token"];
+        const result = await authServices.updateProfile(req.body, sessionToken);
+
+        sendResponse(res, {
+            httpStatusCode: status.OK,
+            success: true,
+            message: "Profile updated successfully",
+            data: result,
+        });
+    }
+)
+
 const logoutUser = catchAsync(
     async (req: Request, res: Response) => {
-        const betterAuthSessionToken = req.cookies["better-auth.session_token"];
+        const betterAuthSessionToken = req.cookies["better-auth.session_token"] as string | undefined;
         const result = await authServices.logoutUser(betterAuthSessionToken);
         CookieUtils.clearCookie(res, 'accessToken', {
             httpOnly: true,
-            secure: true,
+            secure: envVars.NODE_ENV === "production",
             sameSite: "none",
+            path: "/",
         });
         CookieUtils.clearCookie(res, 'refreshToken', {
             httpOnly: true,
-            secure: true,
+            secure: envVars.NODE_ENV === "production",
             sameSite: "none",
+            path: "/",
         });
         CookieUtils.clearCookie(res, 'better-auth.session_token', {
             httpOnly: true,
-            secure: true,
+            secure: envVars.NODE_ENV === "production",
             sameSite: "none",
+            path: "/",
         });
 
         sendResponse(res, {
@@ -334,5 +351,5 @@ const deleteUser = catchAsync(
 );
 
 export const authController={
-    registerUser,loginUser,getUser,getNewToken,changePassword,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError,changeUserStatus,deleteUser
+    registerUser,loginUser,getUser,getNewToken,changePassword,updateProfile,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError,changeUserStatus,deleteUser
 }

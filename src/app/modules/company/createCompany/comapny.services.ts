@@ -61,10 +61,9 @@ interface UpdateCompanyPayload {
   });
 
   if (!company) {
-    throw new AppError(
-      404,
-      "Company not found"
-    );
+    // A recruiter can open the dashboard before creating a company.
+    // Return an empty state so the setup screen can be displayed.
+    return null;
   }
 
   return company;
@@ -147,9 +146,8 @@ const getMyCompanyComplaints = async (
     });
 
   if (!company) {
-    throw new Error(
-      "Company profile not found"
-    );
+    // No company means there are no complaints yet.
+    return [];
   }
 
   // ============================================
@@ -227,9 +225,8 @@ const getMyCompanyPenalties = async (
     });
 
   if (!company) {
-    throw new Error(
-      "Company profile not found"
-    );
+    // No company means there are no penalties yet.
+    return [];
   }
 
   // ============================================

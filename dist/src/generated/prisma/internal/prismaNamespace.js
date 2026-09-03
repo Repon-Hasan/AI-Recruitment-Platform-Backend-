@@ -67,6 +67,13 @@ export const JsonNull = runtime.JsonNull;
  */
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
+    Conversation: 'Conversation',
+    Message: 'Message',
+    ConversationParticipant: 'ConversationParticipant',
+    Notification: 'Notification',
+    ReviewComplaint: 'ReviewComplaint',
+    Penalty: 'Penalty',
+    ComplaintEvidence: 'ComplaintEvidence',
     User: 'User',
     Session: 'Session',
     Account: 'Account',
@@ -86,6 +93,7 @@ export const ModelName = {
     ApplicationStatusHistory: 'ApplicationStatusHistory',
     InterviewSession: 'InterviewSession',
     InterviewAnswer: 'InterviewAnswer',
+    Interview: 'Interview',
     ApplicationAssistant: 'ApplicationAssistant',
     Resume: 'Resume',
     ResumeAnalysis: 'ResumeAnalysis',
@@ -101,6 +109,81 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
     RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
 });
+export const ConversationScalarFieldEnum = {
+    id: 'id',
+    jobApplicationId: 'jobApplicationId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const MessageScalarFieldEnum = {
+    id: 'id',
+    conversationId: 'conversationId',
+    senderId: 'senderId',
+    content: 'content',
+    isAutomatic: 'isAutomatic',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ConversationParticipantScalarFieldEnum = {
+    id: 'id',
+    conversationId: 'conversationId',
+    userId: 'userId',
+    joinedAt: 'joinedAt'
+};
+export const NotificationScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    channel: 'channel',
+    status: 'status',
+    title: 'title',
+    message: 'message',
+    applicationId: 'applicationId',
+    interviewId: 'interviewId',
+    readAt: 'readAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ReviewComplaintScalarFieldEnum = {
+    id: 'id',
+    candidateProfileId: 'candidateProfileId',
+    submittedById: 'submittedById',
+    companyId: 'companyId',
+    jobId: 'jobId',
+    jobApplicationId: 'jobApplicationId',
+    type: 'type',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    decision: 'decision',
+    adminNote: 'adminNote',
+    reviewedById: 'reviewedById',
+    reviewedAt: 'reviewedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const PenaltyScalarFieldEnum = {
+    id: 'id',
+    complaintId: 'complaintId',
+    companyId: 'companyId',
+    amount: 'amount',
+    currency: 'currency',
+    reason: 'reason',
+    status: 'status',
+    stripePaymentIntentId: 'stripePaymentIntentId',
+    dueDate: 'dueDate',
+    paidAt: 'paidAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ComplaintEvidenceScalarFieldEnum = {
+    id: 'id',
+    complaintId: 'complaintId',
+    fileUrl: 'fileUrl',
+    fileName: 'fileName',
+    fileType: 'fileType',
+    createdAt: 'createdAt'
+};
 export const UserScalarFieldEnum = {
     id: 'id',
     name: 'name',
@@ -213,7 +296,17 @@ export const JobScalarFieldEnum = {
     title: 'title',
     description: 'description',
     location: 'location',
+    image: 'image',
+    remoteType: 'remoteType',
     employmentType: 'employmentType',
+    experienceLevel: 'experienceLevel',
+    salaryMin: 'salaryMin',
+    salaryMax: 'salaryMax',
+    salaryCurrency: 'salaryCurrency',
+    deadline: 'deadline',
+    status: 'status',
+    publishedAt: 'publishedAt',
+    closedAt: 'closedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -256,6 +349,7 @@ export const JobApplicationScalarFieldEnum = {
     id: 'id',
     candidateProfileId: 'candidateProfileId',
     jobId: 'jobId',
+    coverLetter: 'coverLetter',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -292,6 +386,20 @@ export const InterviewAnswerScalarFieldEnum = {
     overallScore: 'overallScore',
     feedback: 'feedback',
     createdAt: 'createdAt'
+};
+export const InterviewScalarFieldEnum = {
+    id: 'id',
+    jobApplicationId: 'jobApplicationId',
+    scheduledById: 'scheduledById',
+    scheduledAt: 'scheduledAt',
+    durationMinutes: 'durationMinutes',
+    type: 'type',
+    status: 'status',
+    meetingUrl: 'meetingUrl',
+    title: 'title',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const ApplicationAssistantScalarFieldEnum = {
     id: 'id',

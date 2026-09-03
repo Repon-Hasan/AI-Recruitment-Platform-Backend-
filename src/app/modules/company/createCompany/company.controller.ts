@@ -9,12 +9,17 @@ import { companyServices } from "./comapny.services";
   req: Request,
   res: Response
 ) => {
+
+    console.log("BODY:", req.body);
+console.log("USER:", req.user);
     
-  const userId = req.user?.userId;
+  const userId = req.user.userId;
 //console.log("hi")
   const validatedData = createCompanySchema.parse(
     req.body
   );
+
+
 
   const company = await companyServices.createCompany(
     userId,
@@ -32,7 +37,7 @@ import { companyServices } from "./comapny.services";
   req: Request,
   res: Response
 ) => {
-  const userId = req.user?.userId;
+  const userId = req.user.userId;
 
   const company = await companyServices.getMyCompany(userId);
 

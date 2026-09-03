@@ -109,3 +109,73 @@ export const deleteMyApplication = async (candidateProfileId, applicationId) => 
     });
     return null;
 };
+export const applyForJobMessage = async (candidateProfileId, jobId) => {
+    const result = await prisma.$transaction(async (tx) => {
+        // 1. Get job + company + recruiter
+        const job = await tx.job.findUnique({
+            where: {
+                id: jobId,
+            },
+            include: {
+                company: {
+                    include: {
+                        user: true,
+                    },
+                },
+            },
+        });
+        if (!job) {
+            throw new Error("Job not found");
+        }
+        // 2. Get candidate
+        const candidate = await tx.candidateProfile.findUnique({
+            where: {
+                id: candidateProfileId,
+            },
+            include: {
+                user: true,
+            },
+        });
+        if (!candidate) {
+            throw new Error("Candidate not found");
+        }
+        // 3. Create application
+        const application = await tx.jobApplication.create({
+            data: {
+                candidateProfileId: candidate.id,
+                jobId: job.id,
+            },
+        });
+        // 4. Create conversation
+        const conversation = await tx.conversation.create({
+            data: {
+                jobApplicationId: application.id,
+                participants: {
+                    create: [
+                        {
+                            userId: candidate.userId,
+                        },
+                        {
+                            userId: job.company.userId,
+                        },
+                    ],
+                },
+            },
+        });
+        // 5. Automatic message
+        const message = await tx.message.create({
+            data: {
+                conversationId: conversation.id,
+                senderId: job.company.userId,
+                content: `Thank you for your interest in ${job.company.name}'s ${job.title} position. Your application has been received successfully. You can use this conversation to communicate with our recruitment team regarding your application.`,
+                isAutomatic: true,
+            },
+        });
+        return {
+            application,
+            conversation,
+            message,
+        };
+    });
+    return result;
+};

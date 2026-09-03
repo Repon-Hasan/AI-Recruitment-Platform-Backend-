@@ -5,7 +5,7 @@ export const createJobSchema = z.object({
 
   description: z.string().min(20),
 
-  location: z.string().optional(),
+  location: z.string().trim().min(1, "Location is required"),
 
   remoteType: z
     .enum(["ONSITE", "REMOTE", "HYBRID"])
@@ -18,8 +18,7 @@ export const createJobSchema = z.object({
       "CONTRACT",
       "INTERNSHIP",
       "FREELANCE",
-    ])
-    .optional(),
+    ]),
 
   experienceLevel: z
     .enum([
@@ -28,8 +27,7 @@ export const createJobSchema = z.object({
       "MID",
       "SENIOR",
       "LEAD",
-    ])
-    .optional(),
+    ]),
 
   salaryMin: z.number().nonnegative().optional(),
 
@@ -40,7 +38,7 @@ export const createJobSchema = z.object({
     .max(10)
     .default("BDT"),
 
-  deadline: z.coerce.date().optional(),
+  deadline: z.coerce.date().refine((date) => date > new Date(), "Deadline must be in the future"),
 
   requiredSkills: z
     .array(z.string().min(1))

@@ -1,15 +1,14 @@
 import { Router } from "express";
 
-
-
-import { uploadResume } from "../../middleware/uploadResume";
+import { Role } from "../../../generated/prisma/enums";
 import { checkAuth } from "../../middleware/checkAuth";
-import { resumeController } from "./resume.controller";
+import { uploadResume } from "../../middleware/uploadResume";
 import { askRecruiterAIController } from "../recruiter-rag/recruiter-ai.controller";
+import { resumeController } from "./resume.controller";
 
 const router = Router();
 
-router.use(checkAuth());
+router.use(checkAuth(Role.CANDIDATE));
 
 router.post(
   "/upload",
@@ -42,15 +41,15 @@ router.get(
   resumeController.getAnalysis
 );
 
-//Summery
+// Summary
 router.post(
   "/:resumeId/ingest",
   resumeController.ingestResume
 );
- 
+
 router.post(
   "/ask",
   askRecruiterAIController
 );
 
-export const resumeRouter=router
+export const resumeRouter = router;

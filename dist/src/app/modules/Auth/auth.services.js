@@ -6,11 +6,21 @@ import { tokenUtils } from "../../utlis/token";
 import { Role, UserStatus } from "../../../generated/prisma/enums";
 import { jwtUtils } from "../../utlis/jwt";
 import { envVars } from "../../config/env";
-const registerUser = async (payload) => {
+import { deleteFileFromCloudinary, uploadFileToCloudinary } from "../../config/cloudnary.config";
+const registerUser = async (payload, file) => {
     const { name, email, password, role } = payload;
+    // ==========================================
+    // 1. Upload Image
+    // ==========================================
+    let imageUrl;
+    if (file) {
+        const uploadedImage = await uploadFileToCloudinary(file.buffer, file.originalname);
+        imageUrl =
+            uploadedImage.secure_url;
+    }
     const data = await auth.api.signUpEmail({
         body: {
-            name, email, password, role
+            name, email, password, role, image: imageUrl
         }
     });
     //console.log(data)
@@ -27,7 +37,7 @@ const registerUser = async (payload) => {
             });
         }
         const accessToken = tokenUtils.getAccessToken({
-            id: data.user.id,
+            userId: data.user.id,
             role: data.user.role,
             name: data.user.name,
             email: data.user.email,
@@ -36,7 +46,7 @@ const registerUser = async (payload) => {
             emailVerified: data.user.emailVerified
         });
         const refreshToken = tokenUtils.getRefreshToken({
-            id: data.user.id,
+            userId: data.user.id,
             role: data.user.role,
             name: data.user.name,
             email: data.user.email,
@@ -213,12 +223,62 @@ const changePassword = async (payload, sessionToken) => {
     };
 };
 const logoutUser = async (sessionToken) => {
-    const result = await auth.api.signOut({
+    if (!sessionToken) {
+        return { success: true };
+    }
+    return auth.api.signOut({
         headers: new Headers({
             Authorization: `Bearer ${sessionToken}`
         })
     });
-    return result;
+};
+const updateProfile = async (payload, sessionToken) => {
+    if (!sessionToken) {
+        throw new AppError(status.UNAUTHORIZED, "Session token is missing");
+    }
+    const session = await auth.api.getSession({
+        headers: new Headers({ Authorization: `Bearer ${sessionToken}` }),
+    });
+    if (!session) {
+        throw new AppError(status.UNAUTHORIZED, "Invalid session token");
+    }
+    if (!payload.currentPassword) {
+        throw new AppError(status.BAD_REQUEST, "Current password is required");
+    }
+    await auth.api.verifyPassword({
+        body: { password: payload.currentPassword },
+        headers: new Headers({ Authorization: `Bearer ${sessionToken}` }),
+    });
+    const cleanName = typeof payload.name === "string" ? payload.name.trim() : undefined;
+    if (cleanName !== undefined && cleanName.length < 2) {
+        throw new AppError(status.BAD_REQUEST, "Name must be at least 2 characters");
+    }
+    const updatedUser = await prisma.user.update({
+        where: { id: session.user.id },
+        data: {
+            ...(cleanName !== undefined ? { name: cleanName } : {}),
+            ...(payload.image !== undefined ? { image: payload.image } : {}),
+        },
+        select: {
+            id: true, name: true, email: true, image: true, role: true,
+            status: true, emailVerified: true, needPasswordChange: true, isDeleted: true,
+        },
+    });
+    const candidateFields = {
+        phone: payload.phone,
+        location: payload.location,
+        experience: payload.experience,
+        linkedin: payload.linkedin,
+        github: payload.github,
+        portfolio: payload.portfolio,
+    };
+    if (session.user.role === Role.CANDIDATE) {
+        await prisma.candidateProfile.update({
+            where: { userId: session.user.id },
+            data: Object.fromEntries(Object.entries(candidateFields).filter(([, value]) => value !== undefined)),
+        });
+    }
+    return updatedUser;
 };
 const verifyEmail = async (email, otp) => {
     const result = await auth.api.verifyEmailOTP({
@@ -328,6 +388,139 @@ const googleLoginSuccess = async (session) => {
         refreshToken,
     };
 };
+// ==========================================
+// Change User Status
+// ==========================================
+const changeUserStatus = async (userId, userStatus) => {
+    // ----------------------------------------
+    // Validate status
+    // ----------------------------------------
+    if (!Object.values(UserStatus).includes(userStatus)) {
+        throw new AppError(status.BAD_REQUEST, "Invalid user status");
+    }
+    // ----------------------------------------
+    // Find user
+    // ----------------------------------------
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            id: true,
+            role: true,
+            status: true,
+            isDeleted: true,
+        },
+    });
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, "User not found");
+    }
+    if (user.isDeleted) {
+        throw new AppError(status.BAD_REQUEST, "User has already been deleted");
+    }
+    // ----------------------------------------
+    // Update status
+    // ----------------------------------------
+    const updatedUser = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            status: userStatus,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            status: true,
+            image: true,
+            updatedAt: true,
+        },
+    });
+    return updatedUser;
+};
+// ==========================================
+// Delete User
+// ==========================================
+const deleteUser = async (userId) => {
+    // ----------------------------------------
+    // Find User
+    // ----------------------------------------
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            image: true,
+        },
+    });
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, "User not found");
+    }
+    // ----------------------------------------
+    // Don't allow admin to delete himself
+    // ----------------------------------------
+    if (user.role === "ADMIN") {
+        throw new AppError(status.FORBIDDEN, "Admin user cannot be deleted");
+    }
+    // ----------------------------------------
+    // Delete from Database
+    // ----------------------------------------
+    await prisma.$transaction(async (tx) => {
+        // CandidateProfile
+        await tx.candidateProfile.deleteMany({
+            where: {
+                userId,
+            },
+        });
+        // Company
+        await tx.company.deleteMany({
+            where: {
+                userId,
+            },
+        });
+        // Sessions
+        await tx.session.deleteMany({
+            where: {
+                userId,
+            },
+        });
+        // Accounts
+        await tx.account.deleteMany({
+            where: {
+                userId,
+            },
+        });
+        // Finally delete User
+        await tx.user.delete({
+            where: {
+                id: userId,
+            },
+        });
+    });
+    // ----------------------------------------
+    // Delete Cloudinary Image
+    // ----------------------------------------
+    if (user.image) {
+        try {
+            await deleteFileFromCloudinary(user.image);
+        }
+        catch (error) {
+            console.error("User deleted but Cloudinary image deletion failed:", error);
+        }
+    }
+    return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        message: "User and profile image deleted successfully",
+    };
+};
 export const authServices = {
-    registerUser, loginUser, getMe, getNewToken, changePassword, logoutUser, verifyEmail, forgetPassword, resetPassword, googleLoginSuccess
+    registerUser, loginUser, getMe, getNewToken, changePassword, updateProfile, logoutUser, verifyEmail, forgetPassword, resetPassword, googleLoginSuccess, changeUserStatus, deleteUser
 };

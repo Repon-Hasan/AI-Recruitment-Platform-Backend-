@@ -9,6 +9,41 @@
 * 🟢 You can import this file directly.
 */
 
+export const NotificationType = {
+  APPLICATION_SUBMITTED: 'APPLICATION_SUBMITTED',
+  APPLICATION_STATUS_CHANGED: 'APPLICATION_STATUS_CHANGED',
+  APPLICATION_SHORTLISTED: 'APPLICATION_SHORTLISTED',
+  APPLICATION_REJECTED: 'APPLICATION_REJECTED',
+  APPLICATION_ACCEPTED: 'APPLICATION_ACCEPTED',
+  NEW_CANDIDATE_APPLICATION: 'NEW_CANDIDATE_APPLICATION',
+  INTERVIEW_SCHEDULED: 'INTERVIEW_SCHEDULED',
+  INTERVIEW_RESCHEDULED: 'INTERVIEW_RESCHEDULED',
+  INTERVIEW_CANCELLED: 'INTERVIEW_CANCELLED',
+  INTERVIEW_REMINDER: 'INTERVIEW_REMINDER',
+  NEW_MESSAGE: 'NEW_MESSAGE'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const NotificationChannel = {
+  IN_APP: 'IN_APP',
+  EMAIL: 'EMAIL'
+} as const
+
+export type NotificationChannel = (typeof NotificationChannel)[keyof typeof NotificationChannel]
+
+
+export const NotificationStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  FAILED: 'FAILED',
+  READ: 'READ'
+} as const
+
+export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]
+
+
 export const Role = {
   CANDIDATE: 'CANDIDATE',
   RECRUITER: 'RECRUITER',
@@ -128,3 +163,23 @@ export const PenaltyStatus = {
 } as const
 
 export type PenaltyStatus = (typeof PenaltyStatus)[keyof typeof PenaltyStatus]
+
+
+export const InterviewStatus = {
+  SCHEDULED: 'SCHEDULED',
+  STARTED: 'STARTED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  RESCHEDULED: 'RESCHEDULED'
+} as const
+
+export type InterviewStatus = (typeof InterviewStatus)[keyof typeof InterviewStatus]
+
+
+export const InterviewType = {
+  VIDEO: 'VIDEO',
+  PHONE: 'PHONE',
+  IN_PERSON: 'IN_PERSON'
+} as const
+
+export type InterviewType = (typeof InterviewType)[keyof typeof InterviewType]

@@ -14,13 +14,13 @@ router.delete("/skills/:skillId", checkAuth(Role.CANDIDATE), candidateController
 router.post("/education", checkAuth(Role.CANDIDATE), candidateController.addEducation);
 router.patch("/education/:id", checkAuth(Role.CANDIDATE), candidateController.updateEducation);
 router.delete("/education/:id", checkAuth(Role.CANDIDATE), candidateController.deleteEducation);
-//Project Related
-router.post("/projects", checkAuth(), candidateController.createProject);
-router.get("/projects", checkAuth(), candidateController.getMyProjects);
-router.get("/projects/:projectId", checkAuth(), candidateController.getProjectById);
-router.patch("/projects/:projectId", checkAuth(), candidateController.updateProject);
-router.delete("/projects/:projectId", checkAuth(), candidateController.deleteProject);
-//CerTificate
+// Project Related
+router.post("/projects", checkAuth(Role.CANDIDATE), candidateController.createProject);
+router.get("/projects", checkAuth(Role.CANDIDATE), candidateController.getMyProjects);
+router.get("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.getProjectById);
+router.patch("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.updateProject);
+router.delete("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.deleteProject);
+// Certificate
 router.post("/certificate", (req, res, next) => {
     multerUpload.single("image")(req, res, (err) => {
         if (err) {
@@ -36,9 +36,9 @@ router.post("/certificate", (req, res, next) => {
         console.log("FILE:", req.file);
         next();
     });
-}, checkAuth(), candidateController.createCertification);
-router.get("/certificate", checkAuth(), candidateController.getMyCertifications);
-router.get("/certificate/:certificationId", checkAuth(), candidateController.getCertificationById);
-router.patch("/certificate/:certificationId", checkAuth(), candidateController.updateCertification);
-router.delete("/certificate/:certificationId", checkAuth(), candidateController.deleteCertification);
+}, checkAuth(Role.CANDIDATE), candidateController.createCertification);
+router.get("/certificate", checkAuth(Role.CANDIDATE), candidateController.getMyCertifications);
+router.get("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.getCertificationById);
+router.patch("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.updateCertification);
+router.delete("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.deleteCertification);
 export const candidateRoutes = router;

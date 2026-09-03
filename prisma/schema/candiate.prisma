@@ -24,6 +24,7 @@ model CandidateProfile {
   applicationAssistants ApplicationAssistant[]
   candidateEmbeddings CandidateEmbedding?
   reviewComplaints ReviewComplaint[]
+  interviewSessions InterviewSession[]
 }
 
 model CandidateEmbedding {

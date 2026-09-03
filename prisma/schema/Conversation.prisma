@@ -1,0 +1,54 @@
+model Conversation {
+  id              String   @id @default(uuid())
+
+  jobApplicationId String?  @unique
+
+  jobApplication  JobApplication? @relation(fields: [jobApplicationId], references: [id], onDelete: Cascade)
+
+  participants    ConversationParticipant[]
+  messages        Message[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([jobApplicationId])
+}
+
+model Message {
+  id             String @id @default(uuid())
+
+  conversationId String
+  senderId       String
+
+  content        String
+
+  isAutomatic    Boolean @default(false)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([createdAt])
+}
+
+
+model ConversationParticipant {
+  id             String @id @default(uuid())
+
+  conversationId String
+  userId         String
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  joinedAt DateTime @default(now())
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}

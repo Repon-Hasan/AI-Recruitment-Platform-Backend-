@@ -41,7 +41,7 @@ const loadEnvVariables = () => {
     return {
         NODE_ENV: process.env.NODE_ENV,
         PORT: process.env.PORT,
-        DATABASE_URL: process.env.DATABASE_URL,
+        DATABASE_URL: process.env.DATABASE_URL?.trim(),
         BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
         BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
         ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
@@ -67,8 +67,8 @@ const loadEnvVariables = () => {
             CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
         },
         GROQ_API_KEY: process.env.GROQ_API_KEY,
-        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
-        OPENROUTER_EMBEDDING_MODEL: process.env.OPENROUTER_EMBEDDING_MODEL,
+        OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY?.trim(),
+        OPENROUTER_EMBEDDING_MODEL: process.env.OPENROUTER_EMBEDDING_MODEL?.trim(),
         GEMINI_API_KEY: process.env.GEMINI_API_KEY,
         GEMINI_LLM_MODEL: process.env.GEMINI_LLM_MODEL
     };

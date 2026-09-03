@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { jobServices } from "./jobb.services";
+import { createJobSchema } from "./job.validation";
 
 
  const createJob = async (req: Request, res: Response) => {
   try {
     const userId = req.user.userId;
 
-    const job = await jobServices.createJobService(userId, req.body);
+    const validatedData = createJobSchema.parse(req.body);
+    const job = await jobServices.createJobService(userId, validatedData);
 
     res.status(201).json({
       success: true,
@@ -43,6 +45,22 @@ const getAllJobs = async (req: Request, res: Response) => {
     });
   }
 };
+
+const allJobs=async(req:Request,res:Response)=>{
+        try {
+    const jobs = await jobServices.allJobsService();
+    res.status(200).json({
+      success: true,
+      message: "Jobs fetched successfully",
+      data: jobs,
+    });
+  } catch (error: any) {
+    res.status(error.statusCode || 500).json({
+      success: false,
+      message: error.message || "Failed to fetch jobs",
+    });
+  }
+}
 
 // Update Job
 const updateJob = async (req: Request, res: Response) => {
@@ -230,5 +248,5 @@ const searchJobs = async (
 };
 
 export const jobController={
-    createJob,getAllJobs,updateJob,deleteJob,getJobById,publishJob,closeJob,duplicateJob,searchJobs
+    createJob,getAllJobs,updateJob,deleteJob,getJobById,publishJob,closeJob,duplicateJob,searchJobs,allJobs
 }

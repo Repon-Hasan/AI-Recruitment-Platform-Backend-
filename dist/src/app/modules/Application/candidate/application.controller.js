@@ -1,5 +1,5 @@
 import status from "http-status";
-import { applyToJob, getMyApplications, getMyApplicationById, deleteMyApplication } from "./application.service";
+import { applyToJob, getMyApplications, getMyApplicationById, deleteMyApplication, applyForJobMessage } from "./application.service";
 import { sendResponse } from "../../../shared/sendResponse";
 export const applyToJobController = async (req, res) => {
     const { jobId } = req.body;
@@ -42,5 +42,15 @@ export const deleteMyApplicationController = async (req, res) => {
         success: true,
         message: "Application deleted successfully",
         data: null,
+    });
+};
+export const applyForJob = async (req, res) => {
+    const { jobId } = req.body;
+    const userId = req.user.userId;
+    const result = await applyForJobMessage(userId, jobId);
+    res.status(status.CREATED).json({
+        success: true,
+        message: "Application submitted successfully",
+        data: result,
     });
 };

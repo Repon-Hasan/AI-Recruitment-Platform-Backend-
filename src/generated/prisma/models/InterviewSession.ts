@@ -260,6 +260,7 @@ export type InterviewSessionWhereInput = {
   overallScore?: Prisma.FloatNullableFilter<"InterviewSession"> | number | null
   createdAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
+  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   answers?: Prisma.InterviewAnswerListRelationFilter
 }
@@ -275,6 +276,7 @@ export type InterviewSessionOrderByWithRelationInput = {
   overallScore?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  candidateProfile?: Prisma.CandidateProfileOrderByWithRelationInput
   job?: Prisma.JobOrderByWithRelationInput
   answers?: Prisma.InterviewAnswerOrderByRelationAggregateInput
 }
@@ -293,6 +295,7 @@ export type InterviewSessionWhereUniqueInput = Prisma.AtLeast<{
   overallScore?: Prisma.FloatNullableFilter<"InterviewSession"> | number | null
   createdAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
+  candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   answers?: Prisma.InterviewAnswerListRelationFilter
 }, "id">
@@ -333,7 +336,6 @@ export type InterviewSessionScalarWhereWithAggregatesInput = {
 
 export type InterviewSessionCreateInput = {
   id?: string
-  candidateProfileId: string
   experienceLevel: string
   interviewType: string
   currentQuestion?: number
@@ -341,6 +343,7 @@ export type InterviewSessionCreateInput = {
   overallScore?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutInterviewSessionsInput
   job: Prisma.JobCreateNestedOneWithoutInterviewSessionsInput
   answers?: Prisma.InterviewAnswerCreateNestedManyWithoutSessionInput
 }
@@ -361,7 +364,6 @@ export type InterviewSessionUncheckedCreateInput = {
 
 export type InterviewSessionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
   interviewType?: Prisma.StringFieldUpdateOperationsInput | string
   currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
@@ -369,6 +371,7 @@ export type InterviewSessionUpdateInput = {
   overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutInterviewSessionsNestedInput
   job?: Prisma.JobUpdateOneRequiredWithoutInterviewSessionsNestedInput
   answers?: Prisma.InterviewAnswerUpdateManyWithoutSessionNestedInput
 }
@@ -402,7 +405,6 @@ export type InterviewSessionCreateManyInput = {
 
 export type InterviewSessionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
   interviewType?: Prisma.StringFieldUpdateOperationsInput | string
   currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
@@ -489,6 +491,48 @@ export type InterviewSessionScalarRelationFilter = {
   isNot?: Prisma.InterviewSessionWhereInput
 }
 
+export type InterviewSessionCreateNestedManyWithoutCandidateProfileInput = {
+  create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput> | Prisma.InterviewSessionCreateWithoutCandidateProfileInput[] | Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput[]
+  connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput | Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput[]
+  createMany?: Prisma.InterviewSessionCreateManyCandidateProfileInputEnvelope
+  connect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+}
+
+export type InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput = {
+  create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput> | Prisma.InterviewSessionCreateWithoutCandidateProfileInput[] | Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput[]
+  connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput | Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput[]
+  createMany?: Prisma.InterviewSessionCreateManyCandidateProfileInputEnvelope
+  connect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+}
+
+export type InterviewSessionUpdateManyWithoutCandidateProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput> | Prisma.InterviewSessionCreateWithoutCandidateProfileInput[] | Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput[]
+  connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput | Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput[]
+  upsert?: Prisma.InterviewSessionUpsertWithWhereUniqueWithoutCandidateProfileInput | Prisma.InterviewSessionUpsertWithWhereUniqueWithoutCandidateProfileInput[]
+  createMany?: Prisma.InterviewSessionCreateManyCandidateProfileInputEnvelope
+  set?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  disconnect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  delete?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  connect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  update?: Prisma.InterviewSessionUpdateWithWhereUniqueWithoutCandidateProfileInput | Prisma.InterviewSessionUpdateWithWhereUniqueWithoutCandidateProfileInput[]
+  updateMany?: Prisma.InterviewSessionUpdateManyWithWhereWithoutCandidateProfileInput | Prisma.InterviewSessionUpdateManyWithWhereWithoutCandidateProfileInput[]
+  deleteMany?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
+}
+
+export type InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput> | Prisma.InterviewSessionCreateWithoutCandidateProfileInput[] | Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput[]
+  connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput | Prisma.InterviewSessionCreateOrConnectWithoutCandidateProfileInput[]
+  upsert?: Prisma.InterviewSessionUpsertWithWhereUniqueWithoutCandidateProfileInput | Prisma.InterviewSessionUpsertWithWhereUniqueWithoutCandidateProfileInput[]
+  createMany?: Prisma.InterviewSessionCreateManyCandidateProfileInputEnvelope
+  set?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  disconnect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  delete?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  connect?: Prisma.InterviewSessionWhereUniqueInput | Prisma.InterviewSessionWhereUniqueInput[]
+  update?: Prisma.InterviewSessionUpdateWithWhereUniqueWithoutCandidateProfileInput | Prisma.InterviewSessionUpdateWithWhereUniqueWithoutCandidateProfileInput[]
+  updateMany?: Prisma.InterviewSessionUpdateManyWithWhereWithoutCandidateProfileInput | Prisma.InterviewSessionUpdateManyWithWhereWithoutCandidateProfileInput[]
+  deleteMany?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
+}
+
 export type InterviewSessionCreateNestedManyWithoutJobInput = {
   create?: Prisma.XOR<Prisma.InterviewSessionCreateWithoutJobInput, Prisma.InterviewSessionUncheckedCreateWithoutJobInput> | Prisma.InterviewSessionCreateWithoutJobInput[] | Prisma.InterviewSessionUncheckedCreateWithoutJobInput[]
   connectOrCreate?: Prisma.InterviewSessionCreateOrConnectWithoutJobInput | Prisma.InterviewSessionCreateOrConnectWithoutJobInput[]
@@ -545,9 +589,8 @@ export type InterviewSessionUpdateOneRequiredWithoutAnswersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InterviewSessionUpdateToOneWithWhereWithoutAnswersInput, Prisma.InterviewSessionUpdateWithoutAnswersInput>, Prisma.InterviewSessionUncheckedUpdateWithoutAnswersInput>
 }
 
-export type InterviewSessionCreateWithoutJobInput = {
+export type InterviewSessionCreateWithoutCandidateProfileInput = {
   id?: string
-  candidateProfileId: string
   experienceLevel: string
   interviewType: string
   currentQuestion?: number
@@ -555,6 +598,75 @@ export type InterviewSessionCreateWithoutJobInput = {
   overallScore?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  job: Prisma.JobCreateNestedOneWithoutInterviewSessionsInput
+  answers?: Prisma.InterviewAnswerCreateNestedManyWithoutSessionInput
+}
+
+export type InterviewSessionUncheckedCreateWithoutCandidateProfileInput = {
+  id?: string
+  jobId: string
+  experienceLevel: string
+  interviewType: string
+  currentQuestion?: number
+  status?: string
+  overallScore?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  answers?: Prisma.InterviewAnswerUncheckedCreateNestedManyWithoutSessionInput
+}
+
+export type InterviewSessionCreateOrConnectWithoutCandidateProfileInput = {
+  where: Prisma.InterviewSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput>
+}
+
+export type InterviewSessionCreateManyCandidateProfileInputEnvelope = {
+  data: Prisma.InterviewSessionCreateManyCandidateProfileInput | Prisma.InterviewSessionCreateManyCandidateProfileInput[]
+  skipDuplicates?: boolean
+}
+
+export type InterviewSessionUpsertWithWhereUniqueWithoutCandidateProfileInput = {
+  where: Prisma.InterviewSessionWhereUniqueInput
+  update: Prisma.XOR<Prisma.InterviewSessionUpdateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedUpdateWithoutCandidateProfileInput>
+  create: Prisma.XOR<Prisma.InterviewSessionCreateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedCreateWithoutCandidateProfileInput>
+}
+
+export type InterviewSessionUpdateWithWhereUniqueWithoutCandidateProfileInput = {
+  where: Prisma.InterviewSessionWhereUniqueInput
+  data: Prisma.XOR<Prisma.InterviewSessionUpdateWithoutCandidateProfileInput, Prisma.InterviewSessionUncheckedUpdateWithoutCandidateProfileInput>
+}
+
+export type InterviewSessionUpdateManyWithWhereWithoutCandidateProfileInput = {
+  where: Prisma.InterviewSessionScalarWhereInput
+  data: Prisma.XOR<Prisma.InterviewSessionUpdateManyMutationInput, Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileInput>
+}
+
+export type InterviewSessionScalarWhereInput = {
+  AND?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
+  OR?: Prisma.InterviewSessionScalarWhereInput[]
+  NOT?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
+  id?: Prisma.StringFilter<"InterviewSession"> | string
+  candidateProfileId?: Prisma.StringFilter<"InterviewSession"> | string
+  jobId?: Prisma.StringFilter<"InterviewSession"> | string
+  experienceLevel?: Prisma.StringFilter<"InterviewSession"> | string
+  interviewType?: Prisma.StringFilter<"InterviewSession"> | string
+  currentQuestion?: Prisma.IntFilter<"InterviewSession"> | number
+  status?: Prisma.StringFilter<"InterviewSession"> | string
+  overallScore?: Prisma.FloatNullableFilter<"InterviewSession"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
+}
+
+export type InterviewSessionCreateWithoutJobInput = {
+  id?: string
+  experienceLevel: string
+  interviewType: string
+  currentQuestion?: number
+  status?: string
+  overallScore?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutInterviewSessionsInput
   answers?: Prisma.InterviewAnswerCreateNestedManyWithoutSessionInput
 }
 
@@ -597,25 +709,8 @@ export type InterviewSessionUpdateManyWithWhereWithoutJobInput = {
   data: Prisma.XOR<Prisma.InterviewSessionUpdateManyMutationInput, Prisma.InterviewSessionUncheckedUpdateManyWithoutJobInput>
 }
 
-export type InterviewSessionScalarWhereInput = {
-  AND?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
-  OR?: Prisma.InterviewSessionScalarWhereInput[]
-  NOT?: Prisma.InterviewSessionScalarWhereInput | Prisma.InterviewSessionScalarWhereInput[]
-  id?: Prisma.StringFilter<"InterviewSession"> | string
-  candidateProfileId?: Prisma.StringFilter<"InterviewSession"> | string
-  jobId?: Prisma.StringFilter<"InterviewSession"> | string
-  experienceLevel?: Prisma.StringFilter<"InterviewSession"> | string
-  interviewType?: Prisma.StringFilter<"InterviewSession"> | string
-  currentQuestion?: Prisma.IntFilter<"InterviewSession"> | number
-  status?: Prisma.StringFilter<"InterviewSession"> | string
-  overallScore?: Prisma.FloatNullableFilter<"InterviewSession"> | number | null
-  createdAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"InterviewSession"> | Date | string
-}
-
 export type InterviewSessionCreateWithoutAnswersInput = {
   id?: string
-  candidateProfileId: string
   experienceLevel: string
   interviewType: string
   currentQuestion?: number
@@ -623,6 +718,7 @@ export type InterviewSessionCreateWithoutAnswersInput = {
   overallScore?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutInterviewSessionsInput
   job: Prisma.JobCreateNestedOneWithoutInterviewSessionsInput
 }
 
@@ -657,7 +753,44 @@ export type InterviewSessionUpdateToOneWithWhereWithoutAnswersInput = {
 
 export type InterviewSessionUpdateWithoutAnswersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  interviewType?: Prisma.StringFieldUpdateOperationsInput | string
+  currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutInterviewSessionsNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutInterviewSessionsNestedInput
+}
+
+export type InterviewSessionUncheckedUpdateWithoutAnswersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  interviewType?: Prisma.StringFieldUpdateOperationsInput | string
+  currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InterviewSessionCreateManyCandidateProfileInput = {
+  id?: string
+  jobId: string
+  experienceLevel: string
+  interviewType: string
+  currentQuestion?: number
+  status?: string
+  overallScore?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InterviewSessionUpdateWithoutCandidateProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
   interviewType?: Prisma.StringFieldUpdateOperationsInput | string
   currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
@@ -666,11 +799,24 @@ export type InterviewSessionUpdateWithoutAnswersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobUpdateOneRequiredWithoutInterviewSessionsNestedInput
+  answers?: Prisma.InterviewAnswerUpdateManyWithoutSessionNestedInput
 }
 
-export type InterviewSessionUncheckedUpdateWithoutAnswersInput = {
+export type InterviewSessionUncheckedUpdateWithoutCandidateProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
+  interviewType?: Prisma.StringFieldUpdateOperationsInput | string
+  currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  answers?: Prisma.InterviewAnswerUncheckedUpdateManyWithoutSessionNestedInput
+}
+
+export type InterviewSessionUncheckedUpdateManyWithoutCandidateProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
   interviewType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -695,7 +841,6 @@ export type InterviewSessionCreateManyJobInput = {
 
 export type InterviewSessionUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string
   experienceLevel?: Prisma.StringFieldUpdateOperationsInput | string
   interviewType?: Prisma.StringFieldUpdateOperationsInput | string
   currentQuestion?: Prisma.IntFieldUpdateOperationsInput | number
@@ -703,6 +848,7 @@ export type InterviewSessionUpdateWithoutJobInput = {
   overallScore?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutInterviewSessionsNestedInput
   answers?: Prisma.InterviewAnswerUpdateManyWithoutSessionNestedInput
 }
 
@@ -773,6 +919,7 @@ export type InterviewSessionSelect<ExtArgs extends runtime.Types.Extensions.Inte
   overallScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   answers?: boolean | Prisma.InterviewSession$answersArgs<ExtArgs>
   _count?: boolean | Prisma.InterviewSessionCountOutputTypeDefaultArgs<ExtArgs>
@@ -789,6 +936,7 @@ export type InterviewSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   overallScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["interviewSession"]>
 
@@ -803,6 +951,7 @@ export type InterviewSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   overallScore?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["interviewSession"]>
 
@@ -821,20 +970,24 @@ export type InterviewSessionSelectScalar = {
 
 export type InterviewSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateProfileId" | "jobId" | "experienceLevel" | "interviewType" | "currentQuestion" | "status" | "overallScore" | "createdAt" | "updatedAt", ExtArgs["result"]["interviewSession"]>
 export type InterviewSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   answers?: boolean | Prisma.InterviewSession$answersArgs<ExtArgs>
   _count?: boolean | Prisma.InterviewSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InterviewSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }
 export type InterviewSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
 }
 
 export type $InterviewSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "InterviewSession"
   objects: {
+    candidateProfile: Prisma.$CandidateProfilePayload<ExtArgs>
     job: Prisma.$JobPayload<ExtArgs>
     answers: Prisma.$InterviewAnswerPayload<ExtArgs>[]
   }
@@ -1243,6 +1396,7 @@ readonly fields: InterviewSessionFieldRefs;
  */
 export interface Prisma__InterviewSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  candidateProfile<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   answers<T extends Prisma.InterviewSession$answersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InterviewSession$answersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InterviewAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**

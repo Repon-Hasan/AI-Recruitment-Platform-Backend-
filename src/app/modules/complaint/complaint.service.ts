@@ -131,6 +131,9 @@ const createComplaint = async (
     await prisma.reviewComplaint.create({
       data: {
 
+        submittedById:
+          userId,
+
         candidateProfileId:
           candidateProfile.id,
 
