@@ -711,6 +711,15 @@ const deleteUser = async (
   };
 };
 
+const getAllCandidates = async () => {
+  const candidates = await prisma.user.findMany({
+    where: {
+      role: "CANDIDATE"
+    }
+  });
+  return candidates;
+};
+
 export const authServices={
-  registerUser,loginUser,getMe,getNewToken,changePassword,updateProfile,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLoginSuccess,changeUserStatus,deleteUser
+  registerUser,loginUser,getMe,getNewToken,changePassword,updateProfile,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLoginSuccess,changeUserStatus,deleteUser,getAllCandidates
 }

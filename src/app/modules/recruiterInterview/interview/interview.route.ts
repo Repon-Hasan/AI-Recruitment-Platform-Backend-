@@ -46,4 +46,9 @@ router.get(
   getAll,
 );
 
+
+
+
+
+
 export const InterviewRouterCandidate = router;

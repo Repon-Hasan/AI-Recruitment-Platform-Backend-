@@ -23,6 +23,7 @@ model Message {
   content        String
 
   isAutomatic    Boolean @default(false)
+  readAt DateTime?
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

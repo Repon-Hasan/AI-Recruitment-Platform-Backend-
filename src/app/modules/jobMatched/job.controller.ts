@@ -118,7 +118,7 @@ export const getJobMatchSummary = async (
   req: Request,
   res: Response
 ) => {
-  const userId = req.user.id;
+  const userId = req.user.userId;
   const { jobId } = req.params;
 
   if (!jobId || Array.isArray(jobId)) {

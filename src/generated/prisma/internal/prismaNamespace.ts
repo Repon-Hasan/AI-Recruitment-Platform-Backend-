@@ -2871,6 +2871,7 @@ export const MessageScalarFieldEnum = {
   senderId: 'senderId',
   content: 'content',
   isAutomatic: 'isAutomatic',
+  readAt: 'readAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3026,6 +3027,7 @@ export const CandidateProfileScalarFieldEnum = {
   userId: 'userId',
   phone: 'phone',
   location: 'location',
+  bio: 'bio',
   experience: 'experience',
   linkedin: 'linkedin',
   github: 'github',

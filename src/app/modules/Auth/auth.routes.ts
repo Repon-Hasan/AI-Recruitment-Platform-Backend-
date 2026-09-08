@@ -35,6 +35,12 @@ router.patch(
 );
 
 
+router.get(
+  "/allCandidates",
+  checkAuth(Role.ADMIN,Role.RECRUITER),
+  authController.getAllCandidates
+);
+
 // ==========================================
 // Permanently Delete User
 // ==========================================

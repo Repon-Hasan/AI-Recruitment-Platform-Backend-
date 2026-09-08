@@ -7,14 +7,121 @@ const ai = new GoogleGenAI({
   apiKey: envVars.GEMINI_API_KEY!,
 });
 
+// const startInterview = async (
+//   candidateProfileId: string,
+//   jobId: string,
+//   experienceLevel: string,
+//   interviewType: string
+// ) => {
+
+//   // Get job
+//   const job = await prisma.job.findUnique({
+//     where: {
+//       id: jobId,
+//     },
+//     include: {
+//       requiredSkills: true,
+//     },
+//   });
+
+//   if (!job) {
+//     throw new Error("Job not found");
+//   }
+
+//   // Create interview session
+//   const session = await prisma.interviewSession.create({
+//     data: {
+//       candidateProfileId,
+//       jobId,
+//       experienceLevel,
+//       interviewType,
+//     },
+//   });
+
+//   // Generate first question
+//   const response = await ai.models.generateContent({
+//     model: "gemini-3.6-flash",
+
+//     contents: `
+// You are an interviewer.
+
+// Job:
+// ${job.title}
+
+// Description:
+// ${job.description}
+
+// Required skills:
+// ${job.requiredSkills
+//   .map((skill) => skill.name)
+//   .join(", ")}
+
+// Experience:
+// ${experienceLevel}
+
+// Interview type:
+// ${interviewType}
+
+// Generate ONE interview question.
+
+// Return JSON:
+
+// {
+//   "question": "...",
+//   "difficulty": "Easy | Medium | Hard",
+//   "category": "..."
+// }
+// `,
+//   });
+
+//   const text = response.text;
+
+//   if (!text) {
+//     throw new Error("AI did not return question");
+//   }
+
+//   const question = JSON.parse(
+//     text.replace(/```json/g, "")
+//       .replace(/```/g, "")
+//       .trim()
+//   );
+
+//   return {
+//     sessionId: session.id,
+//     questionNumber: 1,
+//     question,
+//   };
+// };
+
+
+
 const startInterview = async (
-  candidateProfileId: string,
+  userId: string,
   jobId: string,
   experienceLevel: string,
   interviewType: string
 ) => {
+  // ---------------------------------------
+  // 1. Find candidate profile
+  // ---------------------------------------
 
-  // Get job
+  const candidateProfile =
+    await prisma.candidateProfile.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+  if (!candidateProfile) {
+    throw new Error(
+      "Candidate profile not found for this user"
+    );
+  }
+
+  // ---------------------------------------
+  // 2. Find job
+  // ---------------------------------------
+
   const job = await prisma.job.findUnique({
     where: {
       id: jobId,
@@ -28,22 +135,28 @@ const startInterview = async (
     throw new Error("Job not found");
   }
 
-  // Create interview session
-  const session = await prisma.interviewSession.create({
-    data: {
-      candidateProfileId,
-      jobId,
-      experienceLevel,
-      interviewType,
-    },
-  });
+  // ---------------------------------------
+  // 3. Create interview session
+  // ---------------------------------------
 
-  // Generate first question
+  const session =
+    await prisma.interviewSession.create({
+      data: {
+        candidateProfileId: candidateProfile.id,
+        jobId,
+        experienceLevel,
+        interviewType,
+      },
+    });
+
+  // ---------------------------------------
+  // 4. Generate first question
+  // ---------------------------------------
+
   const response = await ai.models.generateContent({
     model: "gemini-3.6-flash",
-
     contents: `
-You are an interviewer.
+You are an expert technical interviewer.
 
 Job:
 ${job.title}
@@ -56,7 +169,7 @@ ${job.requiredSkills
   .map((skill) => skill.name)
   .join(", ")}
 
-Experience:
+Candidate experience:
 ${experienceLevel}
 
 Interview type:
@@ -64,7 +177,7 @@ ${interviewType}
 
 Generate ONE interview question.
 
-Return JSON:
+Return ONLY valid JSON:
 
 {
   "question": "...",
@@ -81,7 +194,8 @@ Return JSON:
   }
 
   const question = JSON.parse(
-    text.replace(/```json/g, "")
+    text
+      .replace(/```json/g, "")
       .replace(/```/g, "")
       .trim()
   );
@@ -92,7 +206,6 @@ Return JSON:
     question,
   };
 };
-
 
 const evaluateAnswer = async (
   sessionId: string,

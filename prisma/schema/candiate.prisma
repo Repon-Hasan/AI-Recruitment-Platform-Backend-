@@ -4,6 +4,7 @@ model CandidateProfile {
   userId         String                   @unique
   phone          String?
   location       String?
+  bio        String?   
   experience     String?
   linkedin       String?
   github         String?

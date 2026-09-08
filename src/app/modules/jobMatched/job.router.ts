@@ -24,7 +24,7 @@ router.get(
 
 // Candidate - calculate a match
 router.post(
-  "/:jobId",
+  "/:jobId/calculate",
   checkAuth(Role.CANDIDATE),
   calculateJobMatch
 );

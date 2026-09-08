@@ -2,8 +2,10 @@ import { Router } from "express";
 
 import {
   getAllConversationsController,
+  getCandidateConversationsController,
   getConversationController,
   sendMessageController,
+  sendMessageControllerJob,
 } from "./conversation.controller";
 import { checkAuth } from "../../../middleware/checkAuth";
 
@@ -21,6 +23,17 @@ router.get(
   "/applications/:applicationId",
   checkAuth(),
   getConversationController,
+);
+
+router.post(
+  "/:conversationId/messages",
+  checkAuth(),
+  sendMessageControllerJob,
+);
+router.get(
+  "/candidate",
+  checkAuth(),
+  getCandidateConversationsController,
 );
 
 router.post(

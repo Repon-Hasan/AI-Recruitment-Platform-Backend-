@@ -4,7 +4,7 @@ import { candidateController } from "./candidate.controller";
 
 import { Role } from "../../../generated/prisma/enums";
 import { checkAuth } from "../../middleware/checkAuth";
-import { multerUpload } from "../../config/multer";
+import { multerImageUpload, multerUpload } from "../../config/multer";
 
 
 const router = Router();
@@ -93,7 +93,7 @@ router.delete(
 router.post(
   "/certificate",
   (req, res, next) => {
-    multerUpload.single("image")(req, res, (err) => {
+    multerImageUpload.single("image")(req, res, (err) => {
       if (err) {
         console.error("🔥 MULTER ERROR:", err);
         console.error("🔥 MESSAGE:", err.message);

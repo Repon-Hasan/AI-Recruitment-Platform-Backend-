@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { jobServices } from "./jobb.services";
+import { jobServices } from "./job.services";
 import { createJobSchema } from "./job.validation";
 
 

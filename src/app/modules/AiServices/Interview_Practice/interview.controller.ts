@@ -1,28 +1,60 @@
 import { Request, Response } from "express";
 import { InterviewQuestionService } from "./interview.service";
 
-const startInterview = async (
-  req: Request,
-  res: Response
-) => {
+// const startInterview = async (
+//   req: Request,
+//   res: Response
+// ) => {
 
+//   try {
+
+//     const {
+//       jobId,
+//       experienceLevel,
+//       interviewType,
+//     } = req.body;
+
+//     // Use your existing authenticated user
+//     const candidateProfileId =
+//       req.user.userId;
+
+//       //console.log("Candidate",candidateProfileId)
+
+//     const result =
+//       await InterviewQuestionService.startInterview(
+//         candidateProfileId,
+//         jobId,
+//         experienceLevel,
+//         interviewType
+//       );
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Interview started successfully",
+//       data: result,
+//     });
+
+//   } catch (error: any) {
+
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+
+//   }
+// };
+
+
+
+const startInterview = async (req:Request, res:Response) => {
   try {
+    const { jobId, experienceLevel, interviewType } = req.body;
 
-    const {
-      jobId,
-      experienceLevel,
-      interviewType,
-    } = req.body;
-
-    // Use your existing authenticated user
-    const candidateProfileId =
-      req.user.userId;
-
-      //console.log("Candidate",candidateProfileId)
+    const userId = req.user.userId;
 
     const result =
       await InterviewQuestionService.startInterview(
-        candidateProfileId,
+        userId,
         jobId,
         experienceLevel,
         interviewType
@@ -33,17 +65,13 @@ const startInterview = async (
       message: "Interview started successfully",
       data: result,
     });
-
   } catch (error: any) {
-
     res.status(500).json({
       success: false,
-      message: error.message,
+      message: error.message || "Something went wrong",
     });
-
   }
 };
-
 const answerInterview = async (
   req: Request,
   res: Response

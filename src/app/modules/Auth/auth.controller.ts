@@ -349,7 +349,18 @@ const deleteUser = catchAsync(
 
   }
 );
+const getAllCandidates = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await authServices.getAllCandidates();
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Candidates retrieved successfully",
+      data: result
+    });
+  }
+);
 
 export const authController={
-    registerUser,loginUser,getUser,getNewToken,changePassword,updateProfile,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError,changeUserStatus,deleteUser
+    registerUser,loginUser,getUser,getNewToken,changePassword,updateProfile,logoutUser,verifyEmail,forgetPassword,resetPassword,googleLogin,googleLoginSuccess,handleOAuthError,changeUserStatus,deleteUser,getAllCandidates
 }

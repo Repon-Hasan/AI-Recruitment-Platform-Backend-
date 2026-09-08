@@ -18,7 +18,7 @@ router.post(
 );
 
 router.get(
-  "/me",
+  "/my/application",
   checkAuth(Role.CANDIDATE),
   getMyApplicationsController
 );

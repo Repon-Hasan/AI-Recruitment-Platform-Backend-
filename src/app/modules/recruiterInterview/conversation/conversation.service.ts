@@ -1,7 +1,11 @@
 import { prisma } from "../../../lib/prisma";
 import { sendMessageSchema } from "../interview/interview.validation";
 
-
+type SendMessageInput = {
+  conversationId: string;
+  senderId: string;
+  content: string;
+};
 export async function getApplicationConversation(
   userId: string,
   applicationId: string,
@@ -167,7 +171,87 @@ export async function sendMessage(
 
   return message;
 }
+export async function getCandidateConversations(userId: string) {
+  if (!userId) {
+    throw new Error("USER_ID_REQUIRED");
+  }
 
+  const conversations = await prisma.conversation.findMany({
+    where: {
+      participants: {
+        some: {
+          userId,
+        },
+      },
+    },
+    include: {
+      jobApplication: {
+        include: {
+          job: {
+            include: {
+              company: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                  website: true,
+                },
+              },
+              requiredSkills: true,
+            },
+          },
+          candidateProfile: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+          },
+        },
+      },
+
+      participants: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+        },
+      },
+
+      messages: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 1,
+        include: {
+          sender: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+    },
+
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+
+  return conversations;
+}
 export async function getAllConversations(
   userId: string,
 ) {
@@ -258,3 +342,178 @@ export async function getAllConversations(
 
   return conversations;
 }
+
+export const ConversationService = {
+
+
+  /* =======================================================
+     SEND MESSAGE
+  ======================================================= */
+
+  async sendMessage({
+    conversationId,
+    senderId,
+    content,
+  }: SendMessageInput) {
+    /* -----------------------------------------------------
+       1. Check conversation
+    ----------------------------------------------------- */
+
+    const conversation =
+      await prisma.conversation.findUnique({
+        where: {
+          id: conversationId,
+        },
+
+        select: {
+          id: true,
+        },
+      });
+
+    if (!conversation) {
+      throw new Error(
+        "CONVERSATION_NOT_FOUND",
+      );
+    }
+
+    /* -----------------------------------------------------
+       2. Verify participant
+    ----------------------------------------------------- */
+
+    const participant =
+      await prisma.conversationParticipant.findUnique(
+        {
+          where: {
+            conversationId_userId: {
+              conversationId,
+              userId: senderId,
+            },
+          },
+
+          select: {
+            id: true,
+          },
+        },
+      );
+
+    if (!participant) {
+      throw new Error(
+        "NOT_CONVERSATION_PARTICIPANT",
+      );
+    }
+
+    /* -----------------------------------------------------
+       3. Create message
+    ----------------------------------------------------- */
+
+  const message = await prisma.message.create({
+  data: {
+    conversationId,
+    senderId,
+    content,
+  },
+  include: {
+    sender: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+      },
+    },
+  },
+});
+
+    /* -----------------------------------------------------
+       4. Update conversation timestamp
+    ----------------------------------------------------- */
+
+    await prisma.conversation.update({
+      where: {
+        id: conversationId,
+      },
+
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+
+    return message;
+  },
+
+  /* =======================================================
+     MARK AS READ
+  ======================================================= */
+
+  async markConversationAsRead(
+    conversationId: string,
+    userId: string,
+  ) {
+    /* -----------------------------------------------------
+       1. Check conversation
+    ----------------------------------------------------- */
+
+    const conversation =
+      await prisma.conversation.findUnique({
+        where: {
+          id: conversationId,
+        },
+
+        select: {
+          id: true,
+        },
+      });
+
+    if (!conversation) {
+      throw new Error(
+        "CONVERSATION_NOT_FOUND",
+      );
+    }
+
+    /* -----------------------------------------------------
+       2. Check participant
+    ----------------------------------------------------- */
+
+    const participant =
+      await prisma.conversationParticipant.findUnique(
+        {
+          where: {
+            conversationId_userId: {
+              conversationId,
+              userId,
+            },
+          },
+
+          select: {
+            id: true,
+          },
+        },
+      );
+
+    if (!participant) {
+      throw new Error(
+        "NOT_CONVERSATION_PARTICIPANT",
+      );
+    }
+
+    /* -----------------------------------------------------
+       3. Mark messages read
+    ----------------------------------------------------- */
+
+    await prisma.message.updateMany({
+      where: {
+        conversationId,
+
+        senderId: {
+          not: userId,
+        },
+
+        readAt: null,
+      },
+
+      data: {
+        readAt: new Date(),
+      },
+    });
+  },
+};

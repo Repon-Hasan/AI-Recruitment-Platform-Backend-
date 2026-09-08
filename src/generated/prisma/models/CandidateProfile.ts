@@ -29,6 +29,7 @@ export type CandidateProfileMinAggregateOutputType = {
   userId: string | null
   phone: string | null
   location: string | null
+  bio: string | null
   experience: string | null
   linkedin: string | null
   github: string | null
@@ -42,6 +43,7 @@ export type CandidateProfileMaxAggregateOutputType = {
   userId: string | null
   phone: string | null
   location: string | null
+  bio: string | null
   experience: string | null
   linkedin: string | null
   github: string | null
@@ -55,6 +57,7 @@ export type CandidateProfileCountAggregateOutputType = {
   userId: number
   phone: number
   location: number
+  bio: number
   experience: number
   linkedin: number
   github: number
@@ -70,6 +73,7 @@ export type CandidateProfileMinAggregateInputType = {
   userId?: true
   phone?: true
   location?: true
+  bio?: true
   experience?: true
   linkedin?: true
   github?: true
@@ -83,6 +87,7 @@ export type CandidateProfileMaxAggregateInputType = {
   userId?: true
   phone?: true
   location?: true
+  bio?: true
   experience?: true
   linkedin?: true
   github?: true
@@ -96,6 +101,7 @@ export type CandidateProfileCountAggregateInputType = {
   userId?: true
   phone?: true
   location?: true
+  bio?: true
   experience?: true
   linkedin?: true
   github?: true
@@ -182,6 +188,7 @@ export type CandidateProfileGroupByOutputType = {
   userId: string
   phone: string | null
   location: string | null
+  bio: string | null
   experience: string | null
   linkedin: string | null
   github: string | null
@@ -216,6 +223,7 @@ export type CandidateProfileWhereInput = {
   userId?: Prisma.StringFilter<"CandidateProfile"> | string
   phone?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   location?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
+  bio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   experience?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   linkedin?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   github?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
@@ -242,6 +250,7 @@ export type CandidateProfileOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   experience?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedin?: Prisma.SortOrderInput | Prisma.SortOrder
   github?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -271,6 +280,7 @@ export type CandidateProfileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CandidateProfileWhereInput | Prisma.CandidateProfileWhereInput[]
   phone?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   location?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
+  bio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   experience?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   linkedin?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
   github?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null
@@ -297,6 +307,7 @@ export type CandidateProfileOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   experience?: Prisma.SortOrderInput | Prisma.SortOrder
   linkedin?: Prisma.SortOrderInput | Prisma.SortOrder
   github?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -316,6 +327,7 @@ export type CandidateProfileScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"CandidateProfile"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
+  bio?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
   experience?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
   linkedin?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
   github?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
@@ -328,6 +340,7 @@ export type CandidateProfileCreateInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -354,6 +367,7 @@ export type CandidateProfileUncheckedCreateInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -378,6 +392,7 @@ export type CandidateProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -404,6 +419,7 @@ export type CandidateProfileUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -429,6 +445,7 @@ export type CandidateProfileCreateManyInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -441,6 +458,7 @@ export type CandidateProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -454,6 +472,7 @@ export type CandidateProfileUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -472,6 +491,7 @@ export type CandidateProfileCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   linkedin?: Prisma.SortOrder
   github?: Prisma.SortOrder
@@ -485,6 +505,7 @@ export type CandidateProfileMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   linkedin?: Prisma.SortOrder
   github?: Prisma.SortOrder
@@ -498,6 +519,7 @@ export type CandidateProfileMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   linkedin?: Prisma.SortOrder
   github?: Prisma.SortOrder
@@ -717,6 +739,7 @@ export type CandidateProfileCreateWithoutReviewComplaintsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -742,6 +765,7 @@ export type CandidateProfileUncheckedCreateWithoutReviewComplaintsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -781,6 +805,7 @@ export type CandidateProfileUpdateWithoutReviewComplaintsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -806,6 +831,7 @@ export type CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -829,6 +855,7 @@ export type CandidateProfileCreateWithoutUserInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -853,6 +880,7 @@ export type CandidateProfileUncheckedCreateWithoutUserInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -893,6 +921,7 @@ export type CandidateProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -917,6 +946,7 @@ export type CandidateProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -941,6 +971,7 @@ export type CandidateProfileCreateWithoutCandidateEmbeddingsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -966,6 +997,7 @@ export type CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1005,6 +1037,7 @@ export type CandidateProfileUpdateWithoutCandidateEmbeddingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1030,6 +1063,7 @@ export type CandidateProfileUncheckedUpdateWithoutCandidateEmbeddingsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1053,6 +1087,7 @@ export type CandidateProfileCreateWithoutSkillsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1078,6 +1113,7 @@ export type CandidateProfileUncheckedCreateWithoutSkillsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1117,6 +1153,7 @@ export type CandidateProfileUpdateWithoutSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1142,6 +1179,7 @@ export type CandidateProfileUncheckedUpdateWithoutSkillsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1165,6 +1203,7 @@ export type CandidateProfileCreateWithoutEducationInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1190,6 +1229,7 @@ export type CandidateProfileUncheckedCreateWithoutEducationInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1229,6 +1269,7 @@ export type CandidateProfileUpdateWithoutEducationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1254,6 +1295,7 @@ export type CandidateProfileUncheckedUpdateWithoutEducationInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1277,6 +1319,7 @@ export type CandidateProfileCreateWithoutProjectsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1302,6 +1345,7 @@ export type CandidateProfileUncheckedCreateWithoutProjectsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1341,6 +1385,7 @@ export type CandidateProfileUpdateWithoutProjectsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1366,6 +1411,7 @@ export type CandidateProfileUncheckedUpdateWithoutProjectsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1389,6 +1435,7 @@ export type CandidateProfileCreateWithoutCertificationsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1414,6 +1461,7 @@ export type CandidateProfileUncheckedCreateWithoutCertificationsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1453,6 +1501,7 @@ export type CandidateProfileUpdateWithoutCertificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1478,6 +1527,7 @@ export type CandidateProfileUncheckedUpdateWithoutCertificationsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1501,6 +1551,7 @@ export type CandidateProfileCreateWithoutJobMatchesInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1526,6 +1577,7 @@ export type CandidateProfileUncheckedCreateWithoutJobMatchesInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1565,6 +1617,7 @@ export type CandidateProfileUpdateWithoutJobMatchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1590,6 +1643,7 @@ export type CandidateProfileUncheckedUpdateWithoutJobMatchesInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1613,6 +1667,7 @@ export type CandidateProfileCreateWithoutSkillGapAnalysesInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1638,6 +1693,7 @@ export type CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1677,6 +1733,7 @@ export type CandidateProfileUpdateWithoutSkillGapAnalysesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1702,6 +1759,7 @@ export type CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1725,6 +1783,7 @@ export type CandidateProfileCreateWithoutJobApplicationsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1750,6 +1809,7 @@ export type CandidateProfileUncheckedCreateWithoutJobApplicationsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1789,6 +1849,7 @@ export type CandidateProfileUpdateWithoutJobApplicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1814,6 +1875,7 @@ export type CandidateProfileUncheckedUpdateWithoutJobApplicationsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1837,6 +1899,7 @@ export type CandidateProfileCreateWithoutInterviewSessionsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1862,6 +1925,7 @@ export type CandidateProfileUncheckedCreateWithoutInterviewSessionsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1901,6 +1965,7 @@ export type CandidateProfileUpdateWithoutInterviewSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1926,6 +1991,7 @@ export type CandidateProfileUncheckedUpdateWithoutInterviewSessionsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1949,6 +2015,7 @@ export type CandidateProfileCreateWithoutApplicationAssistantsInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -1974,6 +2041,7 @@ export type CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -2013,6 +2081,7 @@ export type CandidateProfileUpdateWithoutApplicationAssistantsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2038,6 +2107,7 @@ export type CandidateProfileUncheckedUpdateWithoutApplicationAssistantsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2061,6 +2131,7 @@ export type CandidateProfileCreateWithoutResumesInput = {
   id?: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -2086,6 +2157,7 @@ export type CandidateProfileUncheckedCreateWithoutResumesInput = {
   userId: string
   phone?: string | null
   location?: string | null
+  bio?: string | null
   experience?: string | null
   linkedin?: string | null
   github?: string | null
@@ -2125,6 +2197,7 @@ export type CandidateProfileUpdateWithoutResumesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2150,6 +2223,7 @@ export type CandidateProfileUncheckedUpdateWithoutResumesInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2295,6 +2369,7 @@ export type CandidateProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   userId?: boolean
   phone?: boolean
   location?: boolean
+  bio?: boolean
   experience?: boolean
   linkedin?: boolean
   github?: boolean
@@ -2322,6 +2397,7 @@ export type CandidateProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   userId?: boolean
   phone?: boolean
   location?: boolean
+  bio?: boolean
   experience?: boolean
   linkedin?: boolean
   github?: boolean
@@ -2336,6 +2412,7 @@ export type CandidateProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   userId?: boolean
   phone?: boolean
   location?: boolean
+  bio?: boolean
   experience?: boolean
   linkedin?: boolean
   github?: boolean
@@ -2350,6 +2427,7 @@ export type CandidateProfileSelectScalar = {
   userId?: boolean
   phone?: boolean
   location?: boolean
+  bio?: boolean
   experience?: boolean
   linkedin?: boolean
   github?: boolean
@@ -2358,7 +2436,7 @@ export type CandidateProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CandidateProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "phone" | "location" | "experience" | "linkedin" | "github" | "portfolio" | "createdAt" | "updatedAt", ExtArgs["result"]["candidateProfile"]>
+export type CandidateProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "phone" | "location" | "bio" | "experience" | "linkedin" | "github" | "portfolio" | "createdAt" | "updatedAt", ExtArgs["result"]["candidateProfile"]>
 export type CandidateProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   certifications?: boolean | Prisma.CandidateProfile$certificationsArgs<ExtArgs>
   education?: boolean | Prisma.CandidateProfile$educationArgs<ExtArgs>
@@ -2404,6 +2482,7 @@ export type $CandidateProfilePayload<ExtArgs extends runtime.Types.Extensions.In
     userId: string
     phone: string | null
     location: string | null
+    bio: string | null
     experience: string | null
     linkedin: string | null
     github: string | null
@@ -2850,6 +2929,7 @@ export interface CandidateProfileFieldRefs {
   readonly userId: Prisma.FieldRef<"CandidateProfile", 'String'>
   readonly phone: Prisma.FieldRef<"CandidateProfile", 'String'>
   readonly location: Prisma.FieldRef<"CandidateProfile", 'String'>
+  readonly bio: Prisma.FieldRef<"CandidateProfile", 'String'>
   readonly experience: Prisma.FieldRef<"CandidateProfile", 'String'>
   readonly linkedin: Prisma.FieldRef<"CandidateProfile", 'String'>
   readonly github: Prisma.FieldRef<"CandidateProfile", 'String'>
