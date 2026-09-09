@@ -6,7 +6,7 @@ const router = Router();
 // Recruiter - get all candidate matches for a job
 router.get("/job/:jobId", checkAuth(Role.RECRUITER), getJobMatches);
 // Candidate - calculate a match
-router.post("/:jobId", checkAuth(Role.CANDIDATE), calculateJobMatch);
+router.post("/:jobId/calculate", checkAuth(Role.CANDIDATE), calculateJobMatch);
 // Candidate - get all matches
 router.get("/all/me", checkAuth(Role.CANDIDATE), getMyJobMatches);
 // Candidate - get one match

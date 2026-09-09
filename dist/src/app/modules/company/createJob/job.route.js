@@ -4,7 +4,7 @@ import { jobController } from "./job.controller";
 import { Role } from "../../../../generated/prisma/enums";
 const router = Router();
 router.post("/create", checkAuth(Role.RECRUITER), jobController.createJob);
-router.get("/", checkAuth(), jobController.getAllJobs);
+router.get("/my-jobs", checkAuth(), jobController.getAllJobs);
 router.get("/candidate", jobController.allJobs);
 router.patch("/:id", checkAuth(), jobController.updateJob);
 router.delete("/:id", checkAuth(), jobController.deleteJob);

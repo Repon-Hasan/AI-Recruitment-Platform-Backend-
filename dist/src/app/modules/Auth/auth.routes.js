@@ -24,6 +24,7 @@ router.get("/oauth/error", authController.handleOAuthError);
 // Change User Status
 // ==========================================
 router.patch("/users/:userId/status", checkAuth("ADMIN"), authController.changeUserStatus);
+router.get("/allCandidates", checkAuth(Role.ADMIN, Role.RECRUITER), authController.getAllCandidates);
 // ==========================================
 // Permanently Delete User
 // ==========================================

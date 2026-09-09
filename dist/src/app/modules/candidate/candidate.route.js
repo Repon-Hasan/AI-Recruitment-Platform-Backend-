@@ -2,7 +2,7 @@ import { Router } from "express";
 import { candidateController } from "./candidate.controller";
 import { Role } from "../../../generated/prisma/enums";
 import { checkAuth } from "../../middleware/checkAuth";
-import { multerUpload } from "../../config/multer";
+import { multerImageUpload } from "../../config/multer";
 const router = Router();
 // Candidate profile
 router.get("/me", checkAuth(Role.CANDIDATE), candidateController.getMyProfile);
@@ -22,7 +22,7 @@ router.patch("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateControl
 router.delete("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.deleteProject);
 // Certificate
 router.post("/certificate", (req, res, next) => {
-    multerUpload.single("image")(req, res, (err) => {
+    multerImageUpload.single("image")(req, res, (err) => {
         if (err) {
             console.error("🔥 MULTER ERROR:", err);
             console.error("🔥 MESSAGE:", err.message);

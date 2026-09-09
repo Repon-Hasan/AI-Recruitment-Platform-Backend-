@@ -20,6 +20,7 @@ import { ReviewComplaintRouter } from "../modules/reviewComplaint/reviewComplain
 import { notificationRoutes } from "../modules/notification/notification.route";
 import { InterviewRouterCandidate } from "../modules/recruiterInterview/interview/interview.route";
 import { ConversationRouterRecruiter } from "../modules/recruiterInterview/conversation/conversation.routes";
+import { candidateInterviews } from "../modules/recruiterInterview/candidadeInterview/interview.route";
 const router = Router();
 router.use("/auth", authRouters);
 router.use("/candidates", candidateRoutes);
@@ -42,4 +43,5 @@ router.use("/review-complaints", ReviewComplaintRouter);
 router.use("/notifications", notificationRoutes);
 router.use("/job/interviews", InterviewRouterCandidate);
 router.use("/conversations", ConversationRouterRecruiter);
+router.use("/interviews", candidateInterviews);
 export const indexRoutes = router;

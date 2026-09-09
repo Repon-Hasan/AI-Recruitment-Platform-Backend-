@@ -4,7 +4,7 @@ import { checkAuth } from "../../../middleware/checkAuth";
 import { applyToJobController, deleteMyApplicationController, getMyApplicationControllerById, getMyApplicationsController, } from "./application.controller";
 const router = Router();
 router.post("/apply", checkAuth(Role.CANDIDATE), applyToJobController);
-router.get("/me", checkAuth(Role.CANDIDATE), getMyApplicationsController);
+router.get("/my/application", checkAuth(Role.CANDIDATE), getMyApplicationsController);
 router.get("/my/:applicationId", checkAuth(Role.CANDIDATE), getMyApplicationControllerById);
 router.delete("/:applicationId", checkAuth(Role.CANDIDATE), deleteMyApplicationController);
 export const candidateApplication = router;

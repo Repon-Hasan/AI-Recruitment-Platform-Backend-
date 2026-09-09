@@ -69,7 +69,7 @@ export const getJobMatches = async (req, res) => {
 // Get Match Summary
 // =====================================================
 export const getJobMatchSummary = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { jobId } = req.params;
     if (!jobId || Array.isArray(jobId)) {
         return res.status(400).json({

@@ -1,11 +1,42 @@
 import { InterviewQuestionService } from "./interview.service";
+// const startInterview = async (
+//   req: Request,
+//   res: Response
+// ) => {
+//   try {
+//     const {
+//       jobId,
+//       experienceLevel,
+//       interviewType,
+//     } = req.body;
+//     // Use your existing authenticated user
+//     const candidateProfileId =
+//       req.user.userId;
+//       //console.log("Candidate",candidateProfileId)
+//     const result =
+//       await InterviewQuestionService.startInterview(
+//         candidateProfileId,
+//         jobId,
+//         experienceLevel,
+//         interviewType
+//       );
+//     res.status(200).json({
+//       success: true,
+//       message: "Interview started successfully",
+//       data: result,
+//     });
+//   } catch (error: any) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
 const startInterview = async (req, res) => {
     try {
-        const { jobId, experienceLevel, interviewType, } = req.body;
-        // Use your existing authenticated user
-        const candidateProfileId = req.user.userId;
-        //console.log("Candidate",candidateProfileId)
-        const result = await InterviewQuestionService.startInterview(candidateProfileId, jobId, experienceLevel, interviewType);
+        const { jobId, experienceLevel, interviewType } = req.body;
+        const userId = req.user.userId;
+        const result = await InterviewQuestionService.startInterview(userId, jobId, experienceLevel, interviewType);
         res.status(200).json({
             success: true,
             message: "Interview started successfully",
@@ -15,7 +46,7 @@ const startInterview = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message,
+            message: error.message || "Something went wrong",
         });
     }
 };

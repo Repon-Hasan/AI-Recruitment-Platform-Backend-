@@ -28,20 +28,30 @@ const getMyProfile = async (userId) => {
 // ===============================
 const updateMyProfile = async (userId, payload) => {
     const profile = await prisma.candidateProfile.findUnique({
-        where: {
-            userId,
-        },
+        where: { userId },
     });
+    console.log("Profile", profile);
     if (!profile) {
         throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
-    // 1. Update profile
+    // Extract 'name' so it isn't passed directly into CandidateProfile update
+    const { name, ...profileData } = payload;
+    // 1. Update candidate profile (and optionally user name via relation)
     const updatedProfile = await prisma.candidateProfile.update({
-        where: {
-            userId,
+        where: { userId },
+        data: {
+            ...profileData,
+            ...(name ? { user: { update: { name } } } : {}),
         },
-        data: payload,
         include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    image: true,
+                },
+            },
             skills: true,
             education: true,
             projects: true,
@@ -313,6 +323,7 @@ const deleteProject = async (candidateId, projectId) => {
 // CREATE CERTIFICATION
 // ===============================
 const createCertification = async (userId, payload) => {
+    console.log("Certificate", payload);
     const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,

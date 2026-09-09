@@ -2,6 +2,7 @@ import status from "http-status";
 import { catchAsync } from "../../shared/catchAsync";
 import { candidateService } from "./candiate.services";
 import { sendResponse } from "../../shared/sendResponse";
+import { uploadFileToCloudinary } from "../../config/cloudnary.config";
 // ========================================
 // GET /api/candidates/me
 // ========================================
@@ -126,7 +127,7 @@ const createProject = async (req, res) => {
 };
 const getMyProjects = async (req, res) => {
     try {
-        const candidateId = req.user.id;
+        const candidateId = req.user.userId;
         const projects = await candidateService.getMyProjects(candidateId);
         console.log("Projects", projects);
         res.status(200).json({
@@ -146,7 +147,7 @@ const getMyProjects = async (req, res) => {
 };
 const getProjectById = async (req, res) => {
     try {
-        const candidateId = req.user.id;
+        const candidateId = req.user.userId;
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
@@ -174,7 +175,7 @@ const getProjectById = async (req, res) => {
 };
 const updateProject = async (req, res) => {
     try {
-        const candidateId = req.user.id;
+        const candidateId = req.user.userId;
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
@@ -196,7 +197,7 @@ const updateProject = async (req, res) => {
 };
 const deleteProject = async (req, res) => {
     try {
-        const candidateId = req.user.id;
+        const candidateId = req.user.userId;
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
@@ -220,9 +221,13 @@ const createCertification = async (req, res) => {
     try {
         const userId = req.user.userId;
         let certificateImage;
-        // File uploaded through multer-storage-cloudinary
+        console.log("📦 BODY:", req.body);
+        console.log("📁 FILE:", req.file);
+        // Multer memoryStorage gives us the file as a Buffer
         if (req.file) {
-            certificateImage = req.file.path;
+            const uploaded = await uploadFileToCloudinary(req.file.buffer, req.file.originalname);
+            certificateImage = uploaded.secure_url;
+            console.log("☁️ Cloudinary URL:", certificateImage);
         }
         const certification = await candidateService.createCertification(userId, {
             ...req.body,
@@ -235,6 +240,7 @@ const createCertification = async (req, res) => {
         });
     }
     catch (error) {
+        console.error("❌ Certification error:", error);
         res.status(500).json({
             success: false,
             message: error instanceof Error
