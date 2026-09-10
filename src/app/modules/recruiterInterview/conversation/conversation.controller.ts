@@ -7,6 +7,7 @@ import {
   ConversationService,
   getAllConversations,
   getApplicationConversation,
+  getApplicationMessages,
   getCandidateConversations,
   sendMessage,
 } from "./conversation.service";
@@ -258,3 +259,88 @@ export async function getCandidateConversationsController(
     });
   }
 }
+
+export async function getApplicationMessagesController(
+  req: Request,
+  res: Response,
+) {
+  try {
+    console.log(
+      "========== GET APPLICATION MESSAGES ==========",
+    );
+
+    console.log("User:", req.user);
+
+    console.log(
+      "Application ID:",
+      req.params.applicationId,
+    );
+
+    const userId = req.user?.userId;
+
+    const applicationId = String(
+      req.params.applicationId,
+    );
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    if (!applicationId) {
+      return res.status(400).json({
+        success: false,
+        message: "Application ID is required",
+      });
+    }
+
+    const messages =
+      await getApplicationMessages(
+        userId,
+        applicationId,
+      );
+
+    return res.status(200).json({
+      success: true,
+      message: "Application messages retrieved successfully",
+      data: {
+        messages,
+      },
+    });
+  } catch (error) {
+    console.error(
+      "Get application messages error:",
+      error,
+    );
+
+    if (
+      error instanceof Error &&
+      error.message ===
+        "CONVERSATION_NOT_FOUND"
+    ) {
+      return res.status(404).json({
+        success: false,
+        message: "Conversation not found",
+      });
+    }
+
+    if (
+      error instanceof Error &&
+      error.message === "FORBIDDEN"
+    ) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "You cannot access these messages",
+      });
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch application messages",
+    });
+  }
+}
+
