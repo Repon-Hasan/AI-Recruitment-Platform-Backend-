@@ -49,11 +49,21 @@ const createJobService = async (
   userId: string,
   data: CreateJobInput
 ) => {
+  // =========================================================
+  // 1. Prepare required skills
+  // =========================================================
+
   const skillNames = (data.requiredSkills ?? [])
-    .map((skill) => typeof skill === "string" ? skill : skill.name)
+    .map((skill) =>
+      typeof skill === "string" ? skill : skill.name
+    )
     .map((skill) => skill.trim())
     .filter(Boolean);
-  // 1. Find company belonging to logged-in user
+
+  // =========================================================
+  // 2. Find company
+  // =========================================================
+
   const company = await prisma.company.findUnique({
     where: {
       userId,
@@ -66,10 +76,78 @@ const createJobService = async (
     throw error;
   }
 
-  // 2. Validate salary
+  // =========================================================
+  // 3. Validate required fields
+  // =========================================================
+
+  if (!data.title?.trim()) {
+    const error: any = new Error("Job title is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!data.description?.trim()) {
+    const error: any = new Error("Job description is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!data.location?.trim()) {
+    const error: any = new Error("Job location is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!data.employmentType) {
+    const error: any = new Error("Employment type is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!data.experienceLevel) {
+    const error: any = new Error("Experience level is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!data.deadline) {
+    const error: any = new Error("Deadline is required");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  // =========================================================
+  // 4. Validate deadline
+  // =========================================================
+
+  const deadline =
+    data.deadline instanceof Date
+      ? data.deadline
+      : new Date(data.deadline);
+
+  if (Number.isNaN(deadline.getTime())) {
+    const error: any = new Error("Invalid deadline");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (deadline <= new Date()) {
+    const error: any = new Error(
+      "Deadline must be a future date"
+    );
+    error.statusCode = 400;
+    throw error;
+  }
+
+  // =========================================================
+  // 5. Validate salary
+  // =========================================================
+
   if (
     data.salaryMin !== undefined &&
+    data.salaryMin !== null &&
     data.salaryMax !== undefined &&
+    data.salaryMax !== null &&
     data.salaryMin > data.salaryMax
   ) {
     const error: any = new Error(
@@ -77,22 +155,13 @@ const createJobService = async (
     );
 
     error.statusCode = 400;
-
     throw error;
   }
 
-  // 3. Validate deadline
-  if (data.deadline && data.deadline <= new Date()) {
-    const error: any = new Error(
-      "Deadline must be a future date"
-    );
+  // =========================================================
+  // 6. Create Job
+  // =========================================================
 
-    error.statusCode = 400;
-
-    throw error;
-  }
-
-  // 4. Create Job + Required Skills
   const job = await prisma.job.create({
     data: {
       // Company
@@ -102,54 +171,53 @@ const createJobService = async (
         },
       },
 
-      // Basic job information
-      title: data.title,
+      // Basic information
+      title: data.title.trim(),
+      description: data.description.trim(),
+      location: data.location.trim(),
 
-      description: data.description,
-
-      location: data.location,
-
-      // Job type information
+      // Job type
       remoteType: data.remoteType,
-
-      employmentType: data.employmentType as EmploymentType | undefined,
-
+      employmentType: data.employmentType,
       experienceLevel: data.experienceLevel,
 
-      // Salary information
+      // Salary
       salaryMin: data.salaryMin,
-
       salaryMax: data.salaryMax,
-
       salaryCurrency: data.salaryCurrency,
 
-      // Job deadline
-      deadline: data.deadline,
+      // Deadline
+      deadline,
 
-      // Job status
+      // Status
       status: data.status as JobStatus,
 
-      // Automatically set published date
+      // Published date
       publishedAt:
         data.status === "PUBLISHED"
           ? new Date()
           : null,
 
       // Required skills
-      requiredSkills: { create: skillNames.map((name) => ({ name })) },
+      requiredSkills: {
+        create: skillNames.map((name) => ({
+          name,
+        })),
+      },
     },
 
     include: {
       company: true,
-
       requiredSkills: true,
     },
   });
 
-  // 5. Prepare required skills for embedding
+  // =========================================================
+  // 7. Prepare embedding text
+  // =========================================================
+
   const skillsText = skillNames.join(", ");
 
-  // 6. Create complete text for job embedding
   const jobText = `
 Job Title:
 ${job.title}
@@ -158,16 +226,16 @@ Job Description:
 ${job.description}
 
 Location:
-${job.location ?? "Not specified"}
+${job.location}
 
 Remote Type:
-${job.remoteType ?? "Not specified"}
+${job.remoteType}
 
 Employment Type:
-${job.employmentType ?? "Not specified"}
+${job.employmentType}
 
 Experience Level:
-${job.experienceLevel ?? "Not specified"}
+${job.experienceLevel}
 
 Salary:
 ${
@@ -179,31 +247,45 @@ ${
 }
 
 Deadline:
-${job.deadline?.toISOString() ?? "Not specified"}
+${job.deadline.toISOString()}
 
 Required Skills:
 ${skillsText || "No specific skills mentioned"}
 `.trim();
 
+  // =========================================================
+  // 8. Generate embedding
+  // =========================================================
+
   console.log("Job embedding text:");
   console.log(jobText);
 
-  // 7. Generate and store the embedding when the AI provider is available.
-  // The job itself is already persisted; an embedding outage must not make
-  // the recruiter lose a valid job post.
-  let embeddingResult: { dimensions: number } | null = null;
+  let embeddingResult: {
+    dimensions: number;
+  } | null = null;
+
   try {
-    embeddingResult = await generateJobEmbedding(job.id, jobText);
+    embeddingResult = await generateJobEmbedding(
+      job.id,
+      jobText
+    );
   } catch (error) {
-    console.error("Job saved, but embedding generation failed:", error);
+    console.error(
+      "Job saved, but embedding generation failed:",
+      error
+    );
   }
 
-  // 8. Return job + embedding information
+  // =========================================================
+  // 9. Return result
+  // =========================================================
+
   return {
     ...job,
-
     embedding: embeddingResult
-      ? { dimensions: embeddingResult.dimensions }
+      ? {
+          dimensions: embeddingResult.dimensions,
+        }
       : null,
   };
 };

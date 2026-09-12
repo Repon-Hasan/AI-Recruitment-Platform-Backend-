@@ -394,3 +394,88 @@ export const ConversationService = {
         });
     },
 };
+export async function getApplicationMessages(userId, applicationId) {
+    if (!userId) {
+        throw new Error("USER_ID_REQUIRED");
+    }
+    if (!applicationId) {
+        throw new Error("APPLICATION_ID_REQUIRED");
+    }
+    /**
+     * Find conversation by JobApplication ID
+     */
+    const conversation = await prisma.conversation.findUnique({
+        where: {
+            jobApplicationId: applicationId,
+        },
+        select: {
+            id: true,
+            jobApplication: {
+                select: {
+                    id: true,
+                    candidateProfile: {
+                        select: {
+                            userId: true,
+                        },
+                    },
+                    job: {
+                        select: {
+                            id: true,
+                            title: true,
+                        },
+                    },
+                },
+            },
+            participants: {
+                select: {
+                    userId: true,
+                },
+            },
+        },
+    });
+    /**
+     * Conversation doesn't exist
+     */
+    if (!conversation) {
+        throw new Error("CONVERSATION_NOT_FOUND");
+    }
+    /**
+     * Check whether current user is a participant
+     */
+    const isParticipant = conversation.participants.some((participant) => participant.userId === userId);
+    /**
+     * Also allow the candidate/recruiter who owns
+     * the application relationship.
+     */
+    const isApplicationUser = conversation?.jobApplication?.candidateProfile
+        ?.userId === userId;
+    /**
+     * If user is neither participant nor candidate,
+     * deny access.
+     */
+    if (!isParticipant && !isApplicationUser) {
+        throw new Error("FORBIDDEN");
+    }
+    /**
+     * Get messages
+     */
+    const messages = await prisma.message.findMany({
+        where: {
+            conversationId: conversation.id,
+        },
+        orderBy: {
+            createdAt: "asc",
+        },
+        include: {
+            sender: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    image: true,
+                },
+            },
+        },
+    });
+    return messages;
+}
