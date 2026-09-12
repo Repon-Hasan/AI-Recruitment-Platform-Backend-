@@ -1,12 +1,15 @@
+"use strict";
 // applicationAssistant.service.ts
-import { GoogleGenAI } from "@google/genai";
-import { prisma } from "../../lib/prisma";
-const ai = new GoogleGenAI({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ApplicationAssistantService = void 0;
+const genai_1 = require("@google/genai");
+const prisma_1 = require("../../lib/prisma");
+const ai = new genai_1.GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
 });
 const generateApplicationAssistant = async (userId, jobId, resumeId) => {
     // 1. Get candidate profile
-    const candidate = await prisma.candidateProfile.findUnique({
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -16,7 +19,7 @@ const generateApplicationAssistant = async (userId, jobId, resumeId) => {
     }
     //   console.log("Candidate", candidate.id);
     // 2. Get job
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -26,7 +29,7 @@ const generateApplicationAssistant = async (userId, jobId, resumeId) => {
     }
     const candidateProfileId = candidate.id;
     // 3. Get resume
-    const resume = await prisma.resume.findFirst({
+    const resume = await prisma_1.prisma.resume.findFirst({
         where: {
             id: resumeId,
             candidateId: candidateProfileId,
@@ -85,7 +88,7 @@ Rules:
     // 7. Convert AI response to object
     const result = JSON.parse(cleanText);
     // 8. Save result
-    const saved = await prisma.applicationAssistant.upsert({
+    const saved = await prisma_1.prisma.applicationAssistant.upsert({
         where: {
             candidateProfileId_jobId: {
                 candidateProfileId: candidate.id,
@@ -113,6 +116,6 @@ Rules:
     });
     return saved;
 };
-export const ApplicationAssistantService = {
+exports.ApplicationAssistantService = {
     generateApplicationAssistant,
 };

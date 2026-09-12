@@ -1,7 +1,10 @@
-import { Router } from "express";
-import { checkAuth } from "../../middleware/checkAuth";
-import { AIRecruiterController } from "./aiRecruiter.controller";
-import { Role } from "../../../generated/prisma/enums";
-const router = Router();
-router.post("/assistant", checkAuth(Role.RECRUITER), AIRecruiterController.assistant);
-export const AIRecruiterRouter = router;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AIRecruiterRouter = void 0;
+const express_1 = require("express");
+const checkAuth_1 = require("../../middleware/checkAuth");
+const aiRecruiter_controller_1 = require("./aiRecruiter.controller");
+const enums_1 = require("../../../generated/prisma/enums");
+const router = (0, express_1.Router)();
+router.post("/assistant", (0, checkAuth_1.checkAuth)(enums_1.Role.RECRUITER), aiRecruiter_controller_1.AIRecruiterController.assistant);
+exports.AIRecruiterRouter = router;

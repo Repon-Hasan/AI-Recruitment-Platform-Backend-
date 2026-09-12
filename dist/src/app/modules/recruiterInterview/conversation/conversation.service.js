@@ -1,10 +1,18 @@
-import { prisma } from "../../../lib/prisma";
-import { sendMessageSchema } from "../interview/interview.validation";
-export async function getApplicationConversation(userId, applicationId) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConversationService = void 0;
+exports.getApplicationConversation = getApplicationConversation;
+exports.sendMessage = sendMessage;
+exports.getCandidateConversations = getCandidateConversations;
+exports.getAllConversations = getAllConversations;
+exports.getApplicationMessages = getApplicationMessages;
+const prisma_1 = require("../../../lib/prisma");
+const interview_validation_1 = require("../interview/interview.validation");
+async function getApplicationConversation(userId, applicationId) {
     //   console.log("========== GET CONVERSATION ==========");
     // console.log("userId:", userId);
     // console.log("applicationId:", applicationId);
-    const conversation = await prisma.conversation.findUnique({
+    const conversation = await prisma_1.prisma.conversation.findUnique({
         where: {
             jobApplicationId: applicationId,
         },
@@ -56,9 +64,9 @@ export async function getApplicationConversation(userId, applicationId) {
     }
     return conversation;
 }
-export async function sendMessage(userId, applicationId, input) {
-    const data = sendMessageSchema.parse(input);
-    const conversation = await prisma.conversation.findUnique({
+async function sendMessage(userId, applicationId, input) {
+    const data = interview_validation_1.sendMessageSchema.parse(input);
+    const conversation = await prisma_1.prisma.conversation.findUnique({
         where: {
             jobApplicationId: applicationId,
         },
@@ -83,7 +91,7 @@ export async function sendMessage(userId, applicationId, input) {
         throw new Error("FORBIDDEN");
     }
     const receiver = conversation.participants.find((item) => item.userId !== userId);
-    const message = await prisma.$transaction(async (tx) => {
+    const message = await prisma_1.prisma.$transaction(async (tx) => {
         const created = await tx.message.create({
             data: {
                 conversationId: conversation.id,
@@ -117,11 +125,11 @@ export async function sendMessage(userId, applicationId, input) {
     });
     return message;
 }
-export async function getCandidateConversations(userId) {
+async function getCandidateConversations(userId) {
     if (!userId) {
         throw new Error("USER_ID_REQUIRED");
     }
-    const conversations = await prisma.conversation.findMany({
+    const conversations = await prisma_1.prisma.conversation.findMany({
         where: {
             participants: {
                 some: {
@@ -193,11 +201,11 @@ export async function getCandidateConversations(userId) {
     });
     return conversations;
 }
-export async function getAllConversations(userId) {
+async function getAllConversations(userId) {
     if (!userId) {
         throw new Error("USER_ID_REQUIRED");
     }
-    const conversations = await prisma.conversation.findMany({
+    const conversations = await prisma_1.prisma.conversation.findMany({
         where: {
             jobApplication: {
                 job: {
@@ -273,7 +281,7 @@ export async function getAllConversations(userId) {
     });
     return conversations;
 }
-export const ConversationService = {
+exports.ConversationService = {
     /* =======================================================
        SEND MESSAGE
     ======================================================= */
@@ -281,7 +289,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            1. Check conversation
         ----------------------------------------------------- */
-        const conversation = await prisma.conversation.findUnique({
+        const conversation = await prisma_1.prisma.conversation.findUnique({
             where: {
                 id: conversationId,
             },
@@ -295,7 +303,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            2. Verify participant
         ----------------------------------------------------- */
-        const participant = await prisma.conversationParticipant.findUnique({
+        const participant = await prisma_1.prisma.conversationParticipant.findUnique({
             where: {
                 conversationId_userId: {
                     conversationId,
@@ -312,7 +320,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            3. Create message
         ----------------------------------------------------- */
-        const message = await prisma.message.create({
+        const message = await prisma_1.prisma.message.create({
             data: {
                 conversationId,
                 senderId,
@@ -332,7 +340,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            4. Update conversation timestamp
         ----------------------------------------------------- */
-        await prisma.conversation.update({
+        await prisma_1.prisma.conversation.update({
             where: {
                 id: conversationId,
             },
@@ -349,7 +357,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            1. Check conversation
         ----------------------------------------------------- */
-        const conversation = await prisma.conversation.findUnique({
+        const conversation = await prisma_1.prisma.conversation.findUnique({
             where: {
                 id: conversationId,
             },
@@ -363,7 +371,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            2. Check participant
         ----------------------------------------------------- */
-        const participant = await prisma.conversationParticipant.findUnique({
+        const participant = await prisma_1.prisma.conversationParticipant.findUnique({
             where: {
                 conversationId_userId: {
                     conversationId,
@@ -380,7 +388,7 @@ export const ConversationService = {
         /* -----------------------------------------------------
            3. Mark messages read
         ----------------------------------------------------- */
-        await prisma.message.updateMany({
+        await prisma_1.prisma.message.updateMany({
             where: {
                 conversationId,
                 senderId: {
@@ -394,7 +402,7 @@ export const ConversationService = {
         });
     },
 };
-export async function getApplicationMessages(userId, applicationId) {
+async function getApplicationMessages(userId, applicationId) {
     if (!userId) {
         throw new Error("USER_ID_REQUIRED");
     }
@@ -404,7 +412,7 @@ export async function getApplicationMessages(userId, applicationId) {
     /**
      * Find conversation by JobApplication ID
      */
-    const conversation = await prisma.conversation.findUnique({
+    const conversation = await prisma_1.prisma.conversation.findUnique({
         where: {
             jobApplicationId: applicationId,
         },
@@ -459,7 +467,7 @@ export async function getApplicationMessages(userId, applicationId) {
     /**
      * Get messages
      */
-    const messages = await prisma.message.findMany({
+    const messages = await prisma_1.prisma.message.findMany({
         where: {
             conversationId: conversation.id,
         },

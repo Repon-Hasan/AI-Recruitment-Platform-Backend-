@@ -1,15 +1,18 @@
-import { NotificationChannel, NotificationStatus } from "../../../generated/prisma/enums";
-import { prisma } from "../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.notificationService = void 0;
+const enums_1 = require("../../../generated/prisma/enums");
+const prisma_1 = require("../../lib/prisma");
 const createNotification = async (payload) => {
-    const notification = await prisma.notification.create({
+    const notification = await prisma_1.prisma.notification.create({
         data: {
             userId: payload.userId,
             type: payload.type,
-            channel: payload.channel ?? NotificationChannel.IN_APP,
+            channel: payload.channel ?? enums_1.NotificationChannel.IN_APP,
             title: payload.title,
             message: payload.message,
             referenceId: payload.referenceId,
-            status: NotificationStatus.PENDING,
+            status: enums_1.NotificationStatus.PENDING,
         },
     });
     return notification;
@@ -17,10 +20,10 @@ const createNotification = async (payload) => {
 const getMyNotifications = async (userId, page = 1, limit = 20) => {
     const skip = (page - 1) * limit;
     const [notifications, total, unreadCount] = await Promise.all([
-        prisma.notification.findMany({
+        prisma_1.prisma.notification.findMany({
             where: {
                 userId,
-                channel: NotificationChannel.IN_APP,
+                channel: enums_1.NotificationChannel.IN_APP,
             },
             orderBy: {
                 createdAt: "desc",
@@ -28,18 +31,18 @@ const getMyNotifications = async (userId, page = 1, limit = 20) => {
             skip,
             take: limit,
         }),
-        prisma.notification.count({
+        prisma_1.prisma.notification.count({
             where: {
                 userId,
-                channel: NotificationChannel.IN_APP,
+                channel: enums_1.NotificationChannel.IN_APP,
             },
         }),
-        prisma.notification.count({
+        prisma_1.prisma.notification.count({
             where: {
                 userId,
-                channel: NotificationChannel.IN_APP,
+                channel: enums_1.NotificationChannel.IN_APP,
                 status: {
-                    not: NotificationStatus.READ,
+                    not: enums_1.NotificationStatus.READ,
                 },
                 readAt: null,
             },
@@ -57,12 +60,12 @@ const getMyNotifications = async (userId, page = 1, limit = 20) => {
     };
 };
 const getUnreadNotifications = async (userId) => {
-    return prisma.notification.findMany({
+    return prisma_1.prisma.notification.findMany({
         where: {
             userId,
-            channel: NotificationChannel.IN_APP,
+            channel: enums_1.NotificationChannel.IN_APP,
             status: {
-                not: NotificationStatus.READ,
+                not: enums_1.NotificationStatus.READ,
             },
             readAt: null,
         },
@@ -72,19 +75,19 @@ const getUnreadNotifications = async (userId) => {
     });
 };
 const getUnreadCount = async (userId) => {
-    return prisma.notification.count({
+    return prisma_1.prisma.notification.count({
         where: {
             userId,
-            channel: NotificationChannel.IN_APP,
+            channel: enums_1.NotificationChannel.IN_APP,
             status: {
-                not: NotificationStatus.READ,
+                not: enums_1.NotificationStatus.READ,
             },
             readAt: null,
         },
     });
 };
 const markAsRead = async (userId, notificationId) => {
-    const notification = await prisma.notification.findFirst({
+    const notification = await prisma_1.prisma.notification.findFirst({
         where: {
             id: notificationId,
             userId,
@@ -93,37 +96,37 @@ const markAsRead = async (userId, notificationId) => {
     if (!notification) {
         throw new Error("Notification not found");
     }
-    if (notification.status === NotificationStatus.READ &&
+    if (notification.status === enums_1.NotificationStatus.READ &&
         notification.readAt) {
         return notification;
     }
-    return prisma.notification.update({
+    return prisma_1.prisma.notification.update({
         where: {
             id: notificationId,
         },
         data: {
-            status: NotificationStatus.READ,
+            status: enums_1.NotificationStatus.READ,
             readAt: new Date(),
         },
     });
 };
 const markAllAsRead = async (userId) => {
-    return prisma.notification.updateMany({
+    return prisma_1.prisma.notification.updateMany({
         where: {
             userId,
-            channel: NotificationChannel.IN_APP,
+            channel: enums_1.NotificationChannel.IN_APP,
             status: {
-                not: NotificationStatus.READ,
+                not: enums_1.NotificationStatus.READ,
             },
         },
         data: {
-            status: NotificationStatus.READ,
+            status: enums_1.NotificationStatus.READ,
             readAt: new Date(),
         },
     });
 };
 const deleteNotification = async (userId, notificationId) => {
-    const notification = await prisma.notification.findFirst({
+    const notification = await prisma_1.prisma.notification.findFirst({
         where: {
             id: notificationId,
             userId,
@@ -132,21 +135,21 @@ const deleteNotification = async (userId, notificationId) => {
     if (!notification) {
         throw new Error("Notification not found");
     }
-    return prisma.notification.delete({
+    return prisma_1.prisma.notification.delete({
         where: {
             id: notificationId,
         },
     });
 };
 const deleteAllNotifications = async (userId) => {
-    return prisma.notification.deleteMany({
+    return prisma_1.prisma.notification.deleteMany({
         where: {
             userId,
-            channel: NotificationChannel.IN_APP,
+            channel: enums_1.NotificationChannel.IN_APP,
         },
     });
 };
-export const notificationService = {
+exports.notificationService = {
     createNotification,
     getMyNotifications,
     getUnreadNotifications,

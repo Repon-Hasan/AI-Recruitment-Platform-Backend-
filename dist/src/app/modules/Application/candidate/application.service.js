@@ -1,26 +1,32 @@
-import AppError from "../../../errorHelpers/AppError";
-import { prisma } from "../../../lib/prisma";
-export const applyToJob = async (userId, jobId) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.applyForJobMessage = exports.deleteMyApplication = exports.getMyApplicationById = exports.getMyApplications = exports.applyToJob = void 0;
+const AppError_1 = __importDefault(require("../../../errorHelpers/AppError"));
+const prisma_1 = require("../../../lib/prisma");
+const applyToJob = async (userId, jobId) => {
     // 1. Check job exists
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
     });
     if (!job) {
-        throw new AppError(404, "Job not found");
+        throw new AppError_1.default(404, "Job not found");
     }
     // 2. Find candidate profile of logged-in user
-    const candidateProfile = await prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!candidateProfile) {
-        throw new AppError(404, "Candidate profile not found. Please complete your profile first.");
+        throw new AppError_1.default(404, "Candidate profile not found. Please complete your profile first.");
     }
     // 3. Check already applied
-    const existingApplication = await prisma.jobApplication.findUnique({
+    const existingApplication = await prisma_1.prisma.jobApplication.findUnique({
         where: {
             candidateProfileId_jobId: {
                 candidateProfileId: candidateProfile.id,
@@ -29,10 +35,10 @@ export const applyToJob = async (userId, jobId) => {
         },
     });
     if (existingApplication) {
-        throw new AppError(409, "You have already applied to this job");
+        throw new AppError_1.default(409, "You have already applied to this job");
     }
     // 4. Create application
-    const application = await prisma.jobApplication.create({
+    const application = await prisma_1.prisma.jobApplication.create({
         data: {
             candidateProfileId: candidateProfile.id,
             jobId,
@@ -48,8 +54,9 @@ export const applyToJob = async (userId, jobId) => {
     });
     return application;
 };
-export const getMyApplications = async (candidateProfileId) => {
-    const applications = await prisma.jobApplication.findMany({
+exports.applyToJob = applyToJob;
+const getMyApplications = async (candidateProfileId) => {
+    const applications = await prisma_1.prisma.jobApplication.findMany({
         where: {
             candidateProfileId,
         },
@@ -66,8 +73,9 @@ export const getMyApplications = async (candidateProfileId) => {
     });
     return applications;
 };
-export const getMyApplicationById = async (candidateProfileId, applicationId) => {
-    const application = await prisma.jobApplication.findFirst({
+exports.getMyApplications = getMyApplications;
+const getMyApplicationById = async (candidateProfileId, applicationId) => {
+    const application = await prisma_1.prisma.jobApplication.findFirst({
         where: {
             id: applicationId,
             candidateProfileId,
@@ -82,35 +90,37 @@ export const getMyApplicationById = async (candidateProfileId, applicationId) =>
         },
     });
     if (!application) {
-        throw new AppError(404, "Application not found");
+        throw new AppError_1.default(404, "Application not found");
     }
     return application;
 };
-export const deleteMyApplication = async (candidateProfileId, applicationId) => {
-    const application = await prisma.jobApplication.findFirst({
+exports.getMyApplicationById = getMyApplicationById;
+const deleteMyApplication = async (candidateProfileId, applicationId) => {
+    const application = await prisma_1.prisma.jobApplication.findFirst({
         where: {
             id: applicationId,
             candidateProfileId,
         },
     });
     if (!application) {
-        throw new AppError(404, "Application not found");
+        throw new AppError_1.default(404, "Application not found");
     }
     const now = Date.now();
     const createdAt = application.createdAt.getTime();
     const eightHours = 8 * 60 * 60 * 1000;
     if (now - createdAt > eightHours) {
-        throw new AppError(403, "You can delete your application only within 8 hours");
+        throw new AppError_1.default(403, "You can delete your application only within 8 hours");
     }
-    await prisma.jobApplication.delete({
+    await prisma_1.prisma.jobApplication.delete({
         where: {
             id: applicationId,
         },
     });
     return null;
 };
-export const applyForJobMessage = async (candidateProfileId, jobId) => {
-    const result = await prisma.$transaction(async (tx) => {
+exports.deleteMyApplication = deleteMyApplication;
+const applyForJobMessage = async (candidateProfileId, jobId) => {
+    const result = await prisma_1.prisma.$transaction(async (tx) => {
         // 1. Get job + company + recruiter
         const job = await tx.job.findUnique({
             where: {
@@ -179,3 +189,4 @@ export const applyForJobMessage = async (candidateProfileId, jobId) => {
     });
     return result;
 };
+exports.applyForJobMessage = applyForJobMessage;

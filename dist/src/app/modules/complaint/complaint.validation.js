@@ -1,9 +1,12 @@
-import { z } from "zod";
-export const createComplaintSchema = z.object({
-    companyId: z.string().uuid(),
-    jobId: z.string().uuid().optional(),
-    jobApplicationId: z.string().uuid().optional(),
-    type: z.enum([
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.complaintDecisionSchema = exports.createComplaintSchema = void 0;
+const zod_1 = require("zod");
+exports.createComplaintSchema = zod_1.z.object({
+    companyId: zod_1.z.string().uuid(),
+    jobId: zod_1.z.string().uuid().optional(),
+    jobApplicationId: zod_1.z.string().uuid().optional(),
+    type: zod_1.z.enum([
         "COMPANY_BEHAVIOR",
         "JOB_MISMATCH",
         "FAKE_JOB",
@@ -14,17 +17,17 @@ export const createComplaintSchema = z.object({
         "FRAUD",
         "OTHER",
     ]),
-    title: z
+    title: zod_1.z
         .string()
         .min(5)
         .max(200),
-    description: z
+    description: zod_1.z
         .string()
         .min(20)
         .max(5000),
 });
-export const complaintDecisionSchema = z.object({
-    decision: z.enum([
+exports.complaintDecisionSchema = zod_1.z.object({
+    decision: zod_1.z.enum([
         "NO_VIOLATION",
         "WARNING",
         "PENALTY",
@@ -32,5 +35,5 @@ export const complaintDecisionSchema = z.object({
         "JOB_REMOVAL",
         "COMPANY_SUSPENSION",
     ]),
-    adminNote: z.string().min(5),
+    adminNote: zod_1.z.string().min(5),
 });

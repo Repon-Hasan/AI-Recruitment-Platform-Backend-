@@ -1,11 +1,17 @@
-import { PDFParse } from "pdf-parse";
-import mammoth from "mammoth";
-export const extractResumeText = async (buffer, mimetype) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.extractResumeText = void 0;
+const pdf_parse_1 = require("pdf-parse");
+const mammoth_1 = __importDefault(require("mammoth"));
+const extractResumeText = async (buffer, mimetype) => {
     // =========================
     // PDF
     // =========================
     if (mimetype === "application/pdf") {
-        const parser = new PDFParse({
+        const parser = new pdf_parse_1.PDFParse({
             data: buffer,
         });
         try {
@@ -28,7 +34,7 @@ export const extractResumeText = async (buffer, mimetype) => {
     // =========================
     if (mimetype ===
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-        const result = await mammoth.extractRawText({
+        const result = await mammoth_1.default.extractRawText({
             buffer,
         });
         const text = result.value ?? "";
@@ -41,3 +47,4 @@ export const extractResumeText = async (buffer, mimetype) => {
     }
     throw new Error("Unsupported file type");
 };
+exports.extractResumeText = extractResumeText;

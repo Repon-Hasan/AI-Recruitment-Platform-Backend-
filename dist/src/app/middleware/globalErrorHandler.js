@@ -1,14 +1,20 @@
-import status from "http-status";
-import z from "zod";
-import { handleZodError } from "../errorHelpers/ZodError";
-import AppError from "../errorHelpers/AppError";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.globalErrorHandler = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const zod_1 = __importDefault(require("zod"));
+const ZodError_1 = require("../errorHelpers/ZodError");
+const AppError_1 = __importDefault(require("../errorHelpers/AppError"));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const globalErrorHandler = (err, req, res, next) => {
+const globalErrorHandler = (err, req, res, next) => {
     if (process.env.NODE_ENV === 'development') {
         console.log("Error from Global Error Handler", err);
     }
     let errorSources = [];
-    let statusCode = status.INTERNAL_SERVER_ERROR;
+    let statusCode = http_status_1.default.INTERNAL_SERVER_ERROR;
     let message = 'Internal Server Error';
     let stack = undefined;
     //Zod Error Patttern
@@ -29,14 +35,14 @@ export const globalErrorHandler = (err, req, res, next) => {
       }
     ]
     */
-    if (err instanceof z.ZodError) {
-        const simplifiedError = handleZodError(err);
+    if (err instanceof zod_1.default.ZodError) {
+        const simplifiedError = (0, ZodError_1.handleZodError)(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorSources = [...simplifiedError.errorSources];
         stack = err.stack;
     }
-    else if (err instanceof AppError) {
+    else if (err instanceof AppError_1.default) {
         statusCode = err.statusCode;
         message = err.message;
         stack = err.stack;
@@ -48,7 +54,7 @@ export const globalErrorHandler = (err, req, res, next) => {
         ];
     }
     else if (err instanceof Error) {
-        statusCode = status.INTERNAL_SERVER_ERROR;
+        statusCode = http_status_1.default.INTERNAL_SERVER_ERROR;
         message = err.message;
         stack = err.stack;
         errorSources = [
@@ -67,3 +73,4 @@ export const globalErrorHandler = (err, req, res, next) => {
     };
     res.status(statusCode).json(errorResponse);
 };
+exports.globalErrorHandler = globalErrorHandler;

@@ -1,7 +1,10 @@
+"use strict";
 // applicationStatusHistory.service.ts
-import { prisma } from "../../lib/prisma";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ApplicationStatusHistoryService = void 0;
+const prisma_1 = require("../../lib/prisma");
 const changeApplicationStatus = async (applicationId, newStatus, changedById) => {
-    return await prisma.$transaction(async (tx) => {
+    return await prisma_1.prisma.$transaction(async (tx) => {
         // 1. Find application
         const application = await tx.jobApplication.findUnique({
             where: {
@@ -40,7 +43,7 @@ const changeApplicationStatus = async (applicationId, newStatus, changedById) =>
     });
 };
 const getApplicationStatusHistory = async (applicationId) => {
-    const application = await prisma.jobApplication.findUnique({
+    const application = await prisma_1.prisma.jobApplication.findUnique({
         where: {
             id: applicationId,
         },
@@ -51,7 +54,7 @@ const getApplicationStatusHistory = async (applicationId) => {
     if (!application) {
         throw new Error("Job application not found");
     }
-    const history = await prisma.applicationStatusHistory.findMany({
+    const history = await prisma_1.prisma.applicationStatusHistory.findMany({
         where: {
             applicationId,
         },
@@ -62,7 +65,7 @@ const getApplicationStatusHistory = async (applicationId) => {
     return history;
 };
 const getSingleStatusHistory = async (applicationId, historyId) => {
-    const history = await prisma.applicationStatusHistory.findFirst({
+    const history = await prisma_1.prisma.applicationStatusHistory.findFirst({
         where: {
             id: historyId,
             applicationId,
@@ -73,7 +76,7 @@ const getSingleStatusHistory = async (applicationId, historyId) => {
     }
     return history;
 };
-export const ApplicationStatusHistoryService = {
+exports.ApplicationStatusHistoryService = {
     changeApplicationStatus,
     getApplicationStatusHistory,
     getSingleStatusHistory,

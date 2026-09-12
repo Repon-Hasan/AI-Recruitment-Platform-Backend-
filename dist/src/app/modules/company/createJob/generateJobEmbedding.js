@@ -1,13 +1,16 @@
-import { envVars } from "../../../config/env";
-import { prisma } from "../../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateJobEmbedding = void 0;
+const env_1 = require("../../../config/env");
+const prisma_1 = require("../../../lib/prisma");
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/embeddings";
-const EMBEDDING_MODEL = envVars.OPENROUTER_EMBEDDING_MODEL ||
+const EMBEDDING_MODEL = env_1.envVars.OPENROUTER_EMBEDDING_MODEL ||
     "nvidia/llama-nemotron-embed-vl-1b-v2:free";
-export const generateJobEmbedding = async (jobId, jobText) => {
+const generateJobEmbedding = async (jobId, jobText) => {
     if (!jobText?.trim()) {
         throw new Error("Job text is empty");
     }
-    const apiKey = envVars.OPENROUTER_API_KEY;
+    const apiKey = env_1.envVars.OPENROUTER_API_KEY;
     if (!apiKey) {
         throw new Error("OPENROUTER_API_KEY is not set in .env");
     }
@@ -48,7 +51,7 @@ export const generateJobEmbedding = async (jobId, jobText) => {
         // 6. Convert array to pgvector format
         const vector = `[${embedding.join(",")}]`;
         // 7. Store embedding in Job table
-        const updateResult = await prisma.$executeRaw `
+        const updateResult = await prisma_1.prisma.$executeRaw `
       UPDATE "Job"
       SET "embedding" = ${vector}::vector
       WHERE "id" = ${jobId}
@@ -58,7 +61,7 @@ export const generateJobEmbedding = async (jobId, jobText) => {
         }
         // Prisma cannot expose Unsupported vector fields directly. Verify the
         // value using PostgreSQL so this log reflects the actual database state.
-        const verification = await prisma.$queryRaw `
+        const verification = await prisma_1.prisma.$queryRaw `
       SELECT
         "embedding" IS NOT NULL AS "hasEmbedding",
         CASE
@@ -83,3 +86,4 @@ export const generateJobEmbedding = async (jobId, jobText) => {
         throw error;
     }
 };
+exports.generateJobEmbedding = generateJobEmbedding;

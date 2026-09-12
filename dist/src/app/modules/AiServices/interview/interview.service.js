@@ -1,13 +1,16 @@
-import { GoogleGenAI } from "@google/genai";
-import { prisma } from "../../../lib/prisma";
-const ai = new GoogleGenAI({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InterviewQuestionService = void 0;
+const genai_1 = require("@google/genai");
+const prisma_1 = require("../../../lib/prisma");
+const ai = new genai_1.GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
 });
 const generateInterviewQuestions = async (jobId, experienceLevel, interviewType) => {
     // =========================================================
     // 1. GET JOB INFORMATION
     // =========================================================
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -552,6 +555,6 @@ followUpQuestions
         questions,
     };
 };
-export const InterviewQuestionService = {
+exports.InterviewQuestionService = {
     generateInterviewQuestions,
 };

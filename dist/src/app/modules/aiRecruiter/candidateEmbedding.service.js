@@ -1,8 +1,11 @@
-import { envVars } from "../../config/env";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CandidateEmbeddingService = void 0;
+const env_1 = require("../../config/env");
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/embeddings";
-const EMBEDDING_MODEL = envVars.OPENROUTER_EMBEDDING_MODEL ||
+const EMBEDDING_MODEL = env_1.envVars.OPENROUTER_EMBEDDING_MODEL ||
     "nvidia/llama-nemotron-embed-vl-1b-v2:free";
-export const CandidateEmbeddingService = async (text, model = EMBEDDING_MODEL) => {
+const CandidateEmbeddingService = async (text, model = EMBEDDING_MODEL) => {
     // =====================================
     // 1. Validate text
     // =====================================
@@ -12,7 +15,7 @@ export const CandidateEmbeddingService = async (text, model = EMBEDDING_MODEL) =
     // =====================================
     // 2. Get OpenRouter API key
     // =====================================
-    const apiKey = envVars.OPENROUTER_API_KEY;
+    const apiKey = env_1.envVars.OPENROUTER_API_KEY;
     if (!apiKey) {
         throw new Error("OPENROUTER_API_KEY is not set in .env");
     }
@@ -69,3 +72,4 @@ export const CandidateEmbeddingService = async (text, model = EMBEDDING_MODEL) =
         throw error;
     }
 };
+exports.CandidateEmbeddingService = CandidateEmbeddingService;

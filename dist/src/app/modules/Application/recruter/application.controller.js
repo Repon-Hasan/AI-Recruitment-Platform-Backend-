@@ -1,58 +1,69 @@
-import { sendResponse } from "../../../shared/sendResponse";
-import { deleteRecruiterApplication, getCompanyApplications, getJobApplicationsForRecruiter, getRecruiterApplicationById, updateApplicationStatus } from "./application.services";
-import status from "http-status";
-export const getJobApplicationsController = async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCompanyApplicationsController = exports.deleteRecruiterApplicationController = exports.updateApplicationStatusController = exports.getRecruiterApplicationControllerById = exports.getJobApplicationsController = void 0;
+const sendResponse_1 = require("../../../shared/sendResponse");
+const application_services_1 = require("./application.services");
+const http_status_1 = __importDefault(require("http-status"));
+const getJobApplicationsController = async (req, res) => {
     const jobId = req.params.jobId;
     const userId = req.user.userId;
-    const result = await getJobApplicationsForRecruiter(userId, jobId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await (0, application_services_1.getJobApplicationsForRecruiter)(userId, jobId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Job applications retrieved successfully",
         data: result,
     });
 };
-export const getRecruiterApplicationControllerById = async (req, res) => {
+exports.getJobApplicationsController = getJobApplicationsController;
+const getRecruiterApplicationControllerById = async (req, res) => {
     const applicationId = req.params.applicationId;
     const userId = req.user.userId;
-    const result = await getRecruiterApplicationById(userId, applicationId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await (0, application_services_1.getRecruiterApplicationById)(userId, applicationId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Application retrieved successfully",
         data: result,
     });
 };
-export const updateApplicationStatusController = async (req, res) => {
+exports.getRecruiterApplicationControllerById = getRecruiterApplicationControllerById;
+const updateApplicationStatusController = async (req, res) => {
     const applicationId = req.params.applicationId;
     const { status: applicationStatus } = req.body;
     const userId = req.user.id;
-    const result = await updateApplicationStatus(userId, applicationId, applicationStatus);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await (0, application_services_1.updateApplicationStatus)(userId, applicationId, applicationStatus);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Application status updated successfully",
         data: result,
     });
 };
-export const deleteRecruiterApplicationController = async (req, res) => {
+exports.updateApplicationStatusController = updateApplicationStatusController;
+const deleteRecruiterApplicationController = async (req, res) => {
     const applicationId = req.params.applicationId;
     const userId = req.user.id;
-    await deleteRecruiterApplication(userId, applicationId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    await (0, application_services_1.deleteRecruiterApplication)(userId, applicationId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Application deleted successfully",
         data: null,
     });
 };
-export const getCompanyApplicationsController = async (req, res) => {
+exports.deleteRecruiterApplicationController = deleteRecruiterApplicationController;
+const getCompanyApplicationsController = async (req, res) => {
     const userId = req.user.id;
-    const result = await getCompanyApplications(userId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await (0, application_services_1.getCompanyApplications)(userId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Company applications retrieved successfully",
         data: result,
     });
 };
+exports.getCompanyApplicationsController = getCompanyApplicationsController;

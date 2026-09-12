@@ -1,7 +1,10 @@
-import { JobStatus, RemoteType, } from "../../../../generated/prisma/enums";
-import { prisma } from "../../../lib/prisma";
-import { generateJobEmbedding } from "./generateJobEmbedding";
-import { searchJobSchema } from "./job.validation";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobServices = void 0;
+const enums_1 = require("../../../../generated/prisma/enums");
+const prisma_1 = require("../../../lib/prisma");
+const generateJobEmbedding_1 = require("./generateJobEmbedding");
+const job_validation_1 = require("./job.validation");
 // ============================================================
 // HELPER
 // ============================================================
@@ -17,7 +20,7 @@ const createJobService = async (userId, data) => {
     // ==========================================================
     // 1. Find company
     // ==========================================================
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -54,7 +57,7 @@ const createJobService = async (userId, data) => {
     const location = data.location.trim();
     const employmentType = data.employmentType;
     const experienceLevel = data.experienceLevel;
-    const remoteType = data.remoteType ?? RemoteType.ONSITE;
+    const remoteType = data.remoteType ?? enums_1.RemoteType.ONSITE;
     const status = data.status;
     // ==========================================================
     // 4. Validate deadline
@@ -102,7 +105,7 @@ const createJobService = async (userId, data) => {
     // ==========================================================
     // 7. Create job
     // ==========================================================
-    const job = await prisma.job.create({
+    const job = await prisma_1.prisma.job.create({
         data: {
             company: {
                 connect: {
@@ -120,7 +123,7 @@ const createJobService = async (userId, data) => {
             salaryCurrency: data.salaryCurrency ?? "BDT",
             deadline,
             status,
-            publishedAt: status === JobStatus.PUBLISHED
+            publishedAt: status === enums_1.JobStatus.PUBLISHED
                 ? new Date()
                 : null,
             requiredSkills: {
@@ -179,7 +182,7 @@ ${skillsText || "No specific skills mentioned"}
     console.log(jobText);
     let embeddingResult = null;
     try {
-        embeddingResult = await generateJobEmbedding(job.id, jobText);
+        embeddingResult = await (0, generateJobEmbedding_1.generateJobEmbedding)(job.id, jobText);
     }
     catch (error) {
         console.error("Job saved, but embedding generation failed:", error);
@@ -200,7 +203,7 @@ ${skillsText || "No specific skills mentioned"}
 // 2. GET ALL COMPANY JOBS
 // ============================================================
 const getAllJobsService = async (userId) => {
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -208,7 +211,7 @@ const getAllJobsService = async (userId) => {
     if (!company) {
         throw createError("Company profile not found", 404);
     }
-    const jobs = await prisma.job.findMany({
+    const jobs = await prisma_1.prisma.job.findMany({
         where: {
             companyId: company.id,
         },
@@ -231,7 +234,7 @@ const getAllJobsService = async (userId) => {
 // 3. GET ALL JOBS
 // ============================================================
 const allJobsService = async () => {
-    const jobs = await prisma.job.findMany({
+    const jobs = await prisma_1.prisma.job.findMany({
         include: {
             company: true,
             requiredSkills: true,
@@ -255,7 +258,7 @@ const updateJobService = async (userId, jobId, data) => {
     // ==========================================================
     // 1. Check existing job
     // ==========================================================
-    const existingJob = await prisma.job.findFirst({
+    const existingJob = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -337,7 +340,7 @@ const updateJobService = async (userId, jobId, data) => {
     // ==========================================================
     // 5. Transaction
     // ==========================================================
-    const updatedJob = await prisma.$transaction(async (tx) => {
+    const updatedJob = await prisma_1.prisma.$transaction(async (tx) => {
         // ------------------------------------------------------
         // Replace required skills if provided
         // ------------------------------------------------------
@@ -445,7 +448,7 @@ ${skillsText || "No specific skills mentioned"}
     let embeddingResult = null;
     try {
         embeddingResult =
-            await generateJobEmbedding(updatedJob.id, jobText);
+            await (0, generateJobEmbedding_1.generateJobEmbedding)(updatedJob.id, jobText);
     }
     catch (error) {
         console.error("Job updated, but embedding generation failed:", error);
@@ -466,7 +469,7 @@ ${skillsText || "No specific skills mentioned"}
 // 5. DELETE JOB
 // ============================================================
 const deleteJobService = async (userId, jobId) => {
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -474,7 +477,7 @@ const deleteJobService = async (userId, jobId) => {
     if (!company) {
         throw createError("Company profile not found", 404);
     }
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             companyId: company.id,
@@ -483,7 +486,7 @@ const deleteJobService = async (userId, jobId) => {
     if (!job) {
         throw createError("Job not found or you do not own this job", 404);
     }
-    await prisma.job.delete({
+    await prisma_1.prisma.job.delete({
         where: {
             id: jobId,
         },
@@ -494,7 +497,7 @@ const deleteJobService = async (userId, jobId) => {
 // 6. GET JOB BY ID
 // ============================================================
 const getJobById = async (jobId) => {
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -518,7 +521,7 @@ const getJobById = async (jobId) => {
 // 7. PUBLISH JOB
 // ============================================================
 const publishJob = async (userId, jobId) => {
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -526,7 +529,7 @@ const publishJob = async (userId, jobId) => {
     if (!company) {
         throw createError("Company profile not found", 404);
     }
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             companyId: company.id,
@@ -535,18 +538,18 @@ const publishJob = async (userId, jobId) => {
     if (!job) {
         throw createError("Job not found", 404);
     }
-    if (job.status === JobStatus.PUBLISHED) {
+    if (job.status === enums_1.JobStatus.PUBLISHED) {
         throw createError("Job is already published", 400);
     }
     if (job.deadline <= new Date()) {
         throw createError("Cannot publish a job with an expired deadline", 400);
     }
-    return prisma.job.update({
+    return prisma_1.prisma.job.update({
         where: {
             id: jobId,
         },
         data: {
-            status: JobStatus.PUBLISHED,
+            status: enums_1.JobStatus.PUBLISHED,
             publishedAt: new Date(),
             closedAt: null,
         },
@@ -560,7 +563,7 @@ const publishJob = async (userId, jobId) => {
 // 8. CLOSE JOB
 // ============================================================
 const closeJob = async (userId, jobId) => {
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -568,7 +571,7 @@ const closeJob = async (userId, jobId) => {
     if (!company) {
         throw createError("Company profile not found", 404);
     }
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             companyId: company.id,
@@ -577,15 +580,15 @@ const closeJob = async (userId, jobId) => {
     if (!job) {
         throw createError("Job not found", 404);
     }
-    if (job.status === JobStatus.CLOSED) {
+    if (job.status === enums_1.JobStatus.CLOSED) {
         throw createError("Job is already closed", 400);
     }
-    return prisma.job.update({
+    return prisma_1.prisma.job.update({
         where: {
             id: jobId,
         },
         data: {
-            status: JobStatus.CLOSED,
+            status: enums_1.JobStatus.CLOSED,
             closedAt: new Date(),
         },
         include: {
@@ -598,7 +601,7 @@ const closeJob = async (userId, jobId) => {
 // 9. DUPLICATE JOB
 // ============================================================
 const duplicateJob = async (userId, jobId) => {
-    const company = await prisma.company.findUnique({
+    const company = await prisma_1.prisma.company.findUnique({
         where: {
             userId,
         },
@@ -606,7 +609,7 @@ const duplicateJob = async (userId, jobId) => {
     if (!company) {
         throw createError("Company profile not found", 404);
     }
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             companyId: company.id,
@@ -622,7 +625,7 @@ const duplicateJob = async (userId, jobId) => {
     // Therefore, duplicated draft gets a future deadline.
     const duplicateDeadline = new Date();
     duplicateDeadline.setDate(duplicateDeadline.getDate() + 30);
-    const duplicatedJob = await prisma.job.create({
+    const duplicatedJob = await prisma_1.prisma.job.create({
         data: {
             companyId: company.id,
             title: `${job.title} - Copy`,
@@ -635,7 +638,7 @@ const duplicateJob = async (userId, jobId) => {
             salaryMax: job.salaryMax,
             salaryCurrency: job.salaryCurrency,
             deadline: duplicateDeadline,
-            status: JobStatus.DRAFT,
+            status: enums_1.JobStatus.DRAFT,
             publishedAt: null,
             closedAt: null,
             requiredSkills: {
@@ -659,7 +662,7 @@ const searchJobs = async (query) => {
     // ==========================================================
     // 1. Validate query
     // ==========================================================
-    const params = searchJobSchema.parse(query);
+    const params = job_validation_1.searchJobSchema.parse(query);
     const { keyword, location, skills, salaryMin, salaryMax, experience, remote, employmentType, companyId, page, limit, sortBy, sortOrder, } = params;
     // ==========================================================
     // 2. Pagination
@@ -672,7 +675,7 @@ const searchJobs = async (query) => {
     // 3. Base where
     // ==========================================================
     const where = {
-        status: JobStatus.PUBLISHED,
+        status: enums_1.JobStatus.PUBLISHED,
     };
     // ==========================================================
     // 4. Keyword search
@@ -808,7 +811,7 @@ const searchJobs = async (query) => {
     // 13. Database queries
     // ==========================================================
     const [jobs, total] = await Promise.all([
-        prisma.job.findMany({
+        prisma_1.prisma.job.findMany({
             where,
             skip,
             take: currentLimit,
@@ -832,7 +835,7 @@ const searchJobs = async (query) => {
                 [safeSortBy]: safeSortOrder,
             },
         }),
-        prisma.job.count({
+        prisma_1.prisma.job.count({
             where,
         }),
     ]);
@@ -858,7 +861,7 @@ const searchJobs = async (query) => {
 // ============================================================
 // EXPORT
 // ============================================================
-export const jobServices = {
+exports.jobServices = {
     createJobService,
     updateJobService,
     deleteJobService,

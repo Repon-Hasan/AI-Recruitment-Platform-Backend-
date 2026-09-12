@@ -1,4 +1,7 @@
-export const buildRecruiterPrompt = (question, candidates) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildRecruiterPrompt = void 0;
+const buildRecruiterPrompt = (question, candidates) => {
     const candidateContext = candidates
         .map((candidate, index) => `
 Candidate ${index + 1}
@@ -61,3 +64,4 @@ Return valid JSON using this structure:
 }
 `;
 };
+exports.buildRecruiterPrompt = buildRecruiterPrompt;

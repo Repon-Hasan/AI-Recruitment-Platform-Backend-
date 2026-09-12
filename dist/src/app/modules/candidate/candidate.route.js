@@ -1,28 +1,31 @@
-import { Router } from "express";
-import { candidateController } from "./candidate.controller";
-import { Role } from "../../../generated/prisma/enums";
-import { checkAuth } from "../../middleware/checkAuth";
-import { multerImageUpload } from "../../config/multer";
-const router = Router();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.candidateRoutes = void 0;
+const express_1 = require("express");
+const candidate_controller_1 = require("./candidate.controller");
+const enums_1 = require("../../../generated/prisma/enums");
+const checkAuth_1 = require("../../middleware/checkAuth");
+const multer_1 = require("../../config/multer");
+const router = (0, express_1.Router)();
 // Candidate profile
-router.get("/me", checkAuth(Role.CANDIDATE), candidateController.getMyProfile);
-router.patch("/me", checkAuth(Role.CANDIDATE), candidateController.updateMyProfile);
+router.get("/me", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.getMyProfile);
+router.patch("/me", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.updateMyProfile);
 // Skills
-router.post("/skills", checkAuth(Role.CANDIDATE), candidateController.addSkill);
-router.delete("/skills/:skillId", checkAuth(Role.CANDIDATE), candidateController.deleteSkill);
+router.post("/skills", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.addSkill);
+router.delete("/skills/:skillId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.deleteSkill);
 // Education
-router.post("/education", checkAuth(Role.CANDIDATE), candidateController.addEducation);
-router.patch("/education/:id", checkAuth(Role.CANDIDATE), candidateController.updateEducation);
-router.delete("/education/:id", checkAuth(Role.CANDIDATE), candidateController.deleteEducation);
+router.post("/education", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.addEducation);
+router.patch("/education/:id", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.updateEducation);
+router.delete("/education/:id", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.deleteEducation);
 // Project Related
-router.post("/projects", checkAuth(Role.CANDIDATE), candidateController.createProject);
-router.get("/projects", checkAuth(Role.CANDIDATE), candidateController.getMyProjects);
-router.get("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.getProjectById);
-router.patch("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.updateProject);
-router.delete("/projects/:projectId", checkAuth(Role.CANDIDATE), candidateController.deleteProject);
+router.post("/projects", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.createProject);
+router.get("/projects", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.getMyProjects);
+router.get("/projects/:projectId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.getProjectById);
+router.patch("/projects/:projectId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.updateProject);
+router.delete("/projects/:projectId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.deleteProject);
 // Certificate
 router.post("/certificate", (req, res, next) => {
-    multerImageUpload.single("image")(req, res, (err) => {
+    multer_1.multerImageUpload.single("image")(req, res, (err) => {
         if (err) {
             console.error("🔥 MULTER ERROR:", err);
             console.error("🔥 MESSAGE:", err.message);
@@ -36,9 +39,9 @@ router.post("/certificate", (req, res, next) => {
         console.log("FILE:", req.file);
         next();
     });
-}, checkAuth(Role.CANDIDATE), candidateController.createCertification);
-router.get("/certificate", checkAuth(Role.CANDIDATE), candidateController.getMyCertifications);
-router.get("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.getCertificationById);
-router.patch("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.updateCertification);
-router.delete("/certificate/:certificationId", checkAuth(Role.CANDIDATE), candidateController.deleteCertification);
-export const candidateRoutes = router;
+}, (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.createCertification);
+router.get("/certificate", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.getMyCertifications);
+router.get("/certificate/:certificationId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.getCertificationById);
+router.patch("/certificate/:certificationId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.updateCertification);
+router.delete("/certificate/:certificationId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), candidate_controller_1.candidateController.deleteCertification);
+exports.candidateRoutes = router;

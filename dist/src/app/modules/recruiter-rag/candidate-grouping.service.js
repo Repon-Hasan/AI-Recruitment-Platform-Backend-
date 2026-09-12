@@ -1,4 +1,7 @@
-export const groupChunksByCandidate = (chunks) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.groupChunksByCandidate = void 0;
+const groupChunksByCandidate = (chunks) => {
     const candidateMap = new Map();
     for (const chunk of chunks) {
         const existing = candidateMap.get(chunk.candidateId);
@@ -18,3 +21,4 @@ export const groupChunksByCandidate = (chunks) => {
     }
     return Array.from(candidateMap.values()).sort((a, b) => b.bestSimilarity - a.bestSimilarity);
 };
+exports.groupChunksByCandidate = groupChunksByCandidate;

@@ -1,9 +1,12 @@
-import { prisma } from "../../lib/prisma";
-export const analyzeSkillGap = async (userId, jobId) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.analyzeSkillGap = void 0;
+const prisma_1 = require("../../lib/prisma");
+const analyzeSkillGap = async (userId, jobId) => {
     // --------------------------------------------------
     // 1. Get candidate profile + candidate skills
     // --------------------------------------------------
-    const candidate = await prisma.candidateProfile.findUnique({
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -17,7 +20,7 @@ export const analyzeSkillGap = async (userId, jobId) => {
     // --------------------------------------------------
     // 2. Get candidate's latest resume
     // --------------------------------------------------
-    const resume = await prisma.resume.findFirst({
+    const resume = await prisma_1.prisma.resume.findFirst({
         where: {
             candidateId: candidate.id,
         },
@@ -31,7 +34,7 @@ export const analyzeSkillGap = async (userId, jobId) => {
     // --------------------------------------------------
     // 3. Get job + required skills
     // --------------------------------------------------
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -55,7 +58,7 @@ export const analyzeSkillGap = async (userId, jobId) => {
     // similarity = 0.85
     // percentage = 85%
     //
-    const similarityResult = await prisma.$queryRaw `
+    const similarityResult = await prisma_1.prisma.$queryRaw `
     SELECT
       1 - (r.embedding <=> j.embedding) AS similarity
     FROM "resumes" r
@@ -148,3 +151,4 @@ export const analyzeSkillGap = async (userId, jobId) => {
         learningPath,
     };
 };
+exports.analyzeSkillGap = analyzeSkillGap;

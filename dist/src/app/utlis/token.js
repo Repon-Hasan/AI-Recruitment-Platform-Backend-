@@ -1,46 +1,49 @@
-import { envVars } from "../config/env";
-import { CookieUtils } from "./cookie";
-import { jwtUtils } from "./jwt";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tokenUtils = void 0;
+const env_1 = require("../config/env");
+const cookie_1 = require("./cookie");
+const jwt_1 = require("./jwt");
 //Creating access token
 const getAccessToken = (payload) => {
-    const accessToken = jwtUtils.createToken(payload, envVars.ACCESS_TOKEN_SECRET, { expiresIn: envVars.ACCESS_TOKEN_EXPIRES_IN });
+    const accessToken = jwt_1.jwtUtils.createToken(payload, env_1.envVars.ACCESS_TOKEN_SECRET, { expiresIn: env_1.envVars.ACCESS_TOKEN_EXPIRES_IN });
     return accessToken;
 };
 const getRefreshToken = (payload) => {
-    const refreshToken = jwtUtils.createToken(payload, envVars.REFRESH_TOKEN_SECRET, { expiresIn: envVars.REFRESH_TOKEN_EXPIRES_IN });
+    const refreshToken = jwt_1.jwtUtils.createToken(payload, env_1.envVars.REFRESH_TOKEN_SECRET, { expiresIn: env_1.envVars.REFRESH_TOKEN_EXPIRES_IN });
     return refreshToken;
 };
 const setAccessTokenCookie = (res, token) => {
-    CookieUtils.setCookie(res, 'accessToken', token, {
+    cookie_1.CookieUtils.setCookie(res, 'accessToken', token, {
         httpOnly: true,
-        secure: envVars.NODE_ENV === "production",
-        sameSite: envVars.NODE_ENV === "production" ? "none" : "lax",
+        secure: env_1.envVars.NODE_ENV === "production",
+        sameSite: env_1.envVars.NODE_ENV === "production" ? "none" : "lax",
         path: '/',
         //1 day
         maxAge: 60 * 60 * 24 * 1000,
     });
 };
 const setRefreshTokenCookie = (res, token) => {
-    CookieUtils.setCookie(res, 'refreshToken', token, {
+    cookie_1.CookieUtils.setCookie(res, 'refreshToken', token, {
         httpOnly: true,
-        secure: envVars.NODE_ENV === "production",
-        sameSite: envVars.NODE_ENV === "production" ? "none" : "lax",
+        secure: env_1.envVars.NODE_ENV === "production",
+        sameSite: env_1.envVars.NODE_ENV === "production" ? "none" : "lax",
         path: '/',
         //7d
         maxAge: 60 * 60 * 24 * 1000 * 7,
     });
 };
 const setBetterAuthSessionCookie = (res, token) => {
-    CookieUtils.setCookie(res, "better-auth.session_token", token, {
+    cookie_1.CookieUtils.setCookie(res, "better-auth.session_token", token, {
         httpOnly: true,
-        secure: envVars.NODE_ENV === "production",
-        sameSite: envVars.NODE_ENV === "production" ? "none" : "lax",
+        secure: env_1.envVars.NODE_ENV === "production",
+        sameSite: env_1.envVars.NODE_ENV === "production" ? "none" : "lax",
         path: '/',
         //1 day
         maxAge: 60 * 60 * 24 * 1000,
     });
 };
-export const tokenUtils = {
+exports.tokenUtils = {
     getAccessToken,
     getRefreshToken,
     setAccessTokenCookie,

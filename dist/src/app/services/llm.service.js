@@ -1,9 +1,12 @@
+"use strict";
 // services/llm.service.ts
-import { GoogleGenAI } from "@google/genai";
-const ai = new GoogleGenAI({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateAnswer = generateAnswer;
+const genai_1 = require("@google/genai");
+const ai = new genai_1.GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
 });
-export async function generateAnswer(query, context) {
+async function generateAnswer(query, context) {
     const prompt = `
 You are an AI Recruiter Assistant.
 

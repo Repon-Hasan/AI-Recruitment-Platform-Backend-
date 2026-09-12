@@ -1,13 +1,16 @@
+"use strict";
 // company.controller.ts
-import { createCompanySchema, updateCompanySchema } from "./company.validation";
-import { companyServices } from "./comapny.services";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.companyController = void 0;
+const company_validation_1 = require("./company.validation");
+const comapny_services_1 = require("./comapny.services");
 const createCompanyController = async (req, res) => {
     console.log("BODY:", req.body);
     console.log("USER:", req.user);
     const userId = req.user.userId;
     //console.log("hi")
-    const validatedData = createCompanySchema.parse(req.body);
-    const company = await companyServices.createCompany(userId, validatedData);
+    const validatedData = company_validation_1.createCompanySchema.parse(req.body);
+    const company = await comapny_services_1.companyServices.createCompany(userId, validatedData);
     res.status(201).json({
         success: true,
         message: "Company created successfully",
@@ -16,7 +19,7 @@ const createCompanyController = async (req, res) => {
 };
 const getMyCompanyController = async (req, res) => {
     const userId = req.user.userId;
-    const company = await companyServices.getMyCompany(userId);
+    const company = await comapny_services_1.companyServices.getMyCompany(userId);
     res.status(200).json({
         success: true,
         message: "Company retrieved successfully",
@@ -25,8 +28,8 @@ const getMyCompanyController = async (req, res) => {
 };
 const updateMyCompanyController = async (req, res) => {
     const userId = req.user.userId;
-    const validatedData = updateCompanySchema.parse(req.body);
-    const company = await companyServices.updateMyCompany(userId, validatedData);
+    const validatedData = company_validation_1.updateCompanySchema.parse(req.body);
+    const company = await comapny_services_1.companyServices.updateMyCompany(userId, validatedData);
     res.status(200).json({
         success: true,
         message: "Company updated successfully",
@@ -35,7 +38,7 @@ const updateMyCompanyController = async (req, res) => {
 };
 const deleteMyCompanyController = async (req, res) => {
     const userId = req.user.userId;
-    await companyServices.deleteMyCompany(userId);
+    await comapny_services_1.companyServices.deleteMyCompany(userId);
     res.status(200).json({
         success: true,
         message: "Company deleted successfully",
@@ -46,7 +49,7 @@ const deleteMyCompanyController = async (req, res) => {
 // =====================================================
 const getMyCompanyComplaints = async (req, res) => {
     const userId = req.user.userId;
-    const result = await companyServices.getMyCompanyComplaints(userId);
+    const result = await comapny_services_1.companyServices.getMyCompanyComplaints(userId);
     res.status(200).json({
         success: true,
         message: "Company complaints retrieved successfully",
@@ -59,7 +62,7 @@ const getMyCompanyComplaints = async (req, res) => {
 const getMyCompanyComplaintById = async (req, res) => {
     const userId = req.user.userId;
     const complaintId = String(req.params.complaintId);
-    const result = await companyServices.getMyCompanyPenaltyById(userId, complaintId);
+    const result = await comapny_services_1.companyServices.getMyCompanyPenaltyById(userId, complaintId);
     res.status(200).json({
         success: true,
         message: "Complaint retrieved successfully",
@@ -71,7 +74,7 @@ const getMyCompanyComplaintById = async (req, res) => {
 // =====================================================
 const getMyCompanyPenalties = async (req, res) => {
     const userId = req.user.userId;
-    const result = await companyServices
+    const result = await comapny_services_1.companyServices
         .getMyCompanyPenalties(userId);
     res.status(200).json({
         success: true,
@@ -85,7 +88,7 @@ const getMyCompanyPenalties = async (req, res) => {
 const getMyCompanyPenaltyById = async (req, res) => {
     const userId = req.user.id;
     const penaltyId = String(req.params.penaltyId);
-    const result = await companyServices
+    const result = await comapny_services_1.companyServices
         .getMyCompanyPenaltyById(userId, penaltyId);
     res.status(200).json({
         success: true,
@@ -93,6 +96,6 @@ const getMyCompanyPenaltyById = async (req, res) => {
         data: result,
     });
 };
-export const companyController = {
+exports.companyController = {
     createCompanyController, getMyCompanyController, updateMyCompanyController, deleteMyCompanyController, getMyCompanyPenaltyById, getMyCompanyPenalties, getMyCompanyComplaints, getMyCompanyComplaintById
 };

@@ -1,21 +1,24 @@
-import { Router } from "express";
-import { checkAuth } from "../../../middleware/checkAuth";
-import { jobController } from "./job.controller";
-import { Role } from "../../../../generated/prisma/enums";
-const router = Router();
-router.post("/create", checkAuth(Role.RECRUITER), jobController.createJob);
-router.get("/my-jobs", checkAuth(), jobController.getAllJobs);
-router.get("/candidate", jobController.allJobs);
-router.patch("/:id", checkAuth(), jobController.updateJob);
-router.delete("/:id", checkAuth(), jobController.deleteJob);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobRouters = void 0;
+const express_1 = require("express");
+const checkAuth_1 = require("../../../middleware/checkAuth");
+const job_controller_1 = require("./job.controller");
+const enums_1 = require("../../../../generated/prisma/enums");
+const router = (0, express_1.Router)();
+router.post("/create", (0, checkAuth_1.checkAuth)(enums_1.Role.RECRUITER), job_controller_1.jobController.createJob);
+router.get("/my-jobs", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.getAllJobs);
+router.get("/candidate", job_controller_1.jobController.allJobs);
+router.patch("/:id", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.updateJob);
+router.delete("/:id", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.deleteJob);
 // Get single public job
-router.get("/:id", checkAuth(), jobController.getJobById);
+router.get("/:id", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.getJobById);
 // Search jobs
-router.get("/my/search", jobController.searchJobs);
+router.get("/my/search", job_controller_1.jobController.searchJobs);
 // Publish
-router.patch("/:id/publish", checkAuth(), jobController.publishJob);
+router.patch("/:id/publish", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.publishJob);
 // Close
-router.patch("/:id/close", checkAuth(), jobController.closeJob);
+router.patch("/:id/close", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.closeJob);
 // Duplicate
-router.post("/:id/duplicate", checkAuth(), jobController.duplicateJob);
-export const jobRouters = router;
+router.post("/:id/duplicate", (0, checkAuth_1.checkAuth)(), job_controller_1.jobController.duplicateJob);
+exports.jobRouters = router;

@@ -1,6 +1,9 @@
-import { prisma } from "../../lib/prisma";
-import { generateAnswer } from "../../services/llm.service";
-export const AIRecruiterService = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AIRecruiterService = void 0;
+const prisma_1 = require("../../lib/prisma");
+const llm_service_1 = require("../../services/llm.service");
+exports.AIRecruiterService = {
     // =====================================================
     // AI RECRUITER ASSISTANT
     // =====================================================
@@ -11,7 +14,7 @@ export const AIRecruiterService = {
         // =====================================================
         let job;
         if (input.jobId) {
-            job = await prisma.job.findUnique({
+            job = await prisma_1.prisma.job.findUnique({
                 where: {
                     id: input.jobId,
                 },
@@ -42,7 +45,7 @@ export const AIRecruiterService = {
         // =====================================================
         // STEP 3: Get Applicants
         // =====================================================
-        const applications = await prisma.jobApplication.findMany({
+        const applications = await prisma_1.prisma.jobApplication.findMany({
             where: {
                 jobId: job.id,
             },
@@ -69,7 +72,7 @@ export const AIRecruiterService = {
         // =====================================================
         // STEP 4: Get Job Embedding
         // =====================================================
-        const jobEmbeddingResult = await prisma.$queryRaw `
+        const jobEmbeddingResult = await prisma_1.prisma.$queryRaw `
     SELECT "embedding"::text AS embedding
     FROM "Job"
     WHERE "id" = ${job.id}
@@ -100,7 +103,7 @@ export const AIRecruiterService = {
         const candidatePlaceholders = candidateIds
             .map((_, index) => `$${index + 2}`)
             .join(", ");
-        const semanticCandidates = await prisma.$queryRawUnsafe(`
+        const semanticCandidates = await prisma_1.prisma.$queryRawUnsafe(`
           SELECT
             "candidateProfileId",
             embedding <=> CAST($1 AS vector) AS distance
@@ -197,7 +200,7 @@ export const AIRecruiterService = {
         // =====================================================
         // STEP 12: Generate AI Answer
         // =====================================================
-        const answer = await generateAnswer(input.query, context);
+        const answer = await (0, llm_service_1.generateAnswer)(input.query, context);
         // =====================================================
         // STEP 13: Return Response
         // =====================================================
@@ -230,7 +233,7 @@ export const AIRecruiterService = {
     // FIND JOB FROM RECRUITER QUERY
     // =====================================================
     async findJobFromQuery(recruiterId, query) {
-        const jobs = await prisma.job.findMany({
+        const jobs = await prisma_1.prisma.job.findMany({
             where: {
                 company: {
                     userId: recruiterId,

@@ -1,17 +1,23 @@
-import express from "express";
-import cors from "cors";
-import { indexRoutes } from "./app/routes";
-import { toNodeHandler } from "better-auth/node";
-import { auth } from "./app/lib/auth";
-import cookieParser from "cookie-parser";
-import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
-import { notFound } from "./app/middleware/notFound";
-import path from "path";
-import { envVars } from "./app/config/env";
-export const app = express();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.app = void 0;
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const routes_1 = require("./app/routes");
+const node_1 = require("better-auth/node");
+const auth_1 = require("./app/lib/auth");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const globalErrorHandler_1 = require("./app/middleware/globalErrorHandler");
+const notFound_1 = require("./app/middleware/notFound");
+const path_1 = __importDefault(require("path"));
+const env_1 = require("./app/config/env");
+exports.app = (0, express_1.default)();
 const allowedOrigins = [
-    envVars.FRONTEND_URL,
-    envVars.BETTER_AUTH_URL,
+    env_1.envVars.FRONTEND_URL,
+    env_1.envVars.BETTER_AUTH_URL,
     "http://localhost:3000",
     "http://localhost:5000",
 ].filter(Boolean);
@@ -23,7 +29,7 @@ const allowedOrigins = [
 //   console.log("======================================");
 //   next();
 // });
-app.use(cors({
+exports.app.use((0, cors_1.default)({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -35,20 +41,20 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
-app.use("/api/auth", toNodeHandler(auth));
+exports.app.use("/api/auth", (0, node_1.toNodeHandler)(auth_1.auth));
 // Enable URL-encoded form data parsing
-app.use(express.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
-app.set("views", path.resolve(process.cwd(), `src/app/templates`));
+exports.app.use(express_1.default.urlencoded({ extended: true }));
+exports.app.set("view engine", "ejs");
+exports.app.set("views", path_1.default.resolve(process.cwd(), `src/app/templates`));
 // Middleware to parse JSON bodies
-app.use(cookieParser());
-app.use(express.json());
-app.use("/", indexRoutes);
-app.use("/api/v1", indexRoutes);
-app.use(globalErrorHandler);
-app.use(notFound);
+exports.app.use((0, cookie_parser_1.default)());
+exports.app.use(express_1.default.json());
+exports.app.use("/", routes_1.indexRoutes);
+exports.app.use("/api/v1", routes_1.indexRoutes);
+exports.app.use(globalErrorHandler_1.globalErrorHandler);
+exports.app.use(notFound_1.notFound);
 // Basic route
-app.get('/', async (req, res) => {
+exports.app.get('/', async (req, res) => {
     res.status(201).json({
         success: true,
         message: 'API is working',

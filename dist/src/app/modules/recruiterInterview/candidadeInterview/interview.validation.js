@@ -1,66 +1,69 @@
-import { z } from "zod";
-export const createInterviewSchema = z.object({
-    jobApplicationId: z
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateInterviewSchema = exports.createInterviewSchema = void 0;
+const zod_1 = require("zod");
+exports.createInterviewSchema = zod_1.z.object({
+    jobApplicationId: zod_1.z
         .string()
         .uuid("Invalid job application ID"),
-    scheduledAt: z
+    scheduledAt: zod_1.z
         .string()
         .datetime("Invalid scheduled date"),
-    durationMinutes: z
+    durationMinutes: zod_1.z
         .number()
         .int()
         .positive()
         .max(480)
         .optional(),
-    type: z
+    type: zod_1.z
         .enum([
         "VIDEO",
         "PHONE",
         "IN_PERSON"
     ])
         .optional(),
-    meetingUrl: z
+    meetingUrl: zod_1.z
         .string()
         .url("Invalid meeting URL")
         .optional()
-        .or(z.literal("")),
-    title: z
+        .or(zod_1.z.literal("")),
+    title: zod_1.z
         .string()
         .max(200)
         .optional(),
-    notes: z
+    notes: zod_1.z
         .string()
         .max(5000)
         .optional(),
 });
-export const updateInterviewSchema = z.object({
-    scheduledAt: z
+exports.updateInterviewSchema = zod_1.z.object({
+    scheduledAt: zod_1.z
         .string()
         .datetime("Invalid scheduled date")
         .optional(),
-    durationMinutes: z
+    durationMinutes: zod_1.z
         .number()
         .int()
         .positive()
         .max(480)
         .optional(),
-    type: z
+    type: zod_1.z
         .enum([
         "VIDEO",
         "PHONE",
         "IN_PERSON"
     ])
         .optional(),
-    meetingUrl: z
+    meetingUrl: zod_1.z
         .string()
         .url("Invalid meeting URL")
         .optional()
-        .or(z.literal("")),
-    title: z
+        .or(zod_1.z.literal("")),
+    title: zod_1.z
         .string()
         .max(200)
         .optional(),
-    notes: z
+    notes: zod_1.z
         .string()
         .max(5000)
         .optional(),

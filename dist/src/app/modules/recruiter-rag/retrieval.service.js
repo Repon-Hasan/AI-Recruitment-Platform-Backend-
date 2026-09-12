@@ -1,12 +1,15 @@
-import { generateEmbedding } from "../Resume/embedding.serviceRaw";
-import { prisma } from "../../lib/prisma";
-export const retrieveRelevantResumeChunks = async (question, topK = 10) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.retrieveRelevantResumeChunks = void 0;
+const embedding_serviceRaw_1 = require("../Resume/embedding.serviceRaw");
+const prisma_1 = require("../../lib/prisma");
+const retrieveRelevantResumeChunks = async (question, topK = 10) => {
     // 1. Generate embedding for recruiter question
-    const embedding = await generateEmbedding(question);
+    const embedding = await (0, embedding_serviceRaw_1.generateEmbedding)(question);
     // 2. Convert embedding array to PostgreSQL vector format
     const vectorString = `[${embedding.join(",")}]`;
     // 3. Search similar resume chunks
-    const results = await prisma.$queryRaw `
+    const results = await prisma_1.prisma.$queryRaw `
     SELECT
       rc.id,
       rc."resumeId",
@@ -46,3 +49,4 @@ export const retrieveRelevantResumeChunks = async (question, topK = 10) => {
   `;
     return results;
 };
+exports.retrieveRelevantResumeChunks = retrieveRelevantResumeChunks;

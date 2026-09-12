@@ -1,4 +1,7 @@
-import { jobSkillServices } from "./job.services";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobSkillController = void 0;
+const job_services_1 = require("./job.services");
 // Create Skill
 const createJobSkill = async (req, res) => {
     try {
@@ -6,7 +9,7 @@ const createJobSkill = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
-        const skill = await jobSkillServices.createJobSkillService(userId, req.body);
+        const skill = await job_services_1.jobSkillServices.createJobSkillService(userId, req.body);
         res.status(201).json({
             success: true,
             message: "Skill added to job successfully",
@@ -26,7 +29,7 @@ const getSkillsByJobId = async (req, res) => {
         const jobId = Array.isArray(req.params.jobId)
             ? req.params.jobId[0]
             : req.params.jobId;
-        const skills = await jobSkillServices.getSkillsByJobIdService(jobId);
+        const skills = await job_services_1.jobSkillServices.getSkillsByJobIdService(jobId);
         res.status(200).json({
             success: true,
             message: "Job skills retrieved successfully",
@@ -51,7 +54,7 @@ const updateJobSkill = async (req, res) => {
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ success: false, message: "Request body cannot be empty" });
         }
-        const updatedSkill = await jobSkillServices.updateJobSkillService(userId, id, req.body);
+        const updatedSkill = await job_services_1.jobSkillServices.updateJobSkillService(userId, id, req.body);
         res.status(200).json({
             success: true,
             message: "Skill updated successfully",
@@ -73,7 +76,7 @@ const deleteJobSkill = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
-        const result = await jobSkillServices.deleteJobSkillService(userId, id);
+        const result = await job_services_1.jobSkillServices.deleteJobSkillService(userId, id);
         res.status(200).json({
             success: true,
             message: result.message,
@@ -88,7 +91,7 @@ const deleteJobSkill = async (req, res) => {
 };
 const getAllJobs = async (req, res) => {
     try {
-        const result = await jobSkillServices.getAllJobSkillService();
+        const result = await job_services_1.jobSkillServices.getAllJobSkillService();
         res.status(200).json({
             success: true,
             message: result.message,
@@ -102,7 +105,7 @@ const getAllJobs = async (req, res) => {
         });
     }
 };
-export const jobSkillController = {
+exports.jobSkillController = {
     createJobSkill,
     getSkillsByJobId,
     updateJobSkill,

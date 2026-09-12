@@ -1,6 +1,9 @@
-import { ingestResumeForRAG, askRecruiterAI, } from "./recruiter-ai.service";
-import { recruiterSearchSchema } from "./recruiter-rag.validation";
-export const ingestResumeController = async (req, res) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.askRecruiterAIController = exports.ingestResumeController = void 0;
+const recruiter_ai_service_1 = require("./recruiter-ai.service");
+const recruiter_rag_validation_1 = require("./recruiter-rag.validation");
+const ingestResumeController = async (req, res) => {
     try {
         const { resumeId } = req.params;
         if (typeof resumeId !== "string" || !resumeId) {
@@ -9,7 +12,7 @@ export const ingestResumeController = async (req, res) => {
                 message: "Resume ID is required",
             });
         }
-        const result = await ingestResumeForRAG(resumeId);
+        const result = await (0, recruiter_ai_service_1.ingestResumeForRAG)(resumeId);
         return res.status(200).json({
             success: true,
             message: result.message,
@@ -26,9 +29,10 @@ export const ingestResumeController = async (req, res) => {
         });
     }
 };
-export const askRecruiterAIController = async (req, res) => {
+exports.ingestResumeController = ingestResumeController;
+const askRecruiterAIController = async (req, res) => {
     try {
-        const validation = recruiterSearchSchema.safeParse(req.body);
+        const validation = recruiter_rag_validation_1.recruiterSearchSchema.safeParse(req.body);
         if (!validation.success) {
             return res.status(400).json({
                 success: false,
@@ -37,7 +41,7 @@ export const askRecruiterAIController = async (req, res) => {
             });
         }
         const { question, limit, } = validation.data;
-        const result = await askRecruiterAI(question, limit);
+        const result = await (0, recruiter_ai_service_1.askRecruiterAI)(question, limit);
         return res.status(200).json({
             success: true,
             message: "Recruiter AI response generated successfully",
@@ -54,3 +58,4 @@ export const askRecruiterAIController = async (req, res) => {
         });
     }
 };
+exports.askRecruiterAIController = askRecruiterAIController;

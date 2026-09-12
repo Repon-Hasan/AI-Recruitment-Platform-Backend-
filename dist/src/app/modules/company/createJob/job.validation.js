@@ -1,12 +1,15 @@
-import { z } from "zod";
-export const createJobSchema = z.object({
-    title: z.string().min(3).max(200),
-    description: z.string().min(20),
-    location: z.string().trim().min(1, "Location is required"),
-    remoteType: z
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.searchJobSchema = exports.createJobSchema = void 0;
+const zod_1 = require("zod");
+exports.createJobSchema = zod_1.z.object({
+    title: zod_1.z.string().min(3).max(200),
+    description: zod_1.z.string().min(20),
+    location: zod_1.z.string().trim().min(1, "Location is required"),
+    remoteType: zod_1.z
         .enum(["ONSITE", "REMOTE", "HYBRID"])
         .default("ONSITE"),
-    employmentType: z
+    employmentType: zod_1.z
         .enum([
         "FULL_TIME",
         "PART_TIME",
@@ -14,7 +17,7 @@ export const createJobSchema = z.object({
         "INTERNSHIP",
         "FREELANCE",
     ]),
-    experienceLevel: z
+    experienceLevel: zod_1.z
         .enum([
         "ENTRY",
         "JUNIOR",
@@ -22,30 +25,30 @@ export const createJobSchema = z.object({
         "SENIOR",
         "LEAD",
     ]),
-    salaryMin: z.number().nonnegative().optional(),
-    salaryMax: z.number().nonnegative().optional(),
-    salaryCurrency: z
+    salaryMin: zod_1.z.number().nonnegative().optional(),
+    salaryMax: zod_1.z.number().nonnegative().optional(),
+    salaryCurrency: zod_1.z
         .string()
         .max(10)
         .default("BDT"),
-    deadline: z.coerce.date().refine((date) => date > new Date(), "Deadline must be in the future"),
-    requiredSkills: z
-        .array(z.string().min(1))
+    deadline: zod_1.z.coerce.date().refine((date) => date > new Date(), "Deadline must be in the future"),
+    requiredSkills: zod_1.z
+        .array(zod_1.z.string().min(1))
         .min(1),
-    preferredSkills: z
-        .array(z.string().min(1))
+    preferredSkills: zod_1.z
+        .array(zod_1.z.string().min(1))
         .default([]),
-    status: z
+    status: zod_1.z
         .enum(["DRAFT", "PUBLISHED"])
         .default("DRAFT"),
 });
-export const searchJobSchema = z.object({
-    keyword: z.string().optional(),
-    location: z.string().optional(),
-    skills: z.string().optional(),
-    salaryMin: z.coerce.number().nonnegative().optional(),
-    salaryMax: z.coerce.number().nonnegative().optional(),
-    experience: z
+exports.searchJobSchema = zod_1.z.object({
+    keyword: zod_1.z.string().optional(),
+    location: zod_1.z.string().optional(),
+    skills: zod_1.z.string().optional(),
+    salaryMin: zod_1.z.coerce.number().nonnegative().optional(),
+    salaryMax: zod_1.z.coerce.number().nonnegative().optional(),
+    experience: zod_1.z
         .enum([
         "ENTRY",
         "JUNIOR",
@@ -54,10 +57,10 @@ export const searchJobSchema = z.object({
         "LEAD",
     ])
         .optional(),
-    remote: z
+    remote: zod_1.z
         .enum(["ONSITE", "REMOTE", "HYBRID"])
         .optional(),
-    employmentType: z
+    employmentType: zod_1.z
         .enum([
         "FULL_TIME",
         "PART_TIME",
@@ -66,16 +69,16 @@ export const searchJobSchema = z.object({
         "FREELANCE",
     ])
         .optional(),
-    companyId: z.string().uuid().optional(),
-    page: z.coerce.number().int().positive().default(1),
-    limit: z
+    companyId: zod_1.z.string().uuid().optional(),
+    page: zod_1.z.coerce.number().int().positive().default(1),
+    limit: zod_1.z
         .coerce
         .number()
         .int()
         .positive()
         .max(50)
         .default(10),
-    sortBy: z
+    sortBy: zod_1.z
         .enum([
         "createdAt",
         "salaryMin",
@@ -83,7 +86,7 @@ export const searchJobSchema = z.object({
         "deadline",
     ])
         .default("createdAt"),
-    sortOrder: z
+    sortOrder: zod_1.z
         .enum(["asc", "desc"])
         .default("desc"),
 });

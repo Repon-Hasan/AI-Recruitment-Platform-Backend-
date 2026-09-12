@@ -1,12 +1,15 @@
-import { Router } from "express";
-import { getAllConversationsController, getApplicationMessagesController, getCandidateConversationsController, getConversationController, sendMessageController, sendMessageControllerJob, } from "./conversation.controller";
-import { checkAuth } from "../../../middleware/checkAuth";
-const router = Router();
-router.get("/", checkAuth(), getAllConversationsController);
-router.get("/applications/:applicationId", checkAuth(), getConversationController);
-router.post("/:conversationId/messages", checkAuth(), sendMessageControllerJob);
-router.get("/candidate", checkAuth(), getCandidateConversationsController);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConversationRouterRecruiter = void 0;
+const express_1 = require("express");
+const conversation_controller_1 = require("./conversation.controller");
+const checkAuth_1 = require("../../../middleware/checkAuth");
+const router = (0, express_1.Router)();
+router.get("/", (0, checkAuth_1.checkAuth)(), conversation_controller_1.getAllConversationsController);
+router.get("/applications/:applicationId", (0, checkAuth_1.checkAuth)(), conversation_controller_1.getConversationController);
+router.post("/:conversationId/messages", (0, checkAuth_1.checkAuth)(), conversation_controller_1.sendMessageControllerJob);
+router.get("/candidate", (0, checkAuth_1.checkAuth)(), conversation_controller_1.getCandidateConversationsController);
 /** * ========================================================= * GET APPLICATION MESSAGES * GET /conversations/applications/:applicationId/messages * ========================================================= */
-router.get("/applications/:applicationId/messages", checkAuth(), getApplicationMessagesController);
-router.post("/applications/:applicationId/messages", checkAuth(), sendMessageController);
-export const ConversationRouterRecruiter = router;
+router.get("/applications/:applicationId/messages", (0, checkAuth_1.checkAuth)(), conversation_controller_1.getApplicationMessagesController);
+router.post("/applications/:applicationId/messages", (0, checkAuth_1.checkAuth)(), conversation_controller_1.sendMessageController);
+exports.ConversationRouterRecruiter = router;

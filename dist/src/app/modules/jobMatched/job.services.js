@@ -1,4 +1,7 @@
-import { prisma } from "../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteJobMatch = exports.getJobMatchSummary = exports.getJobMatches = exports.getMyJobMatches = exports.getMyJobMatch = exports.calculateJobMatch = void 0;
+const prisma_1 = require("../../lib/prisma");
 // =====================================================
 // Normalize Skill
 // =====================================================
@@ -194,11 +197,11 @@ const getMatchLevel = (overallScore) => {
 // =====================================================
 // Calculate Complete Job Match
 // =====================================================
-export const calculateJobMatch = async (userId, jobId) => {
+const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 1. Find Candidate
     // ---------------------------------------------------
-    const candidate = await prisma.candidateProfile.findUnique({
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -219,7 +222,7 @@ export const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 2. Find Job
     // ---------------------------------------------------
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -255,7 +258,7 @@ export const calculateJobMatch = async (userId, jobId) => {
      *
      * "Resume"
      */
-    const semanticResult = await prisma.$queryRaw `
+    const semanticResult = await prisma_1.prisma.$queryRaw `
       SELECT
         1 - (r.embedding <=> j.embedding) AS similarity
       FROM "resumes" r
@@ -339,7 +342,7 @@ export const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 13. Save / Update Job Match
     // ---------------------------------------------------
-    const jobMatch = await prisma.jobMatch.upsert({
+    const jobMatch = await prisma_1.prisma.jobMatch.upsert({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -388,11 +391,12 @@ export const calculateJobMatch = async (userId, jobId) => {
         matchLevel,
     };
 };
+exports.calculateJobMatch = calculateJobMatch;
 // =====================================================
 // Get My Job Match
 // =====================================================
-export const getMyJobMatch = async (userId, jobId) => {
-    const candidate = await prisma.candidateProfile.findUnique({
+const getMyJobMatch = async (userId, jobId) => {
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -403,7 +407,7 @@ export const getMyJobMatch = async (userId, jobId) => {
     if (!candidate) {
         throw new Error("Candidate profile not found");
     }
-    const jobMatch = await prisma.jobMatch.findUnique({
+    const jobMatch = await prisma_1.prisma.jobMatch.findUnique({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -440,17 +444,18 @@ export const getMyJobMatch = async (userId, jobId) => {
         updatedAt: jobMatch.updatedAt,
     };
 };
+exports.getMyJobMatch = getMyJobMatch;
 // =====================================================
 // Get All My Job Matches
 // =====================================================
 // =====================================================
 // Get All My Job Matches
 // =====================================================
-export const getMyJobMatches = async (userId) => {
+const getMyJobMatches = async (userId) => {
     // ---------------------------------------------------
     // 1. Find Candidate
     // ---------------------------------------------------
-    const candidate = await prisma.candidateProfile.findUnique({
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -464,7 +469,7 @@ export const getMyJobMatches = async (userId) => {
     // ---------------------------------------------------
     // 2. Get All Job Matches
     // ---------------------------------------------------
-    const jobMatches = await prisma.jobMatch.findMany({
+    const jobMatches = await prisma_1.prisma.jobMatch.findMany({
         where: {
             candidateId: candidate.id,
         },
@@ -501,14 +506,15 @@ export const getMyJobMatches = async (userId) => {
         updatedAt: match.updatedAt,
     }));
 };
+exports.getMyJobMatches = getMyJobMatches;
 // =====================================================
 // Recruiter: Get Job Applicants Matches
 // =====================================================
-export const getJobMatches = async (userId, jobId) => {
+const getJobMatches = async (userId, jobId) => {
     // ---------------------------------------------------
     // Verify that this recruiter owns the job
     // ---------------------------------------------------
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -526,7 +532,7 @@ export const getJobMatches = async (userId, jobId) => {
     // ---------------------------------------------------
     // Get matches
     // ---------------------------------------------------
-    const matches = await prisma.jobMatch.findMany({
+    const matches = await prisma_1.prisma.jobMatch.findMany({
         where: {
             jobId,
         },
@@ -572,14 +578,15 @@ export const getJobMatches = async (userId, jobId) => {
         })),
     };
 };
+exports.getJobMatches = getJobMatches;
 // =====================================================
 // Get Match Summary
 // =====================================================
-export const getJobMatchSummary = async (userId, jobId) => {
+const getJobMatchSummary = async (userId, jobId) => {
     // ---------------------------------------------------
     // Verify recruiter owns job
     // ---------------------------------------------------
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -597,7 +604,7 @@ export const getJobMatchSummary = async (userId, jobId) => {
     // ---------------------------------------------------
     // Get matches
     // ---------------------------------------------------
-    const matches = await prisma.jobMatch.findMany({
+    const matches = await prisma_1.prisma.jobMatch.findMany({
         where: {
             jobId,
         },
@@ -675,11 +682,12 @@ export const getJobMatchSummary = async (userId, jobId) => {
         })),
     };
 };
+exports.getJobMatchSummary = getJobMatchSummary;
 // =====================================================
 // Delete My Job Match
 // =====================================================
-export const deleteJobMatch = async (userId, jobId) => {
-    const candidate = await prisma.candidateProfile.findUnique({
+const deleteJobMatch = async (userId, jobId) => {
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -690,7 +698,7 @@ export const deleteJobMatch = async (userId, jobId) => {
     if (!candidate) {
         throw new Error("Candidate profile not found");
     }
-    const jobMatch = await prisma.jobMatch.findUnique({
+    const jobMatch = await prisma_1.prisma.jobMatch.findUnique({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -701,10 +709,11 @@ export const deleteJobMatch = async (userId, jobId) => {
     if (!jobMatch) {
         throw new Error("Job match not found");
     }
-    await prisma.jobMatch.delete({
+    await prisma_1.prisma.jobMatch.delete({
         where: {
             id: jobMatch.id,
         },
     });
     return true;
 };
+exports.deleteJobMatch = deleteJobMatch;

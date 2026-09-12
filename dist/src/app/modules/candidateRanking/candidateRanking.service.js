@@ -1,13 +1,16 @@
-import { prisma } from "../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CandidateRankingService = void 0;
+const prisma_1 = require("../../lib/prisma");
 const normalize = (value) => {
     return value?.trim().toLowerCase() ?? "";
 };
-export const CandidateRankingService = {
+exports.CandidateRankingService = {
     async rankApplicants(jobId) {
         // =========================================================
         // 1. GET JOB
         // =========================================================
-        const job = await prisma.job.findUnique({
+        const job = await prisma_1.prisma.job.findUnique({
             where: {
                 id: jobId,
             },
@@ -26,7 +29,7 @@ export const CandidateRankingService = {
         // =========================================================
         // 3. GET APPLICATIONS + COMPLETE CANDIDATE DATA
         // =========================================================
-        const applications = await prisma.jobApplication.findMany({
+        const applications = await prisma_1.prisma.jobApplication.findMany({
             where: {
                 jobId,
             },
@@ -245,12 +248,12 @@ export const CandidateRankingService = {
     // ============================================
     async getRankedApplicants(jobId, filters) {
         // First calculate ranking
-        const ranked = await CandidateRankingService
+        const ranked = await exports.CandidateRankingService
             .rankApplicants(jobId);
         // =========================================================
         // Get applicant information
         // =========================================================
-        const applications = await prisma.jobApplication.findMany({
+        const applications = await prisma_1.prisma.jobApplication.findMany({
             where: {
                 jobId,
             },

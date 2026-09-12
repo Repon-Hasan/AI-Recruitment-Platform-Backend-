@@ -1,16 +1,22 @@
-import status from "http-status";
-import { catchAsync } from "../../shared/catchAsync";
-import { candidateService } from "./candiate.services";
-import { sendResponse } from "../../shared/sendResponse";
-import { uploadFileToCloudinary } from "../../config/cloudnary.config";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.candidateController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const catchAsync_1 = require("../../shared/catchAsync");
+const candiate_services_1 = require("./candiate.services");
+const sendResponse_1 = require("../../shared/sendResponse");
+const cloudnary_config_1 = require("../../config/cloudnary.config");
 // ========================================
 // GET /api/candidates/me
 // ========================================
-const getMyProfile = catchAsync(async (req, res) => {
+const getMyProfile = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
-    const result = await candidateService.getMyProfile(userId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await candiate_services_1.candidateService.getMyProfile(userId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Candidate profile fetched successfully",
         data: result,
@@ -19,11 +25,11 @@ const getMyProfile = catchAsync(async (req, res) => {
 // ========================================
 // PATCH /api/candidates/me
 // ========================================
-const updateMyProfile = catchAsync(async (req, res) => {
+const updateMyProfile = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
-    const result = await candidateService.updateMyProfile(userId, req.body);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await candiate_services_1.candidateService.updateMyProfile(userId, req.body);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Candidate profile updated successfully",
         data: result,
@@ -32,12 +38,12 @@ const updateMyProfile = catchAsync(async (req, res) => {
 // ========================================
 // POST /api/candidates/skills
 // ========================================
-const addSkill = catchAsync(async (req, res) => {
+const addSkill = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
     const { skills } = req.body;
-    const result = await candidateService.addSkill(userId, skills);
-    sendResponse(res, {
-        httpStatusCode: status.CREATED,
+    const result = await candiate_services_1.candidateService.addSkill(userId, skills);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.CREATED,
         success: true,
         message: "Skill(s) added successfully",
         data: result,
@@ -46,14 +52,14 @@ const addSkill = catchAsync(async (req, res) => {
 // ========================================
 // DELETE /api/candidates/skills/:skillId
 // ========================================
-const deleteSkill = catchAsync(async (req, res) => {
+const deleteSkill = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
     const skillId = Array.isArray(req.params.skillId)
         ? req.params.skillId[0]
         : req.params.skillId;
-    await candidateService.deleteSkill(userId, skillId);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    await candiate_services_1.candidateService.deleteSkill(userId, skillId);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Skill deleted successfully",
         data: null,
@@ -62,11 +68,11 @@ const deleteSkill = catchAsync(async (req, res) => {
 // ========================================
 // POST /api/candidates/education
 // ========================================
-const addEducation = catchAsync(async (req, res) => {
+const addEducation = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
-    const result = await candidateService.addEducation(userId, req.body);
-    sendResponse(res, {
-        httpStatusCode: status.CREATED,
+    const result = await candiate_services_1.candidateService.addEducation(userId, req.body);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.CREATED,
         success: true,
         message: "Education added successfully",
         data: result,
@@ -75,14 +81,14 @@ const addEducation = catchAsync(async (req, res) => {
 // ========================================
 // PATCH /api/candidates/education/:id
 // ========================================
-const updateEducation = catchAsync(async (req, res) => {
+const updateEducation = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
     const id = Array.isArray(req.params.id)
         ? req.params.id[0]
         : req.params.id;
-    const result = await candidateService.updateEducation(userId, id, req.body);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    const result = await candiate_services_1.candidateService.updateEducation(userId, id, req.body);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Education updated successfully",
         data: result,
@@ -91,14 +97,14 @@ const updateEducation = catchAsync(async (req, res) => {
 // ========================================
 // DELETE /api/candidates/education/:id
 // ========================================
-const deleteEducation = catchAsync(async (req, res) => {
+const deleteEducation = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const userId = req.user.userId;
     const id = Array.isArray(req.params.id)
         ? req.params.id[0]
         : req.params.id;
-    await candidateService.deleteEducation(userId, id);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
+    await candiate_services_1.candidateService.deleteEducation(userId, id);
+    (0, sendResponse_1.sendResponse)(res, {
+        httpStatusCode: http_status_1.default.OK,
         success: true,
         message: "Education deleted successfully",
         data: null,
@@ -108,7 +114,7 @@ const deleteEducation = catchAsync(async (req, res) => {
 const createProject = async (req, res) => {
     try {
         const userId = req.user.userId;
-        const project = await candidateService.createProject(userId, req.body);
+        const project = await candiate_services_1.candidateService.createProject(userId, req.body);
         //console.log(project)
         res.status(201).json({
             success: true,
@@ -128,7 +134,7 @@ const createProject = async (req, res) => {
 const getMyProjects = async (req, res) => {
     try {
         const candidateId = req.user.userId;
-        const projects = await candidateService.getMyProjects(candidateId);
+        const projects = await candiate_services_1.candidateService.getMyProjects(candidateId);
         console.log("Projects", projects);
         res.status(200).json({
             success: true,
@@ -151,7 +157,7 @@ const getProjectById = async (req, res) => {
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
-        const project = await candidateService.getProjectById(candidateId, projectId);
+        const project = await candiate_services_1.candidateService.getProjectById(candidateId, projectId);
         if (!project) {
             return res.status(404).json({
                 success: false,
@@ -179,7 +185,7 @@ const updateProject = async (req, res) => {
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
-        const project = await candidateService.updateProject(candidateId, projectId, req.body);
+        const project = await candiate_services_1.candidateService.updateProject(candidateId, projectId, req.body);
         res.status(200).json({
             success: true,
             message: "Project updated successfully",
@@ -201,7 +207,7 @@ const deleteProject = async (req, res) => {
         const projectId = Array.isArray(req.params.projectId)
             ? req.params.projectId[0]
             : req.params.projectId;
-        await candidateService.deleteProject(candidateId, projectId);
+        await candiate_services_1.candidateService.deleteProject(candidateId, projectId);
         res.status(200).json({
             success: true,
             message: "Project deleted successfully",
@@ -225,11 +231,11 @@ const createCertification = async (req, res) => {
         console.log("📁 FILE:", req.file);
         // Multer memoryStorage gives us the file as a Buffer
         if (req.file) {
-            const uploaded = await uploadFileToCloudinary(req.file.buffer, req.file.originalname);
+            const uploaded = await (0, cloudnary_config_1.uploadFileToCloudinary)(req.file.buffer, req.file.originalname);
             certificateImage = uploaded.secure_url;
             console.log("☁️ Cloudinary URL:", certificateImage);
         }
-        const certification = await candidateService.createCertification(userId, {
+        const certification = await candiate_services_1.candidateService.createCertification(userId, {
             ...req.body,
             image: certificateImage,
         });
@@ -252,7 +258,7 @@ const createCertification = async (req, res) => {
 const getMyCertifications = async (req, res) => {
     try {
         const candidateId = req.user.id;
-        const certifications = await candidateService.getMyCertifications(candidateId);
+        const certifications = await candiate_services_1.candidateService.getMyCertifications(candidateId);
         res.status(200).json({
             success: true,
             message: "Certifications retrieved successfully",
@@ -274,7 +280,7 @@ const getCertificationById = async (req, res) => {
         const certificationId = Array.isArray(req.params.certificationId)
             ? req.params.certificationId[0]
             : req.params.certificationId;
-        const certification = await candidateService.getCertificationById(candidateId, certificationId);
+        const certification = await candiate_services_1.candidateService.getCertificationById(candidateId, certificationId);
         if (!certification) {
             return res.status(404).json({
                 success: false,
@@ -302,7 +308,7 @@ const updateCertification = async (req, res) => {
         const certificationId = Array.isArray(req.params.certificationId)
             ? req.params.certificationId[0]
             : req.params.certificationId;
-        const certification = await candidateService.updateCertification(candidateId, certificationId, req.body);
+        const certification = await candiate_services_1.candidateService.updateCertification(candidateId, certificationId, req.body);
         res.status(200).json({
             success: true,
             message: "Certification updated successfully",
@@ -324,7 +330,7 @@ const deleteCertification = async (req, res) => {
         const certificationId = Array.isArray(req.params.certificationId)
             ? req.params.certificationId[0]
             : req.params.certificationId;
-        await candidateService.deleteCertification(candidateId, certificationId);
+        await candiate_services_1.candidateService.deleteCertification(candidateId, certificationId);
         res.status(200).json({
             success: true,
             message: "Certification deleted successfully",
@@ -339,7 +345,7 @@ const deleteCertification = async (req, res) => {
         });
     }
 };
-export const candidateController = {
+exports.candidateController = {
     getMyProfile,
     updateMyProfile,
     addSkill,

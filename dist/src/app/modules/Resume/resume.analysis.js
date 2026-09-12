@@ -1,9 +1,15 @@
-import Groq from "groq-sdk";
-import { envVars } from "../../config/env";
-const groq = new Groq({
-    apiKey: envVars.GROQ_API_KEY,
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.analyzeResumeWithAI = void 0;
+const groq_sdk_1 = __importDefault(require("groq-sdk"));
+const env_1 = require("../../config/env");
+const groq = new groq_sdk_1.default({
+    apiKey: env_1.envVars.GROQ_API_KEY,
 });
-export const analyzeResumeWithAI = async (resumeText, jobDescription) => {
+const analyzeResumeWithAI = async (resumeText, jobDescription) => {
     const prompt = `
 You are an expert ATS resume evaluator and professional career coach.
 
@@ -245,3 +251,4 @@ ${resumeText}
         throw new Error("AI returned invalid JSON");
     }
 };
+exports.analyzeResumeWithAI = analyzeResumeWithAI;

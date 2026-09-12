@@ -1,6 +1,12 @@
+"use strict";
 // import multer from "multer";
 // import { CloudinaryStorage } from "multer-storage-cloudinary";
 // import { cloudinaryUpload } from "./cloudnary.config";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.multerImageUpload = exports.multerUpload = void 0;
 // const storage = new CloudinaryStorage({
 //     cloudinary: cloudinaryUpload,
 //     params: async (req, file) => {
@@ -29,9 +35,9 @@
 //     }
 // })
 // export const multerUpload = multer({storage})
-import multer from "multer";
-const storage = multer.memoryStorage();
-export const multerUpload = multer({
+const multer_1 = __importDefault(require("multer"));
+const storage = multer_1.default.memoryStorage();
+exports.multerUpload = (0, multer_1.default)({
     storage,
     limits: {
         fileSize: 5 * 1024 * 1024, // 5 MB
@@ -50,7 +56,7 @@ export const multerUpload = multer({
 // ===============================
 // Profile Image Upload
 // ===============================
-export const multerImageUpload = multer({
+exports.multerImageUpload = (0, multer_1.default)({
     storage,
     limits: {
         fileSize: 5 * 1024 * 1024, // 5 MB

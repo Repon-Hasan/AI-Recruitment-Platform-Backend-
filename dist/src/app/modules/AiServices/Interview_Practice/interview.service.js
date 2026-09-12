@@ -1,8 +1,11 @@
-import { GoogleGenAI } from "@google/genai";
-import { envVars } from "../../../config/env";
-import { prisma } from "../../../lib/prisma";
-const ai = new GoogleGenAI({
-    apiKey: envVars.GEMINI_API_KEY,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InterviewQuestionService = void 0;
+const genai_1 = require("@google/genai");
+const env_1 = require("../../../config/env");
+const prisma_1 = require("../../../lib/prisma");
+const ai = new genai_1.GoogleGenAI({
+    apiKey: env_1.envVars.GEMINI_API_KEY,
 });
 // const startInterview = async (
 //   candidateProfileId: string,
@@ -76,7 +79,7 @@ const startInterview = async (userId, jobId, experienceLevel, interviewType) => 
     // ---------------------------------------
     // 1. Find candidate profile
     // ---------------------------------------
-    const candidateProfile = await prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -87,7 +90,7 @@ const startInterview = async (userId, jobId, experienceLevel, interviewType) => 
     // ---------------------------------------
     // 2. Find job
     // ---------------------------------------
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -101,7 +104,7 @@ const startInterview = async (userId, jobId, experienceLevel, interviewType) => 
     // ---------------------------------------
     // 3. Create interview session
     // ---------------------------------------
-    const session = await prisma.interviewSession.create({
+    const session = await prisma_1.prisma.interviewSession.create({
         data: {
             candidateProfileId: candidateProfile.id,
             jobId,
@@ -160,7 +163,7 @@ Return ONLY valid JSON:
     };
 };
 const evaluateAnswer = async (sessionId, answer) => {
-    const session = await prisma.interviewSession.findUnique({
+    const session = await prisma_1.prisma.interviewSession.findUnique({
         where: {
             id: sessionId,
         },
@@ -249,7 +252,7 @@ Return ONLY JSON:
         .replace(/```/g, "")
         .trim());
     // Save answer
-    await prisma.interviewAnswer.create({
+    await prisma_1.prisma.interviewAnswer.create({
         data: {
             sessionId,
             question: currentQuestion,
@@ -264,7 +267,7 @@ Return ONLY JSON:
     });
     return result;
 };
-export const InterviewQuestionService = {
+exports.InterviewQuestionService = {
     startInterview,
     evaluateAnswer,
 };

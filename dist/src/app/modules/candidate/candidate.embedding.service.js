@@ -1,12 +1,18 @@
-import status from "http-status";
-import AppError from "../../errorHelpers/AppError";
-import { prisma } from "../../lib/prisma";
-import { CandidateEmbeddingService } from "../aiRecruiter/candidateEmbedding.service";
-export const generateCandidateEmbedding = async (candidateProfileId) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateCandidateEmbedding = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const AppError_1 = __importDefault(require("../../errorHelpers/AppError"));
+const prisma_1 = require("../../lib/prisma");
+const candidateEmbedding_service_1 = require("../aiRecruiter/candidateEmbedding.service");
+const generateCandidateEmbedding = async (candidateProfileId) => {
     // ==========================================
     // 1. Get candidate with all required data
     // ==========================================
-    const candidate = await prisma.candidateProfile.findUnique({
+    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
         where: {
             id: candidateProfileId,
         },
@@ -19,7 +25,7 @@ export const generateCandidateEmbedding = async (candidateProfileId) => {
         },
     });
     if (!candidate) {
-        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
     }
     // ==========================================
     // 2. Prepare candidate data
@@ -66,7 +72,7 @@ ${resumeText}
     // ==========================================
     // 4. Generate embedding
     // ==========================================
-    const embedding = await CandidateEmbeddingService(candidateText);
+    const embedding = await (0, candidateEmbedding_service_1.CandidateEmbeddingService)(candidateText);
     // ==========================================
     // 5. Validate embedding
     // ==========================================
@@ -84,7 +90,7 @@ ${resumeText}
     // ==========================================
     // 7. INSERT or UPDATE database
     // ==========================================
-    await prisma.$executeRaw `
+    await prisma_1.prisma.$executeRaw `
   INSERT INTO candidate_embeddings
   (
     id,
@@ -116,3 +122,4 @@ ${resumeText}
         message: "Candidate embedding created successfully",
     };
 };
+exports.generateCandidateEmbedding = generateCandidateEmbedding;

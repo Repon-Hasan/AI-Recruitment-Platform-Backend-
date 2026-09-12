@@ -1,8 +1,11 @@
-import { prisma } from "../../../lib/prisma";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobSkillServices = void 0;
+const prisma_1 = require("../../../lib/prisma");
 // 1. Add Skill to Job
 const createJobSkillService = async (userId, data) => {
     // Check if job exists and belongs to the user's company
-    const job = await prisma.job.findFirst({
+    const job = await prisma_1.prisma.job.findFirst({
         where: {
             id: data.jobId,
             company: { userId },
@@ -20,7 +23,7 @@ const createJobSkillService = async (userId, data) => {
             name: skill.name,
             priority: skill.priority || "medium",
         }));
-        return await prisma.jobSkill.createMany({
+        return await prisma_1.prisma.jobSkill.createMany({
             data: skillsToCreate,
         });
     }
@@ -30,7 +33,7 @@ const createJobSkillService = async (userId, data) => {
         error.statusCode = 400;
         throw error;
     }
-    return await prisma.jobSkill.create({
+    return await prisma_1.prisma.jobSkill.create({
         data: {
             jobId: data.jobId,
             name: data.name,
@@ -40,7 +43,7 @@ const createJobSkillService = async (userId, data) => {
 };
 // 2. Get All Skills for a Specific Job
 const getSkillsByJobIdService = async (jobId) => {
-    const job = await prisma.job.findUnique({
+    const job = await prisma_1.prisma.job.findUnique({
         where: { id: jobId },
     });
     if (!job) {
@@ -48,7 +51,7 @@ const getSkillsByJobIdService = async (jobId) => {
         error.statusCode = 404;
         throw error;
     }
-    return await prisma.jobSkill.findMany({
+    return await prisma_1.prisma.jobSkill.findMany({
         where: { jobId },
     });
 };
@@ -60,7 +63,7 @@ const updateJobSkillService = async (userId, skillId, data) => {
         throw error;
     }
     // Check ownership through job and company
-    const skill = await prisma.jobSkill.findFirst({
+    const skill = await prisma_1.prisma.jobSkill.findFirst({
         where: {
             id: skillId,
             job: {
@@ -73,7 +76,7 @@ const updateJobSkillService = async (userId, skillId, data) => {
         error.statusCode = 404;
         throw error;
     }
-    return await prisma.jobSkill.update({
+    return await prisma_1.prisma.jobSkill.update({
         where: { id: skillId },
         data: {
             name: data.name ?? skill.name,
@@ -84,7 +87,7 @@ const updateJobSkillService = async (userId, skillId, data) => {
 // 4. Delete Skill
 const deleteJobSkillService = async (userId, skillId) => {
     // Check ownership through job and company
-    const skill = await prisma.jobSkill.findFirst({
+    const skill = await prisma_1.prisma.jobSkill.findFirst({
         where: {
             id: skillId,
             job: {
@@ -97,13 +100,13 @@ const deleteJobSkillService = async (userId, skillId) => {
         error.statusCode = 404;
         throw error;
     }
-    await prisma.jobSkill.delete({
+    await prisma_1.prisma.jobSkill.delete({
         where: { id: skillId },
     });
     return { message: "Job skill deleted successfully" };
 };
 const getAllJobSkillService = async () => {
-    const skills = await prisma.jobSkill.findMany({
+    const skills = await prisma_1.prisma.jobSkill.findMany({
         include: {
             job: true, // Optional: includes related job data
         },
@@ -113,7 +116,7 @@ const getAllJobSkillService = async () => {
         message: "All skills fetched successfully",
     };
 };
-export const jobSkillServices = {
+exports.jobSkillServices = {
     createJobSkillService,
     getSkillsByJobIdService,
     updateJobSkillService,

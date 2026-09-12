@@ -1,5 +1,13 @@
-import { ConversationService, getAllConversations, getApplicationConversation, getApplicationMessages, getCandidateConversations, sendMessage, } from "./conversation.service";
-export async function getConversationController(req, res) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendMessageControllerJob = void 0;
+exports.getConversationController = getConversationController;
+exports.sendMessageController = sendMessageController;
+exports.getAllConversationsController = getAllConversationsController;
+exports.getCandidateConversationsController = getCandidateConversationsController;
+exports.getApplicationMessagesController = getApplicationMessagesController;
+const conversation_service_1 = require("./conversation.service");
+async function getConversationController(req, res) {
     try {
         console.log("========== CONVERSATION AUTH ==========");
         console.log("User:", req.user);
@@ -12,7 +20,7 @@ export async function getConversationController(req, res) {
                 message: "Unauthorized",
             });
         }
-        const conversation = await getApplicationConversation(userId, String(req.params.applicationId));
+        const conversation = await (0, conversation_service_1.getApplicationConversation)(userId, String(req.params.applicationId));
         return res.json({
             success: true,
             data: conversation,
@@ -33,7 +41,7 @@ export async function getConversationController(req, res) {
         });
     }
 }
-export async function sendMessageController(req, res) {
+async function sendMessageController(req, res) {
     try {
         const userId = req.user?.userId;
         if (!userId) {
@@ -42,7 +50,7 @@ export async function sendMessageController(req, res) {
                 message: "Unauthorized",
             });
         }
-        const message = await sendMessage(userId, String(req.params.applicationId), req.body);
+        const message = await (0, conversation_service_1.sendMessage)(userId, String(req.params.applicationId), req.body);
         return res.status(201).json({
             success: true,
             data: message,
@@ -56,7 +64,7 @@ export async function sendMessageController(req, res) {
         });
     }
 }
-export async function getAllConversationsController(req, res) {
+async function getAllConversationsController(req, res) {
     try {
         console.log("========== GET ALL CONVERSATIONS ==========");
         console.log("User:", req.user);
@@ -67,7 +75,7 @@ export async function getAllConversationsController(req, res) {
                 message: "Unauthorized",
             });
         }
-        const conversations = await getAllConversations(userId);
+        const conversations = await (0, conversation_service_1.getAllConversations)(userId);
         return res.status(200).json({
             success: true,
             message: "Conversations retrieved successfully",
@@ -84,7 +92,7 @@ export async function getAllConversationsController(req, res) {
         });
     }
 }
-export const sendMessageControllerJob = async (req, res) => {
+const sendMessageControllerJob = async (req, res) => {
     try {
         const userId = req.user?.userId;
         const { conversationId } = req.params;
@@ -108,7 +116,7 @@ export const sendMessageControllerJob = async (req, res) => {
                 message: "Message content is required",
             });
         }
-        const message = await ConversationService.sendMessage({
+        const message = await conversation_service_1.ConversationService.sendMessage({
             conversationId: String(conversationId),
             senderId: userId,
             content: content.trim(),
@@ -143,7 +151,8 @@ export const sendMessageControllerJob = async (req, res) => {
         });
     }
 };
-export async function getCandidateConversationsController(req, res) {
+exports.sendMessageControllerJob = sendMessageControllerJob;
+async function getCandidateConversationsController(req, res) {
     try {
         const userId = req.user?.userId;
         if (!userId) {
@@ -152,7 +161,7 @@ export async function getCandidateConversationsController(req, res) {
                 message: "Unauthorized",
             });
         }
-        const conversations = await getCandidateConversations(userId);
+        const conversations = await (0, conversation_service_1.getCandidateConversations)(userId);
         return res.status(200).json({
             success: true,
             message: "Candidate conversations retrieved successfully",
@@ -169,7 +178,7 @@ export async function getCandidateConversationsController(req, res) {
         });
     }
 }
-export async function getApplicationMessagesController(req, res) {
+async function getApplicationMessagesController(req, res) {
     try {
         console.log("========== GET APPLICATION MESSAGES ==========");
         console.log("User:", req.user);
@@ -188,7 +197,7 @@ export async function getApplicationMessagesController(req, res) {
                 message: "Application ID is required",
             });
         }
-        const messages = await getApplicationMessages(userId, applicationId);
+        const messages = await (0, conversation_service_1.getApplicationMessages)(userId, applicationId);
         return res.status(200).json({
             success: true,
             message: "Application messages retrieved successfully",

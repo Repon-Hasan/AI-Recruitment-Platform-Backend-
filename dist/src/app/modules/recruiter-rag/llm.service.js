@@ -1,9 +1,15 @@
-import gemini from "../../config/gemini";
-import { buildRecruiterPrompt } from "./prompt";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateRecruiterAnswer = void 0;
+const gemini_1 = __importDefault(require("../../config/gemini"));
+const prompt_1 = require("./prompt");
 const LLM_MODEL = process.env.GEMINI_LLM_MODEL || "gemini-3.6-flash";
-export const generateRecruiterAnswer = async (question, candidates) => {
-    const prompt = buildRecruiterPrompt(question, candidates);
-    const response = await gemini.models.generateContent({
+const generateRecruiterAnswer = async (question, candidates) => {
+    const prompt = (0, prompt_1.buildRecruiterPrompt)(question, candidates);
+    const response = await gemini_1.default.models.generateContent({
         model: LLM_MODEL,
         contents: [
             {
@@ -103,3 +109,4 @@ ${prompt}
     }
     return parsed;
 };
+exports.generateRecruiterAnswer = generateRecruiterAnswer;

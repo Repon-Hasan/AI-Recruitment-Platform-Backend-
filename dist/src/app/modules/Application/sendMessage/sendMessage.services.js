@@ -1,6 +1,9 @@
-import { prisma } from "../../../lib/prisma";
-export const sendMessage = async ({ conversationId, senderId, content, }) => {
-    const participant = await prisma.conversationParticipant.findUnique({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getConversationMessages = exports.sendMessage = void 0;
+const prisma_1 = require("../../../lib/prisma");
+const sendMessage = async ({ conversationId, senderId, content, }) => {
+    const participant = await prisma_1.prisma.conversationParticipant.findUnique({
         where: {
             conversationId_userId: {
                 conversationId,
@@ -11,7 +14,7 @@ export const sendMessage = async ({ conversationId, senderId, content, }) => {
     if (!participant) {
         throw new Error("You are not a participant of this conversation");
     }
-    return prisma.message.create({
+    return prisma_1.prisma.message.create({
         data: {
             conversationId,
             senderId,
@@ -20,8 +23,9 @@ export const sendMessage = async ({ conversationId, senderId, content, }) => {
         },
     });
 };
-export const getConversationMessages = async (conversationId, userId) => {
-    const participant = await prisma.conversationParticipant.findUnique({
+exports.sendMessage = sendMessage;
+const getConversationMessages = async (conversationId, userId) => {
+    const participant = await prisma_1.prisma.conversationParticipant.findUnique({
         where: {
             conversationId_userId: {
                 conversationId,
@@ -32,7 +36,7 @@ export const getConversationMessages = async (conversationId, userId) => {
     if (!participant) {
         throw new Error("You don't have access to this conversation");
     }
-    return prisma.message.findMany({
+    return prisma_1.prisma.message.findMany({
         where: {
             conversationId,
         },
@@ -50,3 +54,4 @@ export const getConversationMessages = async (conversationId, userId) => {
         },
     });
 };
+exports.getConversationMessages = getConversationMessages;

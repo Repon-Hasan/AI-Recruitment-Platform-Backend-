@@ -1,12 +1,18 @@
-import interviewService from "./interview.service";
-import { createInterviewSchema, updateInterviewSchema, } from "./interview.validation";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteInterviewController = exports.updateInterviewController = exports.getRecruiterInterviewsController = exports.rescheduleInterviewController = exports.cancelInterviewController = exports.confirmInterviewController = exports.getCandidateInterviewByIdController = exports.getCandidateInterviewsController = exports.createInterviewController = void 0;
+const interview_service_1 = __importDefault(require("./interview.service"));
+const interview_validation_1 = require("./interview.validation");
 // ============================================
 // CREATE
 // ============================================
-export const createInterviewController = async (req, res) => {
+const createInterviewController = async (req, res) => {
     try {
         const recruiterId = req.user.userId;
-        const parsed = createInterviewSchema.safeParse(req.body);
+        const parsed = interview_validation_1.createInterviewSchema.safeParse(req.body);
         if (!parsed.success) {
             return res.status(400).json({
                 success: false,
@@ -14,7 +20,7 @@ export const createInterviewController = async (req, res) => {
                 errors: parsed.error.flatten(),
             });
         }
-        const interview = await interviewService.createInterview(recruiterId, parsed?.data);
+        const interview = await interview_service_1.default.createInterview(recruiterId, parsed?.data);
         return res.status(201).json({
             success: true,
             message: "Interview scheduled successfully",
@@ -29,13 +35,14 @@ export const createInterviewController = async (req, res) => {
         });
     }
 };
+exports.createInterviewController = createInterviewController;
 // ============================================
 // CANDIDATE - GET ALL
 // ============================================
-export const getCandidateInterviewsController = async (req, res) => {
+const getCandidateInterviewsController = async (req, res) => {
     try {
         const userId = req.user.userId;
-        const result = await interviewService.getCandidateInterviews(userId);
+        const result = await interview_service_1.default.getCandidateInterviews(userId);
         return res.status(200).json({
             success: true,
             message: "Candidate interviews retrieved successfully",
@@ -50,14 +57,15 @@ export const getCandidateInterviewsController = async (req, res) => {
         });
     }
 };
+exports.getCandidateInterviewsController = getCandidateInterviewsController;
 // ============================================
 // CANDIDATE - GET SINGLE
 // ============================================
-export const getCandidateInterviewByIdController = async (req, res) => {
+const getCandidateInterviewByIdController = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { interviewId } = req.params;
-        const interview = await interviewService.getCandidateInterviewById(userId, interviewId);
+        const interview = await interview_service_1.default.getCandidateInterviewById(userId, interviewId);
         return res.status(200).json({
             success: true,
             message: "Interview retrieved successfully",
@@ -72,14 +80,15 @@ export const getCandidateInterviewByIdController = async (req, res) => {
         });
     }
 };
+exports.getCandidateInterviewByIdController = getCandidateInterviewByIdController;
 // ============================================
 // CONFIRM
 // ============================================
-export const confirmInterviewController = async (req, res) => {
+const confirmInterviewController = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { interviewId } = req.params;
-        const interview = await interviewService.confirmInterview(userId, interviewId);
+        const interview = await interview_service_1.default.confirmInterview(userId, interviewId);
         return res.status(200).json({
             success: true,
             message: "Interview confirmed successfully",
@@ -94,14 +103,15 @@ export const confirmInterviewController = async (req, res) => {
         });
     }
 };
+exports.confirmInterviewController = confirmInterviewController;
 // ============================================
 // CANCEL
 // ============================================
-export const cancelInterviewController = async (req, res) => {
+const cancelInterviewController = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { interviewId } = req.params;
-        const interview = await interviewService.cancelInterview(userId, interviewId);
+        const interview = await interview_service_1.default.cancelInterview(userId, interviewId);
         return res.status(200).json({
             success: true,
             message: "Interview cancelled successfully",
@@ -116,10 +126,11 @@ export const cancelInterviewController = async (req, res) => {
         });
     }
 };
+exports.cancelInterviewController = cancelInterviewController;
 // ============================================
 // RESCHEDULE
 // ============================================
-export const rescheduleInterviewController = async (req, res) => {
+const rescheduleInterviewController = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { interviewId } = req.params;
@@ -130,7 +141,7 @@ export const rescheduleInterviewController = async (req, res) => {
                 message: "scheduledAt is required",
             });
         }
-        const interview = await interviewService.rescheduleInterview(userId, interviewId, scheduledAt);
+        const interview = await interview_service_1.default.rescheduleInterview(userId, interviewId, scheduledAt);
         return res.status(200).json({
             success: true,
             message: "Interview rescheduled successfully",
@@ -145,13 +156,14 @@ export const rescheduleInterviewController = async (req, res) => {
         });
     }
 };
+exports.rescheduleInterviewController = rescheduleInterviewController;
 // ============================================
 // RECRUITER - GET ALL
 // ============================================
-export const getRecruiterInterviewsController = async (req, res) => {
+const getRecruiterInterviewsController = async (req, res) => {
     try {
         const recruiterId = req.user.userId;
-        const interviews = await interviewService.getRecruiterInterviews(recruiterId);
+        const interviews = await interview_service_1.default.getRecruiterInterviews(recruiterId);
         return res.status(200).json({
             success: true,
             message: "Recruiter interviews retrieved successfully",
@@ -166,14 +178,15 @@ export const getRecruiterInterviewsController = async (req, res) => {
         });
     }
 };
+exports.getRecruiterInterviewsController = getRecruiterInterviewsController;
 // ============================================
 // RECRUITER - UPDATE
 // ============================================
-export const updateInterviewController = async (req, res) => {
+const updateInterviewController = async (req, res) => {
     try {
         const recruiterId = req.user.userId;
         const { interviewId } = req.params;
-        const parsed = updateInterviewSchema.safeParse(req.body);
+        const parsed = interview_validation_1.updateInterviewSchema.safeParse(req.body);
         if (!parsed.success) {
             return res.status(400).json({
                 success: false,
@@ -181,7 +194,7 @@ export const updateInterviewController = async (req, res) => {
                 errors: parsed.error.flatten(),
             });
         }
-        const interview = await interviewService.updateInterview(recruiterId, interviewId, parsed.data);
+        const interview = await interview_service_1.default.updateInterview(recruiterId, interviewId, parsed.data);
         return res.status(200).json({
             success: true,
             message: "Interview updated successfully",
@@ -196,14 +209,15 @@ export const updateInterviewController = async (req, res) => {
         });
     }
 };
+exports.updateInterviewController = updateInterviewController;
 // ============================================
 // RECRUITER - DELETE
 // ============================================
-export const deleteInterviewController = async (req, res) => {
+const deleteInterviewController = async (req, res) => {
     try {
         const recruiterId = req.user.userId;
         const { interviewId } = req.params;
-        await interviewService.deleteInterview(recruiterId, interviewId);
+        await interview_service_1.default.deleteInterview(recruiterId, interviewId);
         return res.status(200).json({
             success: true,
             message: "Interview deleted successfully",
@@ -217,3 +231,4 @@ export const deleteInterviewController = async (req, res) => {
         });
     }
 };
+exports.deleteInterviewController = deleteInterviewController;

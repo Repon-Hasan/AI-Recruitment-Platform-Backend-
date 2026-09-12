@@ -1,51 +1,54 @@
-import { z } from "zod";
-export const createInterviewSchema = z.object({
-    applicationId: z.string().uuid(),
-    scheduledAt: z
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendMessageSchema = exports.rescheduleInterviewSchema = exports.createInterviewSchema = void 0;
+const zod_1 = require("zod");
+exports.createInterviewSchema = zod_1.z.object({
+    applicationId: zod_1.z.string().uuid(),
+    scheduledAt: zod_1.z
         .string()
         .datetime({
         offset: true,
     }),
-    durationMinutes: z
+    durationMinutes: zod_1.z
         .number()
         .int()
         .min(15)
         .max(180)
         .default(30),
-    type: z
+    type: zod_1.z
         .enum(["VIDEO", "PHONE", "IN_PERSON"])
         .default("VIDEO"),
-    title: z
+    title: zod_1.z
         .string()
         .trim()
         .min(3)
         .max(200)
         .optional(),
-    notes: z
+    notes: zod_1.z
         .string()
         .trim()
         .max(2000)
         .optional(),
-    meetingUrl: z
+    meetingUrl: zod_1.z
         .string()
         .url()
         .optional(),
 });
-export const rescheduleInterviewSchema = z.object({
-    scheduledAt: z
+exports.rescheduleInterviewSchema = zod_1.z.object({
+    scheduledAt: zod_1.z
         .string()
         .datetime({
         offset: true,
     }),
-    durationMinutes: z
+    durationMinutes: zod_1.z
         .number()
         .int()
         .min(15)
         .max(180)
         .optional(),
 });
-export const sendMessageSchema = z.object({
-    content: z
+exports.sendMessageSchema = zod_1.z.object({
+    content: zod_1.z
         .string()
         .trim()
         .min(1)
