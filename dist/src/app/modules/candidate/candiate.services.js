@@ -1,19 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.candidateService = void 0;
-const prisma_1 = require("../../lib/prisma");
-const AppError_1 = __importDefault(require("../../errorHelpers/AppError"));
-const http_status_1 = __importDefault(require("http-status"));
-const cloudnary_config_1 = require("../../config/cloudnary.config");
-const candidate_embedding_service_1 = require("./candidate.embedding.service");
+import { prisma } from "../../lib/prisma";
+import AppError from "../../errorHelpers/AppError";
+import status from "http-status";
+import { deleteFileFromCloudinary } from "../../config/cloudnary.config";
+import { generateCandidateEmbedding } from "./candidate.embedding.service";
 // ===============================
 // GET MY PROFILE
 // ===============================
 const getMyProfile = async (userId) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -25,7 +19,7 @@ const getMyProfile = async (userId) => {
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
     return profile;
 };
@@ -33,17 +27,17 @@ const getMyProfile = async (userId) => {
 // UPDATE MY PROFILE
 // ===============================
 const updateMyProfile = async (userId, payload) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: { userId },
     });
     console.log("Profile", profile);
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
     // Extract 'name' so it isn't passed directly into CandidateProfile update
     const { name, ...profileData } = payload;
     // 1. Update candidate profile (and optionally user name via relation)
-    const updatedProfile = await prisma_1.prisma.candidateProfile.update({
+    const updatedProfile = await prisma.candidateProfile.update({
         where: { userId },
         data: {
             ...profileData,
@@ -65,7 +59,7 @@ const updateMyProfile = async (userId, payload) => {
         },
     });
     // 2. Generate embedding from NEW data
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(updatedProfile.id);
+    await generateCandidateEmbedding(updatedProfile.id);
     // 3. Return updated profile
     return updatedProfile;
 };
@@ -73,172 +67,172 @@ const updateMyProfile = async (userId, payload) => {
 // ADD SKILL
 // ===============================
 const addSkill = async (userId, skills) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
     // ===============================
     // Single skill
     // ===============================
     if (typeof skills === "string") {
-        const skill = await prisma_1.prisma.candidateSkill.create({
+        const skill = await prisma.candidateSkill.create({
             data: {
                 candidateId: profile.id,
                 name: skills,
             },
         });
         // Generate embedding AFTER skill is created
-        await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+        await generateCandidateEmbedding(profile.id);
         return skill;
     }
     // ===============================
     // Multiple skills
     // ===============================
-    const result = await prisma_1.prisma.candidateSkill.createMany({
+    const result = await prisma.candidateSkill.createMany({
         data: skills.map((skill) => ({
             candidateId: profile.id,
             name: skill.name,
         })),
     });
     // Generate embedding AFTER skills are created
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+    await generateCandidateEmbedding(profile.id);
     return result;
 };
 // ===============================
 // DELETE SKILL
 // ===============================
 const deleteSkill = async (userId, skillId) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
-    const skill = await prisma_1.prisma.candidateSkill.findFirst({
+    const skill = await prisma.candidateSkill.findFirst({
         where: {
             id: skillId,
             candidateId: profile.id,
         },
     });
     if (!skill) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Skill not found");
+        throw new AppError(status.NOT_FOUND, "Skill not found");
     }
     // 1. Delete skill
-    await prisma_1.prisma.candidateSkill.delete({
+    await prisma.candidateSkill.delete({
         where: {
             id: skillId,
         },
     });
     // 2. Generate embedding AFTER deletion
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+    await generateCandidateEmbedding(profile.id);
     return null;
 };
 // ===============================
 // ADD EDUCATION
 // ===============================
 const addEducation = async (userId, payload) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
     // 1. Create education
-    const education = await prisma_1.prisma.candidateEducation.create({
+    const education = await prisma.candidateEducation.create({
         data: {
             ...payload,
             candidateId: profile.id,
         },
     });
     // 2. Generate embedding AFTER creation
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+    await generateCandidateEmbedding(profile.id);
     return education;
 };
 // ===============================
 // UPDATE EDUCATION
 // ===============================
 const updateEducation = async (userId, educationId, payload) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
-    const education = await prisma_1.prisma.candidateEducation.findFirst({
+    const education = await prisma.candidateEducation.findFirst({
         where: {
             id: educationId,
             candidateId: profile.id,
         },
     });
     if (!education) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Education not found");
+        throw new AppError(status.NOT_FOUND, "Education not found");
     }
     // 1. Update education
-    const updatedEducation = await prisma_1.prisma.candidateEducation.update({
+    const updatedEducation = await prisma.candidateEducation.update({
         where: {
             id: educationId,
         },
         data: payload,
     });
     // 2. Generate embedding AFTER update
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+    await generateCandidateEmbedding(profile.id);
     return updatedEducation;
 };
 // ===============================
 // DELETE EDUCATION
 // ===============================
 const deleteEducation = async (userId, educationId) => {
-    const profile = await prisma_1.prisma.candidateProfile.findUnique({
+    const profile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!profile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
-    const education = await prisma_1.prisma.candidateEducation.findFirst({
+    const education = await prisma.candidateEducation.findFirst({
         where: {
             id: educationId,
             candidateId: profile.id,
         },
     });
     if (!education) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Education not found");
+        throw new AppError(status.NOT_FOUND, "Education not found");
     }
     // 1. Delete education
-    await prisma_1.prisma.candidateEducation.delete({
+    await prisma.candidateEducation.delete({
         where: {
             id: educationId,
         },
     });
     // 2. Generate embedding AFTER deletion
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(profile.id);
+    await generateCandidateEmbedding(profile.id);
     return null;
 };
 // ===============================
 // CREATE PROJECT
 // ===============================
 const createProject = async (userId, payload) => {
-    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
     });
     if (!candidateProfile) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Candidate profile not found");
+        throw new AppError(status.NOT_FOUND, "Candidate profile not found");
     }
     // 1. Create project
-    const project = await prisma_1.prisma.candidateProject.create({
+    const project = await prisma.candidateProject.create({
         data: {
             name: payload.name,
             description: payload.description,
@@ -249,14 +243,14 @@ const createProject = async (userId, payload) => {
         },
     });
     // 2. Generate embedding AFTER creation
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidateProfile.id);
+    await generateCandidateEmbedding(candidateProfile.id);
     return project;
 };
 // ===============================
 // GET MY PROJECTS
 // ===============================
 const getMyProjects = async (candidateId) => {
-    return await prisma_1.prisma.candidateProject.findMany({
+    return await prisma.candidateProject.findMany({
         where: {
             candidateId,
         },
@@ -269,7 +263,7 @@ const getMyProjects = async (candidateId) => {
 // GET PROJECT BY ID
 // ===============================
 const getProjectById = async (candidateId, projectId) => {
-    return await prisma_1.prisma.candidateProject.findFirst({
+    return await prisma.candidateProject.findFirst({
         where: {
             id: projectId,
             candidateId,
@@ -280,7 +274,7 @@ const getProjectById = async (candidateId, projectId) => {
 // UPDATE PROJECT
 // ===============================
 const updateProject = async (candidateId, projectId, payload) => {
-    const existingProject = await prisma_1.prisma.candidateProject.findFirst({
+    const existingProject = await prisma.candidateProject.findFirst({
         where: {
             id: projectId,
             candidateId,
@@ -290,7 +284,7 @@ const updateProject = async (candidateId, projectId, payload) => {
         throw new Error("Project not found");
     }
     // 1. Update project
-    const updatedProject = await prisma_1.prisma.candidateProject.update({
+    const updatedProject = await prisma.candidateProject.update({
         where: {
             id: projectId,
         },
@@ -299,14 +293,14 @@ const updateProject = async (candidateId, projectId, payload) => {
         },
     });
     // 2. Generate embedding AFTER update
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidateId);
+    await generateCandidateEmbedding(candidateId);
     return updatedProject;
 };
 // ===============================
 // DELETE PROJECT
 // ===============================
 const deleteProject = async (candidateId, projectId) => {
-    const existingProject = await prisma_1.prisma.candidateProject.findFirst({
+    const existingProject = await prisma.candidateProject.findFirst({
         where: {
             id: projectId,
             candidateId,
@@ -316,13 +310,13 @@ const deleteProject = async (candidateId, projectId) => {
         throw new Error("Project not found");
     }
     // 1. Delete project
-    const deletedProject = await prisma_1.prisma.candidateProject.delete({
+    const deletedProject = await prisma.candidateProject.delete({
         where: {
             id: projectId,
         },
     });
     // 2. Generate embedding AFTER deletion
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidateId);
+    await generateCandidateEmbedding(candidateId);
     return deletedProject;
 };
 // ===============================
@@ -330,7 +324,7 @@ const deleteProject = async (candidateId, projectId) => {
 // ===============================
 const createCertification = async (userId, payload) => {
     console.log("Certificate", payload);
-    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -339,7 +333,7 @@ const createCertification = async (userId, payload) => {
         throw new Error("Candidate profile not found");
     }
     // 1. Create certification
-    const certification = await prisma_1.prisma.candidateCertification.create({
+    const certification = await prisma.candidateCertification.create({
         data: {
             name: payload.name,
             issuer: payload.issuer,
@@ -352,14 +346,14 @@ const createCertification = async (userId, payload) => {
         },
     });
     // 2. Generate embedding AFTER creation
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidate.id);
+    await generateCandidateEmbedding(candidate.id);
     return certification;
 };
 // ===============================
 // GET MY CERTIFICATIONS
 // ===============================
 const getMyCertifications = async (candidateId) => {
-    return await prisma_1.prisma.candidateCertification.findMany({
+    return await prisma.candidateCertification.findMany({
         where: {
             candidateId,
         },
@@ -372,7 +366,7 @@ const getMyCertifications = async (candidateId) => {
 // GET CERTIFICATION BY ID
 // ===============================
 const getCertificationById = async (candidateId, certificationId) => {
-    return await prisma_1.prisma.candidateCertification.findFirst({
+    return await prisma.candidateCertification.findFirst({
         where: {
             id: certificationId,
             candidateId,
@@ -383,7 +377,7 @@ const getCertificationById = async (candidateId, certificationId) => {
 // UPDATE CERTIFICATION
 // ===============================
 const updateCertification = async (candidateId, certificationId, payload) => {
-    const existingCertification = await prisma_1.prisma.candidateCertification.findFirst({
+    const existingCertification = await prisma.candidateCertification.findFirst({
         where: {
             id: certificationId,
             candidateId,
@@ -393,7 +387,7 @@ const updateCertification = async (candidateId, certificationId, payload) => {
         throw new Error("Certification not found");
     }
     // 1. Update certification
-    const updatedCertification = await prisma_1.prisma.candidateCertification.update({
+    const updatedCertification = await prisma.candidateCertification.update({
         where: {
             id: certificationId,
         },
@@ -407,7 +401,7 @@ const updateCertification = async (candidateId, certificationId, payload) => {
         },
     });
     // 2. Generate embedding AFTER update
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidateId);
+    await generateCandidateEmbedding(candidateId);
     return updatedCertification;
 };
 // ===============================
@@ -415,7 +409,7 @@ const updateCertification = async (candidateId, certificationId, payload) => {
 // ===============================
 const deleteCertification = async (candidateId, certificationId) => {
     // 1. Find certification
-    const existingCertification = await prisma_1.prisma.candidateCertification.findFirst({
+    const existingCertification = await prisma.candidateCertification.findFirst({
         where: {
             id: certificationId,
             candidateId,
@@ -426,22 +420,22 @@ const deleteCertification = async (candidateId, certificationId) => {
     }
     // 2. Delete image from Cloudinary
     if (existingCertification.image) {
-        await (0, cloudnary_config_1.deleteFileFromCloudinary)(existingCertification.image);
+        await deleteFileFromCloudinary(existingCertification.image);
     }
     // 3. Delete certification
-    const deletedCertification = await prisma_1.prisma.candidateCertification.delete({
+    const deletedCertification = await prisma.candidateCertification.delete({
         where: {
             id: certificationId,
         },
     });
     // 4. Generate embedding AFTER deletion
-    await (0, candidate_embedding_service_1.generateCandidateEmbedding)(candidateId);
+    await generateCandidateEmbedding(candidateId);
     return deletedCertification;
 };
 // ===============================
 // EXPORT
 // ===============================
-exports.candidateService = {
+export const candidateService = {
     getMyProfile,
     updateMyProfile,
     addSkill,

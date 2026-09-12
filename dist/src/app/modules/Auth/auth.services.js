@@ -1,18 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authServices = void 0;
-const http_status_1 = __importDefault(require("http-status"));
-const AppError_1 = __importDefault(require("../../errorHelpers/AppError"));
-const auth_1 = require("../../lib/auth");
-const prisma_1 = require("../../lib/prisma");
-const token_1 = require("../../utlis/token");
-const enums_1 = require("../../../generated/prisma/enums");
-const jwt_1 = require("../../utlis/jwt");
-const env_1 = require("../../config/env");
-const cloudnary_config_1 = require("../../config/cloudnary.config");
+import status from "http-status";
+import AppError from "../../errorHelpers/AppError";
+import { auth } from "../../lib/auth";
+import { prisma } from "../../lib/prisma";
+import { tokenUtils } from "../../utlis/token";
+import { Role, UserStatus } from "../../../generated/prisma/enums";
+import { jwtUtils } from "../../utlis/jwt";
+import { envVars } from "../../config/env";
+import { deleteFileFromCloudinary, uploadFileToCloudinary } from "../../config/cloudnary.config";
 const registerUser = async (payload, file) => {
     const { name, email, password, role } = payload;
     // ==========================================
@@ -20,29 +14,29 @@ const registerUser = async (payload, file) => {
     // ==========================================
     let imageUrl;
     if (file) {
-        const uploadedImage = await (0, cloudnary_config_1.uploadFileToCloudinary)(file.buffer, file.originalname);
+        const uploadedImage = await uploadFileToCloudinary(file.buffer, file.originalname);
         imageUrl =
             uploadedImage.secure_url;
     }
-    const data = await auth_1.auth.api.signUpEmail({
+    const data = await auth.api.signUpEmail({
         body: {
             name, email, password, role, image: imageUrl
         }
     });
     //console.log(data)
     if (!data.user) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Failed to Register");
+        throw new AppError(status.BAD_REQUEST, "Failed to Register");
     }
     try {
         // Create CandidateProfile only for CANDIDATE
-        if (data.user.role === enums_1.Role.CANDIDATE) {
-            await prisma_1.prisma.candidateProfile.create({
+        if (data.user.role === Role.CANDIDATE) {
+            await prisma.candidateProfile.create({
                 data: {
                     userId: data.user.id,
                 },
             });
         }
-        const accessToken = token_1.tokenUtils.getAccessToken({
+        const accessToken = tokenUtils.getAccessToken({
             userId: data.user.id,
             role: data.user.role,
             name: data.user.name,
@@ -51,7 +45,7 @@ const registerUser = async (payload, file) => {
             isDeleted: data.user.isDeleted,
             emailVerified: data.user.emailVerified
         });
-        const refreshToken = token_1.tokenUtils.getRefreshToken({
+        const refreshToken = tokenUtils.getRefreshToken({
             userId: data.user.id,
             role: data.user.role,
             name: data.user.name,
@@ -69,7 +63,7 @@ const registerUser = async (payload, file) => {
     }
     catch (error) {
         console.log("Transaction error", error);
-        await prisma_1.prisma.user.delete({
+        await prisma.user.delete({
             where: {
                 id: data.user.id
             }
@@ -78,20 +72,20 @@ const registerUser = async (payload, file) => {
 };
 const loginUser = async (payload) => {
     const { email, password } = payload;
-    const data = await auth_1.auth.api.signInEmail({
+    const data = await auth.api.signInEmail({
         body: {
             email, password
         }
     });
-    if (data.user.status === enums_1.UserStatus.INACTIVE) {
-        throw new AppError_1.default(http_status_1.default.FORBIDDEN, "User is Forbidden");
+    if (data.user.status === UserStatus.INACTIVE) {
+        throw new AppError(status.FORBIDDEN, "User is Forbidden");
     }
     ;
-    if (data.user.isDeleted || data.user.status === enums_1.UserStatus.SUSPENDED) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+    if (data.user.isDeleted || data.user.status === UserStatus.SUSPENDED) {
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     ;
-    const accessToken = token_1.tokenUtils.getAccessToken({
+    const accessToken = tokenUtils.getAccessToken({
         userId: data.user.id,
         role: data.user.role,
         name: data.user.name,
@@ -100,7 +94,7 @@ const loginUser = async (payload) => {
         isDeleted: data.user.isDeleted,
         emailVerified: data.user.emailVerified,
     });
-    const refreshToken = token_1.tokenUtils.getRefreshToken({
+    const refreshToken = tokenUtils.getRefreshToken({
         userId: data.user.id,
         role: data.user.role,
         name: data.user.name,
@@ -115,16 +109,16 @@ const loginUser = async (payload) => {
 };
 const getMe = async (user) => {
     //console.log(user)
-    const isUserExist = await prisma_1.prisma.user.findUnique({
+    const isUserExist = await prisma.user.findUnique({
         where: { id: user.userId }
     });
     if (!isUserExist) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     return isUserExist;
 };
 const getNewToken = async (refreshToken, sessionToken) => {
-    const isSessionTokenExists = await prisma_1.prisma.session.findUnique({
+    const isSessionTokenExists = await prisma.session.findUnique({
         where: {
             token: sessionToken
         },
@@ -133,14 +127,14 @@ const getNewToken = async (refreshToken, sessionToken) => {
         }
     });
     if (!isSessionTokenExists) {
-        throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid session Token");
+        throw new AppError(status.UNAUTHORIZED, "Invalid session Token");
     }
-    const verifiedRefreshToken = jwt_1.jwtUtils.verifyToken(refreshToken, env_1.envVars.REFRESH_TOKEN_SECRET);
+    const verifiedRefreshToken = jwtUtils.verifyToken(refreshToken, envVars.REFRESH_TOKEN_SECRET);
     if (!verifiedRefreshToken.success && verifiedRefreshToken.error) {
-        throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid refresh token");
+        throw new AppError(status.UNAUTHORIZED, "Invalid refresh token");
     }
     const data = verifiedRefreshToken.data;
-    const newAccessToken = token_1.tokenUtils.getAccessToken({
+    const newAccessToken = tokenUtils.getAccessToken({
         userId: data.userId,
         role: data.role,
         name: data.name,
@@ -149,7 +143,7 @@ const getNewToken = async (refreshToken, sessionToken) => {
         isDeleted: data.isDeleted,
         emailVerified: data.emailVerified,
     });
-    const newRefreshToken = token_1.tokenUtils.getRefreshToken({
+    const newRefreshToken = tokenUtils.getRefreshToken({
         userId: data.userId,
         role: data.role,
         name: data.name,
@@ -158,7 +152,7 @@ const getNewToken = async (refreshToken, sessionToken) => {
         isDeleted: data.isDeleted,
         emailVerified: data.emailVerified,
     });
-    const { token } = await prisma_1.prisma.session.update({
+    const { token } = await prisma.session.update({
         where: {
             token: sessionToken
         },
@@ -175,16 +169,16 @@ const getNewToken = async (refreshToken, sessionToken) => {
     };
 };
 const changePassword = async (payload, sessionToken) => {
-    const session = await auth_1.auth.api.getSession({
+    const session = await auth.api.getSession({
         headers: new Headers({
             Authorization: `Bearer ${sessionToken}`
         })
     });
     if (!session) {
-        throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid session token");
+        throw new AppError(status.UNAUTHORIZED, "Invalid session token");
     }
     const { currentPassword, newPassword } = payload;
-    const result = await auth_1.auth.api.changePassword({
+    const result = await auth.api.changePassword({
         body: {
             currentPassword,
             newPassword,
@@ -195,7 +189,7 @@ const changePassword = async (payload, sessionToken) => {
         })
     });
     if (session.user.needPasswordChange) {
-        await prisma_1.prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: session.user.id,
             },
@@ -204,7 +198,7 @@ const changePassword = async (payload, sessionToken) => {
             }
         });
     }
-    const accessToken = token_1.tokenUtils.getAccessToken({
+    const accessToken = tokenUtils.getAccessToken({
         userId: session.user.id,
         role: session.user.role,
         name: session.user.name,
@@ -213,7 +207,7 @@ const changePassword = async (payload, sessionToken) => {
         isDeleted: session.user.isDeleted,
         emailVerified: session.user.emailVerified,
     });
-    const refreshToken = token_1.tokenUtils.getRefreshToken({
+    const refreshToken = tokenUtils.getRefreshToken({
         userId: session.user.id,
         role: session.user.role,
         name: session.user.name,
@@ -232,7 +226,7 @@ const logoutUser = async (sessionToken) => {
     if (!sessionToken) {
         return { success: true };
     }
-    return auth_1.auth.api.signOut({
+    return auth.api.signOut({
         headers: new Headers({
             Authorization: `Bearer ${sessionToken}`
         })
@@ -240,26 +234,26 @@ const logoutUser = async (sessionToken) => {
 };
 const updateProfile = async (payload, sessionToken) => {
     if (!sessionToken) {
-        throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Session token is missing");
+        throw new AppError(status.UNAUTHORIZED, "Session token is missing");
     }
-    const session = await auth_1.auth.api.getSession({
+    const session = await auth.api.getSession({
         headers: new Headers({ Authorization: `Bearer ${sessionToken}` }),
     });
     if (!session) {
-        throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid session token");
+        throw new AppError(status.UNAUTHORIZED, "Invalid session token");
     }
     if (!payload.currentPassword) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Current password is required");
+        throw new AppError(status.BAD_REQUEST, "Current password is required");
     }
-    await auth_1.auth.api.verifyPassword({
+    await auth.api.verifyPassword({
         body: { password: payload.currentPassword },
         headers: new Headers({ Authorization: `Bearer ${sessionToken}` }),
     });
     const cleanName = typeof payload.name === "string" ? payload.name.trim() : undefined;
     if (cleanName !== undefined && cleanName.length < 2) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Name must be at least 2 characters");
+        throw new AppError(status.BAD_REQUEST, "Name must be at least 2 characters");
     }
-    const updatedUser = await prisma_1.prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: { id: session.user.id },
         data: {
             ...(cleanName !== undefined ? { name: cleanName } : {}),
@@ -278,8 +272,8 @@ const updateProfile = async (payload, sessionToken) => {
         github: payload.github,
         portfolio: payload.portfolio,
     };
-    if (session.user.role === enums_1.Role.CANDIDATE) {
-        await prisma_1.prisma.candidateProfile.update({
+    if (session.user.role === Role.CANDIDATE) {
+        await prisma.candidateProfile.update({
             where: { userId: session.user.id },
             data: Object.fromEntries(Object.entries(candidateFields).filter(([, value]) => value !== undefined)),
         });
@@ -287,14 +281,14 @@ const updateProfile = async (payload, sessionToken) => {
     return updatedUser;
 };
 const verifyEmail = async (email, otp) => {
-    const result = await auth_1.auth.api.verifyEmailOTP({
+    const result = await auth.api.verifyEmailOTP({
         body: {
             email,
             otp,
         }
     });
     if (result.status && !result.user.emailVerified) {
-        await prisma_1.prisma.user.update({
+        await prisma.user.update({
             where: {
                 email,
             },
@@ -305,42 +299,42 @@ const verifyEmail = async (email, otp) => {
     }
 };
 const forgetPassword = async (email) => {
-    const isUserExist = await prisma_1.prisma.user.findUnique({
+    const isUserExist = await prisma.user.findUnique({
         where: {
             email,
         }
     });
     if (!isUserExist) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     if (!isUserExist.emailVerified) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Email not verified");
+        throw new AppError(status.BAD_REQUEST, "Email not verified");
     }
-    if (isUserExist.isDeleted || isUserExist.status === enums_1.UserStatus.SUSPENDED) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+    if (isUserExist.isDeleted || isUserExist.status === UserStatus.SUSPENDED) {
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
-    await auth_1.auth.api.requestPasswordResetEmailOTP({
+    await auth.api.requestPasswordResetEmailOTP({
         body: {
             email,
         }
     });
 };
 const resetPassword = async (email, otp, newPassword) => {
-    const isUserExist = await prisma_1.prisma.user.findUnique({
+    const isUserExist = await prisma.user.findUnique({
         where: {
             email,
         }
     });
     if (!isUserExist) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     if (!isUserExist.emailVerified) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Email not verified");
+        throw new AppError(status.BAD_REQUEST, "Email not verified");
     }
-    if (isUserExist.isDeleted || isUserExist.status === enums_1.UserStatus.SUSPENDED) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+    if (isUserExist.isDeleted || isUserExist.status === UserStatus.SUSPENDED) {
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
-    await auth_1.auth.api.resetPasswordEmailOTP({
+    await auth.api.resetPasswordEmailOTP({
         body: {
             email,
             otp,
@@ -348,7 +342,7 @@ const resetPassword = async (email, otp, newPassword) => {
         }
     });
     if (isUserExist.needPasswordChange) {
-        await prisma_1.prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: isUserExist.id,
             },
@@ -357,7 +351,7 @@ const resetPassword = async (email, otp, newPassword) => {
             }
         });
     }
-    await prisma_1.prisma.session.deleteMany({
+    await prisma.session.deleteMany({
         where: {
             userId: isUserExist.id,
         }
@@ -365,13 +359,13 @@ const resetPassword = async (email, otp, newPassword) => {
 };
 //Google Login
 const googleLoginSuccess = async (session) => {
-    const isUserExists = await prisma_1.prisma.user.findUnique({
+    const isUserExists = await prisma.user.findUnique({
         where: {
             id: session.user.id,
         }
     });
     if (!isUserExists) {
-        await prisma_1.prisma.user.create({
+        await prisma.user.create({
             data: {
                 id: session.user.id,
                 name: session.user.name,
@@ -379,12 +373,12 @@ const googleLoginSuccess = async (session) => {
             }
         });
     }
-    const accessToken = token_1.tokenUtils.getAccessToken({
+    const accessToken = tokenUtils.getAccessToken({
         userId: session.user.id,
         role: session.user.role,
         name: session.user.name,
     });
-    const refreshToken = token_1.tokenUtils.getRefreshToken({
+    const refreshToken = tokenUtils.getRefreshToken({
         userId: session.user.id,
         role: session.user.role,
         name: session.user.name,
@@ -401,13 +395,13 @@ const changeUserStatus = async (userId, userStatus) => {
     // ----------------------------------------
     // Validate status
     // ----------------------------------------
-    if (!Object.values(enums_1.UserStatus).includes(userStatus)) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Invalid user status");
+    if (!Object.values(UserStatus).includes(userStatus)) {
+        throw new AppError(status.BAD_REQUEST, "Invalid user status");
     }
     // ----------------------------------------
     // Find user
     // ----------------------------------------
-    const user = await prisma_1.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             id: userId,
         },
@@ -419,15 +413,15 @@ const changeUserStatus = async (userId, userStatus) => {
         },
     });
     if (!user) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     if (user.isDeleted) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "User has already been deleted");
+        throw new AppError(status.BAD_REQUEST, "User has already been deleted");
     }
     // ----------------------------------------
     // Update status
     // ----------------------------------------
-    const updatedUser = await prisma_1.prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: {
             id: userId,
         },
@@ -453,7 +447,7 @@ const deleteUser = async (userId) => {
     // ----------------------------------------
     // Find User
     // ----------------------------------------
-    const user = await prisma_1.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             id: userId,
         },
@@ -466,18 +460,18 @@ const deleteUser = async (userId) => {
         },
     });
     if (!user) {
-        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "User not found");
+        throw new AppError(status.NOT_FOUND, "User not found");
     }
     // ----------------------------------------
     // Don't allow admin to delete himself
     // ----------------------------------------
     if (user.role === "ADMIN") {
-        throw new AppError_1.default(http_status_1.default.FORBIDDEN, "Admin user cannot be deleted");
+        throw new AppError(status.FORBIDDEN, "Admin user cannot be deleted");
     }
     // ----------------------------------------
     // Delete from Database
     // ----------------------------------------
-    await prisma_1.prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
         // CandidateProfile
         await tx.candidateProfile.deleteMany({
             where: {
@@ -514,7 +508,7 @@ const deleteUser = async (userId) => {
     // ----------------------------------------
     if (user.image) {
         try {
-            await (0, cloudnary_config_1.deleteFileFromCloudinary)(user.image);
+            await deleteFileFromCloudinary(user.image);
         }
         catch (error) {
             console.error("User deleted but Cloudinary image deletion failed:", error);
@@ -528,13 +522,13 @@ const deleteUser = async (userId) => {
     };
 };
 const getAllCandidates = async () => {
-    const candidates = await prisma_1.prisma.user.findMany({
+    const candidates = await prisma.user.findMany({
         where: {
             role: "CANDIDATE"
         }
     });
     return candidates;
 };
-exports.authServices = {
+export const authServices = {
     registerUser, loginUser, getMe, getNewToken, changePassword, updateProfile, logoutUser, verifyEmail, forgetPassword, resetPassword, googleLoginSuccess, changeUserStatus, deleteUser, getAllCandidates
 };

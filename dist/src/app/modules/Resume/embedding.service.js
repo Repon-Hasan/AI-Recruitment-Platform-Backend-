@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateResumeEmbedding = void 0;
-const env_1 = require("../../config/env");
-const prisma_1 = require("../../lib/prisma");
+import { envVars } from "../../config/env";
+import { prisma } from "../../lib/prisma";
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/embeddings";
-const EMBEDDING_MODEL = env_1.envVars.OPENROUTER_EMBEDDING_MODEL ||
+const EMBEDDING_MODEL = envVars.OPENROUTER_EMBEDDING_MODEL ||
     "nvidia/llama-nemotron-embed-vl-1b-v2:free";
-const generateResumeEmbedding = async (resumeId, resumeText) => {
+export const generateResumeEmbedding = async (resumeId, resumeText) => {
     if (!resumeText?.trim()) {
         throw new Error("Resume text is empty");
     }
-    const apiKey = env_1.envVars.OPENROUTER_API_KEY;
+    const apiKey = envVars.OPENROUTER_API_KEY;
     if (!apiKey) {
         throw new Error("OPENROUTER_API_KEY is not set in .env");
     }
@@ -45,7 +42,7 @@ const generateResumeEmbedding = async (resumeId, resumeText) => {
         // 5. Convert embedding array to pgvector format
         const vector = `[${embedding.join(",")}]`;
         // 6. Store embedding in PostgreSQL
-        await prisma_1.prisma.$executeRaw `
+        await prisma.$executeRaw `
       UPDATE "resumes"
       SET "embedding" = ${vector}::vector
       WHERE "id" = ${resumeId}
@@ -61,4 +58,3 @@ const generateResumeEmbedding = async (resumeId, resumeText) => {
         throw error;
     }
 };
-exports.generateResumeEmbedding = generateResumeEmbedding;

@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CookieUtils = void 0;
 const setCookie = (res, key, value, options) => {
     res.cookie(key, value, options);
 };
@@ -10,7 +7,7 @@ const getCookie = (req, key) => {
 const clearCookie = (res, key, options) => {
     res.clearCookie(key, options);
 };
-exports.CookieUtils = {
+export const CookieUtils = {
     setCookie,
     getCookie,
     clearCookie,

@@ -1,69 +1,66 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateInterviewSchema = exports.createInterviewSchema = void 0;
-const zod_1 = require("zod");
-exports.createInterviewSchema = zod_1.z.object({
-    jobApplicationId: zod_1.z
+import { z } from "zod";
+export const createInterviewSchema = z.object({
+    jobApplicationId: z
         .string()
         .uuid("Invalid job application ID"),
-    scheduledAt: zod_1.z
+    scheduledAt: z
         .string()
         .datetime("Invalid scheduled date"),
-    durationMinutes: zod_1.z
+    durationMinutes: z
         .number()
         .int()
         .positive()
         .max(480)
         .optional(),
-    type: zod_1.z
+    type: z
         .enum([
         "VIDEO",
         "PHONE",
         "IN_PERSON"
     ])
         .optional(),
-    meetingUrl: zod_1.z
+    meetingUrl: z
         .string()
         .url("Invalid meeting URL")
         .optional()
-        .or(zod_1.z.literal("")),
-    title: zod_1.z
+        .or(z.literal("")),
+    title: z
         .string()
         .max(200)
         .optional(),
-    notes: zod_1.z
+    notes: z
         .string()
         .max(5000)
         .optional(),
 });
-exports.updateInterviewSchema = zod_1.z.object({
-    scheduledAt: zod_1.z
+export const updateInterviewSchema = z.object({
+    scheduledAt: z
         .string()
         .datetime("Invalid scheduled date")
         .optional(),
-    durationMinutes: zod_1.z
+    durationMinutes: z
         .number()
         .int()
         .positive()
         .max(480)
         .optional(),
-    type: zod_1.z
+    type: z
         .enum([
         "VIDEO",
         "PHONE",
         "IN_PERSON"
     ])
         .optional(),
-    meetingUrl: zod_1.z
+    meetingUrl: z
         .string()
         .url("Invalid meeting URL")
         .optional()
-        .or(zod_1.z.literal("")),
-    title: zod_1.z
+        .or(z.literal("")),
+    title: z
         .string()
         .max(200)
         .optional(),
-    notes: zod_1.z
+    notes: z
         .string()
         .max(5000)
         .optional(),

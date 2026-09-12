@@ -1,15 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAll = void 0;
-exports.createInterviewController = createInterviewController;
-exports.getApplicationInterviewController = getApplicationInterviewController;
-exports.rescheduleInterviewController = rescheduleInterviewController;
-exports.cancelInterviewController = cancelInterviewController;
-const interview_service_1 = require("./interview.service");
+import { createInterview, getInterview, rescheduleInterview, cancelInterview, getAll as getAllInterviews, } from "./interview.service";
 /* =========================================================
    Create Interview
 ========================================================= */
-async function createInterviewController(req, res) {
+export async function createInterviewController(req, res) {
     try {
         const userId = req.user?.userId;
         if (!userId) {
@@ -18,7 +11,7 @@ async function createInterviewController(req, res) {
                 message: "Unauthorized",
             });
         }
-        const interview = await (0, interview_service_1.createInterview)(userId, req.body);
+        const interview = await createInterview(userId, req.body);
         return res.status(201).json({
             success: true,
             message: "Interview scheduled successfully",
@@ -70,7 +63,7 @@ async function createInterviewController(req, res) {
 /* =========================================================
    Get Application Interviews
 ========================================================= */
-async function getApplicationInterviewController(req, res) {
+export async function getApplicationInterviewController(req, res) {
     try {
         const userId = req.user?.userId;
         const applicationId = Array.isArray(req.params.applicationId)
@@ -88,7 +81,7 @@ async function getApplicationInterviewController(req, res) {
                 message: "Application ID is required",
             });
         }
-        const application = await (0, interview_service_1.getInterview)(userId, applicationId);
+        const application = await getInterview(userId, applicationId);
         return res.status(200).json({
             success: true,
             data: application,
@@ -119,7 +112,7 @@ async function getApplicationInterviewController(req, res) {
 /* =========================================================
    Reschedule Interview
 ========================================================= */
-async function rescheduleInterviewController(req, res) {
+export async function rescheduleInterviewController(req, res) {
     try {
         const userId = req.user?.userId;
         const interviewId = Array.isArray(req.params.interviewId)
@@ -137,7 +130,7 @@ async function rescheduleInterviewController(req, res) {
                 message: "Interview ID is required",
             });
         }
-        const interview = await (0, interview_service_1.rescheduleInterview)(userId, interviewId, req.body);
+        const interview = await rescheduleInterview(userId, interviewId, req.body);
         return res.status(200).json({
             success: true,
             message: "Interview rescheduled successfully",
@@ -184,7 +177,7 @@ async function rescheduleInterviewController(req, res) {
 /* =========================================================
    Cancel Interview
 ========================================================= */
-async function cancelInterviewController(req, res) {
+export async function cancelInterviewController(req, res) {
     try {
         const userId = req.user?.userId;
         const interviewId = Array.isArray(req.params.interviewId)
@@ -202,7 +195,7 @@ async function cancelInterviewController(req, res) {
                 message: "Interview ID is required",
             });
         }
-        const interview = await (0, interview_service_1.cancelInterview)(userId, interviewId);
+        const interview = await cancelInterview(userId, interviewId);
         return res.status(200).json({
             success: true,
             message: "Interview cancelled successfully",
@@ -239,7 +232,7 @@ async function cancelInterviewController(req, res) {
 /* =========================================================
    GET ALL INTERVIEWS
 ========================================================= */
-const getAll = async (req, res) => {
+export const getAll = async (req, res) => {
     try {
         console.log("GET ALL INTERVIEWS");
         console.log("req.user:", req.user);
@@ -251,7 +244,7 @@ const getAll = async (req, res) => {
                 message: "Unauthorized",
             });
         }
-        const interviews = await (0, interview_service_1.getAll)(userId);
+        const interviews = await getAllInterviews(userId);
         return res.status(200).json({
             success: true,
             message: "Interviews retrieved successfully",
@@ -268,4 +261,3 @@ const getAll = async (req, res) => {
         });
     }
 };
-exports.getAll = getAll;

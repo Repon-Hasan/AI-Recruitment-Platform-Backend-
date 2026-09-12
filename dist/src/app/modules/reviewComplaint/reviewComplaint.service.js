@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReviewComplaintService = void 0;
-const enums_1 = require("../../../generated/prisma/enums");
-const prisma_1 = require("../../lib/prisma");
+import { ComplaintStatus } from "../../../generated/prisma/enums";
+import { prisma } from "../../lib/prisma";
 const createComplaint = async (recruiterId, payload) => {
     /*
      * 1. Find recruiter/company
      */
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId: recruiterId,
         },
@@ -27,7 +24,7 @@ const createComplaint = async (recruiterId, payload) => {
      *    verify job belongs to company
      */
     if (payload.jobId) {
-        const job = await prisma_1.prisma.job.findFirst({
+        const job = await prisma.job.findFirst({
             where: {
                 id: payload.jobId,
                 companyId: company.id,
@@ -42,7 +39,7 @@ const createComplaint = async (recruiterId, payload) => {
      *    verify application belongs to company job
      */
     if (payload.jobApplicationId) {
-        const application = await prisma_1.prisma.jobApplication.findFirst({
+        const application = await prisma.jobApplication.findFirst({
             where: {
                 id: payload.jobApplicationId,
                 job: {
@@ -57,7 +54,7 @@ const createComplaint = async (recruiterId, payload) => {
     /*
      * 5. Create complaint
      */
-    const complaint = await prisma_1.prisma.reviewComplaint.create({
+    const complaint = await prisma.reviewComplaint.create({
         data: {
             submittedById: recruiterId,
             companyId: company.id,
@@ -66,7 +63,7 @@ const createComplaint = async (recruiterId, payload) => {
             type: payload.type,
             title: payload.title,
             description: payload.description,
-            status: enums_1.ComplaintStatus.PENDING,
+            status: ComplaintStatus.PENDING,
         },
         include: {
             company: true,
@@ -77,7 +74,7 @@ const createComplaint = async (recruiterId, payload) => {
     return complaint;
 };
 const getMyComplaints = async (recruiterId) => {
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId: recruiterId,
         },
@@ -85,7 +82,7 @@ const getMyComplaints = async (recruiterId) => {
     if (!company) {
         throw new Error("Company not found");
     }
-    const complaints = await prisma_1.prisma.reviewComplaint.findMany({
+    const complaints = await prisma.reviewComplaint.findMany({
         where: {
             companyId: company.id,
             submittedById: recruiterId,
@@ -113,7 +110,7 @@ const getMyComplaints = async (recruiterId) => {
     return complaints;
 };
 const getMyComplaintById = async (recruiterId, complaintId) => {
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId: recruiterId,
         },
@@ -121,7 +118,7 @@ const getMyComplaintById = async (recruiterId, complaintId) => {
     if (!company) {
         throw new Error("Company not found");
     }
-    const complaint = await prisma_1.prisma.reviewComplaint.findFirst({
+    const complaint = await prisma.reviewComplaint.findFirst({
         where: {
             id: complaintId,
             companyId: company.id,
@@ -140,7 +137,7 @@ const getMyComplaintById = async (recruiterId, complaintId) => {
     }
     return complaint;
 };
-exports.ReviewComplaintService = {
+export const ReviewComplaintService = {
     createComplaint,
     getMyComplaints,
     getMyComplaintById,

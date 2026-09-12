@@ -1,13 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCompanyApplications = exports.deleteRecruiterApplication = exports.updateApplicationStatus = exports.getRecruiterApplicationById = exports.getJobApplicationsForRecruiter = void 0;
-const AppError_1 = __importDefault(require("../../../errorHelpers/AppError"));
-const prisma_1 = require("../../../lib/prisma");
-const getJobApplicationsForRecruiter = async (userId, jobId) => {
-    const job = await prisma_1.prisma.job.findFirst({
+import AppError from "../../../errorHelpers/AppError";
+import { prisma } from "../../../lib/prisma";
+export const getJobApplicationsForRecruiter = async (userId, jobId) => {
+    const job = await prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -16,9 +10,9 @@ const getJobApplicationsForRecruiter = async (userId, jobId) => {
         },
     });
     if (!job) {
-        throw new AppError_1.default(404, "Job not found or you don't have access");
+        throw new AppError(404, "Job not found or you don't have access");
     }
-    const applications = await prisma_1.prisma.jobApplication.findMany({
+    const applications = await prisma.jobApplication.findMany({
         where: {
             jobId,
         },
@@ -38,9 +32,8 @@ const getJobApplicationsForRecruiter = async (userId, jobId) => {
     });
     return applications;
 };
-exports.getJobApplicationsForRecruiter = getJobApplicationsForRecruiter;
-const getRecruiterApplicationById = async (userId, applicationId) => {
-    const application = await prisma_1.prisma.jobApplication.findFirst({
+export const getRecruiterApplicationById = async (userId, applicationId) => {
+    const application = await prisma.jobApplication.findFirst({
         where: {
             id: applicationId,
             job: {
@@ -67,13 +60,12 @@ const getRecruiterApplicationById = async (userId, applicationId) => {
         },
     });
     if (!application) {
-        throw new AppError_1.default(404, "Application not found or unauthorized");
+        throw new AppError(404, "Application not found or unauthorized");
     }
     return application;
 };
-exports.getRecruiterApplicationById = getRecruiterApplicationById;
-const updateApplicationStatus = async (userId, applicationId, status) => {
-    const application = await prisma_1.prisma.jobApplication.findFirst({
+export const updateApplicationStatus = async (userId, applicationId, status) => {
+    const application = await prisma.jobApplication.findFirst({
         where: {
             id: applicationId,
             job: {
@@ -84,9 +76,9 @@ const updateApplicationStatus = async (userId, applicationId, status) => {
         },
     });
     if (!application) {
-        throw new AppError_1.default(404, "Application not found or unauthorized");
+        throw new AppError(404, "Application not found or unauthorized");
     }
-    const updatedApplication = await prisma_1.prisma.jobApplication.update({
+    const updatedApplication = await prisma.jobApplication.update({
         where: {
             id: applicationId,
         },
@@ -104,9 +96,8 @@ const updateApplicationStatus = async (userId, applicationId, status) => {
     });
     return updatedApplication;
 };
-exports.updateApplicationStatus = updateApplicationStatus;
-const deleteRecruiterApplication = async (userId, applicationId) => {
-    const application = await prisma_1.prisma.jobApplication.findFirst({
+export const deleteRecruiterApplication = async (userId, applicationId) => {
+    const application = await prisma.jobApplication.findFirst({
         where: {
             id: applicationId,
             job: {
@@ -117,18 +108,17 @@ const deleteRecruiterApplication = async (userId, applicationId) => {
         },
     });
     if (!application) {
-        throw new AppError_1.default(404, "Application not found or unauthorized");
+        throw new AppError(404, "Application not found or unauthorized");
     }
-    await prisma_1.prisma.jobApplication.delete({
+    await prisma.jobApplication.delete({
         where: {
             id: applicationId,
         },
     });
     return null;
 };
-exports.deleteRecruiterApplication = deleteRecruiterApplication;
-const getCompanyApplications = async (userId) => {
-    const applications = await prisma_1.prisma.jobApplication.findMany({
+export const getCompanyApplications = async (userId) => {
+    const applications = await prisma.jobApplication.findMany({
         where: {
             job: {
                 company: {
@@ -150,4 +140,3 @@ const getCompanyApplications = async (userId) => {
     });
     return applications;
 };
-exports.getCompanyApplications = getCompanyApplications;

@@ -1,14 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const enums_1 = require("../../../../generated/prisma/enums");
-const prisma_1 = require("../../../lib/prisma");
+import { InterviewStatus, InterviewType } from "../../../../generated/prisma/enums";
+import { prisma } from "../../../lib/prisma";
 class InterviewService {
     // ============================================
     // CREATE INTERVIEW
     // Recruiter creates an interview
     // ============================================
     async createInterview(recruiterId, payload) {
-        const application = await prisma_1.prisma.jobApplication.findUnique({
+        const application = await prisma.jobApplication.findUnique({
             where: {
                 id: payload.jobApplicationId,
             },
@@ -33,14 +31,14 @@ class InterviewService {
         if (scheduledAt <= new Date()) {
             throw new Error("Interview date must be in the future");
         }
-        const interview = await prisma_1.prisma.interview.create({
+        const interview = await prisma.interview.create({
             data: {
                 jobApplicationId: payload.jobApplicationId,
                 scheduledById: recruiterId,
                 scheduledAt,
                 durationMinutes: payload.durationMinutes ?? 30,
-                type: payload.type ?? enums_1.InterviewType.VIDEO,
-                status: enums_1.InterviewStatus.SCHEDULED,
+                type: payload.type ?? InterviewType.VIDEO,
+                status: InterviewStatus.SCHEDULED,
                 meetingUrl: payload.meetingUrl || null,
                 title: payload.title ||
                     `${application.job.title} Interview`,
@@ -72,7 +70,7 @@ class InterviewService {
     // GET CANDIDATE INTERVIEWS
     // ============================================
     async getCandidateInterviews(userId) {
-        const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
+        const candidateProfile = await prisma.candidateProfile.findUnique({
             where: {
                 userId,
             },
@@ -80,7 +78,7 @@ class InterviewService {
         if (!candidateProfile) {
             throw new Error("Candidate profile not found");
         }
-        const interviews = await prisma_1.prisma.interview.findMany({
+        const interviews = await prisma.interview.findMany({
             where: {
                 jobApplication: {
                     candidateProfileId: candidateProfile.id,
@@ -111,13 +109,13 @@ class InterviewService {
         const now = new Date();
         const upcoming = interviews.filter((interview) => interview.scheduledAt > now &&
             interview.status !==
-                enums_1.InterviewStatus.CANCELLED &&
+                InterviewStatus.CANCELLED &&
             interview.status !==
-                enums_1.InterviewStatus.COMPLETED);
+                InterviewStatus.COMPLETED);
         const completed = interviews.filter((interview) => interview.status ===
-            enums_1.InterviewStatus.COMPLETED);
+            InterviewStatus.COMPLETED);
         const cancelled = interviews.filter((interview) => interview.status ===
-            enums_1.InterviewStatus.CANCELLED);
+            InterviewStatus.CANCELLED);
         return {
             interviews,
             upcoming,
@@ -135,7 +133,7 @@ class InterviewService {
     // GET SINGLE CANDIDATE INTERVIEW
     // ============================================
     async getCandidateInterviewById(userId, interviewId) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 jobApplication: {
@@ -183,7 +181,7 @@ class InterviewService {
     // CONFIRM INTERVIEW
     // ============================================
     async confirmInterview(userId, interviewId) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 jobApplication: {
@@ -197,19 +195,19 @@ class InterviewService {
             throw new Error("Interview not found");
         }
         if (interview.status ===
-            enums_1.InterviewStatus.CANCELLED) {
+            InterviewStatus.CANCELLED) {
             throw new Error("Cancelled interview cannot be confirmed");
         }
         if (interview.status ===
-            enums_1.InterviewStatus.COMPLETED) {
+            InterviewStatus.COMPLETED) {
             throw new Error("Completed interview cannot be confirmed");
         }
-        return prisma_1.prisma.interview.update({
+        return prisma.interview.update({
             where: {
                 id: interviewId,
             },
             data: {
-                status: enums_1.InterviewStatus.COMPLETED,
+                status: InterviewStatus.COMPLETED,
             },
             include: {
                 jobApplication: {
@@ -224,7 +222,7 @@ class InterviewService {
     // CANCEL INTERVIEW
     // ============================================
     async cancelInterview(userId, interviewId) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 jobApplication: {
@@ -238,19 +236,19 @@ class InterviewService {
             throw new Error("Interview not found");
         }
         if (interview.status ===
-            enums_1.InterviewStatus.COMPLETED) {
+            InterviewStatus.COMPLETED) {
             throw new Error("Completed interview cannot be cancelled");
         }
         if (interview.status ===
-            enums_1.InterviewStatus.CANCELLED) {
+            InterviewStatus.CANCELLED) {
             throw new Error("Interview is already cancelled");
         }
-        return prisma_1.prisma.interview.update({
+        return prisma.interview.update({
             where: {
                 id: interviewId,
             },
             data: {
-                status: enums_1.InterviewStatus.CANCELLED,
+                status: InterviewStatus.CANCELLED,
             },
         });
     }
@@ -258,7 +256,7 @@ class InterviewService {
     // RESCHEDULE INTERVIEW
     // ============================================
     async rescheduleInterview(userId, interviewId, scheduledAt) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 jobApplication: {
@@ -272,20 +270,20 @@ class InterviewService {
             throw new Error("Interview not found");
         }
         if (interview.status ===
-            enums_1.InterviewStatus.COMPLETED) {
+            InterviewStatus.COMPLETED) {
             throw new Error("Completed interview cannot be rescheduled");
         }
         const newDate = new Date(scheduledAt);
         if (newDate <= new Date()) {
             throw new Error("New interview date must be in the future");
         }
-        return prisma_1.prisma.interview.update({
+        return prisma.interview.update({
             where: {
                 id: interviewId,
             },
             data: {
                 scheduledAt: newDate,
-                status: enums_1.InterviewStatus.RESCHEDULED,
+                status: InterviewStatus.RESCHEDULED,
             },
         });
     }
@@ -293,7 +291,7 @@ class InterviewService {
     // GET RECRUITER INTERVIEWS
     // ============================================
     async getRecruiterInterviews(recruiterId) {
-        return prisma_1.prisma.interview.findMany({
+        return prisma.interview.findMany({
             where: {
                 scheduledById: recruiterId,
             },
@@ -325,7 +323,7 @@ class InterviewService {
     // Recruiter
     // ============================================
     async updateInterview(recruiterId, interviewId, payload) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 scheduledById: recruiterId,
@@ -362,7 +360,7 @@ class InterviewService {
             data.notes =
                 payload.notes || null;
         }
-        return prisma_1.prisma.interview.update({
+        return prisma.interview.update({
             where: {
                 id: interviewId,
             },
@@ -380,7 +378,7 @@ class InterviewService {
     // DELETE INTERVIEW
     // ============================================
     async deleteInterview(recruiterId, interviewId) {
-        const interview = await prisma_1.prisma.interview.findFirst({
+        const interview = await prisma.interview.findFirst({
             where: {
                 id: interviewId,
                 scheduledById: recruiterId,
@@ -389,11 +387,11 @@ class InterviewService {
         if (!interview) {
             throw new Error("Interview not found or unauthorized");
         }
-        return prisma_1.prisma.interview.delete({
+        return prisma.interview.delete({
             where: {
                 id: interviewId,
             },
         });
     }
 }
-exports.default = new InterviewService();
+export default new InterviewService();

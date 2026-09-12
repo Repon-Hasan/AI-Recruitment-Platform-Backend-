@@ -1,11 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-const env_1 = require("./app/config/env");
+import { app } from "./app";
+import { envVars } from "./app/config/env";
 const bootstrap = () => {
     try {
-        app_1.app.listen(env_1.envVars.PORT, () => {
-            console.log(`Server is running on http://localhost:${env_1.envVars.PORT}`);
+        app.listen(envVars.PORT, () => {
+            console.log(`Server is running on http://localhost:${envVars.PORT}`);
         });
     }
     catch (error) {

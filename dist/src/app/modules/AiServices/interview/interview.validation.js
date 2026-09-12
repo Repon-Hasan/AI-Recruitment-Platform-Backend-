@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateInterviewQuestionsSchema = void 0;
-const zod_1 = require("zod");
-exports.generateInterviewQuestionsSchema = zod_1.z.object({
-    jobId: zod_1.z.string(),
-    experienceLevel: zod_1.z.enum([
+import { z } from "zod";
+export const generateInterviewQuestionsSchema = z.object({
+    jobId: z.string(),
+    experienceLevel: z.enum([
         "JUNIOR",
         "MID",
         "SENIOR",
     ]),
-    interviewType: zod_1.z.enum([
+    interviewType: z.enum([
         "TECHNICAL",
         "BEHAVIORAL",
         "SYSTEM_DESIGN",

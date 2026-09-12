@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.jobController = void 0;
-const job_services_1 = require("./job.services");
-const job_validation_1 = require("./job.validation");
+import { jobServices } from "./job.services";
+import { createJobSchema } from "./job.validation";
 const createJob = async (req, res) => {
     try {
         const userId = req.user.userId;
-        const validatedData = job_validation_1.createJobSchema.parse(req.body);
-        const job = await job_services_1.jobServices.createJobService(userId, validatedData);
+        const validatedData = createJobSchema.parse(req.body);
+        const job = await jobServices.createJobService(userId, validatedData);
         res.status(201).json({
             success: true,
             message: "Job created successfully",
@@ -28,7 +25,7 @@ const getAllJobs = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
-        const jobs = await job_services_1.jobServices.getAllJobsService(userId);
+        const jobs = await jobServices.getAllJobsService(userId);
         res.status(200).json({
             success: true,
             message: "Jobs fetched successfully",
@@ -44,7 +41,7 @@ const getAllJobs = async (req, res) => {
 };
 const allJobs = async (req, res) => {
     try {
-        const jobs = await job_services_1.jobServices.allJobsService();
+        const jobs = await jobServices.allJobsService();
         res.status(200).json({
             success: true,
             message: "Jobs fetched successfully",
@@ -66,7 +63,7 @@ const updateJob = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
-        const updatedJob = await job_services_1.jobServices.updateJobService(userId, String(id), req.body);
+        const updatedJob = await jobServices.updateJobService(userId, String(id), req.body);
         res.status(200).json({
             success: true,
             message: "Job updated successfully",
@@ -88,7 +85,7 @@ const deleteJob = async (req, res) => {
         if (!userId) {
             return res.status(401).json({ success: false, message: "Unauthorized" });
         }
-        const result = await job_services_1.jobServices.deleteJobService(userId, String(id));
+        const result = await jobServices.deleteJobService(userId, String(id));
         const responseMessage = result && typeof result === "object" && "message" in result
             ? String(result.message)
             : "Job deleted successfully";
@@ -107,7 +104,7 @@ const deleteJob = async (req, res) => {
 const getJobById = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await job_services_1.jobServices.getJobById(String(id));
+        const result = await jobServices.getJobById(String(id));
         res.status(200).json({
             success: true,
             data: result,
@@ -124,7 +121,7 @@ const publishJob = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { id } = req.params;
-        const result = await job_services_1.jobServices.publishJob(userId, String(id));
+        const result = await jobServices.publishJob(userId, String(id));
         res.status(200).json({
             success: true,
             message: "Job published successfully",
@@ -142,7 +139,7 @@ const closeJob = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { id } = req.params;
-        const result = await job_services_1.jobServices.closeJob(userId, String(id));
+        const result = await jobServices.closeJob(userId, String(id));
         res.status(200).json({
             success: true,
             message: "Job closed successfully",
@@ -160,7 +157,7 @@ const duplicateJob = async (req, res) => {
     try {
         const userId = req.user.userId;
         const { id } = req.params;
-        const result = await job_services_1.jobServices.duplicateJob(userId, String(id));
+        const result = await jobServices.duplicateJob(userId, String(id));
         res.status(201).json({
             success: true,
             message: "Job duplicated successfully",
@@ -176,7 +173,7 @@ const duplicateJob = async (req, res) => {
 };
 const searchJobs = async (req, res) => {
     try {
-        const result = await job_services_1.jobServices.searchJobs(req.query);
+        const result = await jobServices.searchJobs(req.query);
         res.status(200).json({
             success: true,
             message: "Jobs searched successfully",
@@ -195,6 +192,6 @@ const searchJobs = async (req, res) => {
         });
     }
 };
-exports.jobController = {
+export const jobController = {
     createJob, getAllJobs, updateJob, deleteJob, getJobById, publishJob, closeJob, duplicateJob, searchJobs, allJobs
 };

@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComplaintService = void 0;
-const cloudnary_config_1 = require("../../config/cloudnary.config");
-const prisma_1 = require("../../lib/prisma");
+import { deleteFileFromCloudinary, uploadFileToCloudinary } from "../../config/cloudnary.config";
+import { prisma } from "../../lib/prisma";
 const createComplaint = async (userId, payload, files) => {
     // ============================================
     // 1. Find candidate profile
     // ============================================
-    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -18,7 +15,7 @@ const createComplaint = async (userId, payload, files) => {
     // ============================================
     // 2. Check company
     // ============================================
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             id: payload.companyId,
         },
@@ -30,7 +27,7 @@ const createComplaint = async (userId, payload, files) => {
     // 3. Check application
     // ============================================
     if (payload.jobApplicationId) {
-        const application = await prisma_1.prisma.jobApplication.findUnique({
+        const application = await prisma.jobApplication.findUnique({
             where: {
                 id: payload.jobApplicationId,
             },
@@ -67,7 +64,7 @@ const createComplaint = async (userId, payload, files) => {
     // ============================================
     // 7. Create complaint
     // ============================================
-    const complaint = await prisma_1.prisma.reviewComplaint.create({
+    const complaint = await prisma.reviewComplaint.create({
         data: {
             submittedById: userId,
             candidateProfileId: candidateProfile.id,
@@ -85,8 +82,8 @@ const createComplaint = async (userId, payload, files) => {
     if (files && files.length > 0) {
         try {
             for (const file of files) {
-                const uploaded = await (0, cloudnary_config_1.uploadFileToCloudinary)(file.buffer, file.originalname);
-                await prisma_1.prisma.complaintEvidence.create({
+                const uploaded = await uploadFileToCloudinary(file.buffer, file.originalname);
+                await prisma.complaintEvidence.create({
                     data: {
                         complaintId: complaint.id,
                         fileUrl: uploaded.secure_url,
@@ -99,7 +96,7 @@ const createComplaint = async (userId, payload, files) => {
         catch (error) {
             // If upload/database evidence creation
             // fails, remove complaint
-            await prisma_1.prisma.reviewComplaint.delete({
+            await prisma.reviewComplaint.delete({
                 where: {
                     id: complaint.id,
                 },
@@ -110,7 +107,7 @@ const createComplaint = async (userId, payload, files) => {
     // ============================================
     // 9. Return complaint with evidence
     // ============================================
-    return prisma_1.prisma.reviewComplaint.findUnique({
+    return prisma.reviewComplaint.findUnique({
         where: {
             id: complaint.id,
         },
@@ -122,7 +119,7 @@ const createComplaint = async (userId, payload, files) => {
     });
 };
 const getMyComplaints = async (candidateProfileId) => {
-    return prisma_1.prisma.reviewComplaint.findMany({
+    return prisma.reviewComplaint.findMany({
         where: {
             candidateProfileId,
         },
@@ -140,7 +137,7 @@ const updateComplaint = async (userId, complaintId, payload, files) => {
     // ============================================
     // 1. Find candidate profile
     // ============================================
-    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -151,7 +148,7 @@ const updateComplaint = async (userId, complaintId, payload, files) => {
     // ============================================
     // 2. Find complaint
     // ============================================
-    const complaint = await prisma_1.prisma.reviewComplaint.findUnique({
+    const complaint = await prisma.reviewComplaint.findUnique({
         where: {
             id: complaintId,
         },
@@ -189,7 +186,7 @@ const updateComplaint = async (userId, complaintId, payload, files) => {
     // ============================================
     // 6. Update complaint text fields
     // ============================================
-    await prisma_1.prisma.reviewComplaint.update({
+    await prisma.reviewComplaint.update({
         where: {
             id: complaintId,
         },
@@ -210,8 +207,8 @@ const updateComplaint = async (userId, complaintId, payload, files) => {
     // ============================================
     if (files && files.length > 0) {
         for (const file of files) {
-            const uploaded = await (0, cloudnary_config_1.uploadFileToCloudinary)(file.buffer, file.originalname);
-            await prisma_1.prisma.complaintEvidence.create({
+            const uploaded = await uploadFileToCloudinary(file.buffer, file.originalname);
+            await prisma.complaintEvidence.create({
                 data: {
                     complaintId,
                     fileUrl: uploaded.secure_url,
@@ -224,7 +221,7 @@ const updateComplaint = async (userId, complaintId, payload, files) => {
     // ============================================
     // 8. Return updated complaint
     // ============================================
-    return prisma_1.prisma.reviewComplaint.findUnique({
+    return prisma.reviewComplaint.findUnique({
         where: {
             id: complaintId,
         },
@@ -240,7 +237,7 @@ const deleteComplaint = async (userId, complaintId) => {
     // ============================================
     // 1. Find candidate
     // ============================================
-    const candidateProfile = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidateProfile = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -251,7 +248,7 @@ const deleteComplaint = async (userId, complaintId) => {
     // ============================================
     // 2. Find complaint
     // ============================================
-    const complaint = await prisma_1.prisma.reviewComplaint.findUnique({
+    const complaint = await prisma.reviewComplaint.findUnique({
         where: {
             id: complaintId,
         },
@@ -280,7 +277,7 @@ const deleteComplaint = async (userId, complaintId) => {
     // ============================================
     for (const evidence of complaint.evidence) {
         try {
-            await (0, cloudnary_config_1.deleteFileFromCloudinary)(evidence.fileUrl);
+            await deleteFileFromCloudinary(evidence.fileUrl);
         }
         catch (error) {
             console.error("Failed to delete Cloudinary file:", evidence.fileUrl, error);
@@ -292,7 +289,7 @@ const deleteComplaint = async (userId, complaintId) => {
     // ============================================
     // 6. Delete complaint
     // ============================================
-    await prisma_1.prisma.reviewComplaint.delete({
+    await prisma.reviewComplaint.delete({
         where: {
             id: complaintId,
         },
@@ -304,7 +301,7 @@ const deleteComplaint = async (userId, complaintId) => {
 };
 //ForAdmin
 const getComplaintsForAdmin = async () => {
-    return prisma_1.prisma.reviewComplaint.findMany({
+    return prisma.reviewComplaint.findMany({
         include: {
             candidateProfile: true,
             company: true,
@@ -318,7 +315,7 @@ const getComplaintsForAdmin = async () => {
     });
 };
 const decideComplaint = async (complaintId, adminId, decision, adminNote) => {
-    const complaint = await prisma_1.prisma.reviewComplaint.findUnique({
+    const complaint = await prisma.reviewComplaint.findUnique({
         where: {
             id: complaintId,
         },
@@ -329,7 +326,7 @@ const decideComplaint = async (complaintId, adminId, decision, adminNote) => {
     if (complaint.status === "RESOLVED") {
         throw new Error("Complaint is already resolved");
     }
-    const updated = await prisma_1.prisma.reviewComplaint.update({
+    const updated = await prisma.reviewComplaint.update({
         where: {
             id: complaintId,
         },
@@ -346,7 +343,7 @@ const decideComplaint = async (complaintId, adminId, decision, adminNote) => {
     return updated;
 };
 const createPenalty = async (complaintId, adminId, payload) => {
-    const complaint = await prisma_1.prisma.reviewComplaint.findUnique({
+    const complaint = await prisma.reviewComplaint.findUnique({
         where: {
             id: complaintId,
         },
@@ -357,7 +354,7 @@ const createPenalty = async (complaintId, adminId, payload) => {
     if (complaint.decision !== "PENALTY") {
         throw new Error("Penalty cannot be created for this complaint");
     }
-    const existingPenalty = await prisma_1.prisma.penalty.findUnique({
+    const existingPenalty = await prisma.penalty.findUnique({
         where: {
             complaintId,
         },
@@ -365,7 +362,7 @@ const createPenalty = async (complaintId, adminId, payload) => {
     if (existingPenalty) {
         throw new Error("Penalty already exists");
     }
-    const penalty = await prisma_1.prisma.penalty.create({
+    const penalty = await prisma.penalty.create({
         data: {
             complaintId,
             companyId: complaint.companyId,
@@ -380,7 +377,7 @@ const createPenalty = async (complaintId, adminId, payload) => {
     return penalty;
 };
 const getCompanyPenalties = async (companyId) => {
-    return prisma_1.prisma.penalty.findMany({
+    return prisma.penalty.findMany({
         where: {
             companyId,
         },
@@ -403,7 +400,7 @@ const getMyCompanyComplaintById = async (userId, complaintId) => {
     // ============================================
     // 1. Find company belonging to authenticated user
     // ============================================
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
@@ -414,7 +411,7 @@ const getMyCompanyComplaintById = async (userId, complaintId) => {
     // ============================================
     // 2. Find complaint
     // ============================================
-    const complaint = await prisma_1.prisma.reviewComplaint.findFirst({
+    const complaint = await prisma.reviewComplaint.findFirst({
         where: {
             id: complaintId,
             // VERY IMPORTANT:
@@ -466,7 +463,7 @@ const updatePenalty = async (penaltyId, companyId, payload) => {
     // ============================================
     // 1. Find penalty
     // ============================================
-    const penalty = await prisma_1.prisma.penalty.findFirst({
+    const penalty = await prisma.penalty.findFirst({
         where: {
             id: penaltyId,
             companyId,
@@ -478,7 +475,7 @@ const updatePenalty = async (penaltyId, companyId, payload) => {
     // ============================================
     // 2. Update penalty
     // ============================================
-    const updatedPenalty = await prisma_1.prisma.penalty.update({
+    const updatedPenalty = await prisma.penalty.update({
         where: {
             id: penaltyId,
         },
@@ -525,7 +522,7 @@ const deletePenalty = async (penaltyId, companyId) => {
     // ============================================
     // 1. Find penalty
     // ============================================
-    const penalty = await prisma_1.prisma.penalty.findFirst({
+    const penalty = await prisma.penalty.findFirst({
         where: {
             id: penaltyId,
             companyId,
@@ -537,7 +534,7 @@ const deletePenalty = async (penaltyId, companyId) => {
     // ============================================
     // 2. Delete penalty
     // ============================================
-    await prisma_1.prisma.penalty.delete({
+    await prisma.penalty.delete({
         where: {
             id: penaltyId,
         },
@@ -547,6 +544,6 @@ const deletePenalty = async (penaltyId, companyId) => {
         message: "Penalty deleted successfully",
     };
 };
-exports.ComplaintService = {
+export const ComplaintService = {
     createComplaint, getMyComplaints, updateComplaint, deleteComplaint, getComplaintsForAdmin, decideComplaint, createPenalty, getCompanyPenalties, getMyCompanyComplaintById, updatePenalty, deletePenalty
 };

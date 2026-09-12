@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CandidateRankingController = void 0;
-const candidateRanking_service_1 = require("./candidateRanking.service");
+import { CandidateRankingService } from "./candidateRanking.service";
 const rankApplicants = async (req, res) => {
     try {
         const { jobId } = req.params;
@@ -12,7 +9,7 @@ const rankApplicants = async (req, res) => {
             });
             return;
         }
-        const result = await candidateRanking_service_1.CandidateRankingService
+        const result = await CandidateRankingService
             .rankApplicants(jobId);
         res.status(200).json({
             success: true,
@@ -83,7 +80,7 @@ const getRankedApplicants = async (req, res) => {
         // ------------------------------------------
         // Call service
         // ------------------------------------------
-        const result = await candidateRanking_service_1.CandidateRankingService
+        const result = await CandidateRankingService
             .getRankedApplicants(jobId, {
             minScore: parsedMinScore,
             minExperience: parsedMinExperience,
@@ -108,6 +105,6 @@ const getRankedApplicants = async (req, res) => {
         });
     }
 };
-exports.CandidateRankingController = {
+export const CandidateRankingController = {
     rankApplicants, getRankedApplicants
 };

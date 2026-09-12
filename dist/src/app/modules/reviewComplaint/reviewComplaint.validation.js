@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPenaltySchema = exports.complaintDecisionSchema = exports.updateComplaintStatusSchema = exports.createReviewComplaintSchema = void 0;
-const zod_1 = require("zod");
-exports.createReviewComplaintSchema = zod_1.z.object({
-    companyId: zod_1.z.string().uuid(),
-    jobId: zod_1.z.string().uuid().optional(),
-    jobApplicationId: zod_1.z.string().uuid().optional(),
-    type: zod_1.z.enum([
+import { z } from "zod";
+export const createReviewComplaintSchema = z.object({
+    companyId: z.string().uuid(),
+    jobId: z.string().uuid().optional(),
+    jobApplicationId: z.string().uuid().optional(),
+    type: z.enum([
         "COMPANY_BEHAVIOR",
         "JOB_MISMATCH",
         "FAKE_JOB",
@@ -17,17 +14,17 @@ exports.createReviewComplaintSchema = zod_1.z.object({
         "FRAUD",
         "OTHER",
     ]),
-    title: zod_1.z
+    title: z
         .string()
         .min(5)
         .max(200),
-    description: zod_1.z
+    description: z
         .string()
         .min(20)
         .max(5000),
 });
-exports.updateComplaintStatusSchema = zod_1.z.object({
-    status: zod_1.z.enum([
+export const updateComplaintStatusSchema = z.object({
+    status: z.enum([
         "PENDING",
         "UNDER_REVIEW",
         "NEED_MORE_INFORMATION",
@@ -36,8 +33,8 @@ exports.updateComplaintStatusSchema = zod_1.z.object({
         "RESOLVED",
     ]),
 });
-exports.complaintDecisionSchema = zod_1.z.object({
-    decision: zod_1.z.enum([
+export const complaintDecisionSchema = z.object({
+    decision: z.enum([
         "NO_VIOLATION",
         "WARNING",
         "PENALTY",
@@ -45,24 +42,24 @@ exports.complaintDecisionSchema = zod_1.z.object({
         "JOB_REMOVAL",
         "COMPANY_SUSPENSION",
     ]),
-    adminNote: zod_1.z
+    adminNote: z
         .string()
         .min(5)
         .max(5000),
 });
-exports.createPenaltySchema = zod_1.z.object({
-    amount: zod_1.z
+export const createPenaltySchema = z.object({
+    amount: z
         .number()
         .positive(),
-    currency: zod_1.z
+    currency: z
         .string()
         .length(3)
         .default("USD"),
-    reason: zod_1.z
+    reason: z
         .string()
         .min(5)
         .max(1000),
-    dueDate: zod_1.z
+    dueDate: z
         .string()
         .datetime()
         .optional(),

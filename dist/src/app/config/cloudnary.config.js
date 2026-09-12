@@ -1,21 +1,15 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cloudinaryUpload = exports.deleteFileFromCloudinary = exports.uploadFileToCloudinary = void 0;
-const cloudinary_1 = require("cloudinary");
-const http_status_1 = __importDefault(require("http-status"));
-const AppError_1 = __importDefault(require("../errorHelpers/AppError"));
-const env_1 = require("./env");
-cloudinary_1.v2.config({
-    cloud_name: env_1.envVars.CLOUDINARY.CLOUDINARY_CLOUD_NAME,
-    api_key: env_1.envVars.CLOUDINARY.CLOUDINARY_API_KEY,
-    api_secret: env_1.envVars.CLOUDINARY.CLOUDINARY_API_SECRET,
+import { v2 as cloudinary } from "cloudinary";
+import status from "http-status";
+import AppError from "../errorHelpers/AppError";
+import { envVars } from "./env";
+cloudinary.config({
+    cloud_name: envVars.CLOUDINARY.CLOUDINARY_CLOUD_NAME,
+    api_key: envVars.CLOUDINARY.CLOUDINARY_API_KEY,
+    api_secret: envVars.CLOUDINARY.CLOUDINARY_API_SECRET,
 });
-const uploadFileToCloudinary = async (buffer, fileName) => {
+export const uploadFileToCloudinary = async (buffer, fileName) => {
     if (!buffer || !fileName) {
-        throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "File buffer and file name are required for upload");
+        throw new AppError(status.BAD_REQUEST, "File buffer and file name are required for upload");
     }
     const extension = fileName.split(".").pop()?.toLocaleLowerCase();
     console.log("hi", extension);
@@ -34,19 +28,18 @@ const uploadFileToCloudinary = async (buffer, fileName) => {
         fileNameWithoutExtension;
     const folder = extension === "pdf" ? "pdfs" : "images";
     return new Promise((resolve, reject) => {
-        cloudinary_1.v2.uploader.upload_stream({
+        cloudinary.uploader.upload_stream({
             resource_type: "auto",
             public_id: `ai-recruiter/${folder}/${uniqueName}`,
             folder: `ai-recruiter/${folder}`,
         }, (error, result) => {
             if (error) {
-                return reject(new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, "Failed to upload file to Cloudinary"));
+                return reject(new AppError(status.INTERNAL_SERVER_ERROR, "Failed to upload file to Cloudinary"));
             }
             resolve(result);
         }).end(buffer);
     });
 };
-exports.uploadFileToCloudinary = uploadFileToCloudinary;
 // export const deleteFileFromCloudinary = async (url : string) => {
 //     try {
 //         const regex = /\/v\d+\/(.+?)(?:\.[a-zA-Z0-9]+)+$/;
@@ -65,7 +58,7 @@ exports.uploadFileToCloudinary = uploadFileToCloudinary;
 //         throw new AppError(status.INTERNAL_SERVER_ERROR, "Failed to delete file from Cloudinary");
 //     }
 // }
-const deleteFileFromCloudinary = async (url) => {
+export const deleteFileFromCloudinary = async (url) => {
     try {
         const regex = /\/upload\/(?:v\d+\/)?(.+?)(?:\.[^./]+)?$/;
         const match = url.match(regex);
@@ -73,15 +66,14 @@ const deleteFileFromCloudinary = async (url) => {
             throw new Error("Invalid Cloudinary URL");
         }
         const publicId = match[1];
-        await cloudinary_1.v2.uploader.destroy(publicId, {
+        await cloudinary.uploader.destroy(publicId, {
             resource_type: "image",
         });
         console.log(`Cloudinary file deleted: ${publicId}`);
     }
     catch (error) {
         console.error("Error deleting file from Cloudinary:", error);
-        throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, "Failed to delete file from Cloudinary");
+        throw new AppError(status.INTERNAL_SERVER_ERROR, "Failed to delete file from Cloudinary");
     }
 };
-exports.deleteFileFromCloudinary = deleteFileFromCloudinary;
-exports.cloudinaryUpload = cloudinary_1.v2;
+export const cloudinaryUpload = cloudinary;

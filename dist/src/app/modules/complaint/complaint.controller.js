@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComplaintController = void 0;
-const complaint_service_1 = require("./complaint.service");
+import { ComplaintService } from "./complaint.service";
 const createComplaint = async (req, res) => {
     const userId = req.user.userId;
     console.log("UserId", userId);
     const files = req.files;
-    const result = await complaint_service_1.ComplaintService.createComplaint(userId, {
+    const result = await ComplaintService.createComplaint(userId, {
         companyId: req.body.companyId,
         jobId: req.body.jobId,
         jobApplicationId: req.body.jobApplicationId,
@@ -22,7 +19,7 @@ const createComplaint = async (req, res) => {
 };
 const getMyComplaints = async (req, res) => {
     const candidateProfileId = req.user.candidateProfile;
-    const result = await complaint_service_1.ComplaintService.getMyComplaints(candidateProfileId);
+    const result = await ComplaintService.getMyComplaints(candidateProfileId);
     res.status(200).json({
         success: true,
         data: result,
@@ -32,7 +29,7 @@ const updateComplaint = async (req, res) => {
     const userId = req.user.userId;
     const complaintId = String(req.params.id);
     const files = req.files;
-    const result = await complaint_service_1.ComplaintService.updateComplaint(userId, complaintId, {
+    const result = await ComplaintService.updateComplaint(userId, complaintId, {
         type: req.body.type,
         title: req.body.title,
         description: req.body.description,
@@ -46,7 +43,7 @@ const updateComplaint = async (req, res) => {
 const deleteComplaint = async (req, res) => {
     const userId = req.user.userId;
     const complaintId = String(req.params.id);
-    const result = await complaint_service_1.ComplaintService.deleteComplaint(userId, complaintId);
+    const result = await ComplaintService.deleteComplaint(userId, complaintId);
     res.status(200).json({
         success: true,
         message: "Complaint deleted successfully",
@@ -55,7 +52,7 @@ const deleteComplaint = async (req, res) => {
 };
 //ForAdmin
 const getComplaintsForAdmin = async (req, res) => {
-    const result = await complaint_service_1.ComplaintService.getComplaintsForAdmin();
+    const result = await ComplaintService.getComplaintsForAdmin();
     res.status(200).json({
         success: true,
         data: result,
@@ -68,7 +65,7 @@ const decideComplaint = async (req, res) => {
     const complaintId = String(req.params.complaintId);
     const adminId = req.user.id;
     const { decision, adminNote, } = req.body;
-    const result = await complaint_service_1.ComplaintService.decideComplaint(complaintId, adminId, decision, adminNote);
+    const result = await ComplaintService.decideComplaint(complaintId, adminId, decision, adminNote);
     res.status(200).json({
         success: true,
         message: "Complaint decision submitted successfully",
@@ -81,7 +78,7 @@ const decideComplaint = async (req, res) => {
 const createPenalty = async (req, res) => {
     const complaintId = String(req.params.complaintId);
     const adminId = req.user.id;
-    const result = await complaint_service_1.ComplaintService.createPenalty(complaintId, adminId, req.body);
+    const result = await ComplaintService.createPenalty(complaintId, adminId, req.body);
     res.status(201).json({
         success: true,
         message: "Penalty created successfully",
@@ -93,7 +90,7 @@ const createPenalty = async (req, res) => {
 // ============================================
 const getCompanyPenalties = async (req, res) => {
     const companyId = String(req.params.companyId);
-    const result = await complaint_service_1.ComplaintService.getCompanyPenalties(companyId);
+    const result = await ComplaintService.getCompanyPenalties(companyId);
     res.status(200).json({
         success: true,
         message: "Company penalties retrieved successfully",
@@ -106,7 +103,7 @@ const getCompanyPenalties = async (req, res) => {
 const updatePenalty = async (req, res) => {
     const penaltyId = String(req.params.penaltyId);
     const companyId = String(req.params.companyId);
-    const result = await complaint_service_1.ComplaintService.updatePenalty(penaltyId, companyId, req.body);
+    const result = await ComplaintService.updatePenalty(penaltyId, companyId, req.body);
     res.status(200).json({
         success: true,
         message: "Penalty updated successfully",
@@ -119,13 +116,13 @@ const updatePenalty = async (req, res) => {
 const deletePenalty = async (req, res) => {
     const penaltyId = String(req.params.penaltyId);
     const companyId = String(req.params.companyId);
-    const result = await complaint_service_1.ComplaintService.deletePenalty(penaltyId, companyId);
+    const result = await ComplaintService.deletePenalty(penaltyId, companyId);
     res.status(200).json({
         success: true,
         message: "Penalty deleted successfully",
         data: result,
     });
 };
-exports.ComplaintController = {
+export const ComplaintController = {
     createComplaint, getMyComplaints, getComplaintsForAdmin, updateComplaint, deleteComplaint, getCompanyPenalties, createPenalty, decideComplaint, updatePenalty, deletePenalty
 };

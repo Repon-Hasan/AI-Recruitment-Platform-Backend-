@@ -1,24 +1,18 @@
-"use strict";
 // company.service.ts
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.companyServices = void 0;
-const AppError_1 = __importDefault(require("../../../errorHelpers/AppError"));
-const prisma_1 = require("../../../lib/prisma");
+import AppError from "../../../errorHelpers/AppError";
+import { prisma } from "../../../lib/prisma";
 const createCompany = async (userId, payload) => {
     // Check whether user already has a company
-    const existingCompany = await prisma_1.prisma.company.findUnique({
+    const existingCompany = await prisma.company.findUnique({
         where: {
             userId,
         },
     });
     if (existingCompany) {
-        throw new AppError_1.default(400, "You already have a company");
+        throw new AppError(400, "You already have a company");
     }
     // Create company
-    const company = await prisma_1.prisma.company.create({
+    const company = await prisma.company.create({
         data: {
             name: payload.name,
             description: payload.description,
@@ -30,7 +24,7 @@ const createCompany = async (userId, payload) => {
 };
 // company.service.ts
 const getMyCompany = async (userId) => {
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
@@ -47,15 +41,15 @@ const getMyCompany = async (userId) => {
 };
 // company.service.ts
 const updateMyCompany = async (userId, payload) => {
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
     });
     if (!company) {
-        throw new AppError_1.default(404, "Company not found");
+        throw new AppError(404, "Company not found");
     }
-    const updatedCompany = await prisma_1.prisma.company.update({
+    const updatedCompany = await prisma.company.update({
         where: {
             userId,
         },
@@ -65,15 +59,15 @@ const updateMyCompany = async (userId, payload) => {
 };
 // company.service.ts
 const deleteMyCompany = async (userId) => {
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
     });
     if (!company) {
-        throw new AppError_1.default(404, "Company not found");
+        throw new AppError(404, "Company not found");
     }
-    await prisma_1.prisma.company.delete({
+    await prisma.company.delete({
         where: {
             userId,
         },
@@ -87,7 +81,7 @@ const getMyCompanyComplaints = async (userId) => {
     // ============================================
     // 1. Find company belonging to logged-in user
     // ============================================
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
@@ -99,7 +93,7 @@ const getMyCompanyComplaints = async (userId) => {
     // ============================================
     // 2. Get complaints belonging to this company
     // ============================================
-    const complaints = await prisma_1.prisma.reviewComplaint.findMany({
+    const complaints = await prisma.reviewComplaint.findMany({
         where: {
             companyId: company.id,
         },
@@ -147,7 +141,7 @@ const getMyCompanyPenalties = async (userId) => {
     // ============================================
     // 1. Find company
     // ============================================
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
@@ -159,7 +153,7 @@ const getMyCompanyPenalties = async (userId) => {
     // ============================================
     // 2. Get penalties
     // ============================================
-    const penalties = await prisma_1.prisma.penalty.findMany({
+    const penalties = await prisma.penalty.findMany({
         where: {
             companyId: company.id,
         },
@@ -195,7 +189,7 @@ const getMyCompanyPenaltyById = async (userId, penaltyId) => {
     // ============================================
     // 1. Find company
     // ============================================
-    const company = await prisma_1.prisma.company.findUnique({
+    const company = await prisma.company.findUnique({
         where: {
             userId,
         },
@@ -206,7 +200,7 @@ const getMyCompanyPenaltyById = async (userId, penaltyId) => {
     // ============================================
     // 2. Find penalty
     // ============================================
-    const penalty = await prisma_1.prisma.penalty.findFirst({
+    const penalty = await prisma.penalty.findFirst({
         where: {
             id: penaltyId,
             // Security check
@@ -240,6 +234,6 @@ const getMyCompanyPenaltyById = async (userId, penaltyId) => {
     }
     return penalty;
 };
-exports.companyServices = {
+export const companyServices = {
     createCompany, getMyCompany, updateMyCompany, deleteMyCompany, getMyCompanyComplaints, getMyCompanyPenalties, getMyCompanyPenaltyById
 };

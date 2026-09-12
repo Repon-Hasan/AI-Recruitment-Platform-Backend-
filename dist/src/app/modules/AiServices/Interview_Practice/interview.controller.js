@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InterviewController = void 0;
-const interview_service_1 = require("./interview.service");
+import { InterviewQuestionService } from "./interview.service";
 // const startInterview = async (
 //   req: Request,
 //   res: Response
@@ -39,7 +36,7 @@ const startInterview = async (req, res) => {
     try {
         const { jobId, experienceLevel, interviewType } = req.body;
         const userId = req.user.userId;
-        const result = await interview_service_1.InterviewQuestionService.startInterview(userId, jobId, experienceLevel, interviewType);
+        const result = await InterviewQuestionService.startInterview(userId, jobId, experienceLevel, interviewType);
         res.status(200).json({
             success: true,
             message: "Interview started successfully",
@@ -56,7 +53,7 @@ const startInterview = async (req, res) => {
 const answerInterview = async (req, res) => {
     try {
         const { sessionId, answer, } = req.body;
-        const result = await interview_service_1.InterviewQuestionService.evaluateAnswer(sessionId, answer);
+        const result = await InterviewQuestionService.evaluateAnswer(sessionId, answer);
         res.status(200).json({
             success: true,
             message: "Answer evaluated successfully",
@@ -70,7 +67,7 @@ const answerInterview = async (req, res) => {
         });
     }
 };
-exports.InterviewController = {
+export const InterviewController = {
     startInterview,
     answerInterview,
 };

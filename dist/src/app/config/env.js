@@ -1,13 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.envVars = void 0;
-const dotenv_1 = __importDefault(require("dotenv"));
-const http_status_1 = __importDefault(require("http-status"));
-const AppError_1 = __importDefault(require("../errorHelpers/AppError"));
-dotenv_1.default.config();
+import dotenv from 'dotenv';
+import status from 'http-status';
+import AppError from '../errorHelpers/AppError';
+dotenv.config();
 const loadEnvVariables = () => {
     const requireEnvVariable = [
         'NODE_ENV',
@@ -41,7 +35,7 @@ const loadEnvVariables = () => {
     ];
     requireEnvVariable.forEach((variable) => {
         if (!process.env[variable]) {
-            throw new AppError_1.default(http_status_1.default.INTERNAL_SERVER_ERROR, `Environment variable ${variable} is required but not set in .env file.`);
+            throw new AppError(status.INTERNAL_SERVER_ERROR, `Environment variable ${variable} is required but not set in .env file.`);
         }
     });
     return {
@@ -79,4 +73,4 @@ const loadEnvVariables = () => {
         GEMINI_LLM_MODEL: process.env.GEMINI_LLM_MODEL
     };
 };
-exports.envVars = loadEnvVariables();
+export const envVars = loadEnvVariables();

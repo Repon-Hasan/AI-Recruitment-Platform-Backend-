@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateJobEmbedding = void 0;
-const env_1 = require("../../../config/env");
-const prisma_1 = require("../../../lib/prisma");
+import { envVars } from "../../../config/env";
+import { prisma } from "../../../lib/prisma";
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/embeddings";
-const EMBEDDING_MODEL = env_1.envVars.OPENROUTER_EMBEDDING_MODEL ||
+const EMBEDDING_MODEL = envVars.OPENROUTER_EMBEDDING_MODEL ||
     "nvidia/llama-nemotron-embed-vl-1b-v2:free";
-const generateJobEmbedding = async (jobId, jobText) => {
+export const generateJobEmbedding = async (jobId, jobText) => {
     if (!jobText?.trim()) {
         throw new Error("Job text is empty");
     }
-    const apiKey = env_1.envVars.OPENROUTER_API_KEY;
+    const apiKey = envVars.OPENROUTER_API_KEY;
     if (!apiKey) {
         throw new Error("OPENROUTER_API_KEY is not set in .env");
     }
@@ -51,7 +48,7 @@ const generateJobEmbedding = async (jobId, jobText) => {
         // 6. Convert array to pgvector format
         const vector = `[${embedding.join(",")}]`;
         // 7. Store embedding in Job table
-        const updateResult = await prisma_1.prisma.$executeRaw `
+        const updateResult = await prisma.$executeRaw `
       UPDATE "Job"
       SET "embedding" = ${vector}::vector
       WHERE "id" = ${jobId}
@@ -61,7 +58,7 @@ const generateJobEmbedding = async (jobId, jobText) => {
         }
         // Prisma cannot expose Unsupported vector fields directly. Verify the
         // value using PostgreSQL so this log reflects the actual database state.
-        const verification = await prisma_1.prisma.$queryRaw `
+        const verification = await prisma.$queryRaw `
       SELECT
         "embedding" IS NOT NULL AS "hasEmbedding",
         CASE
@@ -86,4 +83,3 @@ const generateJobEmbedding = async (jobId, jobText) => {
         throw error;
     }
 };
-exports.generateJobEmbedding = generateJobEmbedding;

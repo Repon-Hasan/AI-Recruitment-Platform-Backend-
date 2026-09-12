@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteJobMatch = exports.getJobMatchSummary = exports.getJobMatches = exports.getMyJobMatches = exports.getMyJobMatch = exports.calculateJobMatch = void 0;
-const prisma_1 = require("../../lib/prisma");
+import { prisma } from "../../lib/prisma";
 // =====================================================
 // Normalize Skill
 // =====================================================
@@ -197,11 +194,11 @@ const getMatchLevel = (overallScore) => {
 // =====================================================
 // Calculate Complete Job Match
 // =====================================================
-const calculateJobMatch = async (userId, jobId) => {
+export const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 1. Find Candidate
     // ---------------------------------------------------
-    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -222,7 +219,7 @@ const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 2. Find Job
     // ---------------------------------------------------
-    const job = await prisma_1.prisma.job.findUnique({
+    const job = await prisma.job.findUnique({
         where: {
             id: jobId,
         },
@@ -258,7 +255,7 @@ const calculateJobMatch = async (userId, jobId) => {
      *
      * "Resume"
      */
-    const semanticResult = await prisma_1.prisma.$queryRaw `
+    const semanticResult = await prisma.$queryRaw `
       SELECT
         1 - (r.embedding <=> j.embedding) AS similarity
       FROM "resumes" r
@@ -342,7 +339,7 @@ const calculateJobMatch = async (userId, jobId) => {
     // ---------------------------------------------------
     // 13. Save / Update Job Match
     // ---------------------------------------------------
-    const jobMatch = await prisma_1.prisma.jobMatch.upsert({
+    const jobMatch = await prisma.jobMatch.upsert({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -391,12 +388,11 @@ const calculateJobMatch = async (userId, jobId) => {
         matchLevel,
     };
 };
-exports.calculateJobMatch = calculateJobMatch;
 // =====================================================
 // Get My Job Match
 // =====================================================
-const getMyJobMatch = async (userId, jobId) => {
-    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
+export const getMyJobMatch = async (userId, jobId) => {
+    const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -407,7 +403,7 @@ const getMyJobMatch = async (userId, jobId) => {
     if (!candidate) {
         throw new Error("Candidate profile not found");
     }
-    const jobMatch = await prisma_1.prisma.jobMatch.findUnique({
+    const jobMatch = await prisma.jobMatch.findUnique({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -444,18 +440,17 @@ const getMyJobMatch = async (userId, jobId) => {
         updatedAt: jobMatch.updatedAt,
     };
 };
-exports.getMyJobMatch = getMyJobMatch;
 // =====================================================
 // Get All My Job Matches
 // =====================================================
 // =====================================================
 // Get All My Job Matches
 // =====================================================
-const getMyJobMatches = async (userId) => {
+export const getMyJobMatches = async (userId) => {
     // ---------------------------------------------------
     // 1. Find Candidate
     // ---------------------------------------------------
-    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
+    const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -469,7 +464,7 @@ const getMyJobMatches = async (userId) => {
     // ---------------------------------------------------
     // 2. Get All Job Matches
     // ---------------------------------------------------
-    const jobMatches = await prisma_1.prisma.jobMatch.findMany({
+    const jobMatches = await prisma.jobMatch.findMany({
         where: {
             candidateId: candidate.id,
         },
@@ -506,15 +501,14 @@ const getMyJobMatches = async (userId) => {
         updatedAt: match.updatedAt,
     }));
 };
-exports.getMyJobMatches = getMyJobMatches;
 // =====================================================
 // Recruiter: Get Job Applicants Matches
 // =====================================================
-const getJobMatches = async (userId, jobId) => {
+export const getJobMatches = async (userId, jobId) => {
     // ---------------------------------------------------
     // Verify that this recruiter owns the job
     // ---------------------------------------------------
-    const job = await prisma_1.prisma.job.findFirst({
+    const job = await prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -532,7 +526,7 @@ const getJobMatches = async (userId, jobId) => {
     // ---------------------------------------------------
     // Get matches
     // ---------------------------------------------------
-    const matches = await prisma_1.prisma.jobMatch.findMany({
+    const matches = await prisma.jobMatch.findMany({
         where: {
             jobId,
         },
@@ -578,15 +572,14 @@ const getJobMatches = async (userId, jobId) => {
         })),
     };
 };
-exports.getJobMatches = getJobMatches;
 // =====================================================
 // Get Match Summary
 // =====================================================
-const getJobMatchSummary = async (userId, jobId) => {
+export const getJobMatchSummary = async (userId, jobId) => {
     // ---------------------------------------------------
     // Verify recruiter owns job
     // ---------------------------------------------------
-    const job = await prisma_1.prisma.job.findFirst({
+    const job = await prisma.job.findFirst({
         where: {
             id: jobId,
             company: {
@@ -604,7 +597,7 @@ const getJobMatchSummary = async (userId, jobId) => {
     // ---------------------------------------------------
     // Get matches
     // ---------------------------------------------------
-    const matches = await prisma_1.prisma.jobMatch.findMany({
+    const matches = await prisma.jobMatch.findMany({
         where: {
             jobId,
         },
@@ -682,12 +675,11 @@ const getJobMatchSummary = async (userId, jobId) => {
         })),
     };
 };
-exports.getJobMatchSummary = getJobMatchSummary;
 // =====================================================
 // Delete My Job Match
 // =====================================================
-const deleteJobMatch = async (userId, jobId) => {
-    const candidate = await prisma_1.prisma.candidateProfile.findUnique({
+export const deleteJobMatch = async (userId, jobId) => {
+    const candidate = await prisma.candidateProfile.findUnique({
         where: {
             userId,
         },
@@ -698,7 +690,7 @@ const deleteJobMatch = async (userId, jobId) => {
     if (!candidate) {
         throw new Error("Candidate profile not found");
     }
-    const jobMatch = await prisma_1.prisma.jobMatch.findUnique({
+    const jobMatch = await prisma.jobMatch.findUnique({
         where: {
             candidateId_jobId: {
                 candidateId: candidate.id,
@@ -709,11 +701,10 @@ const deleteJobMatch = async (userId, jobId) => {
     if (!jobMatch) {
         throw new Error("Job match not found");
     }
-    await prisma_1.prisma.jobMatch.delete({
+    await prisma.jobMatch.delete({
         where: {
             id: jobMatch.id,
         },
     });
     return true;
 };
-exports.deleteJobMatch = deleteJobMatch;

@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.chunkText = void 0;
 const DEFAULT_CHUNK_SIZE = 1200;
 const DEFAULT_OVERLAP = 200;
-const chunkText = (text, chunkSize = DEFAULT_CHUNK_SIZE, overlap = DEFAULT_OVERLAP) => {
+export const chunkText = (text, chunkSize = DEFAULT_CHUNK_SIZE, overlap = DEFAULT_OVERLAP) => {
     if (!text.trim()) {
         return [];
     }
@@ -26,4 +23,3 @@ const chunkText = (text, chunkSize = DEFAULT_CHUNK_SIZE, overlap = DEFAULT_OVERL
     }
     return chunks;
 };
-exports.chunkText = chunkText;

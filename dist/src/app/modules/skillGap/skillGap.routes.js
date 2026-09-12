@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.skillGapRouter = void 0;
-const express_1 = require("express");
-const skillGap_controller_1 = require("./skillGap.controller");
-const checkAuth_1 = require("../../middleware/checkAuth");
-const enums_1 = require("../../../generated/prisma/enums");
-const router = (0, express_1.Router)();
-router.get("/:jobId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), skillGap_controller_1.analyzeSkillGap);
-exports.skillGapRouter = router;
+import { Router } from "express";
+import { analyzeSkillGap } from "./skillGap.controller";
+import { checkAuth } from "../../middleware/checkAuth";
+import { Role } from "../../../generated/prisma/enums";
+const router = Router();
+router.get("/:jobId", checkAuth(Role.CANDIDATE), analyzeSkillGap);
+export const skillGapRouter = router;

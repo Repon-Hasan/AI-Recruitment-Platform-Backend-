@@ -1,14 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAll = void 0;
-exports.createInterview = createInterview;
-exports.getInterview = getInterview;
-exports.getSingleInterview = getSingleInterview;
-exports.rescheduleInterview = rescheduleInterview;
-exports.cancelInterview = cancelInterview;
-const enums_1 = require("../../../../generated/prisma/enums");
-const prisma_1 = require("../../../lib/prisma");
-const interview_validation_1 = require("./interview.validation");
+import { ApplicationStatus, InterviewStatus, } from "../../../../generated/prisma/enums";
+import { prisma } from "../../../lib/prisma";
+import { createInterviewSchema, rescheduleInterviewSchema, } from "./interview.validation";
 /* =========================================================
    Helpers
 ========================================================= */
@@ -29,7 +21,7 @@ function createMeetingUrl(applicationId) {
  * change only this function.
  */
 async function recruiterOwnsApplication(recruiterId, application) {
-    const company = await prisma_1.prisma.company.findFirst({
+    const company = await prisma.company.findFirst({
         where: {
             id: application.job.companyId,
             userId: recruiterId,
@@ -43,12 +35,12 @@ async function recruiterOwnsApplication(recruiterId, application) {
 /* =========================================================
    Create Interview
 ========================================================= */
-async function createInterview(recruiterId, input) {
-    const data = interview_validation_1.createInterviewSchema.parse(input);
+export async function createInterview(recruiterId, input) {
+    const data = createInterviewSchema.parse(input);
     /*
      * Find application
      */
-    const application = await prisma_1.prisma.jobApplication.findUnique({
+    const application = await prisma.jobApplication.findUnique({
         where: {
             id: data.applicationId,
         },
@@ -89,19 +81,19 @@ async function createInterview(recruiterId, input) {
      * Don't allow interviews for rejected/accepted applications
      * depending on your business rules.
      */
-    if (application.status === enums_1.ApplicationStatus.REJECTED) {
+    if (application.status === ApplicationStatus.REJECTED) {
         throw new Error("CANNOT_SCHEDULE_INTERVIEW_FOR_REJECTED_APPLICATION");
     }
     /*
      * Check whether an active interview already exists.
      */
-    const existingInterview = await prisma_1.prisma.interview.findFirst({
+    const existingInterview = await prisma.interview.findFirst({
         where: {
             jobApplicationId: application.id,
             status: {
                 in: [
-                    enums_1.InterviewStatus.SCHEDULED,
-                    enums_1.InterviewStatus.STARTED,
+                    InterviewStatus.SCHEDULED,
+                    InterviewStatus.STARTED,
                 ],
             },
         },
@@ -137,7 +129,7 @@ async function createInterview(recruiterId, input) {
      *
      * inside one transaction.
      */
-    const interview = await prisma_1.prisma.$transaction(async (tx) => {
+    const interview = await prisma.$transaction(async (tx) => {
         /*
          * Create interview
          */
@@ -152,7 +144,7 @@ async function createInterview(recruiterId, input) {
                     `Interview for ${application.job.title}`,
                 notes: data.notes ?? null,
                 meetingUrl,
-                status: enums_1.InterviewStatus.SCHEDULED,
+                status: InterviewStatus.SCHEDULED,
             },
         });
         /*
@@ -228,8 +220,8 @@ async function getOrCreateConversation(tx, applicationId, candidateUserId, recru
 /* =========================================================
    Get Interview / Application Interviews
 ========================================================= */
-async function getInterview(userId, applicationId) {
-    const application = await prisma_1.prisma.jobApplication.findUnique({
+export async function getInterview(userId, applicationId) {
+    const application = await prisma.jobApplication.findUnique({
         where: {
             id: applicationId,
         },
@@ -266,8 +258,8 @@ async function getInterview(userId, applicationId) {
 /* =========================================================
    Get Single Interview
 ========================================================= */
-async function getSingleInterview(userId, interviewId) {
-    const interview = await prisma_1.prisma.interview.findUnique({
+export async function getSingleInterview(userId, interviewId) {
+    const interview = await prisma.interview.findUnique({
         where: {
             id: interviewId,
         },
@@ -310,12 +302,12 @@ async function getSingleInterview(userId, interviewId) {
 /* =========================================================
    Reschedule Interview
 ========================================================= */
-async function rescheduleInterview(recruiterId, interviewId, input) {
-    const data = interview_validation_1.rescheduleInterviewSchema.parse(input);
+export async function rescheduleInterview(recruiterId, interviewId, input) {
+    const data = rescheduleInterviewSchema.parse(input);
     /*
      * Find interview
      */
-    const interview = await prisma_1.prisma.interview.findUnique({
+    const interview = await prisma.interview.findUnique({
         where: {
             id: interviewId,
         },
@@ -352,7 +344,7 @@ async function rescheduleInterview(recruiterId, interviewId, input) {
      * Only scheduled interviews can be rescheduled.
      */
     if (interview.status !==
-        enums_1.InterviewStatus.SCHEDULED) {
+        InterviewStatus.SCHEDULED) {
         throw new Error("INTERVIEW_CANNOT_BE_RESCHEDULED");
     }
     /*
@@ -368,7 +360,7 @@ async function rescheduleInterview(recruiterId, interviewId, input) {
     /*
      * Update interview + notification + message
      */
-    const updatedInterview = await prisma_1.prisma.$transaction(async (tx) => {
+    const updatedInterview = await prisma.$transaction(async (tx) => {
         /*
          * Update interview
          */
@@ -422,8 +414,8 @@ async function rescheduleInterview(recruiterId, interviewId, input) {
 /* =========================================================
    Cancel Interview
 ========================================================= */
-async function cancelInterview(recruiterId, interviewId) {
-    const interview = await prisma_1.prisma.interview.findUnique({
+export async function cancelInterview(recruiterId, interviewId) {
+    const interview = await prisma.interview.findUnique({
         where: {
             id: interviewId,
         },
@@ -460,12 +452,12 @@ async function cancelInterview(recruiterId, interviewId) {
      * Don't cancel an already completed/cancelled interview.
      */
     if (interview.status ===
-        enums_1.InterviewStatus.CANCELLED ||
+        InterviewStatus.CANCELLED ||
         interview.status ===
-            enums_1.InterviewStatus.COMPLETED) {
+            InterviewStatus.COMPLETED) {
         throw new Error("INTERVIEW_ALREADY_CLOSED");
     }
-    const cancelledInterview = await prisma_1.prisma.$transaction(async (tx) => {
+    const cancelledInterview = await prisma.$transaction(async (tx) => {
         /*
          * Cancel interview
          */
@@ -474,7 +466,7 @@ async function cancelInterview(recruiterId, interviewId) {
                 id: interviewId,
             },
             data: {
-                status: enums_1.InterviewStatus.CANCELLED,
+                status: InterviewStatus.CANCELLED,
             },
         });
         /*
@@ -518,11 +510,11 @@ async function cancelInterview(recruiterId, interviewId) {
 /* =========================================================
    GET ALL INTERVIEWS FOR RECRUITER
 ========================================================= */
-const getAll = async (userId) => {
+export const getAll = async (userId) => {
     if (!userId) {
         throw new Error("User ID is required");
     }
-    const interviews = await prisma_1.prisma.interview.findMany({
+    const interviews = await prisma.interview.findMany({
         where: {
             jobApplication: {
                 job: {
@@ -571,4 +563,3 @@ const getAll = async (userId) => {
     });
     return interviews;
 };
-exports.getAll = getAll;

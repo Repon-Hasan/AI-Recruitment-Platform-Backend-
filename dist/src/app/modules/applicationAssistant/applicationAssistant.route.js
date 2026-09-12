@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApplicationAssistantRouter = void 0;
-const express_1 = require("express");
-const enums_1 = require("../../../generated/prisma/enums");
-const checkAuth_1 = require("../../middleware/checkAuth");
-const applicationAssistant_controller_1 = require("./applicationAssistant.controller");
-const router = (0, express_1.Router)();
-router.post("/:jobId", (0, checkAuth_1.checkAuth)(enums_1.Role.CANDIDATE), applicationAssistant_controller_1.ApplicationAssistantController.generateAssistant);
-exports.ApplicationAssistantRouter = router;
+import { Router } from "express";
+import { Role } from "../../../generated/prisma/enums";
+import { checkAuth } from "../../middleware/checkAuth";
+import { ApplicationAssistantController } from "./applicationAssistant.controller";
+const router = Router();
+router.post("/:jobId", checkAuth(Role.CANDIDATE), ApplicationAssistantController.generateAssistant);
+export const ApplicationAssistantRouter = router;

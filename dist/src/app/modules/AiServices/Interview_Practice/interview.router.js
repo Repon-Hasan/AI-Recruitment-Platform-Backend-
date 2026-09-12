@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InterviewPracticesRouter = void 0;
-const express_1 = require("express");
-const interview_controller_1 = require("./interview.controller");
-const checkAuth_1 = require("../../../middleware/checkAuth");
-const router = (0, express_1.Router)();
-router.post("/practice/start", (0, checkAuth_1.checkAuth)(), interview_controller_1.InterviewController.startInterview);
-router.post("/practice/answer", (0, checkAuth_1.checkAuth)(), interview_controller_1.InterviewController.answerInterview);
-exports.InterviewPracticesRouter = router;
+import { Router } from "express";
+import { InterviewController } from "./interview.controller";
+import { checkAuth } from "../../../middleware/checkAuth";
+const router = Router();
+router.post("/practice/start", checkAuth(), InterviewController.startInterview);
+router.post("/practice/answer", checkAuth(), InterviewController.answerInterview);
+export const InterviewPracticesRouter = router;

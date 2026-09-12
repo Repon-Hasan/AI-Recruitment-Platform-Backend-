@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.notificationController = void 0;
-const notification_service_1 = require("./notification.service");
+import { notificationService } from "./notification.service";
 const getMyNotifications = async (req, res) => {
     const userId = req.user.id;
     const page = Number(req.query.page) || 1;
     const limit = Math.min(Number(req.query.limit) || 20, 100);
-    const result = await notification_service_1.notificationService.getMyNotifications(userId, page, limit);
+    const result = await notificationService.getMyNotifications(userId, page, limit);
     res.status(200).json({
         success: true,
         message: "Notifications retrieved successfully",
@@ -15,7 +12,7 @@ const getMyNotifications = async (req, res) => {
 };
 const getUnreadNotifications = async (req, res) => {
     const userId = req.user.id;
-    const notifications = await notification_service_1.notificationService.getUnreadNotifications(userId);
+    const notifications = await notificationService.getUnreadNotifications(userId);
     res.status(200).json({
         success: true,
         message: "Unread notifications retrieved successfully",
@@ -24,7 +21,7 @@ const getUnreadNotifications = async (req, res) => {
 };
 const getUnreadCount = async (req, res) => {
     const userId = req.user.id;
-    const count = await notification_service_1.notificationService.getUnreadCount(userId);
+    const count = await notificationService.getUnreadCount(userId);
     res.status(200).json({
         success: true,
         message: "Unread notification count retrieved successfully",
@@ -44,7 +41,7 @@ const markAsRead = async (req, res) => {
             message: "Notification id is required",
         });
     }
-    const notification = await notification_service_1.notificationService.markAsRead(userId, id);
+    const notification = await notificationService.markAsRead(userId, id);
     res.status(200).json({
         success: true,
         message: "Notification marked as read",
@@ -53,7 +50,7 @@ const markAsRead = async (req, res) => {
 };
 const markAllAsRead = async (req, res) => {
     const userId = req.user.id;
-    const result = await notification_service_1.notificationService.markAllAsRead(userId);
+    const result = await notificationService.markAllAsRead(userId);
     res.status(200).json({
         success: true,
         message: "All notifications marked as read",
@@ -71,7 +68,7 @@ const deleteNotification = async (req, res) => {
             message: "Notification id is required",
         });
     }
-    await notification_service_1.notificationService.deleteNotification(userId, id);
+    await notificationService.deleteNotification(userId, id);
     res.status(200).json({
         success: true,
         message: "Notification deleted successfully",
@@ -79,14 +76,14 @@ const deleteNotification = async (req, res) => {
 };
 const deleteAllNotifications = async (req, res) => {
     const userId = req.user.id;
-    const result = await notification_service_1.notificationService.deleteAllNotifications(userId);
+    const result = await notificationService.deleteAllNotifications(userId);
     res.status(200).json({
         success: true,
         message: "All notifications deleted successfully",
         data: result,
     });
 };
-exports.notificationController = {
+export const notificationController = {
     getMyNotifications,
     getUnreadNotifications,
     getUnreadCount,
