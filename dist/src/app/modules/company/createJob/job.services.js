@@ -1,123 +1,132 @@
+import { JobStatus, RemoteType, } from "../../../../generated/prisma/enums";
 import { prisma } from "../../../lib/prisma";
 import { generateJobEmbedding } from "./generateJobEmbedding";
 import { searchJobSchema } from "./job.validation";
+// ============================================================
+// HELPER
+// ============================================================
+const createError = (message, statusCode) => {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    return error;
+};
+// ============================================================
+// 1. CREATE JOB
+// ============================================================
 const createJobService = async (userId, data) => {
-    // =========================================================
-    // 1. Prepare required skills
-    // =========================================================
-    const skillNames = (data.requiredSkills ?? [])
-        .map((skill) => typeof skill === "string" ? skill : skill.name)
-        .map((skill) => skill.trim())
-        .filter(Boolean);
-    // =========================================================
-    // 2. Find company
-    // =========================================================
+    // ==========================================================
+    // 1. Find company
+    // ==========================================================
     const company = await prisma.company.findUnique({
         where: {
             userId,
         },
     });
     if (!company) {
-        const error = new Error("Company profile not found");
-        error.statusCode = 404;
-        throw error;
+        throw createError("Company profile not found", 404);
     }
-    // =========================================================
-    // 3. Validate required fields
-    // =========================================================
+    // ==========================================================
+    // 2. Validate basic fields
+    // ==========================================================
     if (!data.title?.trim()) {
-        const error = new Error("Job title is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Job title is required", 400);
     }
     if (!data.description?.trim()) {
-        const error = new Error("Job description is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Job description is required", 400);
     }
     if (!data.location?.trim()) {
-        const error = new Error("Job location is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Job location is required", 400);
     }
     if (!data.employmentType) {
-        const error = new Error("Employment type is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Employment type is required", 400);
     }
     if (!data.experienceLevel) {
-        const error = new Error("Experience level is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Experience level is required", 400);
     }
     if (!data.deadline) {
-        const error = new Error("Deadline is required");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Deadline is required", 400);
     }
-    // =========================================================
+    // ==========================================================
+    // 3. Narrow required values
+    // ==========================================================
+    const title = data.title.trim();
+    const description = data.description.trim();
+    const location = data.location.trim();
+    const employmentType = data.employmentType;
+    const experienceLevel = data.experienceLevel;
+    const remoteType = data.remoteType ?? RemoteType.ONSITE;
+    const status = data.status;
+    // ==========================================================
     // 4. Validate deadline
-    // =========================================================
+    // ==========================================================
     const deadline = data.deadline instanceof Date
         ? data.deadline
         : new Date(data.deadline);
     if (Number.isNaN(deadline.getTime())) {
-        const error = new Error("Invalid deadline");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Invalid deadline", 400);
     }
     if (deadline <= new Date()) {
-        const error = new Error("Deadline must be a future date");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Deadline must be a future date", 400);
     }
-    // =========================================================
+    // ==========================================================
     // 5. Validate salary
-    // =========================================================
+    // ==========================================================
     if (data.salaryMin !== undefined &&
         data.salaryMin !== null &&
         data.salaryMax !== undefined &&
         data.salaryMax !== null &&
         data.salaryMin > data.salaryMax) {
-        const error = new Error("Minimum salary cannot be greater than maximum salary");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Minimum salary cannot be greater than maximum salary", 400);
     }
-    // =========================================================
-    // 6. Create Job
-    // =========================================================
+    // ==========================================================
+    // 6. Prepare required skills
+    // ==========================================================
+    const skillNames = (data.requiredSkills ?? [])
+        .map((skill) => {
+        if (typeof skill === "string") {
+            return {
+                name: skill,
+                priority: "medium",
+            };
+        }
+        return {
+            name: skill.name,
+            priority: skill.priority ?? "medium",
+        };
+    })
+        .map((skill) => ({
+        name: skill.name.trim(),
+        priority: skill.priority,
+    }))
+        .filter((skill) => Boolean(skill.name));
+    // ==========================================================
+    // 7. Create job
+    // ==========================================================
     const job = await prisma.job.create({
         data: {
-            // Company
             company: {
                 connect: {
                     id: company.id,
                 },
             },
-            // Basic information
-            title: data.title.trim(),
-            description: data.description.trim(),
-            location: data.location.trim(),
-            // Job type
-            remoteType: data.remoteType,
-            employmentType: data.employmentType,
-            experienceLevel: data.experienceLevel,
-            // Salary
+            title,
+            description,
+            location,
+            remoteType,
+            employmentType,
+            experienceLevel,
             salaryMin: data.salaryMin,
             salaryMax: data.salaryMax,
-            salaryCurrency: data.salaryCurrency,
-            // Deadline
+            salaryCurrency: data.salaryCurrency ?? "BDT",
             deadline,
-            // Status
-            status: data.status,
-            // Published date
-            publishedAt: data.status === "PUBLISHED"
+            status,
+            publishedAt: status === JobStatus.PUBLISHED
                 ? new Date()
                 : null,
-            // Required skills
             requiredSkills: {
-                create: skillNames.map((name) => ({
-                    name,
+                create: skillNames.map((skill) => ({
+                    name: skill.name,
+                    priority: skill.priority,
                 })),
             },
         },
@@ -126,10 +135,12 @@ const createJobService = async (userId, data) => {
             requiredSkills: true,
         },
     });
-    // =========================================================
-    // 7. Prepare embedding text
-    // =========================================================
-    const skillsText = skillNames.join(", ");
+    // ==========================================================
+    // 8. Prepare embedding text
+    // ==========================================================
+    const skillsText = skillNames
+        .map((skill) => skill.name)
+        .join(", ");
     const jobText = `
 Job Title:
 ${job.title}
@@ -150,7 +161,8 @@ Experience Level:
 ${job.experienceLevel}
 
 Salary:
-${job.salaryMin !== null || job.salaryMax !== null
+${job.salaryMin !== null ||
+        job.salaryMax !== null
         ? `${job.salaryMin ?? "N/A"} - ${job.salaryMax ?? "N/A"} ${job.salaryCurrency ?? ""}`
         : "Not specified"}
 
@@ -160,9 +172,9 @@ ${job.deadline.toISOString()}
 Required Skills:
 ${skillsText || "No specific skills mentioned"}
 `.trim();
-    // =========================================================
-    // 8. Generate embedding
-    // =========================================================
+    // ==========================================================
+    // 9. Generate embedding
+    // ==========================================================
     console.log("Job embedding text:");
     console.log(jobText);
     let embeddingResult = null;
@@ -172,9 +184,9 @@ ${skillsText || "No specific skills mentioned"}
     catch (error) {
         console.error("Job saved, but embedding generation failed:", error);
     }
-    // =========================================================
-    // 9. Return result
-    // =========================================================
+    // ==========================================================
+    // 10. Return
+    // ==========================================================
     return {
         ...job,
         embedding: embeddingResult
@@ -184,7 +196,9 @@ ${skillsText || "No specific skills mentioned"}
             : null,
     };
 };
-// 1. Get All Jobs
+// ============================================================
+// 2. GET ALL COMPANY JOBS
+// ============================================================
 const getAllJobsService = async (userId) => {
     const company = await prisma.company.findUnique({
         where: {
@@ -192,7 +206,7 @@ const getAllJobsService = async (userId) => {
         },
     });
     if (!company) {
-        throw new Error("Company profile not found");
+        throw createError("Company profile not found", 404);
     }
     const jobs = await prisma.job.findMany({
         where: {
@@ -213,14 +227,34 @@ const getAllJobsService = async (userId) => {
     });
     return jobs;
 };
+// ============================================================
+// 3. GET ALL JOBS
+// ============================================================
 const allJobsService = async () => {
-    const jobs = await prisma.job.findMany();
+    const jobs = await prisma.job.findMany({
+        include: {
+            company: true,
+            requiredSkills: true,
+            _count: {
+                select: {
+                    jobApplications: true,
+                    matches: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+    });
     return jobs;
 };
-// 2. Update Job
+// ============================================================
+// 4. UPDATE JOB
+// ============================================================
 const updateJobService = async (userId, jobId, data) => {
-    // 1. Check if job exists and belongs to
-    //    the logged-in user's company
+    // ==========================================================
+    // 1. Check existing job
+    // ==========================================================
     const existingJob = await prisma.job.findFirst({
         where: {
             id: jobId,
@@ -228,87 +262,150 @@ const updateJobService = async (userId, jobId, data) => {
                 userId,
             },
         },
+        include: {
+            requiredSkills: true,
+        },
     });
     if (!existingJob) {
-        const error = new Error("Job not found or unauthorized");
-        error.statusCode = 404;
-        throw error;
+        throw createError("Job not found or unauthorized", 404);
     }
+    // ==========================================================
     // 2. Validate salary
+    // ==========================================================
     if (data.salaryMin !== undefined &&
         data.salaryMax !== undefined &&
+        data.salaryMin !== null &&
+        data.salaryMax !== null &&
         data.salaryMin > data.salaryMax) {
-        const error = new Error("Minimum salary cannot be greater than maximum salary");
-        error.statusCode = 400;
-        throw error;
+        throw createError("Minimum salary cannot be greater than maximum salary", 400);
     }
+    // ==========================================================
     // 3. Validate deadline
-    if (data.deadline && data.deadline <= new Date()) {
-        const error = new Error("Deadline must be a future date");
-        error.statusCode = 400;
-        throw error;
+    // ==========================================================
+    if (data.deadline) {
+        if (data.deadline <= new Date()) {
+            throw createError("Deadline must be a future date", 400);
+        }
     }
-    // 4. Update Job + Required Skills
+    // ==========================================================
+    // 4. Prepare update data
+    // ==========================================================
+    const updateData = {
+        ...(data.title !== undefined && {
+            title: data.title.trim(),
+        }),
+        ...(data.description !== undefined && {
+            description: data.description.trim(),
+        }),
+        ...(data.location !== undefined && {
+            location: data.location.trim(),
+        }),
+        ...(data.remoteType !== undefined && {
+            remoteType: data.remoteType,
+        }),
+        ...(data.employmentType !== undefined &&
+            data.employmentType !== "" && {
+            employmentType: data.employmentType,
+        }),
+        ...(data.experienceLevel !== undefined &&
+            data.experienceLevel !== null && {
+            experienceLevel: data.experienceLevel,
+        }),
+        ...(data.salaryMin !== undefined && {
+            salaryMin: data.salaryMin,
+        }),
+        ...(data.salaryMax !== undefined && {
+            salaryMax: data.salaryMax,
+        }),
+        ...(data.salaryCurrency !== undefined && {
+            salaryCurrency: data.salaryCurrency,
+        }),
+        ...(data.deadline !== undefined && {
+            deadline: data.deadline,
+        }),
+        ...(data.status !== undefined && {
+            status: data.status,
+        }),
+        ...(data.status === "PUBLISHED" && {
+            publishedAt: existingJob.publishedAt ?? new Date(),
+        }),
+        ...(data.status !== "PUBLISHED" &&
+            data.status !== undefined && {
+            publishedAt: null,
+        }),
+    };
+    // ==========================================================
+    // 5. Transaction
+    // ==========================================================
     const updatedJob = await prisma.$transaction(async (tx) => {
-        // If requiredSkills is provided,
-        // replace the old skills
+        // ------------------------------------------------------
+        // Replace required skills if provided
+        // ------------------------------------------------------
         if (data.requiredSkills !== undefined) {
             await tx.jobSkill.deleteMany({
                 where: {
                     jobId,
                 },
             });
+            const skills = data.requiredSkills
+                .map((skill) => {
+                if (typeof skill === "string") {
+                    return {
+                        name: skill,
+                        priority: "medium",
+                    };
+                }
+                return {
+                    name: skill.name,
+                    priority: skill.priority ?? "medium",
+                };
+            })
+                .map((skill) => ({
+                name: skill.name.trim(),
+                priority: skill.priority,
+            }))
+                .filter((skill) => Boolean(skill.name));
+            if (skills.length > 0) {
+                await tx.jobSkill.createMany({
+                    data: skills.map((skill) => ({
+                        jobId,
+                        name: skill.name,
+                        priority: skill.priority,
+                    })),
+                });
+            }
         }
+        // ------------------------------------------------------
         // Update job
+        // ------------------------------------------------------
         const job = await tx.job.update({
             where: {
                 id: jobId,
             },
-            data: {
-                // Basic information
-                title: data.title,
-                description: data.description,
-                location: data.location,
-                // Job type
-                remoteType: data.remoteType,
-                employmentType: data.employmentType,
-                experienceLevel: data.experienceLevel,
-                // Salary
-                salaryMin: data.salaryMin,
-                salaryMax: data.salaryMax,
-                salaryCurrency: data.salaryCurrency,
-                // Deadline
-                deadline: data.deadline,
-                // Status
-                status: data.status,
-                // Published date
-                publishedAt: data.status === "PUBLISHED"
-                    ? existingJob.publishedAt ?? new Date()
-                    : null,
-                // Required skills
-                requiredSkills: data.requiredSkills !== undefined
-                    ? {
-                        create: data.requiredSkills
-                            .map((skill) => typeof skill === "string" ? skill : skill.name)
-                            .map((skill) => skill.trim())
-                            .filter(Boolean)
-                            .map((name) => ({ name })),
-                    }
-                    : undefined,
-            },
+            data: updateData,
             include: {
                 company: true,
                 matches: true,
                 requiredSkills: true,
+                _count: {
+                    select: {
+                        jobApplications: true,
+                        matches: true,
+                    },
+                },
             },
         });
         return job;
     });
-    // 5. Prepare skills for embedding
+    // ==========================================================
+    // 6. Prepare embedding skills
+    // ==========================================================
     const skillsText = updatedJob.requiredSkills
         .map((skill) => skill.name)
         .join(", ");
-    // 6. Create complete job text
+    // ==========================================================
+    // 7. Prepare embedding text
+    // ==========================================================
     const jobText = `
 Job Title:
 ${updatedJob.title}
@@ -317,16 +414,16 @@ Job Description:
 ${updatedJob.description}
 
 Location:
-${updatedJob.location ?? "Not specified"}
+${updatedJob.location}
 
 Remote Type:
-${updatedJob.remoteType ?? "Not specified"}
+${updatedJob.remoteType}
 
 Employment Type:
-${updatedJob.employmentType ?? "Not specified"}
+${updatedJob.employmentType}
 
 Experience Level:
-${updatedJob.experienceLevel ?? "Not specified"}
+${updatedJob.experienceLevel}
 
 Salary:
 ${updatedJob.salaryMin !== null ||
@@ -335,25 +432,39 @@ ${updatedJob.salaryMin !== null ||
         : "Not specified"}
 
 Deadline:
-${updatedJob.deadline?.toISOString() ??
-        "Not specified"}
+${updatedJob.deadline.toISOString()}
 
 Required Skills:
 ${skillsText || "No specific skills mentioned"}
 `.trim();
     console.log("Updated Job embedding text:");
     console.log(jobText);
-    // 7. Regenerate job embedding
-    const embeddingResult = await generateJobEmbedding(updatedJob.id, jobText);
-    // 8. Return updated job
+    // ==========================================================
+    // 8. Regenerate embedding
+    // ==========================================================
+    let embeddingResult = null;
+    try {
+        embeddingResult =
+            await generateJobEmbedding(updatedJob.id, jobText);
+    }
+    catch (error) {
+        console.error("Job updated, but embedding generation failed:", error);
+    }
+    // ==========================================================
+    // 9. Return
+    // ==========================================================
     return {
         ...updatedJob,
-        embedding: {
-            dimensions: embeddingResult.dimensions,
-        },
+        embedding: embeddingResult
+            ? {
+                dimensions: embeddingResult.dimensions,
+            }
+            : null,
     };
 };
-// 3. Delete Job
+// ============================================================
+// 5. DELETE JOB
+// ============================================================
 const deleteJobService = async (userId, jobId) => {
     const company = await prisma.company.findUnique({
         where: {
@@ -361,7 +472,7 @@ const deleteJobService = async (userId, jobId) => {
         },
     });
     if (!company) {
-        throw new Error("Company profile not found");
+        throw createError("Company profile not found", 404);
     }
     const job = await prisma.job.findFirst({
         where: {
@@ -370,7 +481,7 @@ const deleteJobService = async (userId, jobId) => {
         },
     });
     if (!job) {
-        throw new Error("Job not found or you do not own this job");
+        throw createError("Job not found or you do not own this job", 404);
     }
     await prisma.job.delete({
         where: {
@@ -379,6 +490,9 @@ const deleteJobService = async (userId, jobId) => {
     });
     return null;
 };
+// ============================================================
+// 6. GET JOB BY ID
+// ============================================================
 const getJobById = async (jobId) => {
     const job = await prisma.job.findUnique({
         where: {
@@ -396,10 +510,13 @@ const getJobById = async (jobId) => {
         },
     });
     if (!job) {
-        throw new Error("Job not found");
+        throw createError("Job not found", 404);
     }
     return job;
 };
+// ============================================================
+// 7. PUBLISH JOB
+// ============================================================
 const publishJob = async (userId, jobId) => {
     const company = await prisma.company.findUnique({
         where: {
@@ -407,7 +524,7 @@ const publishJob = async (userId, jobId) => {
         },
     });
     if (!company) {
-        throw new Error("Company profile not found");
+        throw createError("Company profile not found", 404);
     }
     const job = await prisma.job.findFirst({
         where: {
@@ -416,26 +533,32 @@ const publishJob = async (userId, jobId) => {
         },
     });
     if (!job) {
-        throw new Error("Job not found");
+        throw createError("Job not found", 404);
     }
-    if (job.status === "PUBLISHED") {
-        throw new Error("Job is already published");
+    if (job.status === JobStatus.PUBLISHED) {
+        throw createError("Job is already published", 400);
     }
-    if (job.deadline &&
-        job.deadline <= new Date()) {
-        throw new Error("Cannot publish a job with an expired deadline");
+    if (job.deadline <= new Date()) {
+        throw createError("Cannot publish a job with an expired deadline", 400);
     }
     return prisma.job.update({
         where: {
             id: jobId,
         },
         data: {
-            status: "PUBLISHED",
+            status: JobStatus.PUBLISHED,
             publishedAt: new Date(),
             closedAt: null,
         },
+        include: {
+            company: true,
+            requiredSkills: true,
+        },
     });
 };
+// ============================================================
+// 8. CLOSE JOB
+// ============================================================
 const closeJob = async (userId, jobId) => {
     const company = await prisma.company.findUnique({
         where: {
@@ -443,7 +566,7 @@ const closeJob = async (userId, jobId) => {
         },
     });
     if (!company) {
-        throw new Error("Company profile not found");
+        throw createError("Company profile not found", 404);
     }
     const job = await prisma.job.findFirst({
         where: {
@@ -452,21 +575,28 @@ const closeJob = async (userId, jobId) => {
         },
     });
     if (!job) {
-        throw new Error("Job not found");
+        throw createError("Job not found", 404);
     }
-    if (job.status === "CLOSED") {
-        throw new Error("Job is already closed");
+    if (job.status === JobStatus.CLOSED) {
+        throw createError("Job is already closed", 400);
     }
     return prisma.job.update({
         where: {
             id: jobId,
         },
         data: {
-            status: "CLOSED",
+            status: JobStatus.CLOSED,
             closedAt: new Date(),
+        },
+        include: {
+            company: true,
+            requiredSkills: true,
         },
     });
 };
+// ============================================================
+// 9. DUPLICATE JOB
+// ============================================================
 const duplicateJob = async (userId, jobId) => {
     const company = await prisma.company.findUnique({
         where: {
@@ -474,7 +604,7 @@ const duplicateJob = async (userId, jobId) => {
         },
     });
     if (!company) {
-        throw new Error("Company profile not found");
+        throw createError("Company profile not found", 404);
     }
     const job = await prisma.job.findFirst({
         where: {
@@ -486,8 +616,12 @@ const duplicateJob = async (userId, jobId) => {
         },
     });
     if (!job) {
-        throw new Error("Job not found");
+        throw createError("Job not found", 404);
     }
+    // Prisma schema requires deadline.
+    // Therefore, duplicated draft gets a future deadline.
+    const duplicateDeadline = new Date();
+    duplicateDeadline.setDate(duplicateDeadline.getDate() + 30);
     const duplicatedJob = await prisma.job.create({
         data: {
             companyId: company.id,
@@ -500,69 +634,64 @@ const duplicateJob = async (userId, jobId) => {
             salaryMin: job.salaryMin,
             salaryMax: job.salaryMax,
             salaryCurrency: job.salaryCurrency,
-            deadline: null,
-            status: "DRAFT",
+            deadline: duplicateDeadline,
+            status: JobStatus.DRAFT,
             publishedAt: null,
             closedAt: null,
             requiredSkills: {
                 create: job.requiredSkills.map((skill) => ({
                     name: skill.name,
+                    priority: skill.priority,
                 })),
             },
         },
         include: {
             requiredSkills: true,
+            company: true,
         },
     });
     return duplicatedJob;
 };
+// ============================================================
+// 10. SEARCH JOBS
+// ============================================================
 const searchJobs = async (query) => {
-    // =====================================================
-    // 1. VALIDATE QUERY
-    // =====================================================
+    // ==========================================================
+    // 1. Validate query
+    // ==========================================================
     const params = searchJobSchema.parse(query);
     const { keyword, location, skills, salaryMin, salaryMax, experience, remote, employmentType, companyId, page, limit, sortBy, sortOrder, } = params;
-    // =====================================================
-    // 2. PAGINATION
-    // =====================================================
+    // ==========================================================
+    // 2. Pagination
+    // ==========================================================
     const currentPage = Math.max(page ?? 1, 1);
     const currentLimit = Math.min(Math.max(limit ?? 10, 1), 100);
-    const skip = (currentPage - 1) * currentLimit;
-    // =====================================================
-    // 3. BASE WHERE
-    // =====================================================
+    const skip = (currentPage - 1) *
+        currentLimit;
+    // ==========================================================
+    // 3. Base where
+    // ==========================================================
     const where = {
-        status: "PUBLISHED",
+        status: JobStatus.PUBLISHED,
     };
-    // =====================================================
-    // 4. KEYWORD SEARCH
-    //
-    // ?keyword=react
-    //
-    // Searches:
-    // - title
-    // - description
-    // - company name
-    // - required skill name
-    // =====================================================
+    // ==========================================================
+    // 4. Keyword search
+    // ==========================================================
     if (keyword?.trim()) {
         const search = keyword.trim();
         where.OR = [
-            // Job title
             {
                 title: {
                     contains: search,
                     mode: "insensitive",
                 },
             },
-            // Job description
             {
                 description: {
                     contains: search,
                     mode: "insensitive",
                 },
             },
-            // Company name
             {
                 company: {
                     name: {
@@ -571,7 +700,6 @@ const searchJobs = async (query) => {
                     },
                 },
             },
-            // Required skills
             {
                 requiredSkills: {
                     some: {
@@ -584,64 +712,45 @@ const searchJobs = async (query) => {
             },
         ];
     }
-    // =====================================================
-    // 5. LOCATION FILTER
-    //
-    // ?location=Dhaka
-    // =====================================================
+    // ==========================================================
+    // 5. Location filter
+    // ==========================================================
     if (location?.trim()) {
         where.location = {
             contains: location.trim(),
             mode: "insensitive",
         };
     }
-    // =====================================================
-    // 6. REMOTE TYPE FILTER
-    //
-    // ?remote=REMOTE
-    // ?remote=HYBRID
-    // ?remote=ONSITE
-    // =====================================================
+    // ==========================================================
+    // 6. Remote filter
+    // ==========================================================
     if (remote) {
-        where.remoteType = remote;
+        where.remoteType =
+            remote;
     }
-    // =====================================================
-    // 7. EXPERIENCE FILTER
-    //
-    // ?experience=ENTRY
-    // =====================================================
+    // ==========================================================
+    // 7. Experience filter
+    // ==========================================================
     if (experience) {
-        where.experienceLevel = experience;
+        where.experienceLevel =
+            experience;
     }
-    // =====================================================
-    // 8. EMPLOYMENT TYPE FILTER
-    //
-    // ?employmentType=FULL_TIME
-    // =====================================================
+    // ==========================================================
+    // 8. Employment type filter
+    // ==========================================================
     if (employmentType) {
-        where.employmentType = employmentType;
+        where.employmentType =
+            employmentType;
     }
-    // =====================================================
-    // 9. COMPANY FILTER
-    //
-    // ?companyId=xxxxxxxx
-    // =====================================================
+    // ==========================================================
+    // 9. Company filter
+    // ==========================================================
     if (companyId) {
         where.companyId = companyId;
     }
-    // =====================================================
-    // 10. SKILLS FILTER
-    //
-    // Example:
-    //
-    // ?skills=React
-    //
-    // or:
-    //
-    // ?skills=React,Node.js
-    //
-    // Each requested skill must exist in requiredSkills.
-    // =====================================================
+    // ==========================================================
+    // 10. Skills filter
+    // ==========================================================
     if (skills?.trim()) {
         const skillList = skills
             .split(",")
@@ -658,7 +767,6 @@ const searchJobs = async (query) => {
                     },
                 },
             }));
-            // Preserve any existing conditions.
             where.AND = [
                 ...(Array.isArray(where.AND)
                     ? where.AND
@@ -667,19 +775,9 @@ const searchJobs = async (query) => {
             ];
         }
     }
-    // =====================================================
-    // 11. SALARY FILTER
-    //
-    // salaryMin=30000
-    //
-    // Job salaryMax must be >= 30000
-    //
-    // salaryMax=60000
-    //
-    // Job salaryMin must be <= 60000
-    //
-    // This finds overlapping salary ranges.
-    // =====================================================
+    // ==========================================================
+    // 11. Salary filter
+    // ==========================================================
     if (salaryMin !== undefined) {
         where.salaryMax = {
             gte: salaryMin,
@@ -690,9 +788,9 @@ const searchJobs = async (query) => {
             lte: salaryMax,
         };
     }
-    // =====================================================
-    // 12. SAFE SORTING
-    // =====================================================
+    // ==========================================================
+    // 12. Safe sorting
+    // ==========================================================
     const allowedSortFields = [
         "createdAt",
         "publishedAt",
@@ -706,31 +804,15 @@ const searchJobs = async (query) => {
     const safeSortOrder = sortOrder === "asc"
         ? "asc"
         : "desc";
-    // =====================================================
-    // 13. DATABASE QUERY
-    //
-    // IMPORTANT:
-    //
-    // DO NOT USE:
-    //
-    // prisma.$transaction([...])
-    //
-    // because your P2028 error is coming from
-    // transaction startup.
-    //
-    // These are independent READ queries,
-    // so Promise.all() is appropriate.
-    // =====================================================
+    // ==========================================================
+    // 13. Database queries
+    // ==========================================================
     const [jobs, total] = await Promise.all([
-        // ---------------------------------------------------
-        // FIND JOBS
-        // ---------------------------------------------------
         prisma.job.findMany({
             where,
             skip,
             take: currentLimit,
             include: {
-                // Company information
                 company: {
                     select: {
                         id: true,
@@ -738,11 +820,7 @@ const searchJobs = async (query) => {
                         website: true,
                     },
                 },
-                // IMPORTANT:
-                // Your schema has requiredSkills.
-                // There is NO preferredSkills.
                 requiredSkills: true,
-                // Counts
                 _count: {
                     select: {
                         jobApplications: true,
@@ -754,20 +832,17 @@ const searchJobs = async (query) => {
                 [safeSortBy]: safeSortOrder,
             },
         }),
-        // ---------------------------------------------------
-        // COUNT TOTAL MATCHING JOBS
-        // ---------------------------------------------------
         prisma.job.count({
             where,
         }),
     ]);
-    // =====================================================
-    // 14. PAGINATION INFORMATION
-    // =====================================================
+    // ==========================================================
+    // 14. Pagination
+    // ==========================================================
     const totalPages = Math.ceil(total / currentLimit);
-    // =====================================================
-    // 15. RETURN
-    // =====================================================
+    // ==========================================================
+    // 15. Return
+    // ==========================================================
     return {
         jobs,
         pagination: {
@@ -780,7 +855,18 @@ const searchJobs = async (query) => {
         },
     };
 };
+// ============================================================
+// EXPORT
+// ============================================================
 export const jobServices = {
-    createJobService, updateJobService, deleteJobService, getAllJobsService, getJobById, publishJob,
-    closeJob, duplicateJob, searchJobs, allJobsService
+    createJobService,
+    updateJobService,
+    deleteJobService,
+    getAllJobsService,
+    getJobById,
+    publishJob,
+    closeJob,
+    duplicateJob,
+    searchJobs,
+    allJobsService,
 };
