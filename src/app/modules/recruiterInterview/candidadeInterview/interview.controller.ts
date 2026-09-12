@@ -1,3 +1,4 @@
+
 import { Request, Response } from "express";
 
 import interviewService from "./interview.service";
@@ -6,7 +7,6 @@ import {
   createInterviewSchema,
   updateInterviewSchema,
 } from "./interview.validation";
-
 
 // ============================================
 // CREATE
@@ -58,7 +58,6 @@ export const createInterviewController =
     }
   };
 
-
 // ============================================
 // CANDIDATE - GET ALL
 // ============================================
@@ -93,7 +92,6 @@ export const getCandidateInterviewsController =
     }
   };
 
-
 // ============================================
 // CANDIDATE - GET SINGLE
 // ============================================
@@ -108,7 +106,9 @@ export const getCandidateInterviewByIdController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       const interview =
         await interviewService.getCandidateInterviewById(
@@ -132,7 +132,6 @@ export const getCandidateInterviewByIdController =
     }
   };
 
-
 // ============================================
 // CONFIRM
 // ============================================
@@ -147,7 +146,9 @@ export const confirmInterviewController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       const interview =
         await interviewService.confirmInterview(
@@ -171,7 +172,6 @@ export const confirmInterviewController =
     }
   };
 
-
 // ============================================
 // CANCEL
 // ============================================
@@ -186,7 +186,9 @@ export const cancelInterviewController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       const interview =
         await interviewService.cancelInterview(
@@ -210,7 +212,6 @@ export const cancelInterviewController =
     }
   };
 
-
 // ============================================
 // RESCHEDULE
 // ============================================
@@ -225,7 +226,9 @@ export const rescheduleInterviewController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       const { scheduledAt } =
         req.body;
@@ -261,7 +264,6 @@ export const rescheduleInterviewController =
     }
   };
 
-
 // ============================================
 // RECRUITER - GET ALL
 // ============================================
@@ -296,7 +298,6 @@ export const getRecruiterInterviewsController =
     }
   };
 
-
 // ============================================
 // RECRUITER - UPDATE
 // ============================================
@@ -311,7 +312,9 @@ export const updateInterviewController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       const parsed =
         updateInterviewSchema.safeParse(
@@ -351,7 +354,6 @@ export const updateInterviewController =
     }
   };
 
-
 // ============================================
 // RECRUITER - DELETE
 // ============================================
@@ -366,7 +368,9 @@ export const deleteInterviewController =
         req.user.userId;
 
       const { interviewId } =
-        req.params;
+        req.params as {
+          interviewId: string;
+        };
 
       await interviewService.deleteInterview(
         recruiterId,
@@ -387,3 +391,4 @@ export const deleteInterviewController =
       });
     }
   };
+

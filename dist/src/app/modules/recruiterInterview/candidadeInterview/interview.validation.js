@@ -16,11 +16,7 @@ export const createInterviewSchema = z.object({
         .enum([
         "VIDEO",
         "PHONE",
-        "IN_PERSON",
-        "TECHNICAL",
-        "HR",
-        "BEHAVIORAL",
-        "FINAL",
+        "IN_PERSON"
     ])
         .optional(),
     meetingUrl: z
@@ -52,11 +48,7 @@ export const updateInterviewSchema = z.object({
         .enum([
         "VIDEO",
         "PHONE",
-        "IN_PERSON",
-        "TECHNICAL",
-        "HR",
-        "BEHAVIORAL",
-        "FINAL",
+        "IN_PERSON"
     ])
         .optional(),
     meetingUrl: z
