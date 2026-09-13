@@ -1,4 +1,4 @@
-import { IRequestUser } from "../modules/Auth/auth.interface";
+import type { IRequestUser } from "../modules/Auth/auth.interface";
 
 
 declare global {
@@ -8,3 +8,5 @@ declare global {
         }
     }
 }
+
+export {};
