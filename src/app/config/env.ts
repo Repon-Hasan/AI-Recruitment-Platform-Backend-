@@ -36,7 +36,8 @@ interface EnvConfig {
    OPENROUTER_API_KEY:string;
    OPENROUTER_EMBEDDING_MODEL:string;
    GEMINI_API_KEY:string;
-   GEMINI_LLM_MODEL:string
+   GEMINI_LLM_MODEL:string;
+  
 
 }
 
