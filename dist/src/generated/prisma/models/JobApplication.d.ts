@@ -1,0 +1,2072 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model JobApplication
+ *
+ */
+export type JobApplicationModel = runtime.Types.Result.DefaultSelection<Prisma.$JobApplicationPayload>;
+export type AggregateJobApplication = {
+    _count: JobApplicationCountAggregateOutputType | null;
+    _min: JobApplicationMinAggregateOutputType | null;
+    _max: JobApplicationMaxAggregateOutputType | null;
+};
+export type JobApplicationMinAggregateOutputType = {
+    id: string | null;
+    candidateProfileId: string | null;
+    jobId: string | null;
+    coverLetter: string | null;
+    status: $Enums.ApplicationStatus | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type JobApplicationMaxAggregateOutputType = {
+    id: string | null;
+    candidateProfileId: string | null;
+    jobId: string | null;
+    coverLetter: string | null;
+    status: $Enums.ApplicationStatus | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type JobApplicationCountAggregateOutputType = {
+    id: number;
+    candidateProfileId: number;
+    jobId: number;
+    coverLetter: number;
+    status: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+};
+export type JobApplicationMinAggregateInputType = {
+    id?: true;
+    candidateProfileId?: true;
+    jobId?: true;
+    coverLetter?: true;
+    status?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type JobApplicationMaxAggregateInputType = {
+    id?: true;
+    candidateProfileId?: true;
+    jobId?: true;
+    coverLetter?: true;
+    status?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type JobApplicationCountAggregateInputType = {
+    id?: true;
+    candidateProfileId?: true;
+    jobId?: true;
+    coverLetter?: true;
+    status?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+};
+export type JobApplicationAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which JobApplication to aggregate.
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of JobApplications to fetch.
+     */
+    orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.JobApplicationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` JobApplications from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` JobApplications.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned JobApplications
+    **/
+    _count?: true | JobApplicationCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: JobApplicationMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: JobApplicationMaxAggregateInputType;
+};
+export type GetJobApplicationAggregateType<T extends JobApplicationAggregateArgs> = {
+    [P in keyof T & keyof AggregateJobApplication]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateJobApplication[P]> : Prisma.GetScalarType<T[P], AggregateJobApplication[P]>;
+};
+export type JobApplicationGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.JobApplicationWhereInput;
+    orderBy?: Prisma.JobApplicationOrderByWithAggregationInput | Prisma.JobApplicationOrderByWithAggregationInput[];
+    by: Prisma.JobApplicationScalarFieldEnum[] | Prisma.JobApplicationScalarFieldEnum;
+    having?: Prisma.JobApplicationScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: JobApplicationCountAggregateInputType | true;
+    _min?: JobApplicationMinAggregateInputType;
+    _max?: JobApplicationMaxAggregateInputType;
+};
+export type JobApplicationGroupByOutputType = {
+    id: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter: string | null;
+    status: $Enums.ApplicationStatus;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: JobApplicationCountAggregateOutputType | null;
+    _min: JobApplicationMinAggregateOutputType | null;
+    _max: JobApplicationMaxAggregateOutputType | null;
+};
+export type GetJobApplicationGroupByPayload<T extends JobApplicationGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<JobApplicationGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof JobApplicationGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], JobApplicationGroupByOutputType[P]> : Prisma.GetScalarType<T[P], JobApplicationGroupByOutputType[P]>;
+}>>;
+export type JobApplicationWhereInput = {
+    AND?: Prisma.JobApplicationWhereInput | Prisma.JobApplicationWhereInput[];
+    OR?: Prisma.JobApplicationWhereInput[];
+    NOT?: Prisma.JobApplicationWhereInput | Prisma.JobApplicationWhereInput[];
+    id?: Prisma.StringFilter<"JobApplication"> | string;
+    candidateProfileId?: Prisma.StringFilter<"JobApplication"> | string;
+    jobId?: Prisma.StringFilter<"JobApplication"> | string;
+    coverLetter?: Prisma.StringNullableFilter<"JobApplication"> | string | null;
+    status?: Prisma.EnumApplicationStatusFilter<"JobApplication"> | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+    candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>;
+    job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryListRelationFilter;
+    reviewComplaints?: Prisma.ReviewComplaintListRelationFilter;
+    conversations?: Prisma.ConversationListRelationFilter;
+    interviews?: Prisma.InterviewListRelationFilter;
+};
+export type JobApplicationOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    candidateProfileId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    candidateProfile?: Prisma.CandidateProfileOrderByWithRelationInput;
+    job?: Prisma.JobOrderByWithRelationInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisOrderByRelationAggregateInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryOrderByRelationAggregateInput;
+    reviewComplaints?: Prisma.ReviewComplaintOrderByRelationAggregateInput;
+    conversations?: Prisma.ConversationOrderByRelationAggregateInput;
+    interviews?: Prisma.InterviewOrderByRelationAggregateInput;
+};
+export type JobApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    candidateProfileId_jobId?: Prisma.JobApplicationCandidateProfileIdJobIdCompoundUniqueInput;
+    AND?: Prisma.JobApplicationWhereInput | Prisma.JobApplicationWhereInput[];
+    OR?: Prisma.JobApplicationWhereInput[];
+    NOT?: Prisma.JobApplicationWhereInput | Prisma.JobApplicationWhereInput[];
+    candidateProfileId?: Prisma.StringFilter<"JobApplication"> | string;
+    jobId?: Prisma.StringFilter<"JobApplication"> | string;
+    coverLetter?: Prisma.StringNullableFilter<"JobApplication"> | string | null;
+    status?: Prisma.EnumApplicationStatusFilter<"JobApplication"> | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+    candidateProfile?: Prisma.XOR<Prisma.CandidateProfileScalarRelationFilter, Prisma.CandidateProfileWhereInput>;
+    job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryListRelationFilter;
+    reviewComplaints?: Prisma.ReviewComplaintListRelationFilter;
+    conversations?: Prisma.ConversationListRelationFilter;
+    interviews?: Prisma.InterviewListRelationFilter;
+}, "id" | "candidateProfileId_jobId">;
+export type JobApplicationOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    candidateProfileId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    _count?: Prisma.JobApplicationCountOrderByAggregateInput;
+    _max?: Prisma.JobApplicationMaxOrderByAggregateInput;
+    _min?: Prisma.JobApplicationMinOrderByAggregateInput;
+};
+export type JobApplicationScalarWhereWithAggregatesInput = {
+    AND?: Prisma.JobApplicationScalarWhereWithAggregatesInput | Prisma.JobApplicationScalarWhereWithAggregatesInput[];
+    OR?: Prisma.JobApplicationScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.JobApplicationScalarWhereWithAggregatesInput | Prisma.JobApplicationScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"JobApplication"> | string;
+    candidateProfileId?: Prisma.StringWithAggregatesFilter<"JobApplication"> | string;
+    jobId?: Prisma.StringWithAggregatesFilter<"JobApplication"> | string;
+    coverLetter?: Prisma.StringNullableWithAggregatesFilter<"JobApplication"> | string | null;
+    status?: Prisma.EnumApplicationStatusWithAggregatesFilter<"JobApplication"> | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"JobApplication"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"JobApplication"> | Date | string;
+};
+export type JobApplicationCreateInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationCreateManyInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type JobApplicationUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type JobApplicationUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type JobApplicationNullableScalarRelationFilter = {
+    is?: Prisma.JobApplicationWhereInput | null;
+    isNot?: Prisma.JobApplicationWhereInput | null;
+};
+export type JobApplicationListRelationFilter = {
+    every?: Prisma.JobApplicationWhereInput;
+    some?: Prisma.JobApplicationWhereInput;
+    none?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type JobApplicationCandidateProfileIdJobIdCompoundUniqueInput = {
+    candidateProfileId: string;
+    jobId: string;
+};
+export type JobApplicationCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateProfileId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    coverLetter?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type JobApplicationMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateProfileId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    coverLetter?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type JobApplicationMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    candidateProfileId?: Prisma.SortOrder;
+    jobId?: Prisma.SortOrder;
+    coverLetter?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type JobApplicationScalarRelationFilter = {
+    is?: Prisma.JobApplicationWhereInput;
+    isNot?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationCreateNestedOneWithoutConversationsInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutConversationsInput, Prisma.JobApplicationUncheckedCreateWithoutConversationsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutConversationsInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+};
+export type JobApplicationUpdateOneWithoutConversationsNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutConversationsInput, Prisma.JobApplicationUncheckedCreateWithoutConversationsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutConversationsInput;
+    upsert?: Prisma.JobApplicationUpsertWithoutConversationsInput;
+    disconnect?: Prisma.JobApplicationWhereInput | boolean;
+    delete?: Prisma.JobApplicationWhereInput | boolean;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.JobApplicationUpdateToOneWithWhereWithoutConversationsInput, Prisma.JobApplicationUpdateWithoutConversationsInput>, Prisma.JobApplicationUncheckedUpdateWithoutConversationsInput>;
+};
+export type JobApplicationCreateNestedOneWithoutReviewComplaintsInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedCreateWithoutReviewComplaintsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutReviewComplaintsInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+};
+export type JobApplicationUpdateOneWithoutReviewComplaintsNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedCreateWithoutReviewComplaintsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutReviewComplaintsInput;
+    upsert?: Prisma.JobApplicationUpsertWithoutReviewComplaintsInput;
+    disconnect?: Prisma.JobApplicationWhereInput | boolean;
+    delete?: Prisma.JobApplicationWhereInput | boolean;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.JobApplicationUpdateToOneWithWhereWithoutReviewComplaintsInput, Prisma.JobApplicationUpdateWithoutReviewComplaintsInput>, Prisma.JobApplicationUncheckedUpdateWithoutReviewComplaintsInput>;
+};
+export type JobApplicationCreateNestedManyWithoutCandidateProfileInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput> | Prisma.JobApplicationCreateWithoutCandidateProfileInput[] | Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput | Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput[];
+    createMany?: Prisma.JobApplicationCreateManyCandidateProfileInputEnvelope;
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput> | Prisma.JobApplicationCreateWithoutCandidateProfileInput[] | Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput | Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput[];
+    createMany?: Prisma.JobApplicationCreateManyCandidateProfileInputEnvelope;
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUpdateManyWithoutCandidateProfileNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput> | Prisma.JobApplicationCreateWithoutCandidateProfileInput[] | Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput | Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutCandidateProfileInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutCandidateProfileInput[];
+    createMany?: Prisma.JobApplicationCreateManyCandidateProfileInputEnvelope;
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutCandidateProfileInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutCandidateProfileInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutCandidateProfileInput | Prisma.JobApplicationUpdateManyWithWhereWithoutCandidateProfileInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput> | Prisma.JobApplicationCreateWithoutCandidateProfileInput[] | Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput | Prisma.JobApplicationCreateOrConnectWithoutCandidateProfileInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutCandidateProfileInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutCandidateProfileInput[];
+    createMany?: Prisma.JobApplicationCreateManyCandidateProfileInputEnvelope;
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutCandidateProfileInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutCandidateProfileInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutCandidateProfileInput | Prisma.JobApplicationUpdateManyWithWhereWithoutCandidateProfileInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type JobApplicationCreateNestedManyWithoutJobInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput> | Prisma.JobApplicationCreateWithoutJobInput[] | Prisma.JobApplicationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutJobInput | Prisma.JobApplicationCreateOrConnectWithoutJobInput[];
+    createMany?: Prisma.JobApplicationCreateManyJobInputEnvelope;
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUncheckedCreateNestedManyWithoutJobInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput> | Prisma.JobApplicationCreateWithoutJobInput[] | Prisma.JobApplicationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutJobInput | Prisma.JobApplicationCreateOrConnectWithoutJobInput[];
+    createMany?: Prisma.JobApplicationCreateManyJobInputEnvelope;
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUpdateManyWithoutJobNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput> | Prisma.JobApplicationCreateWithoutJobInput[] | Prisma.JobApplicationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutJobInput | Prisma.JobApplicationCreateOrConnectWithoutJobInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutJobInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutJobInput[];
+    createMany?: Prisma.JobApplicationCreateManyJobInputEnvelope;
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutJobInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutJobInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutJobInput | Prisma.JobApplicationUpdateManyWithWhereWithoutJobInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type JobApplicationUncheckedUpdateManyWithoutJobNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput> | Prisma.JobApplicationCreateWithoutJobInput[] | Prisma.JobApplicationUncheckedCreateWithoutJobInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutJobInput | Prisma.JobApplicationCreateOrConnectWithoutJobInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutJobInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutJobInput[];
+    createMany?: Prisma.JobApplicationCreateManyJobInputEnvelope;
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutJobInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutJobInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutJobInput | Prisma.JobApplicationUpdateManyWithWhereWithoutJobInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type JobApplicationCreateNestedManyWithoutSkillGapAnalysesInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput> | Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput[] | Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput | Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUncheckedCreateNestedManyWithoutSkillGapAnalysesInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput> | Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput[] | Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput | Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+};
+export type JobApplicationUpdateManyWithoutSkillGapAnalysesNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput> | Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput[] | Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput | Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutSkillGapAnalysesInput[];
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutSkillGapAnalysesInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpdateManyWithWhereWithoutSkillGapAnalysesInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput> | Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput[] | Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput[];
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput | Prisma.JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput[];
+    upsert?: Prisma.JobApplicationUpsertWithWhereUniqueWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpsertWithWhereUniqueWithoutSkillGapAnalysesInput[];
+    set?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    disconnect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    delete?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    connect?: Prisma.JobApplicationWhereUniqueInput | Prisma.JobApplicationWhereUniqueInput[];
+    update?: Prisma.JobApplicationUpdateWithWhereUniqueWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpdateWithWhereUniqueWithoutSkillGapAnalysesInput[];
+    updateMany?: Prisma.JobApplicationUpdateManyWithWhereWithoutSkillGapAnalysesInput | Prisma.JobApplicationUpdateManyWithWhereWithoutSkillGapAnalysesInput[];
+    deleteMany?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+};
+export type EnumApplicationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApplicationStatus;
+};
+export type JobApplicationCreateNestedOneWithoutApplicationStatusHistoriesInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedCreateWithoutApplicationStatusHistoriesInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutApplicationStatusHistoriesInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+};
+export type JobApplicationUpdateOneRequiredWithoutApplicationStatusHistoriesNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedCreateWithoutApplicationStatusHistoriesInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutApplicationStatusHistoriesInput;
+    upsert?: Prisma.JobApplicationUpsertWithoutApplicationStatusHistoriesInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.JobApplicationUpdateToOneWithWhereWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUpdateWithoutApplicationStatusHistoriesInput>, Prisma.JobApplicationUncheckedUpdateWithoutApplicationStatusHistoriesInput>;
+};
+export type JobApplicationCreateNestedOneWithoutInterviewsInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutInterviewsInput, Prisma.JobApplicationUncheckedCreateWithoutInterviewsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutInterviewsInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+};
+export type JobApplicationUpdateOneRequiredWithoutInterviewsNestedInput = {
+    create?: Prisma.XOR<Prisma.JobApplicationCreateWithoutInterviewsInput, Prisma.JobApplicationUncheckedCreateWithoutInterviewsInput>;
+    connectOrCreate?: Prisma.JobApplicationCreateOrConnectWithoutInterviewsInput;
+    upsert?: Prisma.JobApplicationUpsertWithoutInterviewsInput;
+    connect?: Prisma.JobApplicationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.JobApplicationUpdateToOneWithWhereWithoutInterviewsInput, Prisma.JobApplicationUpdateWithoutInterviewsInput>, Prisma.JobApplicationUncheckedUpdateWithoutInterviewsInput>;
+};
+export type JobApplicationCreateWithoutConversationsInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutConversationsInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutConversationsInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutConversationsInput, Prisma.JobApplicationUncheckedCreateWithoutConversationsInput>;
+};
+export type JobApplicationUpsertWithoutConversationsInput = {
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutConversationsInput, Prisma.JobApplicationUncheckedUpdateWithoutConversationsInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutConversationsInput, Prisma.JobApplicationUncheckedCreateWithoutConversationsInput>;
+    where?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationUpdateToOneWithWhereWithoutConversationsInput = {
+    where?: Prisma.JobApplicationWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutConversationsInput, Prisma.JobApplicationUncheckedUpdateWithoutConversationsInput>;
+};
+export type JobApplicationUpdateWithoutConversationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutConversationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationCreateWithoutReviewComplaintsInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutReviewComplaintsInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutReviewComplaintsInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedCreateWithoutReviewComplaintsInput>;
+};
+export type JobApplicationUpsertWithoutReviewComplaintsInput = {
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedUpdateWithoutReviewComplaintsInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedCreateWithoutReviewComplaintsInput>;
+    where?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationUpdateToOneWithWhereWithoutReviewComplaintsInput = {
+    where?: Prisma.JobApplicationWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutReviewComplaintsInput, Prisma.JobApplicationUncheckedUpdateWithoutReviewComplaintsInput>;
+};
+export type JobApplicationUpdateWithoutReviewComplaintsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutReviewComplaintsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationCreateWithoutCandidateProfileInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutCandidateProfileInput = {
+    id?: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutCandidateProfileInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput>;
+};
+export type JobApplicationCreateManyCandidateProfileInputEnvelope = {
+    data: Prisma.JobApplicationCreateManyCandidateProfileInput | Prisma.JobApplicationCreateManyCandidateProfileInput[];
+    skipDuplicates?: boolean;
+};
+export type JobApplicationUpsertWithWhereUniqueWithoutCandidateProfileInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedUpdateWithoutCandidateProfileInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedCreateWithoutCandidateProfileInput>;
+};
+export type JobApplicationUpdateWithWhereUniqueWithoutCandidateProfileInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutCandidateProfileInput, Prisma.JobApplicationUncheckedUpdateWithoutCandidateProfileInput>;
+};
+export type JobApplicationUpdateManyWithWhereWithoutCandidateProfileInput = {
+    where: Prisma.JobApplicationScalarWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateManyMutationInput, Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileInput>;
+};
+export type JobApplicationScalarWhereInput = {
+    AND?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+    OR?: Prisma.JobApplicationScalarWhereInput[];
+    NOT?: Prisma.JobApplicationScalarWhereInput | Prisma.JobApplicationScalarWhereInput[];
+    id?: Prisma.StringFilter<"JobApplication"> | string;
+    candidateProfileId?: Prisma.StringFilter<"JobApplication"> | string;
+    jobId?: Prisma.StringFilter<"JobApplication"> | string;
+    coverLetter?: Prisma.StringNullableFilter<"JobApplication"> | string | null;
+    status?: Prisma.EnumApplicationStatusFilter<"JobApplication"> | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"JobApplication"> | Date | string;
+};
+export type JobApplicationCreateWithoutJobInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutJobInput = {
+    id?: string;
+    candidateProfileId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutJobInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput>;
+};
+export type JobApplicationCreateManyJobInputEnvelope = {
+    data: Prisma.JobApplicationCreateManyJobInput | Prisma.JobApplicationCreateManyJobInput[];
+    skipDuplicates?: boolean;
+};
+export type JobApplicationUpsertWithWhereUniqueWithoutJobInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutJobInput, Prisma.JobApplicationUncheckedUpdateWithoutJobInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutJobInput, Prisma.JobApplicationUncheckedCreateWithoutJobInput>;
+};
+export type JobApplicationUpdateWithWhereUniqueWithoutJobInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutJobInput, Prisma.JobApplicationUncheckedUpdateWithoutJobInput>;
+};
+export type JobApplicationUpdateManyWithWhereWithoutJobInput = {
+    where: Prisma.JobApplicationScalarWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateManyMutationInput, Prisma.JobApplicationUncheckedUpdateManyWithoutJobInput>;
+};
+export type JobApplicationCreateWithoutSkillGapAnalysesInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutSkillGapAnalysesInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput>;
+};
+export type JobApplicationUpsertWithWhereUniqueWithoutSkillGapAnalysesInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedUpdateWithoutSkillGapAnalysesInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedCreateWithoutSkillGapAnalysesInput>;
+};
+export type JobApplicationUpdateWithWhereUniqueWithoutSkillGapAnalysesInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutSkillGapAnalysesInput, Prisma.JobApplicationUncheckedUpdateWithoutSkillGapAnalysesInput>;
+};
+export type JobApplicationUpdateManyWithWhereWithoutSkillGapAnalysesInput = {
+    where: Prisma.JobApplicationScalarWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateManyMutationInput, Prisma.JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesInput>;
+};
+export type JobApplicationCreateWithoutApplicationStatusHistoriesInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutApplicationStatusHistoriesInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+    interviews?: Prisma.InterviewUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutApplicationStatusHistoriesInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedCreateWithoutApplicationStatusHistoriesInput>;
+};
+export type JobApplicationUpsertWithoutApplicationStatusHistoriesInput = {
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedUpdateWithoutApplicationStatusHistoriesInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedCreateWithoutApplicationStatusHistoriesInput>;
+    where?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationUpdateToOneWithWhereWithoutApplicationStatusHistoriesInput = {
+    where?: Prisma.JobApplicationWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutApplicationStatusHistoriesInput, Prisma.JobApplicationUncheckedUpdateWithoutApplicationStatusHistoriesInput>;
+};
+export type JobApplicationUpdateWithoutApplicationStatusHistoriesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutApplicationStatusHistoriesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationCreateWithoutInterviewsInput = {
+    id?: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    candidateProfile: Prisma.CandidateProfileCreateNestedOneWithoutJobApplicationsInput;
+    job: Prisma.JobCreateNestedOneWithoutJobApplicationsInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationUncheckedCreateWithoutInterviewsInput = {
+    id?: string;
+    candidateProfileId: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutJobApplicationsInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedCreateNestedManyWithoutApplicationInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutJobApplicationInput;
+    conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutJobApplicationInput;
+};
+export type JobApplicationCreateOrConnectWithoutInterviewsInput = {
+    where: Prisma.JobApplicationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutInterviewsInput, Prisma.JobApplicationUncheckedCreateWithoutInterviewsInput>;
+};
+export type JobApplicationUpsertWithoutInterviewsInput = {
+    update: Prisma.XOR<Prisma.JobApplicationUpdateWithoutInterviewsInput, Prisma.JobApplicationUncheckedUpdateWithoutInterviewsInput>;
+    create: Prisma.XOR<Prisma.JobApplicationCreateWithoutInterviewsInput, Prisma.JobApplicationUncheckedCreateWithoutInterviewsInput>;
+    where?: Prisma.JobApplicationWhereInput;
+};
+export type JobApplicationUpdateToOneWithWhereWithoutInterviewsInput = {
+    where?: Prisma.JobApplicationWhereInput;
+    data: Prisma.XOR<Prisma.JobApplicationUpdateWithoutInterviewsInput, Prisma.JobApplicationUncheckedUpdateWithoutInterviewsInput>;
+};
+export type JobApplicationUpdateWithoutInterviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutInterviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationCreateManyCandidateProfileInput = {
+    id?: string;
+    jobId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type JobApplicationUpdateWithoutCandidateProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutCandidateProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateManyWithoutCandidateProfileInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type JobApplicationCreateManyJobInput = {
+    id?: string;
+    candidateProfileId: string;
+    coverLetter?: string | null;
+    status?: $Enums.ApplicationStatus;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type JobApplicationUpdateWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateManyWithoutJobInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type JobApplicationUpdateWithoutSkillGapAnalysesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    candidateProfile?: Prisma.CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    job?: Prisma.JobUpdateOneRequiredWithoutJobApplicationsNestedInput;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateWithoutSkillGapAnalysesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    applicationStatusHistories?: Prisma.ApplicationStatusHistoryUncheckedUpdateManyWithoutApplicationNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    conversations?: Prisma.ConversationUncheckedUpdateManyWithoutJobApplicationNestedInput;
+    interviews?: Prisma.InterviewUncheckedUpdateManyWithoutJobApplicationNestedInput;
+};
+export type JobApplicationUncheckedUpdateManyWithoutSkillGapAnalysesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    candidateProfileId?: Prisma.StringFieldUpdateOperationsInput | string;
+    jobId?: Prisma.StringFieldUpdateOperationsInput | string;
+    coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+/**
+ * Count Type JobApplicationCountOutputType
+ */
+export type JobApplicationCountOutputType = {
+    skillGapAnalyses: number;
+    applicationStatusHistories: number;
+    reviewComplaints: number;
+    conversations: number;
+    interviews: number;
+};
+export type JobApplicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    skillGapAnalyses?: boolean | JobApplicationCountOutputTypeCountSkillGapAnalysesArgs;
+    applicationStatusHistories?: boolean | JobApplicationCountOutputTypeCountApplicationStatusHistoriesArgs;
+    reviewComplaints?: boolean | JobApplicationCountOutputTypeCountReviewComplaintsArgs;
+    conversations?: boolean | JobApplicationCountOutputTypeCountConversationsArgs;
+    interviews?: boolean | JobApplicationCountOutputTypeCountInterviewsArgs;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplicationCountOutputType
+     */
+    select?: Prisma.JobApplicationCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeCountSkillGapAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SkillGapAnalysisWhereInput;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeCountApplicationStatusHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ApplicationStatusHistoryWhereInput;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeCountReviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ReviewComplaintWhereInput;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ConversationWhereInput;
+};
+/**
+ * JobApplicationCountOutputType without action
+ */
+export type JobApplicationCountOutputTypeCountInterviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.InterviewWhereInput;
+};
+export type JobApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateProfileId?: boolean;
+    jobId?: boolean;
+    coverLetter?: boolean;
+    status?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+    skillGapAnalyses?: boolean | Prisma.JobApplication$skillGapAnalysesArgs<ExtArgs>;
+    applicationStatusHistories?: boolean | Prisma.JobApplication$applicationStatusHistoriesArgs<ExtArgs>;
+    reviewComplaints?: boolean | Prisma.JobApplication$reviewComplaintsArgs<ExtArgs>;
+    conversations?: boolean | Prisma.JobApplication$conversationsArgs<ExtArgs>;
+    interviews?: boolean | Prisma.JobApplication$interviewsArgs<ExtArgs>;
+    _count?: boolean | Prisma.JobApplicationCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["jobApplication"]>;
+export type JobApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateProfileId?: boolean;
+    jobId?: boolean;
+    coverLetter?: boolean;
+    status?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["jobApplication"]>;
+export type JobApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    candidateProfileId?: boolean;
+    jobId?: boolean;
+    coverLetter?: boolean;
+    status?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["jobApplication"]>;
+export type JobApplicationSelectScalar = {
+    id?: boolean;
+    candidateProfileId?: boolean;
+    jobId?: boolean;
+    coverLetter?: boolean;
+    status?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+};
+export type JobApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "candidateProfileId" | "jobId" | "coverLetter" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["jobApplication"]>;
+export type JobApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+    skillGapAnalyses?: boolean | Prisma.JobApplication$skillGapAnalysesArgs<ExtArgs>;
+    applicationStatusHistories?: boolean | Prisma.JobApplication$applicationStatusHistoriesArgs<ExtArgs>;
+    reviewComplaints?: boolean | Prisma.JobApplication$reviewComplaintsArgs<ExtArgs>;
+    conversations?: boolean | Prisma.JobApplication$conversationsArgs<ExtArgs>;
+    interviews?: boolean | Prisma.JobApplication$interviewsArgs<ExtArgs>;
+    _count?: boolean | Prisma.JobApplicationCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type JobApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+};
+export type JobApplicationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    candidateProfile?: boolean | Prisma.CandidateProfileDefaultArgs<ExtArgs>;
+    job?: boolean | Prisma.JobDefaultArgs<ExtArgs>;
+};
+export type $JobApplicationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "JobApplication";
+    objects: {
+        candidateProfile: Prisma.$CandidateProfilePayload<ExtArgs>;
+        job: Prisma.$JobPayload<ExtArgs>;
+        skillGapAnalyses: Prisma.$SkillGapAnalysisPayload<ExtArgs>[];
+        applicationStatusHistories: Prisma.$ApplicationStatusHistoryPayload<ExtArgs>[];
+        reviewComplaints: Prisma.$ReviewComplaintPayload<ExtArgs>[];
+        conversations: Prisma.$ConversationPayload<ExtArgs>[];
+        interviews: Prisma.$InterviewPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        candidateProfileId: string;
+        jobId: string;
+        coverLetter: string | null;
+        status: $Enums.ApplicationStatus;
+        createdAt: Date;
+        updatedAt: Date;
+    }, ExtArgs["result"]["jobApplication"]>;
+    composites: {};
+};
+export type JobApplicationGetPayload<S extends boolean | null | undefined | JobApplicationDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload, S>;
+export type JobApplicationCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<JobApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: JobApplicationCountAggregateInputType | true;
+};
+export interface JobApplicationDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['JobApplication'];
+        meta: {
+            name: 'JobApplication';
+        };
+    };
+    /**
+     * Find zero or one JobApplication that matches the filter.
+     * @param {JobApplicationFindUniqueArgs} args - Arguments to find a JobApplication
+     * @example
+     * // Get one JobApplication
+     * const jobApplication = await prisma.jobApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JobApplicationFindUniqueArgs>(args: Prisma.SelectSubset<T, JobApplicationFindUniqueArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one JobApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {JobApplicationFindUniqueOrThrowArgs} args - Arguments to find a JobApplication
+     * @example
+     * // Get one JobApplication
+     * const jobApplication = await prisma.jobApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JobApplicationFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, JobApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first JobApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationFindFirstArgs} args - Arguments to find a JobApplication
+     * @example
+     * // Get one JobApplication
+     * const jobApplication = await prisma.jobApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JobApplicationFindFirstArgs>(args?: Prisma.SelectSubset<T, JobApplicationFindFirstArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first JobApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationFindFirstOrThrowArgs} args - Arguments to find a JobApplication
+     * @example
+     * // Get one JobApplication
+     * const jobApplication = await prisma.jobApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JobApplicationFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, JobApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more JobApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JobApplications
+     * const jobApplications = await prisma.jobApplication.findMany()
+     *
+     * // Get first 10 JobApplications
+     * const jobApplications = await prisma.jobApplication.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const jobApplicationWithIdOnly = await prisma.jobApplication.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends JobApplicationFindManyArgs>(args?: Prisma.SelectSubset<T, JobApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a JobApplication.
+     * @param {JobApplicationCreateArgs} args - Arguments to create a JobApplication.
+     * @example
+     * // Create one JobApplication
+     * const JobApplication = await prisma.jobApplication.create({
+     *   data: {
+     *     // ... data to create a JobApplication
+     *   }
+     * })
+     *
+     */
+    create<T extends JobApplicationCreateArgs>(args: Prisma.SelectSubset<T, JobApplicationCreateArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many JobApplications.
+     * @param {JobApplicationCreateManyArgs} args - Arguments to create many JobApplications.
+     * @example
+     * // Create many JobApplications
+     * const jobApplication = await prisma.jobApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends JobApplicationCreateManyArgs>(args?: Prisma.SelectSubset<T, JobApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many JobApplications and returns the data saved in the database.
+     * @param {JobApplicationCreateManyAndReturnArgs} args - Arguments to create many JobApplications.
+     * @example
+     * // Create many JobApplications
+     * const jobApplication = await prisma.jobApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many JobApplications and only return the `id`
+     * const jobApplicationWithIdOnly = await prisma.jobApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends JobApplicationCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, JobApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a JobApplication.
+     * @param {JobApplicationDeleteArgs} args - Arguments to delete one JobApplication.
+     * @example
+     * // Delete one JobApplication
+     * const JobApplication = await prisma.jobApplication.delete({
+     *   where: {
+     *     // ... filter to delete one JobApplication
+     *   }
+     * })
+     *
+     */
+    delete<T extends JobApplicationDeleteArgs>(args: Prisma.SelectSubset<T, JobApplicationDeleteArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one JobApplication.
+     * @param {JobApplicationUpdateArgs} args - Arguments to update one JobApplication.
+     * @example
+     * // Update one JobApplication
+     * const jobApplication = await prisma.jobApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends JobApplicationUpdateArgs>(args: Prisma.SelectSubset<T, JobApplicationUpdateArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more JobApplications.
+     * @param {JobApplicationDeleteManyArgs} args - Arguments to filter JobApplications to delete.
+     * @example
+     * // Delete a few JobApplications
+     * const { count } = await prisma.jobApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends JobApplicationDeleteManyArgs>(args?: Prisma.SelectSubset<T, JobApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more JobApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JobApplications
+     * const jobApplication = await prisma.jobApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends JobApplicationUpdateManyArgs>(args: Prisma.SelectSubset<T, JobApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more JobApplications and returns the data updated in the database.
+     * @param {JobApplicationUpdateManyAndReturnArgs} args - Arguments to update many JobApplications.
+     * @example
+     * // Update many JobApplications
+     * const jobApplication = await prisma.jobApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more JobApplications and only return the `id`
+     * const jobApplicationWithIdOnly = await prisma.jobApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends JobApplicationUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, JobApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one JobApplication.
+     * @param {JobApplicationUpsertArgs} args - Arguments to update or create a JobApplication.
+     * @example
+     * // Update or create a JobApplication
+     * const jobApplication = await prisma.jobApplication.upsert({
+     *   create: {
+     *     // ... data to create a JobApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JobApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JobApplicationUpsertArgs>(args: Prisma.SelectSubset<T, JobApplicationUpsertArgs<ExtArgs>>): Prisma.Prisma__JobApplicationClient<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of JobApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationCountArgs} args - Arguments to filter JobApplications to count.
+     * @example
+     * // Count the number of JobApplications
+     * const count = await prisma.jobApplication.count({
+     *   where: {
+     *     // ... the filter for the JobApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends JobApplicationCountArgs>(args?: Prisma.Subset<T, JobApplicationCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], JobApplicationCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a JobApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JobApplicationAggregateArgs>(args: Prisma.Subset<T, JobApplicationAggregateArgs>): Prisma.PrismaPromise<GetJobApplicationAggregateType<T>>;
+    /**
+     * Group by JobApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends JobApplicationGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: JobApplicationGroupByArgs['orderBy'];
+    } : {
+        orderBy?: JobApplicationGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, JobApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJobApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the JobApplication model
+     */
+    readonly fields: JobApplicationFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for JobApplication.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__JobApplicationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    candidateProfile<T extends Prisma.CandidateProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    skillGapAnalyses<T extends Prisma.JobApplication$skillGapAnalysesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobApplication$skillGapAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillGapAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    applicationStatusHistories<T extends Prisma.JobApplication$applicationStatusHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobApplication$applicationStatusHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    reviewComplaints<T extends Prisma.JobApplication$reviewComplaintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobApplication$reviewComplaintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    conversations<T extends Prisma.JobApplication$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobApplication$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    interviews<T extends Prisma.JobApplication$interviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobApplication$interviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the JobApplication model
+ */
+export interface JobApplicationFieldRefs {
+    readonly id: Prisma.FieldRef<"JobApplication", 'String'>;
+    readonly candidateProfileId: Prisma.FieldRef<"JobApplication", 'String'>;
+    readonly jobId: Prisma.FieldRef<"JobApplication", 'String'>;
+    readonly coverLetter: Prisma.FieldRef<"JobApplication", 'String'>;
+    readonly status: Prisma.FieldRef<"JobApplication", 'ApplicationStatus'>;
+    readonly createdAt: Prisma.FieldRef<"JobApplication", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"JobApplication", 'DateTime'>;
+}
+/**
+ * JobApplication findUnique
+ */
+export type JobApplicationFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter, which JobApplication to fetch.
+     */
+    where: Prisma.JobApplicationWhereUniqueInput;
+};
+/**
+ * JobApplication findUniqueOrThrow
+ */
+export type JobApplicationFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter, which JobApplication to fetch.
+     */
+    where: Prisma.JobApplicationWhereUniqueInput;
+};
+/**
+ * JobApplication findFirst
+ */
+export type JobApplicationFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter, which JobApplication to fetch.
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of JobApplications to fetch.
+     */
+    orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for JobApplications.
+     */
+    cursor?: Prisma.JobApplicationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` JobApplications from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` JobApplications.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of JobApplications.
+     */
+    distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[];
+};
+/**
+ * JobApplication findFirstOrThrow
+ */
+export type JobApplicationFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter, which JobApplication to fetch.
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of JobApplications to fetch.
+     */
+    orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for JobApplications.
+     */
+    cursor?: Prisma.JobApplicationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` JobApplications from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` JobApplications.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of JobApplications.
+     */
+    distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[];
+};
+/**
+ * JobApplication findMany
+ */
+export type JobApplicationFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter, which JobApplications to fetch.
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of JobApplications to fetch.
+     */
+    orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing JobApplications.
+     */
+    cursor?: Prisma.JobApplicationWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` JobApplications from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` JobApplications.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of JobApplications.
+     */
+    distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[];
+};
+/**
+ * JobApplication create
+ */
+export type JobApplicationCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a JobApplication.
+     */
+    data: Prisma.XOR<Prisma.JobApplicationCreateInput, Prisma.JobApplicationUncheckedCreateInput>;
+};
+/**
+ * JobApplication createMany
+ */
+export type JobApplicationCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JobApplications.
+     */
+    data: Prisma.JobApplicationCreateManyInput | Prisma.JobApplicationCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * JobApplication createManyAndReturn
+ */
+export type JobApplicationCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * The data used to create many JobApplications.
+     */
+    data: Prisma.JobApplicationCreateManyInput | Prisma.JobApplicationCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * JobApplication update
+ */
+export type JobApplicationUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a JobApplication.
+     */
+    data: Prisma.XOR<Prisma.JobApplicationUpdateInput, Prisma.JobApplicationUncheckedUpdateInput>;
+    /**
+     * Choose, which JobApplication to update.
+     */
+    where: Prisma.JobApplicationWhereUniqueInput;
+};
+/**
+ * JobApplication updateMany
+ */
+export type JobApplicationUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JobApplications.
+     */
+    data: Prisma.XOR<Prisma.JobApplicationUpdateManyMutationInput, Prisma.JobApplicationUncheckedUpdateManyInput>;
+    /**
+     * Filter which JobApplications to update
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * Limit how many JobApplications to update.
+     */
+    limit?: number;
+};
+/**
+ * JobApplication updateManyAndReturn
+ */
+export type JobApplicationUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * The data used to update JobApplications.
+     */
+    data: Prisma.XOR<Prisma.JobApplicationUpdateManyMutationInput, Prisma.JobApplicationUncheckedUpdateManyInput>;
+    /**
+     * Filter which JobApplications to update
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * Limit how many JobApplications to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * JobApplication upsert
+ */
+export type JobApplicationUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the JobApplication to update in case it exists.
+     */
+    where: Prisma.JobApplicationWhereUniqueInput;
+    /**
+     * In case the JobApplication found by the `where` argument doesn't exist, create a new JobApplication with this data.
+     */
+    create: Prisma.XOR<Prisma.JobApplicationCreateInput, Prisma.JobApplicationUncheckedCreateInput>;
+    /**
+     * In case the JobApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.JobApplicationUpdateInput, Prisma.JobApplicationUncheckedUpdateInput>;
+};
+/**
+ * JobApplication delete
+ */
+export type JobApplicationDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    /**
+     * Filter which JobApplication to delete.
+     */
+    where: Prisma.JobApplicationWhereUniqueInput;
+};
+/**
+ * JobApplication deleteMany
+ */
+export type JobApplicationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which JobApplications to delete
+     */
+    where?: Prisma.JobApplicationWhereInput;
+    /**
+     * Limit how many JobApplications to delete.
+     */
+    limit?: number;
+};
+/**
+ * JobApplication.skillGapAnalyses
+ */
+export type JobApplication$skillGapAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillGapAnalysis
+     */
+    select?: Prisma.SkillGapAnalysisSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the SkillGapAnalysis
+     */
+    omit?: Prisma.SkillGapAnalysisOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SkillGapAnalysisInclude<ExtArgs> | null;
+    where?: Prisma.SkillGapAnalysisWhereInput;
+    orderBy?: Prisma.SkillGapAnalysisOrderByWithRelationInput | Prisma.SkillGapAnalysisOrderByWithRelationInput[];
+    cursor?: Prisma.SkillGapAnalysisWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SkillGapAnalysisScalarFieldEnum | Prisma.SkillGapAnalysisScalarFieldEnum[];
+};
+/**
+ * JobApplication.applicationStatusHistories
+ */
+export type JobApplication$applicationStatusHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationStatusHistory
+     */
+    select?: Prisma.ApplicationStatusHistorySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ApplicationStatusHistory
+     */
+    omit?: Prisma.ApplicationStatusHistoryOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ApplicationStatusHistoryInclude<ExtArgs> | null;
+    where?: Prisma.ApplicationStatusHistoryWhereInput;
+    orderBy?: Prisma.ApplicationStatusHistoryOrderByWithRelationInput | Prisma.ApplicationStatusHistoryOrderByWithRelationInput[];
+    cursor?: Prisma.ApplicationStatusHistoryWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ApplicationStatusHistoryScalarFieldEnum | Prisma.ApplicationStatusHistoryScalarFieldEnum[];
+};
+/**
+ * JobApplication.reviewComplaints
+ */
+export type JobApplication$reviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReviewComplaint
+     */
+    select?: Prisma.ReviewComplaintSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ReviewComplaint
+     */
+    omit?: Prisma.ReviewComplaintOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ReviewComplaintInclude<ExtArgs> | null;
+    where?: Prisma.ReviewComplaintWhereInput;
+    orderBy?: Prisma.ReviewComplaintOrderByWithRelationInput | Prisma.ReviewComplaintOrderByWithRelationInput[];
+    cursor?: Prisma.ReviewComplaintWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ReviewComplaintScalarFieldEnum | Prisma.ReviewComplaintScalarFieldEnum[];
+};
+/**
+ * JobApplication.conversations
+ */
+export type JobApplication$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conversation
+     */
+    select?: Prisma.ConversationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Conversation
+     */
+    omit?: Prisma.ConversationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ConversationInclude<ExtArgs> | null;
+    where?: Prisma.ConversationWhereInput;
+    orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[];
+    cursor?: Prisma.ConversationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[];
+};
+/**
+ * JobApplication.interviews
+ */
+export type JobApplication$interviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interview
+     */
+    select?: Prisma.InterviewSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Interview
+     */
+    omit?: Prisma.InterviewOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.InterviewInclude<ExtArgs> | null;
+    where?: Prisma.InterviewWhereInput;
+    orderBy?: Prisma.InterviewOrderByWithRelationInput | Prisma.InterviewOrderByWithRelationInput[];
+    cursor?: Prisma.InterviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.InterviewScalarFieldEnum | Prisma.InterviewScalarFieldEnum[];
+};
+/**
+ * JobApplication without action
+ */
+export type JobApplicationDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+};
+//# sourceMappingURL=JobApplication.d.ts.map

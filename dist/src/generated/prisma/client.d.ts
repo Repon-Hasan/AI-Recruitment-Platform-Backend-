@@ -1,0 +1,184 @@
+import * as runtime from "@prisma/client/runtime/client";
+import * as $Class from "./internal/class";
+import * as Prisma from "./internal/prismaNamespace";
+export * as $Enums from './enums';
+export * from "./enums";
+/**
+ * ## Prisma Client
+ *
+ * Type-safe database client for TypeScript
+ * @example
+ * ```
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
+ * // Fetch zero or more Conversations
+ * const conversations = await prisma.conversation.findMany()
+ * ```
+ *
+ * Read more in our [docs](https://pris.ly/d/client).
+ */
+export declare const PrismaClient: $Class.PrismaClientConstructor;
+export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>;
+export { Prisma };
+/**
+ * Model Conversation
+ *
+ */
+export type Conversation = Prisma.ConversationModel;
+/**
+ * Model Message
+ *
+ */
+export type Message = Prisma.MessageModel;
+/**
+ * Model ConversationParticipant
+ *
+ */
+export type ConversationParticipant = Prisma.ConversationParticipantModel;
+/**
+ * Model Notification
+ *
+ */
+export type Notification = Prisma.NotificationModel;
+/**
+ * Model ReviewComplaint
+ *
+ */
+export type ReviewComplaint = Prisma.ReviewComplaintModel;
+/**
+ * Model Penalty
+ *
+ */
+export type Penalty = Prisma.PenaltyModel;
+/**
+ * Model ComplaintEvidence
+ *
+ */
+export type ComplaintEvidence = Prisma.ComplaintEvidenceModel;
+/**
+ * Model User
+ *
+ */
+export type User = Prisma.UserModel;
+/**
+ * Model Session
+ *
+ */
+export type Session = Prisma.SessionModel;
+/**
+ * Model Account
+ *
+ */
+export type Account = Prisma.AccountModel;
+/**
+ * Model Verification
+ *
+ */
+export type Verification = Prisma.VerificationModel;
+/**
+ * Model CandidateProfile
+ *
+ */
+export type CandidateProfile = Prisma.CandidateProfileModel;
+/**
+ * Model CandidateEmbedding
+ *
+ */
+export type CandidateEmbedding = Prisma.CandidateEmbeddingModel;
+/**
+ * Model CandidateSkill
+ *
+ */
+export type CandidateSkill = Prisma.CandidateSkillModel;
+/**
+ * Model CandidateEducation
+ *
+ */
+export type CandidateEducation = Prisma.CandidateEducationModel;
+/**
+ * Model CandidateProject
+ *
+ */
+export type CandidateProject = Prisma.CandidateProjectModel;
+/**
+ * Model CandidateCertification
+ *
+ */
+export type CandidateCertification = Prisma.CandidateCertificationModel;
+/**
+ * Model Company
+ *
+ */
+export type Company = Prisma.CompanyModel;
+/**
+ * Model Job
+ *
+ */
+export type Job = Prisma.JobModel;
+/**
+ * Model JobSkill
+ *
+ */
+export type JobSkill = Prisma.JobSkillModel;
+/**
+ * Model JobMatch
+ *
+ */
+export type JobMatch = Prisma.JobMatchModel;
+/**
+ * Model SkillGapAnalysis
+ *
+ */
+export type SkillGapAnalysis = Prisma.SkillGapAnalysisModel;
+/**
+ * Model JobApplication
+ *
+ */
+export type JobApplication = Prisma.JobApplicationModel;
+/**
+ * Model ApplicationStatusHistory
+ *
+ */
+export type ApplicationStatusHistory = Prisma.ApplicationStatusHistoryModel;
+/**
+ * Model InterviewSession
+ *
+ */
+export type InterviewSession = Prisma.InterviewSessionModel;
+/**
+ * Model InterviewAnswer
+ *
+ */
+export type InterviewAnswer = Prisma.InterviewAnswerModel;
+/**
+ * Model Interview
+ *
+ */
+export type Interview = Prisma.InterviewModel;
+/**
+ * Model ApplicationAssistant
+ *
+ */
+export type ApplicationAssistant = Prisma.ApplicationAssistantModel;
+/**
+ * Model Resume
+ *
+ */
+export type Resume = Prisma.ResumeModel;
+/**
+ * Model ResumeAnalysis
+ *
+ */
+export type ResumeAnalysis = Prisma.ResumeAnalysisModel;
+/**
+ * Model ResumeChunk
+ *
+ */
+export type ResumeChunk = Prisma.ResumeChunkModel;
+/**
+ * Model ResumeSummary
+ *
+ */
+export type ResumeSummary = Prisma.ResumeSummaryModel;
+//# sourceMappingURL=client.d.ts.map

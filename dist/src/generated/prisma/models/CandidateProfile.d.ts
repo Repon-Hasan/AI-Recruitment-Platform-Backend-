@@ -1,0 +1,3339 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model CandidateProfile
+ *
+ */
+export type CandidateProfileModel = runtime.Types.Result.DefaultSelection<Prisma.$CandidateProfilePayload>;
+export type AggregateCandidateProfile = {
+    _count: CandidateProfileCountAggregateOutputType | null;
+    _min: CandidateProfileMinAggregateOutputType | null;
+    _max: CandidateProfileMaxAggregateOutputType | null;
+};
+export type CandidateProfileMinAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    phone: string | null;
+    location: string | null;
+    bio: string | null;
+    experience: string | null;
+    linkedin: string | null;
+    github: string | null;
+    portfolio: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type CandidateProfileMaxAggregateOutputType = {
+    id: string | null;
+    userId: string | null;
+    phone: string | null;
+    location: string | null;
+    bio: string | null;
+    experience: string | null;
+    linkedin: string | null;
+    github: string | null;
+    portfolio: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type CandidateProfileCountAggregateOutputType = {
+    id: number;
+    userId: number;
+    phone: number;
+    location: number;
+    bio: number;
+    experience: number;
+    linkedin: number;
+    github: number;
+    portfolio: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+};
+export type CandidateProfileMinAggregateInputType = {
+    id?: true;
+    userId?: true;
+    phone?: true;
+    location?: true;
+    bio?: true;
+    experience?: true;
+    linkedin?: true;
+    github?: true;
+    portfolio?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type CandidateProfileMaxAggregateInputType = {
+    id?: true;
+    userId?: true;
+    phone?: true;
+    location?: true;
+    bio?: true;
+    experience?: true;
+    linkedin?: true;
+    github?: true;
+    portfolio?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type CandidateProfileCountAggregateInputType = {
+    id?: true;
+    userId?: true;
+    phone?: true;
+    location?: true;
+    bio?: true;
+    experience?: true;
+    linkedin?: true;
+    github?: true;
+    portfolio?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+};
+export type CandidateProfileAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which CandidateProfile to aggregate.
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateProfiles to fetch.
+     */
+    orderBy?: Prisma.CandidateProfileOrderByWithRelationInput | Prisma.CandidateProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.CandidateProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned CandidateProfiles
+    **/
+    _count?: true | CandidateProfileCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: CandidateProfileMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: CandidateProfileMaxAggregateInputType;
+};
+export type GetCandidateProfileAggregateType<T extends CandidateProfileAggregateArgs> = {
+    [P in keyof T & keyof AggregateCandidateProfile]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateCandidateProfile[P]> : Prisma.GetScalarType<T[P], AggregateCandidateProfile[P]>;
+};
+export type CandidateProfileGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateProfileWhereInput;
+    orderBy?: Prisma.CandidateProfileOrderByWithAggregationInput | Prisma.CandidateProfileOrderByWithAggregationInput[];
+    by: Prisma.CandidateProfileScalarFieldEnum[] | Prisma.CandidateProfileScalarFieldEnum;
+    having?: Prisma.CandidateProfileScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: CandidateProfileCountAggregateInputType | true;
+    _min?: CandidateProfileMinAggregateInputType;
+    _max?: CandidateProfileMaxAggregateInputType;
+};
+export type CandidateProfileGroupByOutputType = {
+    id: string;
+    userId: string;
+    phone: string | null;
+    location: string | null;
+    bio: string | null;
+    experience: string | null;
+    linkedin: string | null;
+    github: string | null;
+    portfolio: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: CandidateProfileCountAggregateOutputType | null;
+    _min: CandidateProfileMinAggregateOutputType | null;
+    _max: CandidateProfileMaxAggregateOutputType | null;
+};
+export type GetCandidateProfileGroupByPayload<T extends CandidateProfileGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CandidateProfileGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof CandidateProfileGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], CandidateProfileGroupByOutputType[P]> : Prisma.GetScalarType<T[P], CandidateProfileGroupByOutputType[P]>;
+}>>;
+export type CandidateProfileWhereInput = {
+    AND?: Prisma.CandidateProfileWhereInput | Prisma.CandidateProfileWhereInput[];
+    OR?: Prisma.CandidateProfileWhereInput[];
+    NOT?: Prisma.CandidateProfileWhereInput | Prisma.CandidateProfileWhereInput[];
+    id?: Prisma.StringFilter<"CandidateProfile"> | string;
+    userId?: Prisma.StringFilter<"CandidateProfile"> | string;
+    phone?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    location?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    bio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    experience?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    linkedin?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    github?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    portfolio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    createdAt?: Prisma.DateTimeFilter<"CandidateProfile"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"CandidateProfile"> | Date | string;
+    certifications?: Prisma.CandidateCertificationListRelationFilter;
+    education?: Prisma.CandidateEducationListRelationFilter;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    projects?: Prisma.CandidateProjectListRelationFilter;
+    skills?: Prisma.CandidateSkillListRelationFilter;
+    resumes?: Prisma.ResumeListRelationFilter;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter;
+    jobMatches?: Prisma.JobMatchListRelationFilter;
+    jobApplications?: Prisma.JobApplicationListRelationFilter;
+    applicationAssistants?: Prisma.ApplicationAssistantListRelationFilter;
+    candidateEmbeddings?: Prisma.XOR<Prisma.CandidateEmbeddingNullableScalarRelationFilter, Prisma.CandidateEmbeddingWhereInput> | null;
+    reviewComplaints?: Prisma.ReviewComplaintListRelationFilter;
+    interviewSessions?: Prisma.InterviewSessionListRelationFilter;
+};
+export type CandidateProfileOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    phone?: Prisma.SortOrderInput | Prisma.SortOrder;
+    location?: Prisma.SortOrderInput | Prisma.SortOrder;
+    bio?: Prisma.SortOrderInput | Prisma.SortOrder;
+    experience?: Prisma.SortOrderInput | Prisma.SortOrder;
+    linkedin?: Prisma.SortOrderInput | Prisma.SortOrder;
+    github?: Prisma.SortOrderInput | Prisma.SortOrder;
+    portfolio?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    certifications?: Prisma.CandidateCertificationOrderByRelationAggregateInput;
+    education?: Prisma.CandidateEducationOrderByRelationAggregateInput;
+    user?: Prisma.UserOrderByWithRelationInput;
+    projects?: Prisma.CandidateProjectOrderByRelationAggregateInput;
+    skills?: Prisma.CandidateSkillOrderByRelationAggregateInput;
+    resumes?: Prisma.ResumeOrderByRelationAggregateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisOrderByRelationAggregateInput;
+    jobMatches?: Prisma.JobMatchOrderByRelationAggregateInput;
+    jobApplications?: Prisma.JobApplicationOrderByRelationAggregateInput;
+    applicationAssistants?: Prisma.ApplicationAssistantOrderByRelationAggregateInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingOrderByWithRelationInput;
+    reviewComplaints?: Prisma.ReviewComplaintOrderByRelationAggregateInput;
+    interviewSessions?: Prisma.InterviewSessionOrderByRelationAggregateInput;
+};
+export type CandidateProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    userId?: string;
+    AND?: Prisma.CandidateProfileWhereInput | Prisma.CandidateProfileWhereInput[];
+    OR?: Prisma.CandidateProfileWhereInput[];
+    NOT?: Prisma.CandidateProfileWhereInput | Prisma.CandidateProfileWhereInput[];
+    phone?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    location?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    bio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    experience?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    linkedin?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    github?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    portfolio?: Prisma.StringNullableFilter<"CandidateProfile"> | string | null;
+    createdAt?: Prisma.DateTimeFilter<"CandidateProfile"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"CandidateProfile"> | Date | string;
+    certifications?: Prisma.CandidateCertificationListRelationFilter;
+    education?: Prisma.CandidateEducationListRelationFilter;
+    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    projects?: Prisma.CandidateProjectListRelationFilter;
+    skills?: Prisma.CandidateSkillListRelationFilter;
+    resumes?: Prisma.ResumeListRelationFilter;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisListRelationFilter;
+    jobMatches?: Prisma.JobMatchListRelationFilter;
+    jobApplications?: Prisma.JobApplicationListRelationFilter;
+    applicationAssistants?: Prisma.ApplicationAssistantListRelationFilter;
+    candidateEmbeddings?: Prisma.XOR<Prisma.CandidateEmbeddingNullableScalarRelationFilter, Prisma.CandidateEmbeddingWhereInput> | null;
+    reviewComplaints?: Prisma.ReviewComplaintListRelationFilter;
+    interviewSessions?: Prisma.InterviewSessionListRelationFilter;
+}, "id" | "userId">;
+export type CandidateProfileOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    phone?: Prisma.SortOrderInput | Prisma.SortOrder;
+    location?: Prisma.SortOrderInput | Prisma.SortOrder;
+    bio?: Prisma.SortOrderInput | Prisma.SortOrder;
+    experience?: Prisma.SortOrderInput | Prisma.SortOrder;
+    linkedin?: Prisma.SortOrderInput | Prisma.SortOrder;
+    github?: Prisma.SortOrderInput | Prisma.SortOrder;
+    portfolio?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    _count?: Prisma.CandidateProfileCountOrderByAggregateInput;
+    _max?: Prisma.CandidateProfileMaxOrderByAggregateInput;
+    _min?: Prisma.CandidateProfileMinOrderByAggregateInput;
+};
+export type CandidateProfileScalarWhereWithAggregatesInput = {
+    AND?: Prisma.CandidateProfileScalarWhereWithAggregatesInput | Prisma.CandidateProfileScalarWhereWithAggregatesInput[];
+    OR?: Prisma.CandidateProfileScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.CandidateProfileScalarWhereWithAggregatesInput | Prisma.CandidateProfileScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"CandidateProfile"> | string;
+    userId?: Prisma.StringWithAggregatesFilter<"CandidateProfile"> | string;
+    phone?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    location?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    bio?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    experience?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    linkedin?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    github?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    portfolio?: Prisma.StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"CandidateProfile"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CandidateProfile"> | Date | string;
+};
+export type CandidateProfileCreateInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateManyInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type CandidateProfileUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateProfileUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type CandidateProfileNullableScalarRelationFilter = {
+    is?: Prisma.CandidateProfileWhereInput | null;
+    isNot?: Prisma.CandidateProfileWhereInput | null;
+};
+export type CandidateProfileCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    bio?: Prisma.SortOrder;
+    experience?: Prisma.SortOrder;
+    linkedin?: Prisma.SortOrder;
+    github?: Prisma.SortOrder;
+    portfolio?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateProfileMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    bio?: Prisma.SortOrder;
+    experience?: Prisma.SortOrder;
+    linkedin?: Prisma.SortOrder;
+    github?: Prisma.SortOrder;
+    portfolio?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateProfileMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    userId?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    bio?: Prisma.SortOrder;
+    experience?: Prisma.SortOrder;
+    linkedin?: Prisma.SortOrder;
+    github?: Prisma.SortOrder;
+    portfolio?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type CandidateProfileScalarRelationFilter = {
+    is?: Prisma.CandidateProfileWhereInput;
+    isNot?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileCreateNestedOneWithoutReviewComplaintsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutReviewComplaintsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneWithoutReviewComplaintsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutReviewComplaintsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutReviewComplaintsInput;
+    disconnect?: Prisma.CandidateProfileWhereInput | boolean;
+    delete?: Prisma.CandidateProfileWhereInput | boolean;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutReviewComplaintsInput, Prisma.CandidateProfileUpdateWithoutReviewComplaintsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutUserInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutUserInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutUserInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneWithoutUserNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutUserInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutUserInput;
+    disconnect?: Prisma.CandidateProfileWhereInput | boolean;
+    delete?: Prisma.CandidateProfileWhereInput | boolean;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutUserInput, Prisma.CandidateProfileUpdateWithoutUserInput>, Prisma.CandidateProfileUncheckedUpdateWithoutUserInput>;
+};
+export type CandidateProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutUserInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutUserInput;
+    disconnect?: Prisma.CandidateProfileWhereInput | boolean;
+    delete?: Prisma.CandidateProfileWhereInput | boolean;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutUserInput, Prisma.CandidateProfileUpdateWithoutUserInput>, Prisma.CandidateProfileUncheckedUpdateWithoutUserInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutCandidateEmbeddingsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutCandidateEmbeddingsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutCandidateEmbeddingsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutCandidateEmbeddingsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutCandidateEmbeddingsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUpdateWithoutCandidateEmbeddingsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutCandidateEmbeddingsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutSkillsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillsInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutSkillsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutSkillsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillsInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutSkillsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutSkillsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutSkillsInput, Prisma.CandidateProfileUpdateWithoutSkillsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutSkillsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutEducationInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutEducationInput, Prisma.CandidateProfileUncheckedCreateWithoutEducationInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutEducationInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutEducationNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutEducationInput, Prisma.CandidateProfileUncheckedCreateWithoutEducationInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutEducationInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutEducationInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutEducationInput, Prisma.CandidateProfileUpdateWithoutEducationInput>, Prisma.CandidateProfileUncheckedUpdateWithoutEducationInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutProjectsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutProjectsInput, Prisma.CandidateProfileUncheckedCreateWithoutProjectsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutProjectsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutProjectsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutProjectsInput, Prisma.CandidateProfileUncheckedCreateWithoutProjectsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutProjectsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutProjectsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutProjectsInput, Prisma.CandidateProfileUpdateWithoutProjectsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutProjectsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutCertificationsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedCreateWithoutCertificationsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutCertificationsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutCertificationsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedCreateWithoutCertificationsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutCertificationsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutCertificationsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutCertificationsInput, Prisma.CandidateProfileUpdateWithoutCertificationsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutCertificationsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutJobMatchesInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedCreateWithoutJobMatchesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobMatchesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutJobMatchesNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedCreateWithoutJobMatchesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobMatchesInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutJobMatchesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutJobMatchesInput, Prisma.CandidateProfileUpdateWithoutJobMatchesInput>, Prisma.CandidateProfileUncheckedUpdateWithoutJobMatchesInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutSkillGapAnalysesInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutSkillGapAnalysesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutSkillGapAnalysesNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutSkillGapAnalysesInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutSkillGapAnalysesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUpdateWithoutSkillGapAnalysesInput>, Prisma.CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutJobApplicationsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobApplicationsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutJobApplicationsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutJobApplicationsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutJobApplicationsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutJobApplicationsInput, Prisma.CandidateProfileUpdateWithoutJobApplicationsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutInterviewSessionsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedCreateWithoutInterviewSessionsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutInterviewSessionsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutInterviewSessionsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedCreateWithoutInterviewSessionsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutInterviewSessionsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutInterviewSessionsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutInterviewSessionsInput, Prisma.CandidateProfileUpdateWithoutInterviewSessionsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutInterviewSessionsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutApplicationAssistantsInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutApplicationAssistantsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutApplicationAssistantsNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutApplicationAssistantsInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutApplicationAssistantsInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutApplicationAssistantsInput, Prisma.CandidateProfileUpdateWithoutApplicationAssistantsInput>, Prisma.CandidateProfileUncheckedUpdateWithoutApplicationAssistantsInput>;
+};
+export type CandidateProfileCreateNestedOneWithoutResumesInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutResumesInput, Prisma.CandidateProfileUncheckedCreateWithoutResumesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutResumesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+};
+export type CandidateProfileUpdateOneRequiredWithoutResumesNestedInput = {
+    create?: Prisma.XOR<Prisma.CandidateProfileCreateWithoutResumesInput, Prisma.CandidateProfileUncheckedCreateWithoutResumesInput>;
+    connectOrCreate?: Prisma.CandidateProfileCreateOrConnectWithoutResumesInput;
+    upsert?: Prisma.CandidateProfileUpsertWithoutResumesInput;
+    connect?: Prisma.CandidateProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CandidateProfileUpdateToOneWithWhereWithoutResumesInput, Prisma.CandidateProfileUpdateWithoutResumesInput>, Prisma.CandidateProfileUncheckedUpdateWithoutResumesInput>;
+};
+export type CandidateProfileCreateWithoutReviewComplaintsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutReviewComplaintsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutReviewComplaintsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>;
+};
+export type CandidateProfileUpsertWithoutReviewComplaintsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedCreateWithoutReviewComplaintsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutReviewComplaintsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutReviewComplaintsInput, Prisma.CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput>;
+};
+export type CandidateProfileUpdateWithoutReviewComplaintsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutReviewComplaintsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutUserInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutUserInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutUserInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+};
+export type CandidateProfileUpsertWithoutUserInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutUserInput, Prisma.CandidateProfileUncheckedUpdateWithoutUserInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutUserInput, Prisma.CandidateProfileUncheckedCreateWithoutUserInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutUserInput, Prisma.CandidateProfileUncheckedUpdateWithoutUserInput>;
+};
+export type CandidateProfileUpdateWithoutUserInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutUserInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutCandidateEmbeddingsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutCandidateEmbeddingsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput>;
+};
+export type CandidateProfileUpsertWithoutCandidateEmbeddingsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedUpdateWithoutCandidateEmbeddingsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedCreateWithoutCandidateEmbeddingsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutCandidateEmbeddingsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutCandidateEmbeddingsInput, Prisma.CandidateProfileUncheckedUpdateWithoutCandidateEmbeddingsInput>;
+};
+export type CandidateProfileUpdateWithoutCandidateEmbeddingsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutCandidateEmbeddingsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutSkillsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutSkillsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutSkillsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillsInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillsInput>;
+};
+export type CandidateProfileUpsertWithoutSkillsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutSkillsInput, Prisma.CandidateProfileUncheckedUpdateWithoutSkillsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillsInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutSkillsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutSkillsInput, Prisma.CandidateProfileUncheckedUpdateWithoutSkillsInput>;
+};
+export type CandidateProfileUpdateWithoutSkillsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutSkillsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutEducationInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutEducationInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutEducationInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutEducationInput, Prisma.CandidateProfileUncheckedCreateWithoutEducationInput>;
+};
+export type CandidateProfileUpsertWithoutEducationInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutEducationInput, Prisma.CandidateProfileUncheckedUpdateWithoutEducationInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutEducationInput, Prisma.CandidateProfileUncheckedCreateWithoutEducationInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutEducationInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutEducationInput, Prisma.CandidateProfileUncheckedUpdateWithoutEducationInput>;
+};
+export type CandidateProfileUpdateWithoutEducationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutEducationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutProjectsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutProjectsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutProjectsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutProjectsInput, Prisma.CandidateProfileUncheckedCreateWithoutProjectsInput>;
+};
+export type CandidateProfileUpsertWithoutProjectsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutProjectsInput, Prisma.CandidateProfileUncheckedUpdateWithoutProjectsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutProjectsInput, Prisma.CandidateProfileUncheckedCreateWithoutProjectsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutProjectsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutProjectsInput, Prisma.CandidateProfileUncheckedUpdateWithoutProjectsInput>;
+};
+export type CandidateProfileUpdateWithoutProjectsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutProjectsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutCertificationsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutCertificationsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutCertificationsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedCreateWithoutCertificationsInput>;
+};
+export type CandidateProfileUpsertWithoutCertificationsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutCertificationsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedCreateWithoutCertificationsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutCertificationsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutCertificationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutCertificationsInput>;
+};
+export type CandidateProfileUpdateWithoutCertificationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutCertificationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutJobMatchesInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutJobMatchesInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutJobMatchesInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedCreateWithoutJobMatchesInput>;
+};
+export type CandidateProfileUpsertWithoutJobMatchesInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobMatchesInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedCreateWithoutJobMatchesInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutJobMatchesInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobMatchesInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobMatchesInput>;
+};
+export type CandidateProfileUpdateWithoutJobMatchesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutJobMatchesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutSkillGapAnalysesInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutSkillGapAnalysesInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput>;
+};
+export type CandidateProfileUpsertWithoutSkillGapAnalysesInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedCreateWithoutSkillGapAnalysesInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutSkillGapAnalysesInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutSkillGapAnalysesInput, Prisma.CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput>;
+};
+export type CandidateProfileUpdateWithoutSkillGapAnalysesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutSkillGapAnalysesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutJobApplicationsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutJobApplicationsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutJobApplicationsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>;
+};
+export type CandidateProfileUpsertWithoutJobApplicationsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedCreateWithoutJobApplicationsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutJobApplicationsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutJobApplicationsInput, Prisma.CandidateProfileUncheckedUpdateWithoutJobApplicationsInput>;
+};
+export type CandidateProfileUpdateWithoutJobApplicationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutJobApplicationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutInterviewSessionsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutInterviewSessionsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutInterviewSessionsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedCreateWithoutInterviewSessionsInput>;
+};
+export type CandidateProfileUpsertWithoutInterviewSessionsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedUpdateWithoutInterviewSessionsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedCreateWithoutInterviewSessionsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutInterviewSessionsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutInterviewSessionsInput, Prisma.CandidateProfileUncheckedUpdateWithoutInterviewSessionsInput>;
+};
+export type CandidateProfileUpdateWithoutInterviewSessionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutInterviewSessionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutApplicationAssistantsInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutApplicationAssistantsInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput>;
+};
+export type CandidateProfileUpsertWithoutApplicationAssistantsInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedUpdateWithoutApplicationAssistantsInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedCreateWithoutApplicationAssistantsInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutApplicationAssistantsInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutApplicationAssistantsInput, Prisma.CandidateProfileUncheckedUpdateWithoutApplicationAssistantsInput>;
+};
+export type CandidateProfileUpdateWithoutApplicationAssistantsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutApplicationAssistantsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    resumes?: Prisma.ResumeUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileCreateWithoutResumesInput = {
+    id?: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationCreateNestedManyWithoutCandidateInput;
+    user: Prisma.UserCreateNestedOneWithoutCandidateProfileInput;
+    projects?: Prisma.CandidateProjectCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileUncheckedCreateWithoutResumesInput = {
+    id?: string;
+    userId: string;
+    phone?: string | null;
+    location?: string | null;
+    bio?: string | null;
+    experience?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    portfolio?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedCreateNestedManyWithoutCandidateInput;
+    education?: Prisma.CandidateEducationUncheckedCreateNestedManyWithoutCandidateInput;
+    projects?: Prisma.CandidateProjectUncheckedCreateNestedManyWithoutCandidateInput;
+    skills?: Prisma.CandidateSkillUncheckedCreateNestedManyWithoutCandidateInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedCreateNestedManyWithoutCandidateInput;
+    jobMatches?: Prisma.JobMatchUncheckedCreateNestedManyWithoutCandidateInput;
+    jobApplications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedCreateNestedOneWithoutCandidateProfileInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedCreateNestedManyWithoutCandidateProfileInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedCreateNestedManyWithoutCandidateProfileInput;
+};
+export type CandidateProfileCreateOrConnectWithoutResumesInput = {
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutResumesInput, Prisma.CandidateProfileUncheckedCreateWithoutResumesInput>;
+};
+export type CandidateProfileUpsertWithoutResumesInput = {
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutResumesInput, Prisma.CandidateProfileUncheckedUpdateWithoutResumesInput>;
+    create: Prisma.XOR<Prisma.CandidateProfileCreateWithoutResumesInput, Prisma.CandidateProfileUncheckedCreateWithoutResumesInput>;
+    where?: Prisma.CandidateProfileWhereInput;
+};
+export type CandidateProfileUpdateToOneWithWhereWithoutResumesInput = {
+    where?: Prisma.CandidateProfileWhereInput;
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateWithoutResumesInput, Prisma.CandidateProfileUncheckedUpdateWithoutResumesInput>;
+};
+export type CandidateProfileUpdateWithoutResumesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUpdateManyWithoutCandidateNestedInput;
+    user?: Prisma.UserUpdateOneRequiredWithoutCandidateProfileNestedInput;
+    projects?: Prisma.CandidateProjectUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUpdateManyWithoutCandidateProfileNestedInput;
+};
+export type CandidateProfileUncheckedUpdateWithoutResumesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    experience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    linkedin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    github?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    portfolio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    certifications?: Prisma.CandidateCertificationUncheckedUpdateManyWithoutCandidateNestedInput;
+    education?: Prisma.CandidateEducationUncheckedUpdateManyWithoutCandidateNestedInput;
+    projects?: Prisma.CandidateProjectUncheckedUpdateManyWithoutCandidateNestedInput;
+    skills?: Prisma.CandidateSkillUncheckedUpdateManyWithoutCandidateNestedInput;
+    skillGapAnalyses?: Prisma.SkillGapAnalysisUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobMatches?: Prisma.JobMatchUncheckedUpdateManyWithoutCandidateNestedInput;
+    jobApplications?: Prisma.JobApplicationUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    applicationAssistants?: Prisma.ApplicationAssistantUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    candidateEmbeddings?: Prisma.CandidateEmbeddingUncheckedUpdateOneWithoutCandidateProfileNestedInput;
+    reviewComplaints?: Prisma.ReviewComplaintUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+    interviewSessions?: Prisma.InterviewSessionUncheckedUpdateManyWithoutCandidateProfileNestedInput;
+};
+/**
+ * Count Type CandidateProfileCountOutputType
+ */
+export type CandidateProfileCountOutputType = {
+    certifications: number;
+    education: number;
+    projects: number;
+    skills: number;
+    resumes: number;
+    skillGapAnalyses: number;
+    jobMatches: number;
+    jobApplications: number;
+    applicationAssistants: number;
+    reviewComplaints: number;
+    interviewSessions: number;
+};
+export type CandidateProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    certifications?: boolean | CandidateProfileCountOutputTypeCountCertificationsArgs;
+    education?: boolean | CandidateProfileCountOutputTypeCountEducationArgs;
+    projects?: boolean | CandidateProfileCountOutputTypeCountProjectsArgs;
+    skills?: boolean | CandidateProfileCountOutputTypeCountSkillsArgs;
+    resumes?: boolean | CandidateProfileCountOutputTypeCountResumesArgs;
+    skillGapAnalyses?: boolean | CandidateProfileCountOutputTypeCountSkillGapAnalysesArgs;
+    jobMatches?: boolean | CandidateProfileCountOutputTypeCountJobMatchesArgs;
+    jobApplications?: boolean | CandidateProfileCountOutputTypeCountJobApplicationsArgs;
+    applicationAssistants?: boolean | CandidateProfileCountOutputTypeCountApplicationAssistantsArgs;
+    reviewComplaints?: boolean | CandidateProfileCountOutputTypeCountReviewComplaintsArgs;
+    interviewSessions?: boolean | CandidateProfileCountOutputTypeCountInterviewSessionsArgs;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfileCountOutputType
+     */
+    select?: Prisma.CandidateProfileCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountCertificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateCertificationWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountEducationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateEducationWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateProjectWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CandidateSkillWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountResumesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ResumeWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountSkillGapAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SkillGapAnalysisWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountJobMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.JobMatchWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountJobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.JobApplicationWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountApplicationAssistantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ApplicationAssistantWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountReviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ReviewComplaintWhereInput;
+};
+/**
+ * CandidateProfileCountOutputType without action
+ */
+export type CandidateProfileCountOutputTypeCountInterviewSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.InterviewSessionWhereInput;
+};
+export type CandidateProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    userId?: boolean;
+    phone?: boolean;
+    location?: boolean;
+    bio?: boolean;
+    experience?: boolean;
+    linkedin?: boolean;
+    github?: boolean;
+    portfolio?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    certifications?: boolean | Prisma.CandidateProfile$certificationsArgs<ExtArgs>;
+    education?: boolean | Prisma.CandidateProfile$educationArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    projects?: boolean | Prisma.CandidateProfile$projectsArgs<ExtArgs>;
+    skills?: boolean | Prisma.CandidateProfile$skillsArgs<ExtArgs>;
+    resumes?: boolean | Prisma.CandidateProfile$resumesArgs<ExtArgs>;
+    skillGapAnalyses?: boolean | Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>;
+    jobMatches?: boolean | Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>;
+    jobApplications?: boolean | Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>;
+    applicationAssistants?: boolean | Prisma.CandidateProfile$applicationAssistantsArgs<ExtArgs>;
+    candidateEmbeddings?: boolean | Prisma.CandidateProfile$candidateEmbeddingsArgs<ExtArgs>;
+    reviewComplaints?: boolean | Prisma.CandidateProfile$reviewComplaintsArgs<ExtArgs>;
+    interviewSessions?: boolean | Prisma.CandidateProfile$interviewSessionsArgs<ExtArgs>;
+    _count?: boolean | Prisma.CandidateProfileCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateProfile"]>;
+export type CandidateProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    userId?: boolean;
+    phone?: boolean;
+    location?: boolean;
+    bio?: boolean;
+    experience?: boolean;
+    linkedin?: boolean;
+    github?: boolean;
+    portfolio?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateProfile"]>;
+export type CandidateProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    userId?: boolean;
+    phone?: boolean;
+    location?: boolean;
+    bio?: boolean;
+    experience?: boolean;
+    linkedin?: boolean;
+    github?: boolean;
+    portfolio?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["candidateProfile"]>;
+export type CandidateProfileSelectScalar = {
+    id?: boolean;
+    userId?: boolean;
+    phone?: boolean;
+    location?: boolean;
+    bio?: boolean;
+    experience?: boolean;
+    linkedin?: boolean;
+    github?: boolean;
+    portfolio?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+};
+export type CandidateProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "phone" | "location" | "bio" | "experience" | "linkedin" | "github" | "portfolio" | "createdAt" | "updatedAt", ExtArgs["result"]["candidateProfile"]>;
+export type CandidateProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    certifications?: boolean | Prisma.CandidateProfile$certificationsArgs<ExtArgs>;
+    education?: boolean | Prisma.CandidateProfile$educationArgs<ExtArgs>;
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    projects?: boolean | Prisma.CandidateProfile$projectsArgs<ExtArgs>;
+    skills?: boolean | Prisma.CandidateProfile$skillsArgs<ExtArgs>;
+    resumes?: boolean | Prisma.CandidateProfile$resumesArgs<ExtArgs>;
+    skillGapAnalyses?: boolean | Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>;
+    jobMatches?: boolean | Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>;
+    jobApplications?: boolean | Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>;
+    applicationAssistants?: boolean | Prisma.CandidateProfile$applicationAssistantsArgs<ExtArgs>;
+    candidateEmbeddings?: boolean | Prisma.CandidateProfile$candidateEmbeddingsArgs<ExtArgs>;
+    reviewComplaints?: boolean | Prisma.CandidateProfile$reviewComplaintsArgs<ExtArgs>;
+    interviewSessions?: boolean | Prisma.CandidateProfile$interviewSessionsArgs<ExtArgs>;
+    _count?: boolean | Prisma.CandidateProfileCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type CandidateProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type CandidateProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+};
+export type $CandidateProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "CandidateProfile";
+    objects: {
+        certifications: Prisma.$CandidateCertificationPayload<ExtArgs>[];
+        education: Prisma.$CandidateEducationPayload<ExtArgs>[];
+        user: Prisma.$UserPayload<ExtArgs>;
+        projects: Prisma.$CandidateProjectPayload<ExtArgs>[];
+        skills: Prisma.$CandidateSkillPayload<ExtArgs>[];
+        resumes: Prisma.$ResumePayload<ExtArgs>[];
+        skillGapAnalyses: Prisma.$SkillGapAnalysisPayload<ExtArgs>[];
+        jobMatches: Prisma.$JobMatchPayload<ExtArgs>[];
+        jobApplications: Prisma.$JobApplicationPayload<ExtArgs>[];
+        applicationAssistants: Prisma.$ApplicationAssistantPayload<ExtArgs>[];
+        candidateEmbeddings: Prisma.$CandidateEmbeddingPayload<ExtArgs> | null;
+        reviewComplaints: Prisma.$ReviewComplaintPayload<ExtArgs>[];
+        interviewSessions: Prisma.$InterviewSessionPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        userId: string;
+        phone: string | null;
+        location: string | null;
+        bio: string | null;
+        experience: string | null;
+        linkedin: string | null;
+        github: string | null;
+        portfolio: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }, ExtArgs["result"]["candidateProfile"]>;
+    composites: {};
+};
+export type CandidateProfileGetPayload<S extends boolean | null | undefined | CandidateProfileDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload, S>;
+export type CandidateProfileCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<CandidateProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: CandidateProfileCountAggregateInputType | true;
+};
+export interface CandidateProfileDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['CandidateProfile'];
+        meta: {
+            name: 'CandidateProfile';
+        };
+    };
+    /**
+     * Find zero or one CandidateProfile that matches the filter.
+     * @param {CandidateProfileFindUniqueArgs} args - Arguments to find a CandidateProfile
+     * @example
+     * // Get one CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CandidateProfileFindUniqueArgs>(args: Prisma.SelectSubset<T, CandidateProfileFindUniqueArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one CandidateProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CandidateProfileFindUniqueOrThrowArgs} args - Arguments to find a CandidateProfile
+     * @example
+     * // Get one CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CandidateProfileFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, CandidateProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first CandidateProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileFindFirstArgs} args - Arguments to find a CandidateProfile
+     * @example
+     * // Get one CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CandidateProfileFindFirstArgs>(args?: Prisma.SelectSubset<T, CandidateProfileFindFirstArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first CandidateProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileFindFirstOrThrowArgs} args - Arguments to find a CandidateProfile
+     * @example
+     * // Get one CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CandidateProfileFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, CandidateProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more CandidateProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CandidateProfiles
+     * const candidateProfiles = await prisma.candidateProfile.findMany()
+     *
+     * // Get first 10 CandidateProfiles
+     * const candidateProfiles = await prisma.candidateProfile.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const candidateProfileWithIdOnly = await prisma.candidateProfile.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends CandidateProfileFindManyArgs>(args?: Prisma.SelectSubset<T, CandidateProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a CandidateProfile.
+     * @param {CandidateProfileCreateArgs} args - Arguments to create a CandidateProfile.
+     * @example
+     * // Create one CandidateProfile
+     * const CandidateProfile = await prisma.candidateProfile.create({
+     *   data: {
+     *     // ... data to create a CandidateProfile
+     *   }
+     * })
+     *
+     */
+    create<T extends CandidateProfileCreateArgs>(args: Prisma.SelectSubset<T, CandidateProfileCreateArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many CandidateProfiles.
+     * @param {CandidateProfileCreateManyArgs} args - Arguments to create many CandidateProfiles.
+     * @example
+     * // Create many CandidateProfiles
+     * const candidateProfile = await prisma.candidateProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends CandidateProfileCreateManyArgs>(args?: Prisma.SelectSubset<T, CandidateProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many CandidateProfiles and returns the data saved in the database.
+     * @param {CandidateProfileCreateManyAndReturnArgs} args - Arguments to create many CandidateProfiles.
+     * @example
+     * // Create many CandidateProfiles
+     * const candidateProfile = await prisma.candidateProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many CandidateProfiles and only return the `id`
+     * const candidateProfileWithIdOnly = await prisma.candidateProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends CandidateProfileCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CandidateProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a CandidateProfile.
+     * @param {CandidateProfileDeleteArgs} args - Arguments to delete one CandidateProfile.
+     * @example
+     * // Delete one CandidateProfile
+     * const CandidateProfile = await prisma.candidateProfile.delete({
+     *   where: {
+     *     // ... filter to delete one CandidateProfile
+     *   }
+     * })
+     *
+     */
+    delete<T extends CandidateProfileDeleteArgs>(args: Prisma.SelectSubset<T, CandidateProfileDeleteArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one CandidateProfile.
+     * @param {CandidateProfileUpdateArgs} args - Arguments to update one CandidateProfile.
+     * @example
+     * // Update one CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends CandidateProfileUpdateArgs>(args: Prisma.SelectSubset<T, CandidateProfileUpdateArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more CandidateProfiles.
+     * @param {CandidateProfileDeleteManyArgs} args - Arguments to filter CandidateProfiles to delete.
+     * @example
+     * // Delete a few CandidateProfiles
+     * const { count } = await prisma.candidateProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends CandidateProfileDeleteManyArgs>(args?: Prisma.SelectSubset<T, CandidateProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more CandidateProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CandidateProfiles
+     * const candidateProfile = await prisma.candidateProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends CandidateProfileUpdateManyArgs>(args: Prisma.SelectSubset<T, CandidateProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more CandidateProfiles and returns the data updated in the database.
+     * @param {CandidateProfileUpdateManyAndReturnArgs} args - Arguments to update many CandidateProfiles.
+     * @example
+     * // Update many CandidateProfiles
+     * const candidateProfile = await prisma.candidateProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more CandidateProfiles and only return the `id`
+     * const candidateProfileWithIdOnly = await prisma.candidateProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends CandidateProfileUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CandidateProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one CandidateProfile.
+     * @param {CandidateProfileUpsertArgs} args - Arguments to update or create a CandidateProfile.
+     * @example
+     * // Update or create a CandidateProfile
+     * const candidateProfile = await prisma.candidateProfile.upsert({
+     *   create: {
+     *     // ... data to create a CandidateProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CandidateProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CandidateProfileUpsertArgs>(args: Prisma.SelectSubset<T, CandidateProfileUpsertArgs<ExtArgs>>): Prisma.Prisma__CandidateProfileClient<runtime.Types.Result.GetResult<Prisma.$CandidateProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of CandidateProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileCountArgs} args - Arguments to filter CandidateProfiles to count.
+     * @example
+     * // Count the number of CandidateProfiles
+     * const count = await prisma.candidateProfile.count({
+     *   where: {
+     *     // ... the filter for the CandidateProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends CandidateProfileCountArgs>(args?: Prisma.Subset<T, CandidateProfileCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], CandidateProfileCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a CandidateProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CandidateProfileAggregateArgs>(args: Prisma.Subset<T, CandidateProfileAggregateArgs>): Prisma.PrismaPromise<GetCandidateProfileAggregateType<T>>;
+    /**
+     * Group by CandidateProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CandidateProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends CandidateProfileGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: CandidateProfileGroupByArgs['orderBy'];
+    } : {
+        orderBy?: CandidateProfileGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, CandidateProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCandidateProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the CandidateProfile model
+     */
+    readonly fields: CandidateProfileFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for CandidateProfile.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__CandidateProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    certifications<T extends Prisma.CandidateProfile$certificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$certificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateCertificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    education<T extends Prisma.CandidateProfile$educationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$educationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateEducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    projects<T extends Prisma.CandidateProfile$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    skills<T extends Prisma.CandidateProfile$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CandidateSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    resumes<T extends Prisma.CandidateProfile$resumesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$resumesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    skillGapAnalyses<T extends Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$skillGapAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SkillGapAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    jobMatches<T extends Prisma.CandidateProfile$jobMatchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$jobMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    jobApplications<T extends Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$jobApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    applicationAssistants<T extends Prisma.CandidateProfile$applicationAssistantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$applicationAssistantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationAssistantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    candidateEmbeddings<T extends Prisma.CandidateProfile$candidateEmbeddingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$candidateEmbeddingsArgs<ExtArgs>>): Prisma.Prisma__CandidateEmbeddingClient<runtime.Types.Result.GetResult<Prisma.$CandidateEmbeddingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    reviewComplaints<T extends Prisma.CandidateProfile$reviewComplaintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$reviewComplaintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    interviewSessions<T extends Prisma.CandidateProfile$interviewSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CandidateProfile$interviewSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InterviewSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the CandidateProfile model
+ */
+export interface CandidateProfileFieldRefs {
+    readonly id: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly userId: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly phone: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly location: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly bio: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly experience: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly linkedin: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly github: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly portfolio: Prisma.FieldRef<"CandidateProfile", 'String'>;
+    readonly createdAt: Prisma.FieldRef<"CandidateProfile", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"CandidateProfile", 'DateTime'>;
+}
+/**
+ * CandidateProfile findUnique
+ */
+export type CandidateProfileFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateProfile to fetch.
+     */
+    where: Prisma.CandidateProfileWhereUniqueInput;
+};
+/**
+ * CandidateProfile findUniqueOrThrow
+ */
+export type CandidateProfileFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateProfile to fetch.
+     */
+    where: Prisma.CandidateProfileWhereUniqueInput;
+};
+/**
+ * CandidateProfile findFirst
+ */
+export type CandidateProfileFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateProfile to fetch.
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateProfiles to fetch.
+     */
+    orderBy?: Prisma.CandidateProfileOrderByWithRelationInput | Prisma.CandidateProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CandidateProfiles.
+     */
+    cursor?: Prisma.CandidateProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateProfiles.
+     */
+    distinct?: Prisma.CandidateProfileScalarFieldEnum | Prisma.CandidateProfileScalarFieldEnum[];
+};
+/**
+ * CandidateProfile findFirstOrThrow
+ */
+export type CandidateProfileFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateProfile to fetch.
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateProfiles to fetch.
+     */
+    orderBy?: Prisma.CandidateProfileOrderByWithRelationInput | Prisma.CandidateProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for CandidateProfiles.
+     */
+    cursor?: Prisma.CandidateProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateProfiles.
+     */
+    distinct?: Prisma.CandidateProfileScalarFieldEnum | Prisma.CandidateProfileScalarFieldEnum[];
+};
+/**
+ * CandidateProfile findMany
+ */
+export type CandidateProfileFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter, which CandidateProfiles to fetch.
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of CandidateProfiles to fetch.
+     */
+    orderBy?: Prisma.CandidateProfileOrderByWithRelationInput | Prisma.CandidateProfileOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing CandidateProfiles.
+     */
+    cursor?: Prisma.CandidateProfileWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` CandidateProfiles from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` CandidateProfiles.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of CandidateProfiles.
+     */
+    distinct?: Prisma.CandidateProfileScalarFieldEnum | Prisma.CandidateProfileScalarFieldEnum[];
+};
+/**
+ * CandidateProfile create
+ */
+export type CandidateProfileCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a CandidateProfile.
+     */
+    data: Prisma.XOR<Prisma.CandidateProfileCreateInput, Prisma.CandidateProfileUncheckedCreateInput>;
+};
+/**
+ * CandidateProfile createMany
+ */
+export type CandidateProfileCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CandidateProfiles.
+     */
+    data: Prisma.CandidateProfileCreateManyInput | Prisma.CandidateProfileCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * CandidateProfile createManyAndReturn
+ */
+export type CandidateProfileCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * The data used to create many CandidateProfiles.
+     */
+    data: Prisma.CandidateProfileCreateManyInput | Prisma.CandidateProfileCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * CandidateProfile update
+ */
+export type CandidateProfileUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a CandidateProfile.
+     */
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateInput, Prisma.CandidateProfileUncheckedUpdateInput>;
+    /**
+     * Choose, which CandidateProfile to update.
+     */
+    where: Prisma.CandidateProfileWhereUniqueInput;
+};
+/**
+ * CandidateProfile updateMany
+ */
+export type CandidateProfileUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CandidateProfiles.
+     */
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateManyMutationInput, Prisma.CandidateProfileUncheckedUpdateManyInput>;
+    /**
+     * Filter which CandidateProfiles to update
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * Limit how many CandidateProfiles to update.
+     */
+    limit?: number;
+};
+/**
+ * CandidateProfile updateManyAndReturn
+ */
+export type CandidateProfileUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * The data used to update CandidateProfiles.
+     */
+    data: Prisma.XOR<Prisma.CandidateProfileUpdateManyMutationInput, Prisma.CandidateProfileUncheckedUpdateManyInput>;
+    /**
+     * Filter which CandidateProfiles to update
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * Limit how many CandidateProfiles to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * CandidateProfile upsert
+ */
+export type CandidateProfileUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the CandidateProfile to update in case it exists.
+     */
+    where: Prisma.CandidateProfileWhereUniqueInput;
+    /**
+     * In case the CandidateProfile found by the `where` argument doesn't exist, create a new CandidateProfile with this data.
+     */
+    create: Prisma.XOR<Prisma.CandidateProfileCreateInput, Prisma.CandidateProfileUncheckedCreateInput>;
+    /**
+     * In case the CandidateProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.CandidateProfileUpdateInput, Prisma.CandidateProfileUncheckedUpdateInput>;
+};
+/**
+ * CandidateProfile delete
+ */
+export type CandidateProfileDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+    /**
+     * Filter which CandidateProfile to delete.
+     */
+    where: Prisma.CandidateProfileWhereUniqueInput;
+};
+/**
+ * CandidateProfile deleteMany
+ */
+export type CandidateProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which CandidateProfiles to delete
+     */
+    where?: Prisma.CandidateProfileWhereInput;
+    /**
+     * Limit how many CandidateProfiles to delete.
+     */
+    limit?: number;
+};
+/**
+ * CandidateProfile.certifications
+ */
+export type CandidateProfile$certificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateCertification
+     */
+    select?: Prisma.CandidateCertificationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateCertification
+     */
+    omit?: Prisma.CandidateCertificationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateCertificationInclude<ExtArgs> | null;
+    where?: Prisma.CandidateCertificationWhereInput;
+    orderBy?: Prisma.CandidateCertificationOrderByWithRelationInput | Prisma.CandidateCertificationOrderByWithRelationInput[];
+    cursor?: Prisma.CandidateCertificationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.CandidateCertificationScalarFieldEnum | Prisma.CandidateCertificationScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.education
+ */
+export type CandidateProfile$educationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEducation
+     */
+    select?: Prisma.CandidateEducationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEducation
+     */
+    omit?: Prisma.CandidateEducationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEducationInclude<ExtArgs> | null;
+    where?: Prisma.CandidateEducationWhereInput;
+    orderBy?: Prisma.CandidateEducationOrderByWithRelationInput | Prisma.CandidateEducationOrderByWithRelationInput[];
+    cursor?: Prisma.CandidateEducationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.CandidateEducationScalarFieldEnum | Prisma.CandidateEducationScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.projects
+ */
+export type CandidateProfile$projectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProject
+     */
+    select?: Prisma.CandidateProjectSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProject
+     */
+    omit?: Prisma.CandidateProjectOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProjectInclude<ExtArgs> | null;
+    where?: Prisma.CandidateProjectWhereInput;
+    orderBy?: Prisma.CandidateProjectOrderByWithRelationInput | Prisma.CandidateProjectOrderByWithRelationInput[];
+    cursor?: Prisma.CandidateProjectWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.CandidateProjectScalarFieldEnum | Prisma.CandidateProjectScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.skills
+ */
+export type CandidateProfile$skillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateSkill
+     */
+    select?: Prisma.CandidateSkillSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateSkill
+     */
+    omit?: Prisma.CandidateSkillOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateSkillInclude<ExtArgs> | null;
+    where?: Prisma.CandidateSkillWhereInput;
+    orderBy?: Prisma.CandidateSkillOrderByWithRelationInput | Prisma.CandidateSkillOrderByWithRelationInput[];
+    cursor?: Prisma.CandidateSkillWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.CandidateSkillScalarFieldEnum | Prisma.CandidateSkillScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.resumes
+ */
+export type CandidateProfile$resumesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resume
+     */
+    select?: Prisma.ResumeSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Resume
+     */
+    omit?: Prisma.ResumeOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ResumeInclude<ExtArgs> | null;
+    where?: Prisma.ResumeWhereInput;
+    orderBy?: Prisma.ResumeOrderByWithRelationInput | Prisma.ResumeOrderByWithRelationInput[];
+    cursor?: Prisma.ResumeWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ResumeScalarFieldEnum | Prisma.ResumeScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.skillGapAnalyses
+ */
+export type CandidateProfile$skillGapAnalysesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillGapAnalysis
+     */
+    select?: Prisma.SkillGapAnalysisSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the SkillGapAnalysis
+     */
+    omit?: Prisma.SkillGapAnalysisOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SkillGapAnalysisInclude<ExtArgs> | null;
+    where?: Prisma.SkillGapAnalysisWhereInput;
+    orderBy?: Prisma.SkillGapAnalysisOrderByWithRelationInput | Prisma.SkillGapAnalysisOrderByWithRelationInput[];
+    cursor?: Prisma.SkillGapAnalysisWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SkillGapAnalysisScalarFieldEnum | Prisma.SkillGapAnalysisScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.jobMatches
+ */
+export type CandidateProfile$jobMatchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobMatch
+     */
+    select?: Prisma.JobMatchSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobMatch
+     */
+    omit?: Prisma.JobMatchOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobMatchInclude<ExtArgs> | null;
+    where?: Prisma.JobMatchWhereInput;
+    orderBy?: Prisma.JobMatchOrderByWithRelationInput | Prisma.JobMatchOrderByWithRelationInput[];
+    cursor?: Prisma.JobMatchWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.JobMatchScalarFieldEnum | Prisma.JobMatchScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.jobApplications
+ */
+export type CandidateProfile$jobApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobApplication
+     */
+    select?: Prisma.JobApplicationSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the JobApplication
+     */
+    omit?: Prisma.JobApplicationOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.JobApplicationInclude<ExtArgs> | null;
+    where?: Prisma.JobApplicationWhereInput;
+    orderBy?: Prisma.JobApplicationOrderByWithRelationInput | Prisma.JobApplicationOrderByWithRelationInput[];
+    cursor?: Prisma.JobApplicationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.JobApplicationScalarFieldEnum | Prisma.JobApplicationScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.applicationAssistants
+ */
+export type CandidateProfile$applicationAssistantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApplicationAssistant
+     */
+    select?: Prisma.ApplicationAssistantSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ApplicationAssistant
+     */
+    omit?: Prisma.ApplicationAssistantOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ApplicationAssistantInclude<ExtArgs> | null;
+    where?: Prisma.ApplicationAssistantWhereInput;
+    orderBy?: Prisma.ApplicationAssistantOrderByWithRelationInput | Prisma.ApplicationAssistantOrderByWithRelationInput[];
+    cursor?: Prisma.ApplicationAssistantWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ApplicationAssistantScalarFieldEnum | Prisma.ApplicationAssistantScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.candidateEmbeddings
+ */
+export type CandidateProfile$candidateEmbeddingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateEmbedding
+     */
+    select?: Prisma.CandidateEmbeddingSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateEmbedding
+     */
+    omit?: Prisma.CandidateEmbeddingOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateEmbeddingInclude<ExtArgs> | null;
+    where?: Prisma.CandidateEmbeddingWhereInput;
+};
+/**
+ * CandidateProfile.reviewComplaints
+ */
+export type CandidateProfile$reviewComplaintsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReviewComplaint
+     */
+    select?: Prisma.ReviewComplaintSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ReviewComplaint
+     */
+    omit?: Prisma.ReviewComplaintOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ReviewComplaintInclude<ExtArgs> | null;
+    where?: Prisma.ReviewComplaintWhereInput;
+    orderBy?: Prisma.ReviewComplaintOrderByWithRelationInput | Prisma.ReviewComplaintOrderByWithRelationInput[];
+    cursor?: Prisma.ReviewComplaintWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ReviewComplaintScalarFieldEnum | Prisma.ReviewComplaintScalarFieldEnum[];
+};
+/**
+ * CandidateProfile.interviewSessions
+ */
+export type CandidateProfile$interviewSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InterviewSession
+     */
+    select?: Prisma.InterviewSessionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the InterviewSession
+     */
+    omit?: Prisma.InterviewSessionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.InterviewSessionInclude<ExtArgs> | null;
+    where?: Prisma.InterviewSessionWhereInput;
+    orderBy?: Prisma.InterviewSessionOrderByWithRelationInput | Prisma.InterviewSessionOrderByWithRelationInput[];
+    cursor?: Prisma.InterviewSessionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.InterviewSessionScalarFieldEnum | Prisma.InterviewSessionScalarFieldEnum[];
+};
+/**
+ * CandidateProfile without action
+ */
+export type CandidateProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CandidateProfile
+     */
+    select?: Prisma.CandidateProfileSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the CandidateProfile
+     */
+    omit?: Prisma.CandidateProfileOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CandidateProfileInclude<ExtArgs> | null;
+};
+//# sourceMappingURL=CandidateProfile.d.ts.map
