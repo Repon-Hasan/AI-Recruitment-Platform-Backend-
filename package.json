@@ -7,7 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "prisma generate && tsc && node scripts/fix-imports.js",
     "build:tsup": "tsup",
-    "start": "node dist/server.js"
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "",
