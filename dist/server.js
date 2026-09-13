@@ -1474,79 +1474,79 @@ var authController = {
 import status6 from "http-status";
 var checkAuth = (...authRoles) => async (req, res, next) => {
   try {
-    const sessionToken = CookieUtils.getCookie(req, "better-auth.session_token");
-    if (!sessionToken) {
-      throw new Error("Unauthorized access! No session token provided.");
-    }
-    if (sessionToken) {
-      const sessionExists = await prisma.session.findFirst({
-        where: {
-          token: sessionToken,
-          expiresAt: {
-            gt: /* @__PURE__ */ new Date()
-          }
-        },
-        include: {
-          user: {
-            include: {
-              candidateProfile: true
-            }
-          }
-        }
-      });
-      if (sessionExists && sessionExists.user) {
-        const user = sessionExists.user;
-        const now = /* @__PURE__ */ new Date();
-        const expiresAt = new Date(sessionExists.expiresAt);
-        const createdAt = new Date(sessionExists.createdAt);
-        const sessionLifeTime = expiresAt.getTime() - createdAt.getTime();
-        const timeRemaining = expiresAt.getTime() - now.getTime();
-        const percentRemaining = timeRemaining / sessionLifeTime * 100;
-        if (percentRemaining < 20) {
-          res.setHeader("X-Session-Refresh", "true");
-          res.setHeader("X-Session-Expires-At", expiresAt.toISOString());
-          res.setHeader("X-Time-Remaining", timeRemaining.toString());
-          console.log("Session Expiring Soon!!");
-        }
-        if (user.status === UserStatus.SUSPENDED || user.status === UserStatus.INACTIVE) {
-          throw new AppError_default(status6.UNAUTHORIZED, "Unauthorized access! User is not active.");
-        }
-        if (user.isDeleted) {
-          throw new AppError_default(status6.UNAUTHORIZED, "Unauthorized access! User is deleted.");
-        }
-        if (authRoles.length > 0 && !authRoles.includes(user.role)) {
-          throw new AppError_default(status6.FORBIDDEN, "Forbidden access! You do not have permission to access this resource.");
-        }
-        req.user = {
-          id: user.id,
-          userId: user.id,
-          role: user.role,
-          email: user.email,
-          candidateProfile: user.candidateProfile
-        };
-      }
-      const accessToken2 = CookieUtils.getCookie(req, "accessToken");
-      if (!accessToken2) {
-        throw new AppError_default(status6.UNAUTHORIZED, "Unauthorized access! No access token provided.");
-      }
-    }
+    console.log("========== AUTH DEBUG ==========");
+    console.log("Request URL:", req.originalUrl);
+    console.log("Origin:", req.headers.origin);
+    console.log("Cookies:", req.cookies);
+    console.log(
+      "accessToken:",
+      !!req.cookies?.accessToken
+    );
+    console.log(
+      "refreshToken:",
+      !!req.cookies?.refreshToken
+    );
+    console.log(
+      "better-auth.session_token:",
+      !!req.cookies?.["better-auth.session_token"]
+    );
+    console.log("================================");
     const accessToken = CookieUtils.getCookie(req, "accessToken");
     if (!accessToken) {
-      throw new AppError_default(status6.UNAUTHORIZED, "Unauthorized access! No access token provided.");
+      throw new AppError_default(
+        status6.UNAUTHORIZED,
+        "Unauthorized access! No access token provided."
+      );
     }
-    const verifiedToken = jwtUtils.verifyToken(accessToken, envVars.ACCESS_TOKEN_SECRET);
+    const verifiedToken = jwtUtils.verifyToken(
+      accessToken,
+      envVars.ACCESS_TOKEN_SECRET
+    );
     if (!verifiedToken.success) {
-      throw new AppError_default(status6.UNAUTHORIZED, "Unauthorized access! Invalid access token.");
+      throw new AppError_default(
+        status6.UNAUTHORIZED,
+        "Unauthorized access! Invalid access token."
+      );
     }
-    if (authRoles.length > 0 && !authRoles.includes(verifiedToken.data.role)) {
-      throw new AppError_default(status6.FORBIDDEN, "Forbidden access! You do not have permission to access this resource.");
+    const payload = verifiedToken.data;
+    const user = await prisma.user.findUnique({
+      where: {
+        id: payload.userId
+      },
+      include: {
+        candidateProfile: true
+      }
+    });
+    if (!user) {
+      throw new AppError_default(
+        status6.UNAUTHORIZED,
+        "Unauthorized access! User not found."
+      );
+    }
+    if (user.status === UserStatus.SUSPENDED || user.status === UserStatus.INACTIVE) {
+      throw new AppError_default(
+        status6.UNAUTHORIZED,
+        "Unauthorized access! User is not active."
+      );
+    }
+    if (user.isDeleted) {
+      throw new AppError_default(
+        status6.UNAUTHORIZED,
+        "Unauthorized access! User is deleted."
+      );
+    }
+    if (authRoles.length > 0 && !authRoles.includes(user.role)) {
+      throw new AppError_default(
+        status6.FORBIDDEN,
+        "Forbidden access! You do not have permission to access this resource."
+      );
     }
     req.user = {
-      id: verifiedToken.data.id,
-      userId: verifiedToken.data.userId,
-      role: verifiedToken.data.role,
-      email: verifiedToken.data.email,
-      candidateProfile: verifiedToken.data.candidateProfile
+      id: user.id,
+      userId: user.id,
+      role: user.role,
+      email: user.email,
+      candidateProfile: user.candidateProfile
     };
     next();
   } catch (error) {
