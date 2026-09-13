@@ -130,7 +130,27 @@ import { jwtUtils } from "../utlis/jwt";
 export const checkAuth =
   (...authRoles: Role[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
+
+
     try {
+
+        console.log("========== AUTH DEBUG ==========");
+console.log("Request URL:", req.originalUrl);
+console.log("Origin:", req.headers.origin);
+console.log("Cookies:", req.cookies);
+console.log(
+  "accessToken:",
+  !!req.cookies?.accessToken
+);
+console.log(
+  "refreshToken:",
+  !!req.cookies?.refreshToken
+);
+console.log(
+  "better-auth.session_token:",
+  !!req.cookies?.["better-auth.session_token"]
+);
+console.log("================================");
       // 1. Get access token from cookie
       const accessToken = CookieUtils.getCookie(req, "accessToken");
 
