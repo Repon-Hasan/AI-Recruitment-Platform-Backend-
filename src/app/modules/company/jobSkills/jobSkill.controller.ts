@@ -32,6 +32,10 @@ const getSkillsByJobId = async (req: Request, res: Response) => {
     const jobId = Array.isArray(req.params.jobId)
       ? req.params.jobId[0]
       : req.params.jobId;
+
+  if (!jobId) {
+  throw new Error("Job ID is required");
+}
     const skills = await jobSkillServices.getSkillsByJobIdService(jobId);
 
     res.status(200).json({
@@ -61,6 +65,9 @@ const updateJobSkill = async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, message: "Request body cannot be empty" });
     }
 
+    if (!id) {
+  throw new Error("Job ID is required");
+}
     const updatedSkill = await jobSkillServices.updateJobSkillService(
       userId,
       id,
@@ -89,7 +96,9 @@ const deleteJobSkill = async (req: Request, res: Response) => {
     if (!userId) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-
+   if (!id) {
+  throw new Error("Job ID is required");
+}
     const result = await jobSkillServices.deleteJobSkillService(userId, id);
 
     res.status(200).json({

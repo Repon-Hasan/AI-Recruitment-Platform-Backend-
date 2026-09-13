@@ -296,6 +296,12 @@ const changeUserStatus = catchAsync(
             : req.params.userId;
 
     const { status: userStatus } = req.body;
+    if (!userId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized user",
+  });
+}
 
     const result =
       await authServices.changeUserStatus(
@@ -329,7 +335,12 @@ const deleteUser = catchAsync(
         const userId = Array.isArray(req.params.userId)
             ? req.params.userId[0]
             : req.params.userId;
-
+if (!userId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized user",
+  });
+}
     const result =
       await authServices.deleteUser(
         userId

@@ -2,7 +2,7 @@ import gemini from "../../config/gemini";
 import { CandidateEvidence } from "./candidate-grouping.service";
 import { buildRecruiterPrompt } from "./prompt";
 
-interface RecruiterCandidateResult {
+export interface RecruiterCandidateResult {
   candidateId: string;
   name: string;
   matchScore: number;

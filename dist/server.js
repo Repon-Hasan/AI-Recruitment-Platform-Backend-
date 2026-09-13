@@ -1402,6 +1402,12 @@ var changeUserStatus2 = catchAsync(
   async (req, res) => {
     const userId = Array.isArray(req.params.userId) ? req.params.userId[0] : req.params.userId;
     const { status: userStatus } = req.body;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized user"
+      });
+    }
     const result = await authServices.changeUserStatus(
       userId,
       userStatus
@@ -1417,6 +1423,12 @@ var changeUserStatus2 = catchAsync(
 var deleteUser2 = catchAsync(
   async (req, res) => {
     const userId = Array.isArray(req.params.userId) ? req.params.userId[0] : req.params.userId;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized user"
+      });
+    }
     const result = await authServices.deleteUser(
       userId
     );
@@ -1670,6 +1682,7 @@ var CandidateEmbeddingService = async (text, model = EMBEDDING_MODEL) => {
       );
     }
     const data = await response.json();
+    ;
     const embedding = data?.data?.[0]?.embedding;
     if (!Array.isArray(embedding) || embedding.length === 0) {
       throw new Error(
@@ -2024,10 +2037,10 @@ var createProject = async (userId, payload) => {
   const project = await prisma.candidateProject.create({
     data: {
       name: payload.name,
-      description: payload.description,
-      technologies: payload.technologies,
-      projectUrl: payload.projectUrl,
-      image: payload.image,
+      description: payload.description ?? null,
+      technologies: payload.technologies ?? null,
+      projectUrl: payload.projectUrl ?? null,
+      image: payload.image ?? null,
       candidateId: candidateProfile.id
     }
   });
@@ -2103,11 +2116,11 @@ var createCertification = async (userId, payload) => {
   }
   const certification = await prisma.candidateCertification.create({
     data: {
-      name: payload.name,
-      issuer: payload.issuer,
-      issueDate: payload.issueDate ? new Date(payload.issueDate) : void 0,
-      credentialUrl: payload.credentialUrl,
-      image: payload.image,
+      name: payload.name ?? null,
+      issuer: payload.issuer ?? null,
+      issueDate: payload.issueDate ? new Date(payload.issueDate) : null,
+      credentialUrl: payload.credentialUrl ?? null,
+      image: payload.image ?? null,
       candidateId: candidate.id
     }
   });
@@ -2147,10 +2160,18 @@ var updateCertification = async (candidateId, certificationId, payload) => {
       id: certificationId
     },
     data: {
-      name: payload.name,
-      issuer: payload.issuer,
-      issueDate: payload.issueDate ? new Date(payload.issueDate) : void 0,
-      credentialUrl: payload.credentialUrl
+      ...payload.name !== void 0 && {
+        name: payload.name
+      },
+      ...payload.issuer !== void 0 && {
+        issuer: payload.issuer
+      },
+      ...payload.issueDate !== void 0 && {
+        issueDate: payload.issueDate ? new Date(payload.issueDate) : null
+      },
+      ...payload.credentialUrl !== void 0 && {
+        credentialUrl: payload.credentialUrl
+      }
     }
   });
   await generateCandidateEmbedding(candidateId);
@@ -2249,6 +2270,9 @@ var deleteSkill2 = catchAsync(
   async (req, res) => {
     const userId = req.user.userId;
     const skillId = Array.isArray(req.params.skillId) ? req.params.skillId[0] : req.params.skillId;
+    if (!skillId) {
+      throw new Error("Skill ID is required");
+    }
     await candidateService.deleteSkill(
       userId,
       skillId
@@ -2280,6 +2304,9 @@ var updateEducation2 = catchAsync(
   async (req, res) => {
     const userId = req.user.userId;
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!id) {
+      throw new Error("ID is required");
+    }
     const result = await candidateService.updateEducation(
       userId,
       id,
@@ -2297,6 +2324,9 @@ var deleteEducation2 = catchAsync(
   async (req, res) => {
     const userId = req.user.userId;
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!id) {
+      throw new Error("ID is required");
+    }
     await candidateService.deleteEducation(
       userId,
       id
@@ -2349,6 +2379,9 @@ var getProjectById2 = async (req, res) => {
   try {
     const candidateId = req.user.userId;
     const projectId = Array.isArray(req.params.projectId) ? req.params.projectId[0] : req.params.projectId;
+    if (!projectId) {
+      throw new Error("projectId ID is required");
+    }
     const project = await candidateService.getProjectById(
       candidateId,
       projectId
@@ -2375,6 +2408,9 @@ var updateProject2 = async (req, res) => {
   try {
     const candidateId = req.user.userId;
     const projectId = Array.isArray(req.params.projectId) ? req.params.projectId[0] : req.params.projectId;
+    if (!projectId) {
+      throw new Error("projectId ID is required");
+    }
     const project = await candidateService.updateProject(
       candidateId,
       projectId,
@@ -2396,6 +2432,9 @@ var deleteProject2 = async (req, res) => {
   try {
     const candidateId = req.user.userId;
     const projectId = Array.isArray(req.params.projectId) ? req.params.projectId[0] : req.params.projectId;
+    if (!projectId) {
+      throw new Error("projectId ID is required");
+    }
     await candidateService.deleteProject(
       candidateId,
       projectId
@@ -2472,6 +2511,9 @@ var getCertificationById2 = async (req, res) => {
     const certificationId = Array.isArray(
       req.params.certificationId
     ) ? req.params.certificationId[0] : req.params.certificationId;
+    if (!certificationId) {
+      throw new Error("certificationId ID is required");
+    }
     const certification = await candidateService.getCertificationById(
       candidateId,
       certificationId
@@ -2500,6 +2542,9 @@ var updateCertification2 = async (req, res) => {
     const certificationId = Array.isArray(
       req.params.certificationId
     ) ? req.params.certificationId[0] : req.params.certificationId;
+    if (!certificationId) {
+      throw new Error("certificationId ID is required");
+    }
     const certification = await candidateService.updateCertification(
       candidateId,
       certificationId,
@@ -2523,6 +2568,9 @@ var deleteCertification2 = async (req, res) => {
     const certificationId = Array.isArray(
       req.params.certificationId
     ) ? req.params.certificationId[0] : req.params.certificationId;
+    if (!certificationId) {
+      throw new Error("certificationId ID is required");
+    }
     await candidateService.deleteCertification(
       candidateId,
       certificationId
@@ -3013,10 +3061,11 @@ var ingestResume = async (resumeId) => {
   if (!resume) {
     throw new Error("Resume not found");
   }
-  if (!resume.rawText?.trim()) {
+  const rawText = resume.rawText;
+  if (typeof rawText !== "string" || rawText.trim().length === 0) {
     throw new Error("Resume text is empty");
   }
-  const chunks = chunkText(resume.rawText);
+  const chunks = chunkText(rawText);
   if (chunks.length === 0) {
     throw new Error("No chunks generated from resume");
   }
@@ -3826,6 +3875,9 @@ var getResume = async (req, res) => {
   try {
     const userId = req.user.userId;
     const resumeId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!resumeId) {
+      throw new Error("Resume ID is required");
+    }
     const result = await resumeServices.getResumeById(
       userId,
       resumeId
@@ -3845,6 +3897,9 @@ var deleteResume2 = async (req, res) => {
   try {
     const userId = req.user.userId;
     const resumeId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!resumeId) {
+      throw new Error("Resume ID is required");
+    }
     const result = await resumeServices.deleteResume(
       userId,
       resumeId
@@ -3864,6 +3919,9 @@ var analyze = async (req, res) => {
   try {
     const userId = req.user.userId;
     const resumeId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!resumeId) {
+      throw new Error("Resume ID is required");
+    }
     const result = await resumeServices.analyzeResume(
       userId,
       resumeId
@@ -3884,6 +3942,9 @@ var getAnalysis = async (req, res) => {
   try {
     const userId = req.user.userId;
     const resumeId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!resumeId) {
+      throw new Error("Resume ID is required");
+    }
     const result = await resumeServices.getResumeAnalysis(
       userId,
       resumeId
@@ -3901,6 +3962,9 @@ var getAnalysis = async (req, res) => {
 };
 var ingestResume2 = async (req, res) => {
   const resumeId = Array.isArray(req.params.resumeId) ? req.params.resumeId[0] : req.params.resumeId;
+  if (!resumeId) {
+    throw new Error("Resume ID is required");
+  }
   const result = await ingestResume(resumeId);
   sendResponse(res, {
     httpStatusCode: status10.OK,
@@ -5644,6 +5708,9 @@ var createJobSkill = async (req, res) => {
 var getSkillsByJobId = async (req, res) => {
   try {
     const jobId = Array.isArray(req.params.jobId) ? req.params.jobId[0] : req.params.jobId;
+    if (!jobId) {
+      throw new Error("Job ID is required");
+    }
     const skills = await jobSkillServices.getSkillsByJobIdService(jobId);
     res.status(200).json({
       success: true,
@@ -5666,6 +5733,9 @@ var updateJobSkill = async (req, res) => {
     }
     if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({ success: false, message: "Request body cannot be empty" });
+    }
+    if (!id) {
+      throw new Error("Job ID is required");
     }
     const updatedSkill = await jobSkillServices.updateJobSkillService(
       userId,
@@ -5690,6 +5760,9 @@ var deleteJobSkill = async (req, res) => {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
     if (!userId) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    if (!id) {
+      throw new Error("Job ID is required");
     }
     const result = await jobSkillServices.deleteJobSkillService(userId, id);
     res.status(200).json({
@@ -6114,7 +6187,9 @@ var calculateJobMatch = async (userId, jobId) => {
       "Resume or job embedding not found"
     );
   }
-  const rawSimilarity = Number(semanticResult[0].similarity);
+  const rawSimilarity = Number(
+    semanticResult[0]?.similarity ?? 0
+  );
   const semanticScore = Math.max(
     0,
     Math.min(
@@ -7954,7 +8029,10 @@ var evaluateAnswer = async (sessionId, answer) => {
     (item) => `Question: ${item.question}
 Answer: ${item.candidateAnswer}`
   ).join("\n");
-  const currentQuestion = session.answers.length === 0 ? "First interview question" : session.answers[session.answers.length - 1].question;
+  const currentQuestion = session.answers.length === 0 ? "First interview question" : session.answers[session.answers.length - 1]?.question;
+  if (!currentQuestion) {
+    throw new Error("Current interview question not found");
+  }
   const prompt = `
 You are an expert technical interviewer.
 
@@ -8127,6 +8205,9 @@ var generateApplicationAssistant = async (userId, jobId, resumeId) => {
     throw new Error("Job not found");
   }
   const candidateProfileId = candidate.id;
+  if (!resumeId) {
+    throw new Error("Resume ID is required");
+  }
   const resume = await prisma.resume.findFirst({
     where: {
       id: resumeId,
@@ -8583,8 +8664,12 @@ var getRankedApplicants = async (req, res) => {
       {
         minScore: parsedMinScore,
         minExperience: parsedMinExperience,
-        skill: skillValue,
-        location: locationValue
+        ...skillValue !== void 0 && {
+          skill: skillValue
+        },
+        ...locationValue !== void 0 && {
+          location: locationValue
+        }
       }
     );
     return res.status(200).json({
@@ -8729,10 +8814,8 @@ var AIRecruiterService = {
     FROM "Job"
     WHERE "id" = ${job.id}
   `;
-    if (!jobEmbeddingResult.length || !jobEmbeddingResult[0].embedding) {
-      throw new Error(
-        "Job embedding has not been generated yet"
-      );
+    if (!jobEmbeddingResult.length || !jobEmbeddingResult[0]?.embedding) {
+      throw new Error("Job embedding has not been generated yet");
     }
     const jobEmbedding = jobEmbeddingResult[0].embedding;
     const candidateIds = applications.map(
@@ -8797,8 +8880,8 @@ var AIRecruiterService = {
         locationScore,
         finalScore,
         skills: candidateSkills,
-        experience: candidate.experience ?? void 0,
-        resumeText: resumeText || void 0
+        ...candidate.experience ? { experience: candidate.experience } : {},
+        ...resumeText ? { resumeText } : {}
       });
     }
     rankedCandidates.sort(

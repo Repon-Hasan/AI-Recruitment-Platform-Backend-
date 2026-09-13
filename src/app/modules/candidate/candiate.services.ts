@@ -360,10 +360,10 @@ const createProject = async (
   const project = await prisma.candidateProject.create({
     data: {
       name: payload.name,
-      description: payload.description,
-      technologies: payload.technologies,
-      projectUrl: payload.projectUrl,
-      image: payload.image,
+      description: payload.description ?? null,
+      technologies: payload.technologies ?? null,
+      projectUrl: payload.projectUrl ?? null,
+      image: payload.image ?? null,
       candidateId: candidateProfile.id,
     },
   });
@@ -494,23 +494,22 @@ const createCertification = async (
   }
 
   // 1. Create certification
-  const certification =
-    await prisma.candidateCertification.create({
-      data: {
-        name: payload.name,
-        issuer: payload.issuer,
+const certification = await prisma.candidateCertification.create({
+  data: {
+    name: payload.name ?? null,
+    issuer: payload.issuer ?? null,
 
-        issueDate: payload.issueDate
-          ? new Date(payload.issueDate)
-          : undefined,
+    issueDate: payload.issueDate
+      ? new Date(payload.issueDate)
+      : null,
 
-        credentialUrl: payload.credentialUrl,
+    credentialUrl: payload.credentialUrl ?? null,
 
-        image: payload.image,
+    image: payload.image ?? null,
 
-        candidateId: candidate.id,
-      },
-    });
+    candidateId: candidate.id,
+  },
+});
 
   // 2. Generate embedding AFTER creation
   await generateCandidateEmbedding(candidate.id);
@@ -575,16 +574,25 @@ const updateCertification = async (
       where: {
         id: certificationId,
       },
-      data: {
-        name: payload.name,
-        issuer: payload.issuer,
+data: {
+  ...(payload.name !== undefined && {
+    name: payload.name,
+  }),
 
-        issueDate: payload.issueDate
-          ? new Date(payload.issueDate)
-          : undefined,
+  ...(payload.issuer !== undefined && {
+    issuer: payload.issuer,
+  }),
 
-        credentialUrl: payload.credentialUrl,
-      },
+  ...(payload.issueDate !== undefined && {
+    issueDate: payload.issueDate
+      ? new Date(payload.issueDate)
+      : null,
+  }),
+
+  ...(payload.credentialUrl !== undefined && {
+    credentialUrl: payload.credentialUrl,
+  }),
+},
     });
 
   // 2. Generate embedding AFTER update

@@ -239,12 +239,14 @@ Answer: ${item.candidateAnswer}`
     )
     .join("\n");
 
-  const currentQuestion =
-    session.answers.length === 0
-      ? "First interview question"
-      : session.answers[
-          session.answers.length - 1
-        ].question;
+const currentQuestion =
+  session.answers.length === 0
+    ? "First interview question"
+    : session.answers[session.answers.length - 1]?.question;
+
+if (!currentQuestion) {
+  throw new Error("Current interview question not found");
+}
 
   const prompt = `
 You are an expert technical interviewer.

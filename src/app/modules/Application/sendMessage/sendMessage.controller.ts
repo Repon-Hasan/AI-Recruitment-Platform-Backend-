@@ -10,8 +10,19 @@ const sendMessage = async (
     ? req.params.conversationId[0]
     : req.params.conversationId;
   const { content } = req.body;
-  const userId = req.user.id;
-
+  const userId = req.user.userId;
+  if (!userId) {
+    return res.status(httpStatus.UNAUTHORIZED).json({
+      success: false,
+      message: "Unauthorized user",
+    });
+  }
+    if (!conversationId) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Conversation ID is required",
+    });
+  }
   const message = await sendMessageService({
     conversationId,
     senderId: userId,

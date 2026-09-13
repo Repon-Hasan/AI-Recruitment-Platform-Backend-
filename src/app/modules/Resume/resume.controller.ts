@@ -4,6 +4,9 @@ import { analyzeResumeWithAI } from "./resume.analysis";
 import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 import { ingestResume as ingestResumeFromService } from "./ingestion.service";
+import AppError from "../../errorHelpers/AppError";
+import { STATUS_CODES } from "http";
+import { error } from "console";
 
  const uploadResume = async (
   req: Request,
@@ -83,7 +86,9 @@ const getResume = async (
     const resumeId = Array.isArray(req.params.id)
       ? req.params.id[0]
       : req.params.id;
-
+if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
     const result =
       await resumeServices.getResumeById(
         userId,
@@ -111,7 +116,9 @@ const getResume = async (
     const resumeId = Array.isArray(req.params.id)
       ? req.params.id[0]
       : req.params.id;
-
+  if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
     const result =
       await resumeServices.deleteResume(
         userId,
@@ -140,7 +147,9 @@ const analyze = async (
     const resumeId = Array.isArray(req.params.id)
       ? req.params.id[0]
       : req.params.id;
-
+if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
     const result = await resumeServices.analyzeResume(
       userId,
       resumeId
@@ -169,6 +178,9 @@ const analyze = async (
     const resumeId = Array.isArray(req.params.id)
       ? req.params.id[0]
       : req.params.id;
+      if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
 
     const result =
       await resumeServices.getResumeAnalysis(
@@ -197,6 +209,9 @@ const ingestResume = async (
     : req.params.resumeId;
 
     // console.log("ResumeId",resumeId)
+    if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
 
   const result =
     await ingestResumeFromService(resumeId);

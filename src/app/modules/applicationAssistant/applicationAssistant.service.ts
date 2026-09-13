@@ -39,7 +39,9 @@ const generateApplicationAssistant = async (
   }
 
   const candidateProfileId = candidate.id;
-
+if (!resumeId) {
+  throw new Error("Resume ID is required");
+}
   // 3. Get resume
 const resume = await prisma.resume.findFirst({
   where: {

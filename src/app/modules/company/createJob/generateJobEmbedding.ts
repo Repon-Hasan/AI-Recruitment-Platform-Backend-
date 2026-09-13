@@ -1,6 +1,11 @@
 import { envVars } from "../../../config/env";
 import { prisma } from "../../../lib/prisma";
-
+interface OpenRouterEmbeddingResponse {
+  data?: Array<{
+    embedding?: number[];
+  }>;
+  model?: string;
+}
 const OPENROUTER_API_URL =
   "https://openrouter.ai/api/v1/embeddings";
 
@@ -54,7 +59,7 @@ export const generateJobEmbedding = async (
     }
 
     // 3. Parse response
-    const data = await response.json();
+    const data =  (await response.json()) as OpenRouterEmbeddingResponse;
 
     // 4. Get embedding
     const embedding =

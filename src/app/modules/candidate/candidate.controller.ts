@@ -90,7 +90,9 @@ const deleteSkill = catchAsync(
         const skillId = Array.isArray(req.params.skillId)
             ? req.params.skillId[0]
             : req.params.skillId;
-
+if (!skillId) {
+  throw new Error("Skill ID is required");
+}
         await candidateService.deleteSkill(
             userId,
             skillId
@@ -140,7 +142,9 @@ const updateEducation = catchAsync(
         const id = Array.isArray(req.params.id)
             ? req.params.id[0]
             : req.params.id;
-
+    if (!id) {
+  throw new Error("ID is required");
+}
         const result = await candidateService.updateEducation(
             userId,
             id,
@@ -168,7 +172,9 @@ const deleteEducation = catchAsync(
         const id = Array.isArray(req.params.id)
             ? req.params.id[0]
             : req.params.id;
-
+if (!id) {
+  throw new Error("ID is required");
+}
         await candidateService.deleteEducation(
             userId,
             id
@@ -243,6 +249,10 @@ const getProjectById = async (req: Request, res: Response) => {
       ? req.params.projectId[0]
       : req.params.projectId;
 
+      if (!projectId) {
+  throw new Error("projectId ID is required");
+}
+
     const project =
       await candidateService.getProjectById(
         candidateId,
@@ -278,7 +288,9 @@ const updateProject = async (req: Request, res: Response) => {
     const projectId = Array.isArray(req.params.projectId)
       ? req.params.projectId[0]
       : req.params.projectId;
-
+      if (!projectId) {
+  throw new Error("projectId ID is required");
+}
     const project =
       await candidateService.updateProject(
         candidateId,
@@ -308,6 +320,10 @@ const deleteProject = async (req: Request, res: Response) => {
     const projectId = Array.isArray(req.params.projectId)
       ? req.params.projectId[0]
       : req.params.projectId;
+
+            if (!projectId) {
+  throw new Error("projectId ID is required");
+}
 
     await candidateService.deleteProject(
       candidateId,
@@ -424,7 +440,9 @@ const getCertificationById = async (
     )
       ? req.params.certificationId[0]
       : req.params.certificationId;
-
+      if (!certificationId) {
+  throw new Error("certificationId ID is required");
+}
     const certification =
       await candidateService.getCertificationById(
         candidateId,
@@ -466,6 +484,10 @@ const updateCertification = async (
       ? req.params.certificationId[0]
       : req.params.certificationId;
 
+           if (!certificationId) {
+  throw new Error("certificationId ID is required");
+}
+
     const certification =
       await candidateService.updateCertification(
         candidateId,
@@ -500,7 +522,9 @@ const deleteCertification = async (
     )
       ? req.params.certificationId[0]
       : req.params.certificationId;
-
+     if (!certificationId) {
+  throw new Error("certificationId ID is required");
+}
     await candidateService.deleteCertification(
       candidateId,
       certificationId

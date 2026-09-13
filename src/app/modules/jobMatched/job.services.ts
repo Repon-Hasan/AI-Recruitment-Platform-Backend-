@@ -402,9 +402,9 @@ export const calculateJobMatch = async (
     );
   }
 
-  const rawSimilarity =
-    Number(semanticResult[0].similarity);
-
+ const rawSimilarity = Number(
+  semanticResult[0]?.similarity ?? 0
+);
   const semanticScore = Math.max(
     0,
     Math.min(

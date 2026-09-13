@@ -1,5 +1,16 @@
 import { envVars } from "../../config/env";
-
+interface OpenRouterEmbeddingResponse {
+  data: Array<{
+    embedding: number[];
+    index?: number;
+    object?: string;
+  }>;
+  model?: string;
+  usage?: {
+    prompt_tokens?: number;
+    total_tokens?: number;
+  };
+}
 const OPENROUTER_API_URL =
   "https://openrouter.ai/api/v1/embeddings";
 
@@ -73,7 +84,7 @@ export const CandidateEmbeddingService = async (
     // 5. Parse response
     // =====================================
 
-    const data = await response.json();
+    const data =   (await response.json()) as OpenRouterEmbeddingResponse;;
 
     // =====================================
     // 6. Extract embedding

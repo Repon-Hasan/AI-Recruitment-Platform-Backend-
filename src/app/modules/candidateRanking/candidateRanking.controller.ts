@@ -151,24 +151,26 @@ const getRankedApplicants = async (
     // Call service
     // ------------------------------------------
 
-    const result =
-      await CandidateRankingService
-        .getRankedApplicants(
-          jobId,
-          {
-            minScore:
-              parsedMinScore,
+ const result =
+  await CandidateRankingService
+    .getRankedApplicants(
+      jobId,
+      {
+        minScore:
+          parsedMinScore,
 
-            minExperience:
-              parsedMinExperience,
+        minExperience:
+          parsedMinExperience,
 
-            skill:
-              skillValue,
+        ...(skillValue !== undefined && {
+          skill: skillValue,
+        }),
 
-            location:
-              locationValue,
-          }
-        );
+        ...(locationValue !== undefined && {
+          location: locationValue,
+        }),
+      }
+    );
 
 
     // ------------------------------------------

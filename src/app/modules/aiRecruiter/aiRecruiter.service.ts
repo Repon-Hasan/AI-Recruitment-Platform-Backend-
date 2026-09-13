@@ -123,14 +123,10 @@ const applications = await prisma.jobApplication.findMany({
     WHERE "id" = ${job.id}
   `;
 
-    if (
-      !jobEmbeddingResult.length ||
-      !jobEmbeddingResult[0].embedding
-    ) {
-      throw new Error(
-        "Job embedding has not been generated yet"
-      );
-    }
+  
+if (!jobEmbeddingResult.length || !jobEmbeddingResult[0]?.embedding) {
+  throw new Error("Job embedding has not been generated yet");
+}
 
     const jobEmbedding =
       jobEmbeddingResult[0].embedding;
@@ -299,34 +295,21 @@ const applications = await prisma.jobApplication.findMany({
           )
           .join("\n");
 
-      rankedCandidates.push({
-        applicationId:
-          application.id,
-
-        candidateId:
-          candidate.id,
-
-        name: candidateName,
-
-        semanticScore,
-
-        skillScore,
-
-        experienceScore,
-
-        locationScore,
-
-        finalScore,
-
-        skills:
-          candidateSkills,
-
-        experience:
-          candidate.experience ?? undefined,
-
-        resumeText:
-          resumeText || undefined,
-      });
+    rankedCandidates.push({
+  applicationId: application.id,
+  candidateId: candidate.id,
+  name: candidateName,
+  semanticScore,
+  skillScore,
+  experienceScore,
+  locationScore,
+  finalScore,
+  skills: candidateSkills,
+  ...(candidate.experience
+    ? { experience: candidate.experience }
+    : {}),
+  ...(resumeText ? { resumeText } : {}),
+});
     }
 
     // =====================================================
