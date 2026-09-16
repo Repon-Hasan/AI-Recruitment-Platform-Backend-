@@ -38,7 +38,7 @@ export const getMyApplicationsController = async (
   res: Response
 ) => {
   const candidateProfileId =
-    req.user.candidateProfile;
+    req.user.candidateProfile.id;
 
   const result =
     await getMyApplications(candidateProfileId);
