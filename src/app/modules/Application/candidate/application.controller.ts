@@ -37,6 +37,13 @@ export const getMyApplicationsController = async (
   req: Request,
   res: Response
 ) => {
+  console.log("candidateProfile:", req.user.candidateProfile);
+  console.log("candidateProfile.id:", req.user.candidateProfile.id);
+  console.log(
+    "type:",
+    typeof req.user.candidateProfile.id
+  );
+
   const candidateProfileId =
     req.user.candidateProfile.id;
 
